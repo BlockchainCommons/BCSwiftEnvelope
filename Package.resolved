@@ -1,0 +1,149 @@
+{
+  "pins" : [
+    {
+      "identity" : "bcswiftsecurecomponents",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "85c9cf19866f9527b59c833c15b1190c3039bd4b"
+      }
+    },
+    {
+      "identity" : "blake3-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BlockchainCommons/blake3-swift.git",
+      "state" : {
+        "revision" : "5f3724ced3696abc60938b421b35cf16e77170d1",
+        "version" : "0.1.3"
+      }
+    },
+    {
+      "identity" : "crypto-traits-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nixberg/crypto-traits-swift",
+      "state" : {
+        "revision" : "edbb488fbe7a09572e889e026a5aa07e0feb1198",
+        "version" : "0.2.1"
+      }
+    },
+    {
+      "identity" : "cryptoswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/krzyzanowskim/CryptoSwift.git",
+      "state" : {
+        "revision" : "19b3c3ceed117c5cc883517c4e658548315ba70b",
+        "version" : "1.6.0"
+      }
+    },
+    {
+      "identity" : "endianbytes-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nixberg/endianbytes-swift",
+      "state" : {
+        "revision" : "c09b87de7948c2e95d2a9c3faba34ab2cb24ba3b",
+        "version" : "0.4.0"
+      }
+    },
+    {
+      "identity" : "graph",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WolfMcNally/Graph.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "243181ba08bc8d1044a93c5372bf0cee7643543d"
+      }
+    },
+    {
+      "identity" : "graphdot",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WolfMcNally/GraphDot.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "536c079ba9ea1988050854a7710cbb62c702d75a"
+      }
+    },
+    {
+      "identity" : "graphmermaid",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WolfMcNally/GraphMermaid.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "7fb2f93e18a72dc8e7f2d451921f2b83e1dbb291"
+      }
+    },
+    {
+      "identity" : "secp256k1-zkp.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BlockchainCommons/secp256k1-zkp.swift.git",
+      "state" : {
+        "revision" : "e8f21c7d8d4dd7ac778e51427b908194f3fd9d82",
+        "version" : "0.5.1"
+      }
+    },
+    {
+      "identity" : "swift-algorithms",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-algorithms",
+      "state" : {
+        "revision" : "b14b7f4c528c942f121c8b860b9410b2bf57825e",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections",
+      "state" : {
+        "branch" : "main",
+        "revision" : "53a8adc54374f620002a3b6401d39e0feb3c57ae"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics",
+      "state" : {
+        "revision" : "0a5bc04095a675662cf24757cc0640aa2204253b",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "treedistance",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WolfMcNally/TreeDistance.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "70c61c96c4db96ed6ebf7ef16fb0f0ca60d048a9"
+      }
+    },
+    {
+      "identity" : "urkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BlockchainCommons/URKit.git",
+      "state" : {
+        "revision" : "07b7459e429ed13d42dcaa800200b935ce3297b2",
+        "version" : "7.5.0"
+      }
+    },
+    {
+      "identity" : "wolfbase",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/wolfmcnally/WolfBase.git",
+      "state" : {
+        "revision" : "883d3e868ab61b2001f2cbf4566bb5e72ab10603",
+        "version" : "4.7.0"
+      }
+    },
+    {
+      "identity" : "wolflorem",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WolfMcNally/WolfLorem.git",
+      "state" : {
+        "revision" : "328003261454a67ce8c7213bffc4706aff5ce1c2",
+        "version" : "2.2.1"
+      }
+    }
+  ],
+  "version" : 2
+}
