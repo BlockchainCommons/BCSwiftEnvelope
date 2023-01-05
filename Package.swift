@@ -3,15 +3,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "BCEnvelope",
+    name: "Envelope",
     platforms: [
         .iOS(.v15),
         .macOS(.v13)
     ],
     products: [
         .library(
-            name: "BCEnvelope",
-            targets: ["BCEnvelope"]),
+            name: "Envelope",
+            targets: ["Envelope"]),
     ],
     dependencies: [
         .package(url: "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git", branch: "master"),
@@ -24,21 +24,21 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "BCEnvelope",
+            name: "Envelope",
             dependencies: [
                 "Graph",
                 "GraphMermaid",
                 "GraphDot",
                 "TreeDistance",
-                .product(name: "BCSecureComponents", package: "BCSwiftSecureComponents"),
+                .product(name: "SecureComponents", package: "BCSwiftSecureComponents"),
             ]),
         .testTarget(
-            name: "BCEnvelopeTests",
+            name: "EnvelopeTests",
             dependencies: [
-                "BCEnvelope",
+                "Envelope",
                 "WolfBase",
                 "WolfLorem",
-                .product(name: "BCSecureComponents", package: "BCSwiftSecureComponents"),
+                .product(name: "SecureComponents", package: "BCSwiftSecureComponents"),
             ]),
     ]
 )
