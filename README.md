@@ -32,7 +32,7 @@ Add to your project like any other Swift Package.
 
 ## Note to Implementers
 
-If you are implementing Gordian Envelope in another language, a basic implementation of the core `Envelope` functionality includes the that found in the files in `Sources/Envelope` *except* the files in the `Features` folder. Functionality from the `Features` folder can be added as needed or for completeness.
+If you are implementing Gordian Envelope in another language, a basic implementation of the core `Envelope` functionality includes the that found in the files in `Sources/Core` folder. Functionality from the `Sources/Features` folder can be added as needed or for completeness.
 
 ## Gordian Principles
 
