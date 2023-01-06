@@ -10,7 +10,7 @@ public extension Envelope {
     /// Add a specified number of bytes of salt.
     func addSalt(_ count: Int) throws -> Envelope {
         guard let salt = Salt(count: count) else {
-            throw EnvelopeError.invalidFormat
+            throw Error.invalidFormat
         }
         return addSalt(salt)
     }
@@ -18,7 +18,7 @@ public extension Envelope {
     /// Add a number of bytes of salt chosen randomly from the given range.
     func addSalt(_ range: ClosedRange<Int>) throws -> Envelope {
         guard let salt = Salt(range: range) else {
-            throw EnvelopeError.invalidFormat
+            throw Error.invalidFormat
         }
         return addSalt(salt)
     }

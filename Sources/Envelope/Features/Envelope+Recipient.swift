@@ -2,8 +2,8 @@ import Foundation
 import WolfBase
 import SecureComponents
 
-extension Envelope.EnvelopeError {
-    static let invalidRecipient = Envelope.EnvelopeError("invalidRecipient")
+extension Envelope.Error {
+    static let invalidRecipient = Envelope.Error("invalidRecipient")
 }
 
 public extension Envelope {
@@ -97,7 +97,7 @@ public extension Envelope {
         guard
             let contentKeyData = try SealedMessage.firstPlaintext(in: recipients, for: recipient)
         else {
-            throw EnvelopeError.invalidRecipient
+            throw Error.invalidRecipient
         }
 
         let cbor = try CBOR(contentKeyData)

@@ -16,7 +16,7 @@ extension Envelope {
 
     init(subject: Envelope, assertions: [Envelope]) throws {
         guard assertions.allSatisfy({ $0.isSubjectAssertion || $0.isSubjectElided || $0.isSubjectEncrypted }) else {
-            throw EnvelopeError.invalidFormat
+            throw Error.invalidFormat
         }
         self.init(subject: subject, uncheckedAssertions: assertions)
     }
@@ -31,7 +31,7 @@ extension Envelope {
 
     init(encryptedMessage: EncryptedMessage) throws {
         guard encryptedMessage.digest != nil else {
-            throw EnvelopeError.missingDigest
+            throw Error.missingDigest
         }
         self = .encrypted(encryptedMessage)
     }

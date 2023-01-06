@@ -1,8 +1,8 @@
 import Foundation
 import SecureComponents
 
-extension Envelope.EnvelopeError {
-    static let invalidShares = Envelope.EnvelopeError("invalidShares")
+extension Envelope.Error {
+    static let invalidShares = Envelope.Error("invalidShares")
 }
 
 public extension Envelope {
@@ -73,7 +73,7 @@ public extension Envelope {
     /// the original envelope.
     init(shares envelopes: [Envelope]) throws {
         guard !envelopes.isEmpty else {
-            throw EnvelopeError.invalidShares
+            throw Error.invalidShares
         }
         for shares in try Self.shares(in: envelopes).values {
             guard let contentKey = try? SymmetricKey(SSKRCombine(shares: shares)) else {
@@ -82,6 +82,6 @@ public extension Envelope {
             self = try envelopes.first!.decryptSubject(with: contentKey).subject
             return
         }
-        throw EnvelopeError.invalidShares
+        throw Error.invalidShares
     }
 }

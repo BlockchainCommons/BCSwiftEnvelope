@@ -10,7 +10,7 @@ public extension Envelope {
             return self
         }
         guard envelope.isSubjectAssertion || envelope.isSubjectObscured else {
-            throw EnvelopeError.invalidFormat
+            throw Error.invalidFormat
         }
         let envelope2 = salted ? envelope.addSalt() : envelope
         switch self {

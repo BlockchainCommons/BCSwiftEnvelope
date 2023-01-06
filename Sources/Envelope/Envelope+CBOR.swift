@@ -63,7 +63,7 @@ public extension Envelope {
             let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0 ) }
             try self.init(subject: subject, assertions: assertions)
         default:
-            throw EnvelopeError.invalidFormat
+            throw Error.invalidFormat
         }
     }
 
@@ -104,7 +104,7 @@ public extension Envelope {
                 print("=== GOT")
                 print(restored.format)
                 print("===")
-                throw EnvelopeError.invalidFormat
+                throw Error.invalidFormat
             }
             return self
         } catch {

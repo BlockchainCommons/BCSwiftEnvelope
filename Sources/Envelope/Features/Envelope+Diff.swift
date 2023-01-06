@@ -28,8 +28,8 @@ public extension Envelope {
     }
 }
 
-extension Envelope.EnvelopeError {
-    static let invalidDiff = Envelope.EnvelopeError("invalidDiff")
+extension Envelope.Error {
+    static let invalidDiff = Envelope.Error("invalidDiff")
 }
 
 typealias EnvelopeTreeNode = TreeNode<EnvelopeTreeLabel>
@@ -104,7 +104,7 @@ enum EnvelopeTreeLabel: CBORCodable {
             case CBOR.array(var elements) = cbor,
             case CBOR.unsignedInt(let identifier) = elements.removeFirst()
         else {
-            throw Envelope.EnvelopeError.invalidDiff
+            throw Envelope.Error.invalidDiff
         }
         
         switch identifier {
@@ -123,7 +123,7 @@ enum EnvelopeTreeLabel: CBORCodable {
         case 5:
             return .elided(try Digest(taggedCBOR: elements.removeFirst()))
         default:
-            throw Envelope.EnvelopeError.invalidDiff
+            throw Envelope.Error.invalidDiff
         }
     }
 }
@@ -233,7 +233,7 @@ func treeToEnvelope(_ root: EnvelopeTreeNode) throws -> Envelope {
         result = Envelope(cbor)
     case .wrapped:
         guard children.count >= 1 else {
-            throw Envelope.EnvelopeError.invalidDiff
+            throw Envelope.Error.invalidDiff
         }
         let subject = try treeToEnvelope(children.removeFirst())
         result = Envelope(subject)
@@ -241,7 +241,7 @@ func treeToEnvelope(_ root: EnvelopeTreeNode) throws -> Envelope {
         result = Envelope(knownValue)
     case .assertion:
         guard children.count == 2 else {
-            throw Envelope.EnvelopeError.invalidDiff
+            throw Envelope.Error.invalidDiff
         }
         let predicate = try treeToEnvelope(children.removeFirst())
         let object = try treeToEnvelope(children.removeFirst())
@@ -285,7 +285,7 @@ extension EnvelopeEdit {
             operation = .delete
         case .array(var components):
             guard components.count >= 2 else {
-                throw Envelope.EnvelopeError.invalidDiff
+                throw Envelope.Error.invalidDiff
             }
             id = try UInt64.cborDecode(components.removeFirst())
             let label = try EnvelopeTreeLabel.cborDecode(components.removeFirst())
@@ -295,7 +295,7 @@ extension EnvelopeEdit {
                 switch components.removeFirst() {
                 case .negativeInt(let n):
                     guard n == 0 else { // -1
-                        throw Envelope.EnvelopeError.invalidDiff
+                        throw Envelope.Error.invalidDiff
                     }
                     operation = .insertRoot(label: label)
                 case .unsignedInt(let parent):
@@ -304,7 +304,7 @@ extension EnvelopeEdit {
                         case CBOR.unsignedInt(let position) = components.removeFirst(),
                         case CBOR.unsignedInt(let childrenCount) = components.removeFirst()
                     else {
-                        throw Envelope.EnvelopeError.invalidDiff
+                        throw Envelope.Error.invalidDiff
                     }
                     let descendants: [Int]
                     if
@@ -316,22 +316,22 @@ extension EnvelopeEdit {
                             case .unsignedInt(let descendant):
                                 return Int(descendant)
                             default:
-                                throw Envelope.EnvelopeError.invalidDiff
+                                throw Envelope.Error.invalidDiff
                             }
                         }
                     } else {
                         descendants = []
                     }
                     guard components.isEmpty else {
-                        throw Envelope.EnvelopeError.invalidDiff
+                        throw Envelope.Error.invalidDiff
                     }
                     operation = .insert(label: label, parent: Int(parent), position: Int(position), childrenCount: Int(childrenCount), descendants: descendants)
                 default:
-                    throw Envelope.EnvelopeError.invalidDiff
+                    throw Envelope.Error.invalidDiff
                 }
             }
         default:
-            throw Envelope.EnvelopeError.invalidDiff
+            throw Envelope.Error.invalidDiff
         }
         
         return EnvelopeEdit(id: Int(id), operation: operation)
@@ -373,7 +373,7 @@ func cborToEdits(_ cbor: CBOR) throws -> [EnvelopeEdit] {
         case let CBOR.unsignedInt(version) = components.removeFirst(),
         version == 1
     else {
-        throw Envelope.EnvelopeError.invalidDiff
+        throw Envelope.Error.invalidDiff
     }
 
     return try components.map { try EnvelopeEdit.cborDecode($0) }
@@ -381,7 +381,7 @@ func cborToEdits(_ cbor: CBOR) throws -> [EnvelopeEdit] {
 
 func envelopeToEdits(_ envelope: Envelope) throws -> [EnvelopeEdit] {
     guard let cbor = envelope.object?.leaf else {
-        throw Envelope.EnvelopeError.invalidDiff
+        throw Envelope.Error.invalidDiff
     }
     return try cborToEdits(cbor)
 }

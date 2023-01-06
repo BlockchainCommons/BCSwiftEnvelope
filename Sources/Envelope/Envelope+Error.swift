@@ -5,7 +5,7 @@ public extension Envelope {
     ///
     /// This is an extensible enumerated type. Parts of the Envelope package that throw
     /// their own specific errors define them close to where they are thrown.
-    struct EnvelopeError: LocalizedError {
+    struct Error: LocalizedError {
         public let type: String
         
         init(_ type: String) {
@@ -20,7 +20,7 @@ public extension Envelope {
 
 /// Common errors thrown many places in the package.
 
-extension Envelope.EnvelopeError {
-    static let invalidDigest = Envelope.EnvelopeError("invalidDigest")
-    static let invalidFormat = Envelope.EnvelopeError("invalidFormat")
+extension Envelope.Error {
+    static let invalidDigest = Envelope.Error("invalidDigest")
+    static let invalidFormat = Envelope.Error("invalidFormat")
 }
