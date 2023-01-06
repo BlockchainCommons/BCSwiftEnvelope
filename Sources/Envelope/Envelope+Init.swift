@@ -21,6 +21,10 @@ public extension Envelope {
             preconditionFailure()
         }
     }
+    
+    init(_ knownValue: KnownValue) {
+        self.init(knownValue: knownValue)
+    }
 
     /// Create an assertion envelope with the given predicate and object.
     init(_ predicate: Any, _ object: Any) {

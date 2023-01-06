@@ -1,12 +1,14 @@
 import Foundation
 import SecureComponents
 
-public enum FunctionIdentifier: Hashable {
-    case known(value: Int, name: String?)
-    case named(name: String)
+public extension Envelope {
+    enum FunctionIdentifier: Hashable {
+        case known(value: Int, name: String?)
+        case named(name: String)
+    }
 }
 
-public extension FunctionIdentifier {
+public extension Envelope.FunctionIdentifier {
     init(_ value: Int, _ name: String? = nil) {
         self = .known(value: value, name: name)
     }
@@ -16,14 +18,14 @@ public extension FunctionIdentifier {
     }
 }
 
-extension FunctionIdentifier: ExpressibleByStringLiteral {
+extension Envelope.FunctionIdentifier: ExpressibleByStringLiteral {
     public init(stringLiteral value: StringLiteralType) {
         self.init(value)
     }
 }
 
-public extension FunctionIdentifier {
-    static func ==(lhs: FunctionIdentifier, rhs: FunctionIdentifier) -> Bool {
+public extension Envelope.FunctionIdentifier {
+    static func ==(lhs: Envelope.FunctionIdentifier, rhs: Envelope.FunctionIdentifier) -> Bool {
         if
             case .known(let lValue, _) = lhs,
             case .known(let rValue, _) = rhs
@@ -40,7 +42,7 @@ public extension FunctionIdentifier {
     }
 }
 
-public extension FunctionIdentifier {
+public extension Envelope.FunctionIdentifier {
     var isKnown: Bool {
         guard case .known = self else {
             return false
@@ -74,12 +76,12 @@ public extension FunctionIdentifier {
     }
 }
 
-public extension FunctionIdentifier {
-    static func knownIdentifier(for value: Int) -> FunctionIdentifier {
-        knownFunctionIdentifiersByValue[value] ?? FunctionIdentifier(value)
+public extension Envelope.FunctionIdentifier {
+    static func knownIdentifier(for value: Int) -> Envelope.FunctionIdentifier {
+        knownFunctionIdentifiersByValue[value] ?? Envelope.FunctionIdentifier(value)
     }
 
-    static func setKnownIdentifier(_ identifier: FunctionIdentifier) {
+    static func setKnownIdentifier(_ identifier: Envelope.FunctionIdentifier) {
         guard case .known(value: let value, name: _) = identifier else {
             preconditionFailure()
         }
@@ -87,9 +89,9 @@ public extension FunctionIdentifier {
     }
 }
 
-extension FunctionIdentifier: CBORCodable {
-    public static func cborDecode(_ cbor: CBOR) throws -> FunctionIdentifier {
-        try FunctionIdentifier(taggedCBOR: cbor)
+extension Envelope.FunctionIdentifier: CBORCodable {
+    public static func cborDecode(_ cbor: CBOR) throws -> Envelope.FunctionIdentifier {
+        try Envelope.FunctionIdentifier(taggedCBOR: cbor)
     }
 
     public var cbor: CBOR {
@@ -102,7 +104,7 @@ extension FunctionIdentifier: CBORCodable {
     }
 }
 
-public extension FunctionIdentifier {
+public extension Envelope.FunctionIdentifier {
     init(taggedCBOR cbor: CBOR) throws {
         guard case CBOR.tagged(.function, let item) = cbor else {
             throw CBORError.invalidTag
@@ -122,7 +124,7 @@ public extension FunctionIdentifier {
     }
 }
 
-extension FunctionIdentifier: CustomStringConvertible {
+extension Envelope.FunctionIdentifier: CustomStringConvertible {
     public var description: String {
         switch self {
         case .known(value: let value, name: let name):
@@ -133,8 +135,8 @@ extension FunctionIdentifier: CustomStringConvertible {
     }
 }
 
-var knownFunctionIdentifiersByValue: [Int: FunctionIdentifier] = {
-    knownFunctionIdentifiers.reduce(into: [Int: FunctionIdentifier]()) {
+fileprivate var knownFunctionIdentifiersByValue: [Int: Envelope.FunctionIdentifier] = {
+    knownFunctionIdentifiers.reduce(into: [Int: Envelope.FunctionIdentifier]()) {
         guard case .known(value: let value, name: _) = $1 else {
             preconditionFailure()
         }

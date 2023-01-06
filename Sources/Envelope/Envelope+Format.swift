@@ -42,13 +42,13 @@ extension CID: EnvelopeFormat {
     }
 }
 
-extension Assertion: EnvelopeFormat {
+extension Envelope.Assertion: EnvelopeFormat {
     var formatItem: EnvelopeFormatItem {
         .list([predicate.formatItem, ": ", object.formatItem])
     }
 }
 
-extension KnownValue: EnvelopeFormat {
+extension Envelope.KnownValue: EnvelopeFormat {
     var formatItem: EnvelopeFormatItem {
         .item(name)
     }
@@ -83,7 +83,7 @@ extension CBOR {
             case CBOR.tagged(.knownValue, let cbor):
                 guard
                     case let CBOR.unsignedInt(rawValue) = cbor,
-                    case let predicate = KnownValue(rawValue: rawValue)
+                    case let predicate = Envelope.KnownValue(rawValue: rawValue)
                 else {
                     return "<not a known value>"
                 }
@@ -111,9 +111,9 @@ extension CBOR {
             case CBOR.tagged(.cid, _):
                 return try CID(taggedCBOR: self)†
             case CBOR.tagged(CBOR.Tag.function, _):
-                return try FunctionIdentifier(taggedCBOR: self)†.flanked("«", "»")
+                return try Envelope.FunctionIdentifier(taggedCBOR: self)†.flanked("«", "»")
             case CBOR.tagged(CBOR.Tag.parameter, _):
-                return try ParameterIdentifier(taggedCBOR: self)†.flanked("❰", "❱")
+                return try Envelope.ParameterIdentifier(taggedCBOR: self)†.flanked("❰", "❱")
             case CBOR.tagged(CBOR.Tag.request, let cbor):
                 return Envelope(cbor).format.flanked("request(", ")")
             case CBOR.tagged(CBOR.Tag.response, let cbor):

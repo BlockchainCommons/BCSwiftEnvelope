@@ -5,7 +5,7 @@ import WolfBase
 
 class EncryptedTests: XCTestCase {
     static let basicEnvelope = Envelope("Hello.")
-    static let knownValueEnvelope = Envelope(KnownValue.note)
+    static let knownValueEnvelope = Envelope(.note)
     static let wrappedEnvelope = Envelope(basicEnvelope)
     static let doubleWrappedEnvelope = Envelope(wrappedEnvelope)
     static let assertionEnvelope = Envelope("knows", "Bob")

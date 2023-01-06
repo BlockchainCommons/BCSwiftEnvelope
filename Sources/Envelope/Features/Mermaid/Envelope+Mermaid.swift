@@ -4,34 +4,43 @@ import GraphMermaid
 import WolfBase
 
 public extension Envelope {
+    /// Returns the [Mermaid](https://mermaid.js.org/#/) format notation for this envelope.
+    ///
+    /// - Parameters:
+    ///   - hideNodes: `true` if the semantic layout of the envelope is to be displayed,
+    ///   `false` if the structural layout of the envelope is to be displayed.
+    ///   - layoutDirection: The direction of layout, either `.leftToRight` (default) or `.topToBottom`.
+    ///   - theme: The color scheme of the image, either `.color` (default) or `.monochrome`.
+    ///
+    /// - Returns: Mermaid code.
     func mermaidFormat(hideNodes: Bool = false, layoutDirection: MermaidOptions.LayoutDirection? = nil, theme: MermaidOptions.Theme? = nil) -> String {
         graph(hideNodes: hideNodes, data: MermaidOptions(layoutDirection: layoutDirection, theme: theme, includeDigests: !hideNodes)).mermaidFormat
     }
-}
-
-public struct MermaidOptions {
-    public let layoutDirection: LayoutDirection
-    public let theme: Theme
-    public let includeDigests: Bool
-
-    public init(layoutDirection: LayoutDirection? = nil, theme: Theme? = nil, includeDigests: Bool = true) {
-        self.layoutDirection = layoutDirection ?? .leftToRight
-        self.theme = theme ?? .color
-        self.includeDigests = includeDigests
-    }
-
-    public enum LayoutDirection {
-        case leftToRight
-        case topToBottom
-    }
     
-    public enum Theme {
-        case color
-        case monochrome
+    struct MermaidOptions {
+        public let layoutDirection: LayoutDirection
+        public let theme: Theme
+        public let includeDigests: Bool
+
+        public init(layoutDirection: LayoutDirection? = nil, theme: Theme? = nil, includeDigests: Bool = true) {
+            self.layoutDirection = layoutDirection ?? .leftToRight
+            self.theme = theme ?? .color
+            self.includeDigests = includeDigests
+        }
+
+        public enum LayoutDirection {
+            case leftToRight
+            case topToBottom
+        }
+        
+        public enum Theme {
+            case color
+            case monochrome
+        }
     }
 }
 
-typealias MermaidEnvelopeGraph = Graph<Int, Int, Envelope, EnvelopeEdgeData, MermaidOptions>
+typealias MermaidEnvelopeGraph = Graph<Int, Int, Envelope, EnvelopeEdgeData, Envelope.MermaidOptions>
 
 extension MermaidEnvelopeGraph: MermaidEncodable {
     public var mermaidGraphAttributes: GraphAttributes {

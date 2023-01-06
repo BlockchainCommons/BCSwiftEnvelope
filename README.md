@@ -30,6 +30,10 @@ Depends on:
 
 Add to your project like any other Swift Package.
 
+## Note to Implementers
+
+If you are implementing Gordian Envelope in another language, a basic implementation of the core `Envelope` functionality includes the that found in the files in `Sources/Envelope` *except* the files in the `Features` folder. Functionality from the `Features` folder can be added as needed or for completeness.
+
 ## Gordian Principles
 
 **Gordian Envelope* is a reference implementation meant to display the [Gordian Principles](https://github.com/BlockchainCommons/Gordian#gordian-principles), which are philosophical and technical underpinnings to Blockchain Commons' Gordian technology.

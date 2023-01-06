@@ -6,12 +6,13 @@ extension EnvelopeError {
 }
 
 public extension Envelope {
-    func sign(with privateKeys: PrivateKeyBase, uncoveredAssertions: [Envelope], tag: Data? = nil, randomGenerator: ((Int) -> Data)? = nil) throws -> Envelope {
-        let signature = try Envelope(privateKeys.signingPrivateKey.schnorrSign(subject.digest, tag: tag, randomGenerator: randomGenerator))
-            .addAssertions(uncoveredAssertions)
-        return try addAssertion(Envelope(.verifiedBy, signature))
-    }
-    
+    /// Creates a signature for the envelope's subject and returns a new envelope with a `verifiedBy: Signature` assertion.
+    ///
+    /// - Parameters:
+    ///   - privateKeys: The signer's `PrivateKeyBase`
+    ///   - note: Optional text note to add to the `Signature`
+    ///
+    /// - Returns: The signed envelope.
     func sign(with privateKeys: PrivateKeyBase, note: String? = nil, tag: Data? = nil, randomGenerator: ((Int) -> Data)? = nil) -> Envelope {
         var assertions: [Envelope] = []
         if let note {
@@ -20,24 +21,40 @@ public extension Envelope {
         return try! sign(with: privateKeys, uncoveredAssertions: assertions, tag: tag, randomGenerator: randomGenerator)
     }
     
+    /// Creates several signatures for the envelope's subject and returns a new envelope with additional `verifiedBy: Signature` assertions.
+    ///
+    /// - Parameters:
+    ///   - privateKeys: An array of signers' `PrivateKeyBase`s.
+    ///
+    /// - Returns: The signed envelope.
     func sign(with privateKeys: [PrivateKeyBase], tag: Data? = nil, randomGenerator: ((Int) -> Data)? = nil) -> Envelope {
         privateKeys.reduce(into: self) {
             $0 = $0.sign(with: $1, tag: tag, randomGenerator: randomGenerator)
         }
     }
-    
-    func sign(with privateKeys: PrivateKeyBase, coveredAssertions: [Envelope], tag: Data? = nil, randomGenerator: ((Int) -> Data)? = nil) throws -> Envelope {
-        guard !coveredAssertions.isEmpty else {
-            return sign(with: privateKeys, tag: tag, randomGenerator: randomGenerator)
-        }
-        return try self.elide()
-            .addAssertions(coveredAssertions)
-            .wrap()
-            .sign(with: privateKeys, tag: tag, randomGenerator: randomGenerator)
+
+    /// Creates a signature for the envelope's subject and returns a new envelope with a `verifiedBy: Signature` assertion.
+    ///
+    /// - Parameters:
+    ///   - privateKeys: The signer's `PrivateKeyBase`
+    ///   - uncoveredAssertions: Assertions to add to the `Signature`.
+    ///
+    /// - Returns: The signed envelope.
+    func sign(with privateKeys: PrivateKeyBase, uncoveredAssertions: [Envelope], tag: Data? = nil, randomGenerator: ((Int) -> Data)? = nil) throws -> Envelope {
+        let signature = try Envelope(privateKeys.signingPrivateKey.schnorrSign(subject.digest, tag: tag, randomGenerator: randomGenerator))
+            .addAssertions(uncoveredAssertions)
+        return try addAssertion(Envelope(.verifiedBy, signature))
     }
 }
 
 public extension Envelope {
+    /// Convenience constructor for a `verifiedBy: Signature` assertion envelope.
+    ///
+    /// - Parameters:
+    ///   - signature: The `Signature` for the object.
+    ///   - note: An optional note to be added to the `Signature`.
+    ///
+    /// - Returns: The new assertion envelope.
     static func verifiedBy(signature: Signature, note: String? = nil) -> Envelope {
         Envelope(
             .verifiedBy,
@@ -48,6 +65,10 @@ public extension Envelope {
 }
 
 public extension Envelope {
+    /// An array of signatures from all of the envelope's `verifiedBy` predicates.
+    ///
+    /// - Throws: Throws an exception if any `verifiedBy` assertion doesn't contain a
+    /// valid `Signature` as its object.
     var signatures: [Signature] {
         get throws {
             try assertions(withPredicate: .verifiedBy)
@@ -55,10 +76,103 @@ public extension Envelope {
         }
     }
 
+    /// Checks whether the given signature is valid.
+    ///
+    /// - Parameters:
+    ///   - signature: The `Signature` to be checked.
+    ///   - publicKeys: The potential signer's `PublicKeyBase`.
+    ///
+    /// - Returns: `true` if the signature is valid for this envelope's subject, `false` otherwise.
+    func isVerifiedSignature(_ signature: Signature, publicKeys: PublicKeyBase) -> Bool {
+        isVerifiedSignature(signature, key: publicKeys.signingPublicKey)
+    }
+
+    /// Checks whether the given signature is valid.
+    ///
+    /// Used for chaining a series of operations that include validating signatures.
+    ///
+    /// - Parameters:
+    ///   - signature: The `Signature` to be checked.
+    ///   - publicKeys: The potential signer's `PublicKeyBase`.
+    ///
+    /// - Returns: This envelope.
+    ///
+    /// - Throws: Throws `EnvelopeError.unverifiedSignature` if the signature is not valid.
+    /// valid.
+    @discardableResult
+    func verifySignature(_ signature: Signature, publicKeys: PublicKeyBase) throws -> Envelope {
+        try verifySignature(signature, key: publicKeys.signingPublicKey)
+    }
+    
+    /// Checks whether the envelope's subject has a valid signature.
+    ///
+    /// - Parameters:
+    ///   - publicKeys: The potential signer's `PublicKeyBase`.
+    ///
+    /// - Returns: `true` if the signature is valid for this envelope's subject, `false` otherwise.
+    ///
+    /// - Throws: Throws an exception if any `verifiedBy` assertion doesn't contain a
+    /// valid `Signature` as its object.
+    func hasVerifiedSignature(from publicKeys: PublicKeyBase) throws -> Bool {
+        try hasVerifiedSignature(key: publicKeys.signingPublicKey)
+    }
+
+    /// Checks whether the envelope's subject has a valid signature.
+    ///
+    /// Used for chaining a series of operations that include validating signatures.
+    ///
+    /// - Parameters:
+    ///   - publicKeys: The potential signer's `PublicKeyBase`.
+    ///
+    /// - Returns: This envelope.
+    ///
+    /// - Throws: Throws `EnvelopeError.unverifiedSignature` if the signature is not valid.
+    /// valid.
+    @discardableResult
+    func verifySignature(from publicKeys: PublicKeyBase) throws -> Envelope {
+        try verifySignature(key: publicKeys.signingPublicKey)
+    }
+
+    /// Checks whether the envelope's subject has some threshold of signatures.
+    ///
+    /// If `threshold` is `nil`, then *all* signers in `publicKeysArray` must have
+    /// signed. If `threshold` is `1`, then at least one signer must have signed.
+    ///
+    /// - Parameters:
+    ///   - publicKeysArray: An array of potential signers' `PublicKeyBase`s.
+    ///
+    /// - Returns: `true` if the threshold of valid signatures is met, `false` otherwise.
+    ///
+    /// - Throws: Throws an exception if any `verifiedBy` assertion doesn't contain a
+    /// valid `Signature` as its object.
+    func hasVerifiedSignatures(from publicKeysArray: [PublicKeyBase], threshold: Int? = nil) throws -> Bool {
+        try hasVerifiedSignatures(with: publicKeysArray.map { $0.signingPublicKey }, threshold: threshold)
+    }
+
+    /// Checks whether the envelope's subject has some threshold of signatures.
+    ///
+    /// If `threshold` is `nil`, then *all* signers in `publicKeysArray` must have
+    /// signed. If `threshold` is `1`, then at least one signer must have signed.
+    ///
+    /// Used for chaining a series of operations that include validating signatures.
+    ///
+    /// - Parameters:
+    ///   - publicKeysArray: An array of potential signers' `PublicKeyBase`s.
+    ///
+    /// - Returns: This envelope.
+    ///
+    /// - Throws: Throws an exception if the threshold of valid signatures is not met.
+    @discardableResult
+    func verifySignatures(from publicKeysArray: [PublicKeyBase], threshold: Int? = nil) throws -> Envelope {
+        try verifySignatures(with: publicKeysArray.map { $0.signingPublicKey }, threshold: threshold)
+    }
+}
+
+extension Envelope {
     func isVerifiedSignature(_ signature: Signature, key: SigningPublicKey) -> Bool {
         return key.isValidSignature(signature, for: subject.digest)
     }
-
+    
     @discardableResult
     func verifySignature(_ signature: Signature, key: SigningPublicKey) throws -> Envelope {
         guard isVerifiedSignature(signature, key: key) else {
@@ -67,18 +181,8 @@ public extension Envelope {
         return self
     }
 
-    func isVerifiedSignature(_ signature: Signature, publicKeys: PublicKeyBase) -> Bool {
-        isVerifiedSignature(signature, key: publicKeys.signingPublicKey)
-    }
-
-    @discardableResult
-    func verifySignature(_ signature: Signature, publicKeys: PublicKeyBase) throws -> Envelope {
-        try verifySignature(signature, key: publicKeys.signingPublicKey)
-    }
-
     func hasVerifiedSignature(key: SigningPublicKey) throws -> Bool {
-        let sigs = try signatures
-        return sigs.contains { isVerifiedSignature($0, key: key) }
+        try signatures.contains { isVerifiedSignature($0, key: key) }
     }
 
     @discardableResult
@@ -87,15 +191,6 @@ public extension Envelope {
             throw EnvelopeError.unverifiedSignature
         }
         return self
-    }
-
-    func hasVerifiedSignature(from publicKeys: PublicKeyBase) throws -> Bool {
-        try hasVerifiedSignature(key: publicKeys.signingPublicKey)
-    }
-
-    @discardableResult
-    func verifySignature(from publicKeys: PublicKeyBase) throws -> Envelope {
-        try verifySignature(key: publicKeys.signingPublicKey)
     }
 
     func hasVerifiedSignatures(with keys: [SigningPublicKey], threshold: Int? = nil) throws -> Bool {
@@ -118,14 +213,5 @@ public extension Envelope {
             throw EnvelopeError.unverifiedSignature
         }
         return self
-    }
-
-    func hasVerifiedSignatures(from publicKeysArray: [PublicKeyBase], threshold: Int? = nil) throws -> Bool {
-        try hasVerifiedSignatures(with: publicKeysArray.map { $0.signingPublicKey }, threshold: threshold)
-    }
-
-    @discardableResult
-    func verifySignatures(from publicKeysArray: [PublicKeyBase], threshold: Int? = nil) throws -> Envelope {
-        try verifySignatures(with: publicKeysArray.map { $0.signingPublicKey }, threshold: threshold)
     }
 }

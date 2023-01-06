@@ -1,64 +1,66 @@
 import Foundation
 import SecureComponents
 
-/// A value in a namespace of unsigned integers, frequently used as predicates.
-///
-/// Known values are a specific case of envelope that defines a namespace consisting
-/// of single unsigned integers. The expectation is that the most common and widely
-/// useful predicates will be assigned in this namespace, but known values may be
-/// used in any position in an envelope.
-public struct KnownValue {
-    /// The known value as coded into CBOR.
-    public let rawValue: UInt64
-    /// A name assigned to the known value used for debugging and formatted output.
-    public let assignedName: String?
-    
-    /// Create a known value with the given unsigned integer value and name.
-    public init(_ rawValue: UInt64, _ name: String?) {
-        self.rawValue = rawValue
-        self.assignedName = name
-    }
-    
-    /// Create a known value with the given unsigned integer value.
-    public init(rawValue: UInt64) {
-        guard let p = knownValuesByRawValue[rawValue] else {
-            self = KnownValue(rawValue, nil)
-            return
-        }
-        self = p
-    }
-    
-    /// Create a known value with the given name.
+public extension Envelope {
+    /// A value in a namespace of unsigned integers, frequently used as predicates.
     ///
-    /// The constructor fails if the registry contains no such named known value.
-    public init?(name: String) {
-        guard let p = knownValuesByName[name] else {
-            return nil
+    /// Known values are a specific case of envelope that defines a namespace consisting
+    /// of single unsigned integers. The expectation is that the most common and widely
+    /// useful predicates will be assigned in this namespace, but known values may be
+    /// used in any position in an envelope.
+    struct KnownValue {
+        /// The known value as coded into CBOR.
+        public let rawValue: UInt64
+        /// A name assigned to the known value used for debugging and formatted output.
+        public let assignedName: String?
+        
+        /// Create a known value with the given unsigned integer value and name.
+        public init(_ rawValue: UInt64, _ name: String?) {
+            self.rawValue = rawValue
+            self.assignedName = name
         }
-        self = p
-    }
-    
-    /// The human readable name.
-    ///
-    /// Defaults to the numerical value if no name has been assigned.
-    public var name: String {
-        return assignedName ?? String(rawValue)
+        
+        /// Create a known value with the given unsigned integer value.
+        public init(rawValue: UInt64) {
+            guard let p = knownValuesByRawValue[rawValue] else {
+                self = KnownValue(rawValue, nil)
+                return
+            }
+            self = p
+        }
+        
+        /// Create a known value with the given name.
+        ///
+        /// The constructor fails if the registry contains no such named known value.
+        public init?(name: String) {
+            guard let p = knownValuesByName[name] else {
+                return nil
+            }
+            self = p
+        }
+        
+        /// The human readable name.
+        ///
+        /// Defaults to the numerical value if no name has been assigned.
+        public var name: String {
+            return assignedName ?? String(rawValue)
+        }
     }
 }
 
-extension KnownValue: Equatable {
-    public static func ==(lhs: KnownValue, rhs: KnownValue) -> Bool {
+extension Envelope.KnownValue: Equatable {
+    public static func ==(lhs: Envelope.KnownValue, rhs: Envelope.KnownValue) -> Bool {
         lhs.rawValue == rhs.rawValue
     }
 }
 
-extension KnownValue: CustomStringConvertible {
+extension Envelope.KnownValue: CustomStringConvertible {
     public var description: String {
         assignedName ?? String(rawValue)
     }
 }
 
-public extension KnownValue {
+public extension Envelope.KnownValue {
     /// The known value, encoded as untagged CBOR.
     var untaggedCBOR: CBOR {
         CBOR.unsignedInt(rawValue)
@@ -78,7 +80,7 @@ public extension KnownValue {
         else {
             throw EnvelopeError.invalidFormat
         }
-        self = KnownValue(rawValue: rawValue)
+        self = Envelope.KnownValue(rawValue: rawValue)
     }
     
     /// Creates a known value by decoding the given tagged CBOR.
@@ -95,32 +97,32 @@ public extension KnownValue {
     }
 }
 
-extension KnownValue: DigestProvider {
+extension Envelope.KnownValue: DigestProvider {
     public var digest: Digest {
         Digest(taggedCBOR)
     }
 }
 
-extension KnownValue: CBORCodable {
+extension Envelope.KnownValue: CBORCodable {
     public var cbor: CBOR {
         taggedCBOR
     }
     
-    public static func cborDecode(_ cbor: CBOR) throws -> KnownValue {
-        return try KnownValue(taggedCBOR: cbor)
+    public static func cborDecode(_ cbor: CBOR) throws -> Envelope.KnownValue {
+        return try Envelope.KnownValue(taggedCBOR: cbor)
     }
 }
 
-fileprivate var knownValuesByRawValue: [UInt64: KnownValue] = {
-    var result: [UInt64: KnownValue] = [:]
+fileprivate var knownValuesByRawValue: [UInt64: Envelope.KnownValue] = {
+    var result: [UInt64: Envelope.KnownValue] = [:]
     knownValueRegistry.forEach {
         result[$0.rawValue] = $0
     }
     return result
 }()
 
-fileprivate var knownValuesByName: [String: KnownValue] = {
-    var result: [String: KnownValue] = [:]
+fileprivate var knownValuesByName: [String: Envelope.KnownValue] = {
+    var result: [String: Envelope.KnownValue] = [:]
     knownValueRegistry.forEach {
         if let name = $0.assignedName {
             result[name] = $0

@@ -1,12 +1,14 @@
 import Foundation
 import SecureComponents
 
-public enum ParameterIdentifier: Hashable {
-    case known(value: Int, name: String?)
-    case named(name: String)
+public extension Envelope {
+    enum ParameterIdentifier: Hashable {
+        case known(value: Int, name: String?)
+        case named(name: String)
+    }
 }
 
-public extension ParameterIdentifier {
+public extension Envelope.ParameterIdentifier {
     init(_ value: Int, _ name: String? = nil) {
         self = .known(value: value, name: name)
     }
@@ -16,14 +18,14 @@ public extension ParameterIdentifier {
     }
 }
 
-extension ParameterIdentifier: ExpressibleByStringLiteral {
+extension Envelope.ParameterIdentifier: ExpressibleByStringLiteral {
     public init(stringLiteral value: StringLiteralType) {
         self.init(value)
     }
 }
 
-public extension ParameterIdentifier {
-    static func ==(lhs: ParameterIdentifier, rhs: ParameterIdentifier) -> Bool {
+public extension Envelope.ParameterIdentifier {
+    static func ==(lhs: Envelope.ParameterIdentifier, rhs: Envelope.ParameterIdentifier) -> Bool {
         if
             case .known(let lValue, _) = lhs,
             case .known(let rValue, _) = rhs
@@ -40,7 +42,7 @@ public extension ParameterIdentifier {
     }
 }
 
-public extension ParameterIdentifier {
+public extension Envelope.ParameterIdentifier {
     var isKnown: Bool {
         guard case .known = self else {
             return false
@@ -74,12 +76,12 @@ public extension ParameterIdentifier {
     }
 }
 
-public extension ParameterIdentifier {
-    static func knownParameter(for value: Int) -> ParameterIdentifier {
-        knownFunctionParametersByValue[value] ?? ParameterIdentifier(value)
+public extension Envelope.ParameterIdentifier {
+    static func knownParameter(for value: Int) -> Envelope.ParameterIdentifier {
+        knownFunctionParametersByValue[value] ?? Envelope.ParameterIdentifier(value)
     }
 
-    static func setKnownParameter(_ parameter: ParameterIdentifier) {
+    static func setKnownParameter(_ parameter: Envelope.ParameterIdentifier) {
         guard case .known(value: let value, name: _) = parameter else {
             preconditionFailure()
         }
@@ -87,9 +89,9 @@ public extension ParameterIdentifier {
     }
 }
 
-extension ParameterIdentifier: CBORCodable {
-    public static func cborDecode(_ cbor: CBOR) throws -> ParameterIdentifier {
-        try ParameterIdentifier(taggedCBOR: cbor)
+extension Envelope.ParameterIdentifier: CBORCodable {
+    public static func cborDecode(_ cbor: CBOR) throws -> Envelope.ParameterIdentifier {
+        try Envelope.ParameterIdentifier(taggedCBOR: cbor)
     }
 
     public var cbor: CBOR {
@@ -102,7 +104,7 @@ extension ParameterIdentifier: CBORCodable {
     }
 }
 
-public extension ParameterIdentifier {
+public extension Envelope.ParameterIdentifier {
     init(taggedCBOR cbor: CBOR) throws {
         guard case CBOR.tagged(.parameter, let item) = cbor else {
             throw CBORError.invalidTag
@@ -122,7 +124,7 @@ public extension ParameterIdentifier {
     }
 }
 
-extension ParameterIdentifier: CustomStringConvertible {
+extension Envelope.ParameterIdentifier: CustomStringConvertible {
     public var description: String {
         switch self {
         case .known(value: let value, name: let name):
@@ -133,8 +135,8 @@ extension ParameterIdentifier: CustomStringConvertible {
     }
 }
 
-var knownFunctionParametersByValue: [Int: ParameterIdentifier] = {
-    knownFunctionParameters.reduce(into: [Int: ParameterIdentifier]()) {
+fileprivate var knownFunctionParametersByValue: [Int: Envelope.ParameterIdentifier] = {
+    knownFunctionParameters.reduce(into: [Int: Envelope.ParameterIdentifier]()) {
         guard case .known(value: let value, name: _) = $1 else {
             preconditionFailure()
         }

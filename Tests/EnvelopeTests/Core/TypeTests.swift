@@ -5,7 +5,7 @@ import WolfBase
 
 class TypeTests: XCTestCase {
     func testKnownValue() throws {
-        let envelope = try Envelope(KnownValue.verifiedBy).checkEncoding()
+        let envelope = try Envelope(.verifiedBy).checkEncoding()
         XCTAssertEqual(envelope.format, "verifiedBy")
     }
 

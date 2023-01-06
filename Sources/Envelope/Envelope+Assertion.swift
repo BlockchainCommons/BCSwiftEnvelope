@@ -1,6 +1,8 @@
 import Foundation
 import SecureComponents
 
+/// Support for manipulating assertions.
+
 public extension Envelope {
     /// Returns a new ``Envelope`` with the given assertion added.
     func addAssertion(_ envelope: Envelope?, salted: Bool = false) throws -> Envelope {

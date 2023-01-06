@@ -29,6 +29,9 @@ public extension Envelope {
         return addSalt(using: &rng)
     }
     
+    /// Add a deterministic amount of salt.
+    ///
+    /// Only used for testing.
     func addSalt<R: RandomNumberGenerator>(using rng: inout R) -> Envelope {
         addSalt(Salt(forSize: taggedCBOR.cborEncode.count, using: &rng))
     }

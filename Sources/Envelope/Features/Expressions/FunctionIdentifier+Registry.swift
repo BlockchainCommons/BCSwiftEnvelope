@@ -1,14 +1,14 @@
 import Foundation
 import SecureComponents
 
-public extension FunctionIdentifier {
-    static let add = FunctionIdentifier(1, "add")
-    static let sub = FunctionIdentifier(2, "sub")
-    static let mul = FunctionIdentifier(3, "mul")
-    static let div = FunctionIdentifier(4, "div")
+public extension Envelope.FunctionIdentifier {
+    static let add = Envelope.FunctionIdentifier(1, "add")
+    static let sub = Envelope.FunctionIdentifier(2, "sub")
+    static let mul = Envelope.FunctionIdentifier(3, "mul")
+    static let div = Envelope.FunctionIdentifier(4, "div")
 }
 
-var knownFunctionIdentifiers: [FunctionIdentifier] = [
+var knownFunctionIdentifiers: [Envelope.FunctionIdentifier] = [
     .add,
     .sub,
     .mul,

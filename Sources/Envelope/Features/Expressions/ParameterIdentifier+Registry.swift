@@ -1,12 +1,12 @@
 import Foundation
 
-extension ParameterIdentifier {
-    public static let blank = ParameterIdentifier(1, "_")
-    public static let lhs = ParameterIdentifier(2, "lhs")
-    public static let rhs = ParameterIdentifier(3, "rhs")
+extension Envelope.ParameterIdentifier {
+    public static let blank = Envelope.ParameterIdentifier(1, "_")
+    public static let lhs = Envelope.ParameterIdentifier(2, "lhs")
+    public static let rhs = Envelope.ParameterIdentifier(3, "rhs")
 }
 
-var knownFunctionParameters: [ParameterIdentifier] = [
+var knownFunctionParameters: [Envelope.ParameterIdentifier] = [
     .blank,
     .lhs,
     .rhs

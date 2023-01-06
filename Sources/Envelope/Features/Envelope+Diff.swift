@@ -38,7 +38,7 @@ typealias EnvelopeEdit = TreeDistance<EnvelopeTreeNode>.Edit
 enum EnvelopeTreeLabel: CBORCodable {
     case leaf(CBOR, Digest)
     case wrapped
-    case knownValue(KnownValue)
+    case knownValue(Envelope.KnownValue)
     case assertion
     case encrypted(EncryptedMessage)
     case elided(Digest)
@@ -115,7 +115,7 @@ enum EnvelopeTreeLabel: CBORCodable {
         case 1:
             return .wrapped
         case 2:
-            return .knownValue(try KnownValue(taggedCBOR: elements.removeFirst()))
+            return .knownValue(try Envelope.KnownValue(taggedCBOR: elements.removeFirst()))
         case 3:
             return .assertion
         case 4:

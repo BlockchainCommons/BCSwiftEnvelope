@@ -183,7 +183,7 @@ public extension Envelope {
 public extension Envelope {
     /// Returns the envelope's subject, decoded as the given type.
     ///
-    /// Throws an exception if the encoded type doesn't match the given type.
+    /// - Throws: Throws `EnvelopeError.invalidFormat` if the encoded type doesn't match the given type.
     func extractSubject<T>(_ type: T.Type) throws -> T {
         switch self {
         case .wrapped(let envelope, _):
