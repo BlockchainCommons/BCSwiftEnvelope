@@ -2,6 +2,7 @@ import Foundation
 import SecureComponents
 
 public extension Envelope {
+    /// A type used to identify functions in envelope expressions.
     enum FunctionIdentifier: Hashable {
         case known(value: Int, name: String?)
         case named(name: String)

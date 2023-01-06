@@ -2,6 +2,9 @@ import Foundation
 import SecureComponents
 
 public extension Envelope {
+    /// A type used to identify parameters in envelope expressions.
+    ///
+    /// Used as a predicate. In an assertion, the object is the argument.
     enum ParameterIdentifier: Hashable {
         case known(value: Int, name: String?)
         case named(name: String)
