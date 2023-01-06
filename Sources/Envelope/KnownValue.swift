@@ -78,7 +78,7 @@ public extension Envelope.KnownValue {
         guard
             case CBOR.unsignedInt(let rawValue) = untaggedCBOR
         else {
-            throw EnvelopeError.invalidFormat
+            throw Envelope.EnvelopeError.invalidFormat
         }
         self = Envelope.KnownValue(rawValue: rawValue)
     }
@@ -91,7 +91,7 @@ public extension Envelope.KnownValue {
         guard
             case CBOR.tagged(.knownValue, let untaggedCBOR) = taggedCBOR
         else {
-            throw EnvelopeError.invalidFormat
+            throw Envelope.EnvelopeError.invalidFormat
         }
         try self.init(untaggedCBOR: untaggedCBOR)
     }

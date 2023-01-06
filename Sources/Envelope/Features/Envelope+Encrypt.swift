@@ -1,12 +1,12 @@
 import Foundation
 import SecureComponents
 
-extension EnvelopeError {
-    static let invalidKey = EnvelopeError("invalidKey")
-    static let missingDigest = EnvelopeError("missingDigest")
-    static let alreadyEncrypted = EnvelopeError("alreadyEncrypted")
-    static let notEncrypted = EnvelopeError("notEncrypted")
-    static let alreadyElided = EnvelopeError("alreadyElided")
+extension Envelope.EnvelopeError {
+    static let invalidKey = Envelope.EnvelopeError("invalidKey")
+    static let missingDigest = Envelope.EnvelopeError("missingDigest")
+    static let alreadyEncrypted = Envelope.EnvelopeError("alreadyEncrypted")
+    static let notEncrypted = Envelope.EnvelopeError("notEncrypted")
+    static let alreadyElided = Envelope.EnvelopeError("alreadyElided")
 }
 
 public extension Envelope {

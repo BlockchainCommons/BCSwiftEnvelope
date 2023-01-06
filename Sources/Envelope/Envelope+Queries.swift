@@ -1,10 +1,10 @@
 import Foundation
 import SecureComponents
 
-extension EnvelopeError {
-    static let nonexistentPredicate = EnvelopeError("nonexistentPredicate")
-    static let nonexistentAssertion = EnvelopeError("nonexistentAssertion")
-    static let ambiguousPredicate = EnvelopeError("ambiguousPredicate")
+extension Envelope.EnvelopeError {
+    static let nonexistentPredicate = Envelope.EnvelopeError("nonexistentPredicate")
+    static let nonexistentAssertion = Envelope.EnvelopeError("nonexistentAssertion")
+    static let ambiguousPredicate = Envelope.EnvelopeError("ambiguousPredicate")
 }
 
 public extension Envelope {

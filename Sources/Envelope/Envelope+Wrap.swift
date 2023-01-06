@@ -1,7 +1,7 @@
 import Foundation
 
-extension EnvelopeError {
-    static let notWrapped = EnvelopeError("notWrapped")
+extension Envelope.EnvelopeError {
+    static let notWrapped = Envelope.EnvelopeError("notWrapped")
 }
 
 public extension Envelope {

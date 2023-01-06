@@ -2,8 +2,8 @@ import Foundation
 import WolfBase
 import SecureComponents
 
-extension EnvelopeError {
-    static let invalidRecipient = EnvelopeError("invalidRecipient")
+extension Envelope.EnvelopeError {
+    static let invalidRecipient = Envelope.EnvelopeError("invalidRecipient")
 }
 
 public extension Envelope {

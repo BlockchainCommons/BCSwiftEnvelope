@@ -1,8 +1,8 @@
 import Foundation
 import SecureComponents
 
-extension EnvelopeError {
-    static let invalidShares = EnvelopeError("invalidShares")
+extension Envelope.EnvelopeError {
+    static let invalidShares = Envelope.EnvelopeError("invalidShares")
 }
 
 public extension Envelope {

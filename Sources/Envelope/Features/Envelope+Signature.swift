@@ -1,8 +1,8 @@
 import Foundation
 import SecureComponents
 
-extension EnvelopeError {
-    static let unverifiedSignature = EnvelopeError("unverifiedSignature")
+extension Envelope.EnvelopeError {
+    static let unverifiedSignature = Envelope.EnvelopeError("unverifiedSignature")
 }
 
 public extension Envelope {
