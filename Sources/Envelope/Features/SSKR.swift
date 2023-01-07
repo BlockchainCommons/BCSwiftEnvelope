@@ -36,30 +36,6 @@ public extension Envelope {
         }
     }
     
-    /// Returns all the SSKRShares associated with all the `sskrShare: SSKRShare`
-    /// assertions of all the given envelopes.
-    ///
-    /// - Parameter envelopes: The envelopes from which to extract `SSKRShare`s.
-    ///
-    /// - Returns: A dictionary with share IDs as the keys and an array of `SSKRShare`
-    /// as each ID's value. Shares with different IDs are not part of the same SSKR
-    /// split.
-    static func shares(in envelopes: [Envelope]) throws -> [UInt16: [SSKRShare]] {
-        var result: [UInt16: [SSKRShare]] = [:]
-        for envelope in envelopes {
-            try envelope.assertions(withPredicate: .sskrShare)
-                .forEach {
-                    let share = try $0.object!.extractSubject(SSKRShare.self)
-                    let identifier = share.identifier
-                    if result[identifier] == nil {
-                        result[identifier] = []
-                    }
-                    result[identifier]!.append(share)
-                }
-        }
-        return result
-    }
-
     /// Creates a new envelope resulting from the joining a set of envelopes split by SSKR.
     ///
     /// Given a set of envelopes that are ostensibly all part of the same SSKR split,
@@ -83,5 +59,31 @@ public extension Envelope {
             return
         }
         throw Error.invalidShares
+    }
+}
+
+extension Envelope {
+    /// Returns all the SSKRShares associated with all the `sskrShare: SSKRShare`
+    /// assertions of all the given envelopes.
+    ///
+    /// - Parameter envelopes: The envelopes from which to extract `SSKRShare`s.
+    ///
+    /// - Returns: A dictionary with share IDs as the keys and an array of `SSKRShare`
+    /// as each ID's value. Shares with different IDs are not part of the same SSKR
+    /// split.
+    static func shares(in envelopes: [Envelope]) throws -> [UInt16: [SSKRShare]] {
+        var result: [UInt16: [SSKRShare]] = [:]
+        for envelope in envelopes {
+            try envelope.assertions(withPredicate: .sskrShare)
+                .forEach {
+                    let share = try $0.object!.extractSubject(SSKRShare.self)
+                    let identifier = share.identifier
+                    if result[identifier] == nil {
+                        result[identifier] = []
+                    }
+                    result[identifier]!.append(share)
+                }
+        }
+        return result
     }
 }

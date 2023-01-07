@@ -1,6 +1,8 @@
 import Foundation
 import SecureComponents
 
+// MARK: - High-Level Elision Functions
+
 public extension Envelope {
     /// Returns the elided variant of this envelope.
     ///
@@ -14,25 +16,83 @@ public extension Envelope {
         }
     }
 
-    /// Returns the unelided variant of this envelope.
+    /// Returns a version of this envelope with elements in the `target` set elided.
     ///
-    /// Throws an exception if the digest of the unelided version does not match.
-    func unelide(_ envelope: Envelope) throws -> Envelope {
-        guard digest == envelope.digest else {
-            throw Error.invalidDigest
-        }
-        return envelope
+    /// - Parameters:
+    ///   - target: The target set of digests.
+    ///   - key: If provided, encrypt the targeted elements using the `SymmetricKey` instead of eliding them.
+    ///
+    /// - Returns: The elided envelope.
+    func elideRemoving(_ target: Set<Digest>, encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
+        try elide(target, isRevealing: false, encryptingWith: key)
+    }
+    
+    /// Returns a version of this envelope with elements in the `target` set elided.
+    ///
+    /// - Parameters:
+    ///   - target: An array of `DigestProvider`s.
+    ///   - key: If provided, encrypt the targeted elements using the `SymmetricKey` instead of eliding them.
+    ///
+    /// - Returns: The elided envelope.
+    func elideRemoving(_ target: [DigestProvider], encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
+        try elide(target, isRevealing: false, encryptingWith: key)
+    }
+    
+    /// Returns a version of this envelope with the target element elided.
+    ///
+    /// - Parameters:
+    ///   - target: A `DigestProvider`.
+    ///   - key: If provided, encrypt the targeted element using the `SymmetricKey` instead of eliding it.
+    ///
+    /// - Returns: The elided envelope.
+    func elideRemoving(_ target: DigestProvider, encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
+        try elide(target, isRevealing: false, encryptingWith: key)
+    }
+    
+    /// Returns a version of this envelope with elements *not* in the `target` set elided.
+    ///
+    /// - Parameters:
+    ///   - target: The target set of digests.
+    ///   - key: If provided, encrypt the targeted elements using the `SymmetricKey` instead of eliding them.
+    ///
+    /// - Returns: The elided envelope.
+    func elideRevealing(_ target: Set<Digest>, encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
+        try elide(target, isRevealing: true, encryptingWith: key)
+    }
+    
+    /// Returns a version of this envelope with elements *not* in the `target` set elided.
+    ///
+    /// - Parameters:
+    ///   - target: An array of `DigestProvider`s.
+    ///   - key: If provided, encrypt the targeted elements using the `SymmetricKey` instead of eliding them.
+    ///
+    /// - Returns: The elided envelope.
+    func elideRevealing(_ target: [DigestProvider], encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
+        try elide(target, isRevealing: true, encryptingWith: key)
+    }
+    
+    /// Returns a version of this envelope with all elements *except* the target element elided.
+    ///
+    /// - Parameters:
+    ///   - target: A `DigestProvider`.
+    ///   - key: If provided, encrypt the targeted element using the `SymmetricKey` instead of eliding it.
+    ///
+    /// - Returns: The elided envelope.
+    func elideRevealing(_ target: DigestProvider, encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
+        try elide(target, isRevealing: true, encryptingWith: key)
     }
 }
 
-// Target Matches   isRevealing     elide
-// ----------------------------------------
-//     false           false        false
-//     false           true         true
-//     true            false        true
-//     true            true         false
+// MARK: - Utility Elision Functions
 
 public extension Envelope {
+    // Target Matches   isRevealing     elide
+    // ----------------------------------------
+    //     false           false        false
+    //     false           true         true
+    //     true            false        true
+    //     true            true         false
+
     /// Returns an elided version of this envelope.
     ///
     /// - Parameters:
@@ -105,70 +165,18 @@ public extension Envelope {
     func elide(_ target: DigestProvider, isRevealing: Bool, encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
         try elide([target], isRevealing: isRevealing, encryptingWith: key)
     }
-    
-    /// Returns a version of this envelope with elements in the `target` set elided.
+}
+
+// MARK: - Uneliding an Envelope
+
+public extension Envelope {
+    /// Returns the unelided variant of this envelope.
     ///
-    /// - Parameters:
-    ///   - target: The target set of digests.
-    ///   - key: If provided, encrypt the targeted elements using the `SymmetricKey` instead of eliding them.
-    ///
-    /// - Returns: The elided envelope.
-    func elideRemoving(_ target: Set<Digest>, encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
-        try elide(target, isRevealing: false, encryptingWith: key)
-    }
-    
-    /// Returns a version of this envelope with elements in the `target` set elided.
-    ///
-    /// - Parameters:
-    ///   - target: An array of `DigestProvider`s.
-    ///   - key: If provided, encrypt the targeted elements using the `SymmetricKey` instead of eliding them.
-    ///
-    /// - Returns: The elided envelope.
-    func elideRemoving(_ target: [DigestProvider], encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
-        try elide(target, isRevealing: false, encryptingWith: key)
-    }
-    
-    /// Returns a version of this envelope with the target element elided.
-    ///
-    /// - Parameters:
-    ///   - target: A `DigestProvider`.
-    ///   - key: If provided, encrypt the targeted element using the `SymmetricKey` instead of eliding it.
-    ///
-    /// - Returns: The elided envelope.
-    func elideRemoving(_ target: DigestProvider, encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
-        try elide(target, isRevealing: false, encryptingWith: key)
-    }
-    
-    /// Returns a version of this envelope with elements *not* in the `target` set elided.
-    ///
-    /// - Parameters:
-    ///   - target: The target set of digests.
-    ///   - key: If provided, encrypt the targeted elements using the `SymmetricKey` instead of eliding them.
-    ///
-    /// - Returns: The elided envelope.
-    func elideRevealing(_ target: Set<Digest>, encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
-        try elide(target, isRevealing: true, encryptingWith: key)
-    }
-    
-    /// Returns a version of this envelope with elements *not* in the `target` set elided.
-    ///
-    /// - Parameters:
-    ///   - target: An array of `DigestProvider`s.
-    ///   - key: If provided, encrypt the targeted elements using the `SymmetricKey` instead of eliding them.
-    ///
-    /// - Returns: The elided envelope.
-    func elideRevealing(_ target: [DigestProvider], encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
-        try elide(target, isRevealing: true, encryptingWith: key)
-    }
-    
-    /// Returns a version of this envelope with all elements *except* the target element elided.
-    ///
-    /// - Parameters:
-    ///   - target: A `DigestProvider`.
-    ///   - key: If provided, encrypt the targeted element using the `SymmetricKey` instead of eliding it.
-    ///
-    /// - Returns: The elided envelope.
-    func elideRevealing(_ target: DigestProvider, encryptingWith key: SymmetricKey? = nil) throws -> Envelope {
-        try elide(target, isRevealing: true, encryptingWith: key)
+    /// Throws an exception if the digest of the unelided version does not match.
+    func unelide(_ envelope: Envelope) throws -> Envelope {
+        guard digest == envelope.digest else {
+            throw Error.invalidDigest
+        }
+        return envelope
     }
 }

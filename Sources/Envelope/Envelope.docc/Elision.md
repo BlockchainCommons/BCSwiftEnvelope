@@ -1,30 +1,8 @@
-# Secure Components - Elision and Redaction
+# Elision and Redaction
 
-**Authors:** Wolf McNally, Christopher Allen, Blockchain Commons</br>
-**Revised:** Aug 26, 2022</br>
-**Status:** DRAFT
+Removing information without invalidating the digest tree.
 
----
-
-## Contents
-
-* [Envelope Introduction](00-INTRODUCTION.md)
-* [Envelope Overview](01-OVERVIEW.md)
-* [Envelope Notation](02-ENVELOPE-NOTATION.md)
-* [Output Formats](03-OUTPUT-FORMATS.md)
-* [Envelope Expressions](04-ENVELOPE-EXPRESSIONS.md)
-* [Definitions](05-DEFINITIONS.md)
-* [Examples](06-EXAMPLES.md)
-* [Noncorrelation](07-NONCORRELATION.md)
-* Elision and Redaction: This document
-* [Existence Proofs](09-EXISTENCE-PROOFS.md)
-* [Diffing Envelopes](10-DIFFING.md)
-* [Appendix A: Envelope Test Vectors](11-A-ENVELOPE-TEST-VECTORS.md)
-* [Appendix B: Envelope SSKR Test Vectors](12-B-ENVELOPE-SSKR-TEST-VECTORS.md)
-
----
-
-# Introduction
+## Overview
 
 One common use case for a general hierarchical container structure such as `Envelope` is *data minimization*, which is the privacy-preserving practice of only revealing what is necessary and sufficient for parties to trust each other and transact together.
 
@@ -90,7 +68,7 @@ Note that in this example the elision was performed by a the employer, who posse
 
 The Blockchain Commons `Envelope` type is designed for the construction of verifiable digital documents that can be as long-lived as a blockchain transaction or government-issued credential, or as ephemeral as a function call. Among its capabilities, `Envelope` includes affordances for `elision`, which is the selective withholding of specified information in a document, while still maintaining its integrity and verifiability.
 
-# Use Cases for Elision
+## Use Cases for Elision
 
 The term *elide* means "to leave out." In an `Envelope`, elided items are replaced by their Merkle tree digest, therefore allowing the same digests to be calculated for the entire tree despite those absences.
 
@@ -146,7 +124,7 @@ Either way, anyone who retrieves the photo can absolutely know it is correct bec
 
 Encryption might be seen as a special kind of redaction, where the original message is still present as ciphertext, and may only be "unredacted" (unencrypted) using the proper key. In this way, encryption is also isomorphic and reversible, and even interchangeable with elision.
 
-## Immutable References
+### Immutable References
 
 When an element of an `Envelope` is elided for the purpose of referencing, the only object that can be used to dereference it the identical image from which the digest was generated. This means that *a digest's referent is immutable*: every time a particular digest is dereferenced, the exact same referent must be returned.
 
@@ -154,7 +132,7 @@ It's important to realize that while information may be *elided* in in an envelo
 
 So when referencing a document by digest, the referent must be considered to be an immutable "snapshot" of a document.
 
-## Mutable References
+### Mutable References
 
 Of course, many documents change over time, or may contain different information depending on who's doing the recordkeeping. Databases all have the concept of a "unique key" for a record, such as a drivers license or passport number. Different databases can use the same numbers as keys referencing different records, and the records they keep may change.
 
@@ -164,11 +142,11 @@ Secure Components provides the [Common Identifier (CID)](https://github.com/Bloc
 
 So since CIDs are not tied to a specific binary object, dereferencing a CID may yield different versions of a document, or even completely disparate information.
 
-# Performing Elision - A Worked Example
+## Performing Elision - A Worked Example
 
 This section works through the example above: a continuing education credential that is redacted by an employer to reveal and warrant that their employee has such a credential, and which can still be verified.
 
-## Creating the Credential
+### Creating the Credential
 
 This is the Swift code to create our example credential:
 
@@ -218,11 +196,11 @@ If we print the credential in Envelope Notation, we get:
 ]
 ```
 
-## The Target Set
+### The Target Set
 
 Every part of an envelope generates a digest, and these together form a Merkle tree. So when eliding a document, we can decide what to remove or reveal by identifying a subset of all the digests that make up the tree. This set is known as the *target*. Normally we would create the target and then perform the elision in a single operation, but in this example we are going to build up the target in increments, showing the result of each step.
 
-## Creating the Empty Target
+### Creating the Empty Target
 
 Here is the Swift code to create an empty set of digests:
 
@@ -245,7 +223,7 @@ ELIDED
 
 We've essentially said, "Elide everything." Obviously this isn't very useful, so we now start to work our way down the tree to the parts we want to reveal.
 
-## Revealing the Top-Level Structure
+### Revealing the Top-Level Structure
 
 The first digest we need is the top-level digest of the envelope. This reveals the "macro structure" of the envelope.
 
@@ -263,7 +241,7 @@ ELIDED [
 
 This shows us that the envelope has a subject, which is still elided, and two assertions, both of which are still elided. The subject is the actual credential, and the assertions are the signature and the note.
 
-## Revealing the Signature
+### Revealing the Signature
 
 To reveal the two assertions, we iterate through them and add their "deep digests" to the target. Using `deepDigests` means that *everying* about the revealed assertions will be revealed, including any assertions they may have, recursively.
 
@@ -282,7 +260,7 @@ ELIDED [
 
 At this point, if one had the proper public keys, the receiver of this redacted credential could verify the signature, even without knowing anything else about the contents of the credential.
 
-## Revealing the Subject
+### Revealing the Subject
 
 The subject of the envelope, containing all the holder's information is still elided. So now we add the subject itself to the target:
 
@@ -301,7 +279,7 @@ target.insert(credential.subject)
 
 Comparing to the results of the previous step, we see a new pair of braces has appeared. This is because the subject of the document is *another* envelope that has been wrapped in its entirety to be signed. Notice the call to the `.wrap()` function at the start of this example above.
 
-## Revealing the Content
+### Revealing the Content
 
 So now we need to reveal the unwrapped content:
 
@@ -323,7 +301,7 @@ target.insert(content)
 
 Now it looks like we're getting somewhere! The wrapped envelope has a still-elided subject (the holder's CID) and ten assertions, all of which are still currently elided.
 
-## Revealing the CID
+### Revealing the CID
 
 We want to reveal the CID representing the issuing authority's unique reference to the credential holder. This is because the warranty the employer is making is that a specific identifiable employee has the credential, *without* actually revealing their identity. This allows the entire document to be identified and unredacted should a dispute ever arise.
 
@@ -342,7 +320,7 @@ target.insert(content.subject)
 ]
 ```
 
-## Revealing the Claims
+### Revealing the Claims
 
 The only actual assertions we want to reveal are `firstName`, `lastName`, `.isA`, `issuer`, `subject` and `expirationDate`, so we do this by finding those specific assertions by their predicate. The `shallowDigests` attribute returns just a necessary set of attributes to reveal the assertion, its predicate, and its object (yes, all three of them need to be revealed) but *not* any deeper assertions on them.
 
@@ -413,7 +391,7 @@ let warranty = try redactedCredential
 
 Success! This warranty, including the redacted credential may now be provided to the receiver, who can use it to verify the signature of both the issuing authority and the corporation, and thus hold the warrantor accountable.
 
-## Recap
+### Recap
 
 If you were to perform the entire composition of the target in a single block of code, you'd write:
 
@@ -451,7 +429,7 @@ let warranty = try redactedCredential
 
 In this example case, the target set would contain 28 digests.
 
-# The Structure of an Envelope
+## The Structure of an Envelope
 
 Understanding the structure of `Envelope` is essential to understanding how to navigate it, including performing elision.
 
@@ -470,7 +448,7 @@ envelope {
 
 ...where all of the symbols shown above, e.g. `envelope`, `subject`, `assertion1`, and `predicate2` are called *positions*. Each position is *itself* an `Envelope`, and therefore may carry its own assertions, recursively. Each position carries a digest, which may be used to refer to the object at that position.
 
-## A Tour of the Positions
+### A Tour of the Positions
 
 Let's take a tour of the positions of a simple `Envelope`, using elision to demonstrate each.
 
@@ -489,7 +467,7 @@ In each step below we'll start with the `Envelope` above and call `elideRemove(t
 
 Unlike the previous credential example above, note that we're *removing* the target, not *revealing* it.
 
-### Elide the Entire Envelope
+#### Elide the Entire Envelope
 
 Starting at the top, we elide the entire `Envelope`:
 
@@ -501,7 +479,7 @@ let e1 = try envelope.elideRemoving(envelope)
 ELIDED
 ```
 
-### Elide the Subject
+#### Elide the Subject
 
 ```swift
 let e2 = try envelope.elideRemoving(envelope.subject)
@@ -513,7 +491,7 @@ ELIDED [
 ]
 ```
 
-### Elide the Assertion
+#### Elide the Assertion
 
 ```swift
 let assertion = envelope.assertions.first!
@@ -526,7 +504,7 @@ let e3 = try envelope.elideRemoving(assertion)
 ]
 ```
 
-### Elide the Predicate
+#### Elide the Predicate
 
 ```swift
 let e4 = try envelope.elideRemoving(assertion.predicate!)
@@ -538,7 +516,7 @@ let e4 = try envelope.elideRemoving(assertion.predicate!)
 ]
 ```
 
-### Elide the Object
+#### Elide the Object
 
 ```swift
 let e5 = try envelope.elideRemoving(assertion.object!)
@@ -550,7 +528,7 @@ let e5 = try envelope.elideRemoving(assertion.object!)
 ]
 ```
 
-# Duplicate Digests
+## Duplicate Digests
 
 If a digest in a target occurs more than once in an `Envelope`'s tree, then doing an elision on it will reveal (or remove) that object everywhere it occurs. Consider this document, where the "knows" predicte appears twice:
 
@@ -593,11 +571,11 @@ let elided = try envelope.elideRemoving(target)
 ]
 ```
 
-# Exploratory Uses
+## Exploratory Uses
 
 Due to its unique structure, `Envelope` provides for some novel workflows which may be quite useful. These possibilities should also be considered for potential points of vulnerability or abuse.
 
-## Blinded Verification
+### Blinded Verification
 
 As demonstrated above, any part of an `Envelope` may be elided, and any signatures on that document can still be verified. This allows the possessor of a document to elide any part of it before passing it on, possibly changing the semantics of the document by what has been omitted.
 
@@ -609,7 +587,7 @@ The designer of an envelope structure should consider various privacy-preserving
 
 Receivers of elided documents should ensure that all fields are present necessary to ensure a trusted transaction.
 
-## Blind Signing
+### Blind Signing
 
 Just as it is possible to verify a signature on an elided document, it is also possible to sign an elided document.
 
@@ -617,7 +595,7 @@ Signers should always check a document for completeness and accuracy before sign
 
 Nonetheless, there may be interesting or useful cases for blind signing that might be investigated, including zero-knowledge proofs or other forms of cryptographic commitments.
 
-## Blinded Retrieval
+### Blinded Retrieval
 
 Consider the case of a photograph encoded as an Envelope and stored in a content addressible storage system using its digest as the key:
 
@@ -644,7 +622,7 @@ Digest(c5d6edb915682fea7cefeb6ae3822bb7430c3cb743c1ca3dd0895c3e9e367bf9) [
 
 This may be frustrating if the metadata is expected and needed, but might also be quite useful for the retrival API to offer options for smaller transfer sizes/times using server-side elision, while still preserving the document's cryptographic identity.
 
-## Parallel Semantics
+### Parallel Semantics
 
 Consider a secret agent issued an identity document by their governent. Elided this way, it looks like a perfectly normal identity document:
 
@@ -694,3 +672,7 @@ So what about those elided fields?
 ```
 
 Obviously all parties should be aware that elision can be used to reveal different semantics at different times, and decide what signatures, and what elisions, to require and trust.
+
+## See Also
+
+- <doc:Elision>

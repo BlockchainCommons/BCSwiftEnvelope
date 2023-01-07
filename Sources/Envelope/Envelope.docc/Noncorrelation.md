@@ -1,36 +1,14 @@
-# Secure Components - Noncorrelation
+# Noncorrelation
 
-**Authors:** Wolf McNally, Christopher Allen, Blockchain Commons</br>
-**Revised:** Aug 26, 2022</br>
-**Status:** DRAFT
+A discussion of noncorrelation, salt, and related concepts.
 
----
-
-## Contents
-
-* [Envelope Introduction](00-INTRODUCTION.md)
-* [Envelope Overview](01-OVERVIEW.md)
-* [Envelope Notation](02-ENVELOPE-NOTATION.md)
-* [Output Formats](03-OUTPUT-FORMATS.md)
-* [Envelope Expressions](04-ENVELOPE-EXPRESSIONS.md)
-* [Definitions](05-DEFINITIONS.md)
-* [Examples](06-EXAMPLES.md)
-* Noncorrelation: This document
-* [Elision and Redaction](08-ELISION-REDACTION.md)
-* [Existence Proofs](09-EXISTENCE-PROOFS.md)
-* [Diffing Envelopes](10-DIFFING.md)
-* [Appendix A: Envelope Test Vectors](11-A-ENVELOPE-TEST-VECTORS.md)
-* [Appendix B: Envelope SSKR Test Vectors](12-B-ENVELOPE-SSKR-TEST-VECTORS.md)
-
----
-
-# Introduction
+## Overview
 
 This document discusses noncorrelation and related concepts. It introduces terminology, then analyzes Secure Components from the standpoint of noncorrelation, then introduces the opt-in decorrelation capabilities built into the `Envelope` type.
 
-# Definitions
+## Definitions
 
-## Image and Projection
+### Image and Projection
 
 This document uses the term *image* to mean the input to an algorithm *f* and *projection* to mean the result of *f(image)*:
 
@@ -38,17 +16,17 @@ This document uses the term *image* to mean the input to an algorithm *f* and *p
 let projection = f(image)
 ```
 
-## Correlatability, Noncorrelatability
+### Correlatability, Noncorrelatability
 
 Bit sequences are said to be *correlatable* if by examining them there is a way to determine whether they are projections of the same image. If there is no practical way to learn whether a set of sequences are projections of a common image, they are said to be *noncorrelatable*.
 
-## Quasicorrelatability
+### Quasicorrelatability
 
 Between projections that are definitely correlatable and definitely noncorrelatable, there are projections that may leak a little information about their image, specifically: it's size.
 
 If multiple projections of the same image produce entirely noncorrelatable bit sequences, but the size of the projections are dependent on the size of the image, then the sequences are said to be *quasicorrelatable*. For example, if a function *f* always produces a projection that is the same number of bits as the image, or some fixed number of bits greater than the image, then the images are quasicorrelatable.
 
-## Decorrelation
+### Decorrelation
 
 *Decorrelation* is a correction for quasicorrelation through obfuscating the size of the image. By adding a pad of random bits to an image before projecting it, projections may be produced that may be of uniform size, or of sufficiently varying size. Either way the intent is that the size of a projection tells an observer nothing useful about the image, except that its size must be less than or equal to its projection.
 

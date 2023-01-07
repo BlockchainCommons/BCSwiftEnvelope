@@ -1,12 +1,12 @@
 import Foundation
 import SecureComponents
 
-// MARK: - Function construction
+// MARK: - Function Construction
 
 public extension Envelope {
     /// Creates an envelope with a `«function»` subject.
-    init(function: FunctionIdentifier) {
-        self.init(function)
+    init(function identifier: FunctionIdentifier) {
+        self.init(identifier)
     }
     
     /// Creates an envelope with a `«function»` subject.
@@ -20,7 +20,7 @@ public extension Envelope {
     }
 }
 
-// MARK: - Parameter construction.
+// MARK: - Parameter Construction.
 
 public extension Envelope {
     /// Creates a new envelope by adding a `❰parameter❱: value` assertion.
@@ -46,7 +46,7 @@ public extension Envelope {
     }
 }
 
-// MARK: - Request construction
+// MARK: - Request Construction
 
 public extension Envelope {
     /// Creates an envelope with a `CID` subject and a `body: «function»` assertion.
@@ -147,7 +147,9 @@ public extension Envelope {
         try result(KnownValue.self) == .ok
     }
     
-    /// Returns the value
+    /// Returns the error value.
+    ///
+    /// - Throws: Throws an exception if there is no `error` predicate.
     func error<T: CBORDecodable>(_ type: T.Type) throws -> T {
         try extractObject(T.self, forPredicate: .error)
     }

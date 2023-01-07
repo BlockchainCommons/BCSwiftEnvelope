@@ -1,36 +1,14 @@
-# Secure Components - Examples
+# Examples
 
-**Authors:** Wolf McNally, Christopher Allen, Blockchain Commons</br>
-**Revised:** Aug 26, 2022</br>
-**Status:** DRAFT
+High-level examples of API usage.
 
----
+## Overview
 
-## Contents
-
-* [Envelope Introduction](00-INTRODUCTION.md)
-* [Envelope Overview](01-OVERVIEW.md)
-* [Envelope Notation](02-ENVELOPE-NOTATION.md)
-* [Output Formats](03-OUTPUT-FORMATS.md)
-* [Envelope Expressions](04-ENVELOPE-EXPRESSIONS.md)
-* [Definitions](05-DEFINITIONS.md)
-* Examples: This document
-* [Noncorrelation](07-NONCORRELATION.md)
-* [Elision and Redaction](08-ELISION-REDACTION.md)
-* [Existence Proofs](09-EXISTENCE-PROOFS.md)
-* [Diffing Envelopes](10-DIFFING.md)
-* [Appendix A: Envelope Test Vectors](11-A-ENVELOPE-TEST-VECTORS.md)
-* [Appendix B: Envelope SSKR Test Vectors](12-B-ENVELOPE-SSKR-TEST-VECTORS.md)
-
----
-
-## Introduction
-
-This section includes a set of high-level examples of API usage in Swift involving `Envelope`.
+This article includes a set of high-level examples of API usage in Swift involving `Envelope`.
 
 ## Status
 
-These examples are actual, running unit tests in the [BCSwiftSecureComponents package](https://github.com/blockchaincommons/BCSwiftSecureComponents). The document and implementation as a whole are considered a draft.
+These examples are actual, running unit tests in this package. The document and implementation as a whole are considered a draft.
 
 ## Common structures used by the examples
 
@@ -541,9 +519,9 @@ let aliceSignedDocument2 = try aliceUnsignedDocument
     .sign(with: alicePrivateKeys, note: "Made by Alice.")
 
 XCTAssertNotEqual(aliceSignedDocument, aliceSignedDocument2)
-```
 
-➡️ ☁️ ➡️
+// Alice ➡️ ☁️ ➡️ Registrar
+```
 
 A registrar checks the signature on Alice's submitted identifier document, performs any other necessary validity checks, and then extracts her CID from it.
 

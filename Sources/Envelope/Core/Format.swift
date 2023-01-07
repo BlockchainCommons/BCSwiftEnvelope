@@ -6,21 +6,34 @@ import SecureComponents
 
 public extension Envelope {
     /// Returns the envelope notation for this envelope.
+    ///
+    /// See <doc:Notation> for a description of envelope notation.
     var format: String {
         formatItem.format.trim()
     }
 
     /// Returns the CBOR diagnostic notation for this envelope.
+    ///
+    /// See [RFC-8949 §8](https://www.rfc-editor.org/rfc/rfc8949.html#name-diagnostic-notation)
+    /// for information on CBOR diagnostic notation.
     var diag: String {
         taggedCBOR.diag
     }
 
     /// Returns the annotated CBOR diagnostic notation for this envelope.
+    ///
+    /// See [RFC-8949 §8](https://www.rfc-editor.org/rfc/rfc8949.html#name-diagnostic-notation)
+    /// for information on CBOR diagnostic notation.
+    ///
+    /// Includes comments for tags in the known tags registry. See `SecureComponents.CBOR.setKnownTag(_:)`.
     var diagAnnotated: String {
         taggedCBOR.diagAnnotated
     }
 
     /// Returns the CBOR hex dump of this envelope.
+    ///
+    /// See [RFC-8949](https://www.rfc-editor.org/rfc/rfc8949.html) for information on
+    /// the CBOR binary format.
     var dump: String {
         taggedCBOR.dump
     }

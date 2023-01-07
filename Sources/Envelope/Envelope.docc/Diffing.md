@@ -1,30 +1,6 @@
-# Secure Components - Diffing Envelopes
+# Diffing Envelopes
 
-**Authors:** Wolf McNally, Christopher Allen, Blockchain Commons</br>
-**Revised:** Dec 5, 2022</br>
-**Status:** DRAFT
-
----
-
-## Contents
-
-* [Envelope Introduction](00-INTRODUCTION.md)
-* [Envelope Overview](01-OVERVIEW.md)
-* [Envelope Notation](02-ENVELOPE-NOTATION.md)
-* [Output Formats](03-OUTPUT-FORMATS.md)
-* [Envelope Expressions](04-ENVELOPE-EXPRESSIONS.md)
-* [Definitions](05-DEFINITIONS.md)
-* [Examples](06-EXAMPLES.md)
-* [Noncorrelation](07-NONCORRELATION.md)
-* [Elision and Redaction](08-ELISION-REDACTION.md)
-* [Existence Proofs](09-EXISTENCE-PROOFS.md)
-* Diffing Envelopes: This document
-* [Appendix A: Envelope Test Vectors](11-A-ENVELOPE-TEST-VECTORS.md)
-* [Appendix B: Envelope SSKR Test Vectors](12-B-ENVELOPE-SSKR-TEST-VECTORS.md)
-
----
-
-## Introduction
+## Overview
 
 Comparing two structures like text strings for the minimum number of changes necessary to convert one to the other is called the [edit distance problem](https://en.wikipedia.org/wiki/Edit_distance). The Unix `diff` command is used to compare two files (the "source" and "target") and produce a set of changes ("edits") that can be applied to the source (using the `patch` command) to reproduce the target. The set of edits is generally smaller than either the source or the target unless the source and/or target are very small, or the contents of the two are very different.
 

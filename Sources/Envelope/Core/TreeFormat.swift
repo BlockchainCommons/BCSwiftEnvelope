@@ -6,6 +6,15 @@ import SecureComponents
 
 public extension Envelope {
     /// Returns the tree notation for this envelope.
+    ///
+    /// See <doc:OutputFormats> for more information.
+    ///
+    /// - Parameters:
+    ///   - hideNodes: `true` if the semantic layout of the envelope is to be displayed,
+    ///   `false` if the structural layout of the envelope is to be displayed.
+    ///   - target: All elements in `target` will be highlighted with an asterisk.
+    ///
+    /// - Returns: The tree notation description.
     func treeFormat(hideNodes: Bool = false, highlighting target: Set<Digest> = []) -> String {
         var elements: [TreeElement] = []
         walk(hideNodes: hideNodes) { (envelope, level, incomingEdge, _) -> Int? in

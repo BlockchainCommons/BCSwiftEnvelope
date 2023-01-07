@@ -1,30 +1,8 @@
-# Secure Components - Envelope Overview
+# Envelope Overview
 
-**Authors:** Wolf McNally, Christopher Allen, Blockchain Commons</br>
-**Revised:** Aug 26, 2022</br>
-**Status:** DRAFT
+A high-level introduction to Gordian Envelope.
 
----
-
-## Contents
-
-* [Envelope Introduction](00-INTRODUCTION.md)
-* Envelope Overview: This document
-* [Envelope Notation](02-ENVELOPE-NOTATION.md)
-* [Output Formats](03-OUTPUT-FORMATS.md)
-* [Envelope Expressions](04-ENVELOPE-EXPRESSIONS.md)
-* [Definitions](05-DEFINITIONS.md)
-* [Examples](06-EXAMPLES.md)
-* [Noncorrelation](07-NONCORRELATION.md)
-* [Elision and Redaction](08-ELISION-REDACTION.md)
-* [Existence Proofs](09-EXISTENCE-PROOFS.md)
-* [Diffing Envelopes](10-DIFFING.md)
-* [Appendix A: Envelope Test Vectors](11-A-ENVELOPE-TEST-VECTORS.md)
-* [Appendix B: Envelope SSKR Test Vectors](12-B-ENVELOPE-SSKR-TEST-VECTORS.md)
-
----
-
-## Introduction
+## Overview
 
 The `Envelope` type efficiently supports everything from enclosing the most basic of plaintext messages, to innumerable recursive permutations of encryption, signing, sharding, and representing semantic graphs. Here is its notional definition in Swift:
 
@@ -50,20 +28,24 @@ Combining the `subject` of an `Envelope` with the `predicate` and `object` of an
 
 This assertion-predicate-object triplet may be more easily understood by considering its linguistic usage:
 
-```mermaid
-graph LR
-    subject:Alice --> |predicate:knows| object:Bob
-```
+![Alice knows bob.](overview1)
+
+<!--```mermaid-->
+<!--graph LR-->
+<!--    subject:Alice --> |predicate:knows| object:Bob-->
+<!--```-->
 
 > "Alice knows Bob."
 
 There can be any number assertions associated with each subject:
 
-```mermaid
-graph LR
-    subject:Alice --> |predicate:knows| object:Bob
-    subject:Alice --> |predicate:dislikes| object:Carol
-```
+![Alice knows bob and dislikes Carol.](overview2)
+
+<!--```mermaid-->
+<!--graph LR-->
+<!--    subject:Alice --> |predicate:knows| object:Bob-->
+<!--    subject:Alice --> |predicate:dislikes| object:Carol-->
+<!--```-->
 
 > "Alice knows Bob and dislikes Carol."
 

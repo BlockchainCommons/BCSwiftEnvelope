@@ -1,28 +1,4 @@
-# Secure Components - Existence Proofs
-
-**Authors:** Wolf McNally, Christopher Allen, Blockchain Commons</br>
-**Revised:** Oct 5, 2022</br>
-**Status:** DRAFT
-
----
-
-## Contents
-
-* [Envelope Introduction](00-INTRODUCTION.md)
-* [Envelope Overview](01-OVERVIEW.md)
-* [Envelope Notation](02-ENVELOPE-NOTATION.md)
-* [Output Formats](03-OUTPUT-FORMATS.md)
-* [Envelope Expressions](04-ENVELOPE-EXPRESSIONS.md)
-* [Definitions](05-DEFINITIONS.md)
-* [Examples](06-EXAMPLES.md)
-* [Noncorrelation](07-NONCORRELATION.md)
-* [Elision and Redaction](08-ELISION-REDACTION.md)
-* Existence Proofs: This document
-* [Diffing Envelopes](10-DIFFING.md)
-* [Appendix A: Envelope Test Vectors](11-A-ENVELOPE-TEST-VECTORS.md)
-* [Appendix B: Envelope SSKR Test Vectors](12-B-ENVELOPE-SSKR-TEST-VECTORS.md)
-
----
+# Existence Proofs
 
 ## Introduction
 

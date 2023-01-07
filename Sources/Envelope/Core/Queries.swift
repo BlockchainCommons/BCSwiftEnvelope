@@ -9,6 +9,8 @@ extension Envelope.Error {
 
 public extension Envelope {
     /// The envelope's subject.
+    ///
+    /// For an envelope with no assertions, `subject` will return the same envelope.
     var subject: Envelope {
         if case .node(let subject, _, _) = self {
             return subject
@@ -29,22 +31,28 @@ public extension Envelope {
         !assertions.isEmpty
     }
 
-    /// The envelope's `Assertion`, or `nil` if the envelope is not an assertion.
-    var assertion: Assertion? {
-        guard case .assertion(let assertion) = self else {
+    /// If the envelope's subject is an assertion return it, else return `nil`.
+    var assertion: Envelope? {
+        guard isSubjectAssertion else {
             return nil
         }
-        return assertion
+        return subject
     }
 
     /// The envelope's predicate, or `nil` if the envelope is not an assertion.
     var predicate: Envelope! {
-        assertion?.predicate
+        guard case .assertion(let assertion) = self else {
+            return nil
+        }
+        return assertion.predicate
     }
 
     /// The envelope's object, or `nil` if the envelope is not an assertion.
     var object: Envelope! {
-        assertion?.object
+        guard case .assertion(let assertion) = self else {
+            return nil
+        }
+        return assertion.object
     }
 
     /// The envelope's leaf CBOR object, or `nil` if the envelope is not a leaf.

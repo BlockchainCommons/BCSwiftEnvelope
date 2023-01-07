@@ -5,6 +5,10 @@ import SecureComponents
 
 public extension Envelope {
     /// The envelope's digest.
+    ///
+    /// This digest can be used to compare two envelopes for semantic equivalence, that
+    /// is, the two envelopes would contain the same information in their unencrypted
+    /// and unelided forms. See <doc:Diffing> for more information.
     var digest: Digest {
         switch self {
         case .node(subject: _, assertions: _, digest: let digest):

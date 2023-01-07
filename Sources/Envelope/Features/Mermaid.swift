@@ -17,6 +17,7 @@ public extension Envelope {
         graph(hideNodes: hideNodes, data: MermaidOptions(layoutDirection: layoutDirection, theme: theme, includeDigests: !hideNodes)).mermaidFormat
     }
     
+    /// Options for [Mermaid](https://mermaid.js.org/#/) output.
     struct MermaidOptions {
         public let layoutDirection: LayoutDirection
         public let theme: Theme

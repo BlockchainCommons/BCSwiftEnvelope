@@ -1,36 +1,10 @@
-# Secure Components - Envelope Notation
+# Envelope Notation
 
-**Authors:** Wolf McNally, Christopher Allen, Blockchain Commons</br>
-**Revised:** Aug 26, 2022</br>
-**Status:** DRAFT
+A simplified textual notation for pretty-printing instances of the `Envelope` type.
 
----
+## Overview
 
-## Contents
-
-* [Envelope Introduction](00-INTRODUCTION.md)
-* [Envelope Overview](01-OVERVIEW.md)
-* Envelope Notation: This document
-* [Output Formats](03-OUTPUT-FORMATS.md)
-* [Envelope Expressions](04-ENVELOPE-EXPRESSIONS.md)
-* [Definitions](05-DEFINITIONS.md)
-* [Examples](06-EXAMPLES.md)
-* [Noncorrelation](07-NONCORRELATION.md)
-* [Elision and Redaction](08-ELISION-REDACTION.md)
-* [Existence Proofs](09-EXISTENCE-PROOFS.md)
-* [Diffing Envelopes](10-DIFFING.md)
-* [Appendix A: Envelope Test Vectors](11-A-ENVELOPE-TEST-VECTORS.md)
-* [Appendix B: Envelope SSKR Test Vectors](12-B-ENVELOPE-SSKR-TEST-VECTORS.md)
-
----
-
-## Introduction
-
-We provide a simplified textual notation for pretty-printing instances of the `Envelope` type.
-
-## Status
-
-This document is a draft with a reference implementation in [BCSwiftSecureComponents](https://github.com/blockchaincommons/BCSwiftSecureComponents).
+Envelope notation is a simplified textual notation for pretty-printing instances of the `Envelope` type.
 
 * Braces `{ }` are used to delimit the contents of a nested `Envelope`.
 * Top-level braces representing the outermost `Envelope` are omitted.
@@ -116,17 +90,13 @@ Thus, the `Envelope` type provides a flexible foundation for constructing soluti
 
 ## Examples
 
----
-
-## An envelope containing plaintext.
+### An envelope containing plaintext.
 
 ```
 "Hello."
 ```
 
----
-
-## An envelope containing signed plaintext.
+### An envelope containing signed plaintext.
 
 The `subject` is a string with a single `assertion` whose predicate is a well-known integer with a CBOR tag meaning `predicate`, while the object is a `Signature`.
 
@@ -136,9 +106,7 @@ The `subject` is a string with a single `assertion` whose predicate is a well-kn
 ]
 ```
 
----
-
-## An envelope containing plaintext signed by several parties.
+### An envelope containing plaintext signed by several parties.
 
 Although you cannot have duplicate assertions every signature is unique, hence these are two *different* assertions.
 
@@ -149,9 +117,7 @@ Although you cannot have duplicate assertions every signature is unique, hence t
 ]
 ```
 
----
-
-## An envelope containing a symmetrically encrypted message.
+### An envelope containing a symmetrically encrypted message.
 
 The subject is just an `EncryptedMessage`. Because this `EncryptedMessage` is the `subject` of an `Envelope`, we do know that its plaintext MUST be CBOR. This CBOR plaintext may be a leaf or another `Envelope` with more layers of assertions possibly  including signatures, but the receiver will have to decrypt it to find out.
 
@@ -159,9 +125,7 @@ The subject is just an `EncryptedMessage`. Because this `EncryptedMessage` is th
 ENCRYPTED
 ```
 
----
-
-## A message that has been encrypted then signed.
+### A message that has been encrypted then signed.
 
 The sender has first encrypted a message, then signed it. The signature can be verified before the actual message is decrypted because an encrypted `subject` carries the digest of the plaintext with it, and it is this digest that is used with the signature for verification.
 
@@ -171,9 +135,7 @@ ENCRYPTED [
 ]
 ```
 
----
-
-## A message that can only be opened by specific receivers.
+### A message that can only be opened by specific receivers.
 
 An ephemeral "content key" has been used to encrypt the message and the content key itself has been encrypted to one or more receipients' public keys. Therefore, only the intended recipients can decrypt and read the message, without the sender and receivers having to exchange a secret symmetric key first.
 
@@ -184,9 +146,7 @@ ENCRYPTED [
 ]
 ```
 
----
-
-## A signed envelope that can only be opened by specific receivers.
+### A signed envelope that can only be opened by specific receivers.
 
 As before, the signature can be outside the `subject` message, as below, or inside it, requiring decryption before verification.
 
@@ -198,9 +158,7 @@ ENCRYPTED [
 ]
 ```
 
----
-
-## Several Envelopes containing a message split into several SSKR shares.
+### Several Envelopes containing a message split into several SSKR shares.
 
 A message has been split into a three shares using SSKR and distributed to three trustees. Two of these shares must be recovered to reconstruct the original message.
 
@@ -218,9 +176,7 @@ ENCRYPTED [
 ]
 ```
 
----
-
-## Complex Metadata
+### Complex Metadata
 
 A specific digital object is identified and several layers of metadata are attributed to it. In this example some predicates are specified as strings (indicated by quotes) while other predicates use tagged well-known integers (no quotes).
 
@@ -248,9 +204,7 @@ Digest(e8aa201db4044168d05b77d7b36648fb7a97db2d3e72f5babba9817911a52809) [
 ]
 ```
 
----
-
-## Verifiable Credential
+### Verifiable Credential
 
 A government wishes to issue a verifiable credential for permanent residency to an individual using a Common Identifier (CID) provided by that person.
 
@@ -290,15 +244,13 @@ A government wishes to issue a verifiable credential for permanent residency to 
 ]
 ```
 
----
-
-## Elision (Redaction)
+### Elision (Redaction)
 
 The holder of a credential may selectively reveal any of the micro-claims in this document. For instance, the holder could reveal just their name, their photo, and the issuer's signature, thereby proving that the issuer did indeed certify those facts.
 
 Elision is performed by building a target set of `Digest`s that will be revealed. All digests not present in the target will be replaced with elision markers containing only the digest of what has been elided, thus preserving the Merkle tree including revealed signatures. If a higher-level object is elided, then everything it contains will also be elided, so if a deeper object is to be revealed, all of its parent objects up to the level of the verifying signature also need to be revealed, even though not everything *about* the parent objects must be revealed.
 
-See [Elision & Redaction](08-ELISION-REDACTION.md) for more on this topic.
+See <doc:Elision> for more on this topic.
 
 ```
 {

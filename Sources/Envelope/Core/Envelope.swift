@@ -55,25 +55,55 @@ extension Envelope: CustomStringConvertible {
 
 public extension Envelope {
     /// Create an envelope with the given subject.
-    init(_ item: Any) {
-        if let envelope = item as? Envelope {
+    ///
+    /// If the subject is another ``Envelope``, a wrapped envelope is created.
+    /// If the subject is a ``KnownValue-swift.struct``, a known value envelope is created.
+    /// If the subject is an ``Assertion-swift.struct``, an assertion envelope is created.
+    /// If the subject is an `EncryptedMessage`, with a properly declared `Digest`, then an encrypted Envelope is created.
+    /// If the subject is any type conforming to `CBOREncodable`, then a leaf envelope is created.
+    /// Any other type passed as `subject` is a programmer error and results in a trap.
+    ///
+    /// ```swift
+    /// let e = Envelope("Hello")
+    /// print(e.format)
+    /// ```
+    ///
+    /// ```
+    /// "Hello"
+    /// ```
+    /// - Parameter subject: The envelope's subject.
+    init(_ subject: Any) {
+        if let envelope = subject as? Envelope {
             self.init(wrapped: envelope)
-        } else if let knownValue = item as? KnownValue {
+        } else if let knownValue = subject as? KnownValue {
             self.init(knownValue: knownValue)
-        } else if let assertion = item as? Assertion {
+        } else if let assertion = subject as? Assertion {
             self.init(assertion: assertion)
         } else if
-            let encryptedMessage = item as? EncryptedMessage,
+            let encryptedMessage = subject as? EncryptedMessage,
             encryptedMessage.digest != nil
         {
             try! self.init(encryptedMessage: encryptedMessage)
-        } else if let cborItem = item as? CBOREncodable {
+        } else if let cborItem = subject as? CBOREncodable {
             self.init(cborEncodable: cborItem)
         } else {
             preconditionFailure()
         }
     }
     
+    /// Create an envelope with the given subject.
+    ///
+    /// This is a convenience constructor for ``KnownValue-swift.struct`` subjects.
+    ///
+    /// ```swift
+    /// let e = Envelope(.verifiedBy)
+    /// print(e.format)
+    /// ```
+    ///
+    /// ```
+    /// verifiedBy
+    /// ```
+    /// - Parameter knownValue: The envelope's subject, a ``KnownValue-swift.struct``.
     init(_ knownValue: KnownValue) {
         self.init(knownValue: knownValue)
     }

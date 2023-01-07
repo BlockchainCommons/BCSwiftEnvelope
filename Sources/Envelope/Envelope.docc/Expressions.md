@@ -1,34 +1,14 @@
-# Secure Components - Envelope Expressions
+# Envelope Expressions
 
-**Authors:** Wolf McNally, Christopher Allen, Blockchain Commons</br>
-**Revised:** Aug 26, 2022</br>
-**Status:** DRAFT
+Envelope Expressions are a method for encoding machine-evaluatable expressions using ``Envelope``.
 
----
+## Overview
 
-## Contents
-
-* [Envelope Introduction](00-INTRODUCTION.md)
-* [Envelope Overview](01-OVERVIEW.md)
-* [Envelope Notation](02-ENVELOPE-NOTATION.md)
-* [Output Formats](03-OUTPUT-FORMATS.md)
-* Envelope Expressions: This document
-* [Definitions](05-DEFINITIONS.md)
-* [Examples](06-EXAMPLES.md)
-* [Noncorrelation](07-NONCORRELATION.md)
-* [Elision and Redaction](08-ELISION-REDACTION.md)
-* [Existence Proofs](09-EXISTENCE-PROOFS.md)
-* [Diffing Envelopes](10-DIFFING.md)
-* [Appendix A: Envelope Test Vectors](11-A-ENVELOPE-TEST-VECTORS.md)
-* [Appendix B: Envelope SSKR Test Vectors](12-B-ENVELOPE-SSKR-TEST-VECTORS.md)
-
----
-
-## Introduction
+This is an early draft specification.
 
 We provide a method for encoding machine-evaluatable expressions using `Envelope`. Evaluating expressions produces results that can substitute in-place for the original unevaluated expression, although the replacement may have a different digest.
 
-Ideally the method of encoding would have the following traits:
+Ideally the method of encoding expressions would have the following traits:
 
 * Allow any mathematical or algorithmic expressions, including the evalution of spending conditions and smart contracts.
 * Be easy for humans to read.
@@ -37,11 +17,7 @@ Ideally the method of encoding would have the following traits:
 * Support scoped variable substitution.
 * Be [homoiconic](https://en.wikipedia.org/wiki/Homoiconicity).
 
-## Status
-
-This document is an early draft. While there is a reference implementation of `Envelope` in [BCSwiftSecureComponents](https://github.com/blockchaincommons/BCSwiftSecureComponents), there is currently no general reference implementation of Envelope Expressions. There is an implementation of distributed function calls using Envelope Expressions in the [BCSwiftFoundation](https://github.com/blockchaincommons/BCSwiftFoundation) framework.
-
-**NOTE:** None of the function names defined in this document are normative. The goal of this document is to explore and define the structure of how expressions may be evaluated in the context of `Envelope`, and not to define specific functions.
+Evaluating expressions produces results that can substitute in-place for the original unevaluated expression, although the replacement may have a different digest.
 
 ## Well-Known Expressions
 
@@ -51,13 +27,11 @@ Even for expressions that are not "well known," like any other `Envelope`, an ex
 
 ## Example Expressions
 
-All of these examples are in Envelope Notation.
+All of these examples are in envelope notation.
 
----
+### Constants
 
-## Constants
-
-Constants like numbers, strings, and even compound data types like `EncryptedMessage` are directly encodable as an Envelope whose `subject` is an instance of the constant's CBOR type. Obviously, they evaluate to themselves.
+Constants like numbers, strings, and even compound data types like `EncryptedMessage` are directly encodable as an Envelope whose subject is an instance of the constant's CBOR type. Obviously, they evaluate to themselves.
 
 ```
 2
@@ -71,7 +45,7 @@ Constants like numbers, strings, and even compound data types like `EncryptedMes
 ENCRYPTED
 ```
 
-## Errors
+### Errors
 
 An expression evaluation that fails for syntactical or semantic reasons results in an error that may include assertions providing diagnostic information:
 
@@ -81,11 +55,9 @@ Error [
 ]
 ```
 
-An error in a sub-expression likewise causes the containing expression to fail and propagate the error toward the top-level expression.
+### Binary Operator
 
-## Binary Operator
-
-The `subject` of an `Envelope` that may be evaluated as an expression is tagged `func`, and each parameter to the function is a predicate tagged `param` with the object that supplies the argument. The Envelope expression language therefore uses a form of named parameters, although it is not limited to this paradigm. The purpose of tagging functions and parameters is to make them easily machine-distinguishable from other metadata.
+The subject of an `Envelope` that may be evaluated as an expression is tagged `func`, and each parameter to the function is a predicate tagged `param` with the object that supplies the argument. The Envelope expression language therefore uses a form of named parameters, although it is not limited to this paradigm. The purpose of tagging functions and parameters is to make them easily machine-distinguishable from other metadata.
 
 Assertions that are not tagged as parameters are ignored by the expression evaluator. Assertions that are tagged as parameters but are either not expected by the function, or have duplicate predicates are an error. Functions may have parameters that are required or optional, and not supplying all required parameters is an error.
 
@@ -107,7 +79,7 @@ When evaluated, the result is an Envelope that may be substituted for the origin
 
 **NOTE:** In the remainder of this document, `func(name)` is denoted as `«name»` and `param(name)` is denoted as `❰name❱`
 
-## Unary Operator
+### Unary Operator
 
 Unary operators are simply functions of arity one. One parameter name may be blank, denoted `❰_❱`. This is most frequently seen with unary operators.
 
@@ -121,7 +93,7 @@ Unary operators are simply functions of arity one. One parameter name may be bla
 -10
 ```
 
-## Function Composition
+### Function Composition
 
 The composition `f(g(x))`:
 
@@ -133,7 +105,7 @@ The composition `f(g(x))`:
 ]
 ```
 
-## Logical Predicates
+### Logical Predicates
 
 Operators that evaluate to boolean values are often known as "predicates". To avoid confusing them with the "predicate" role in the Envelope type and in the nomenclature of semantic triples, we refer to these operations as "logical predicates" and where further clarification is needed, the other type as "semantic predicates".
 
@@ -150,7 +122,7 @@ Operators that evaluate to boolean values are often known as "predicates". To av
 false
 ```
 
-## Function Call (N-ary Operator)
+### Function Call (N-ary Operator)
 
 Function calls of any arity may be encoded:
 
@@ -170,7 +142,7 @@ verifySignature(key: pubkey, sig: signature, digest: sha256(message)) -> Bool
 
 The `verifySignature` function is a logical predicate. The result of this expression is a boolean value that would typically be used as the object of an assertion.
 
-## Structured Parameters
+### Structured Parameters
 
 Functions may take parameters that are sequences encoded as CBOR arrays, or dictionaries encoded as CBOR maps.
 
@@ -184,20 +156,20 @@ Functions may take parameters that are sequences encoded as CBOR arrays, or dict
 FooBarBaz
 ```
 
-## Distributed Function Calls
+### Distributed Function Calls
 
 A distributed function call (also known as a "remote procedure call") is a call invoked on systems that do not reside in the same process as the caller.
 
 Due to latency and availability, all distributed function calls are by nature asynchronous, and any distributed function call may fail. The caller of a function may expect a particular result of that call, and that result needs to be routed back to the calling process.
 
-To facilitate this, we generate a unique CID and tag it `request`. This becomes the `subject` of an envelope that must contain an assertion with `body` as the `predicate`, and the `object` must be an envelope expression as described herein. The wrapping `request(CID)` provides a unique identifier used to route the result of the request back to the caller:
+To facilitate this, we generate a unique CID and tag it `request`. This becomes the subject of an envelope that must contain an assertion with `body` as the `predicate`, and the `object` must be an envelope expression as described herein. The wrapping `request(CID)` provides a unique identifier used to route the result of the request back to the caller:
 
 ```
 request(CID(a5d19014d54d40a9ed03ca9bc487a2729271c43811a4d5a4247e704f2c61ae3e)) [
-	body: «add» [
-	    ❰lhs❱: 2
-	    ❰rhs❱: 3
-	]
+    body: «add» [
+        ❰lhs❱: 2
+        ❰rhs❱: 3
+    ]
 ]
 ```
 
@@ -205,27 +177,27 @@ Once the expression has been evaluated, its result is returned in an envelope wi
 
 ```
 response(CID(a5d19014d54d40a9ed03ca9bc487a2729271c43811a4d5a4247e704f2c61ae3e)) [
-	result: 5
+    result: 5
 ]
 ```
 
 Any party to a request/response may use the CID as a way of discarding duplicates, avoiding replays, or as input to a cryptographic algorithm. See the [CID specification](https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2022-002-cid-common-identifier.md) for more information.
 
-Because the functionality of `Envelope` is composable, the outer envelope of a request or a response can be signed as a way of authenticating the request, and if necessary the request and/or response can be encrypted by any of the available methods.
+Because the functionality of envelope is composable, the outer envelope of a request or a response can be signed as a way of authenticating the request, and if necessary the request and/or response can be encrypted by any of the available methods.
 
 A request may contain further instructions on the channels via which it may be responded to. For example, a request may be scanned with a QR code, and that request may include a URL with a REST endpoint via which to return the result:
 
 ```
 request(CID(a5d19014d54d40a9ed03ca9bc487a2729271c43811a4d5a4247e704f2c61ae3e)) [
-	body: «add» [
-	    ❰lhs❱: 2
-	    ❰rhs❱: 3
-	]
-	respondVia: URI(https://example.com/api/receive-response)
+    body: «add» [
+        ❰lhs❱: 2
+        ❰rhs❱: 3
+    ]
+    respondVia: URI(https://example.com/api/receive-response)
 ]
 ```
 
-## Variable Substitution and Partially-Applied Expressions
+### Variable Substitution and Partially-Applied Expressions
 
 Envelope expressions support scoped variable substitution.
 
@@ -249,7 +221,7 @@ Corresponding predicates that are CBOR unsigned integers or CBOR strings and tag
 ]
 ```
 
-### Complete Replacement
+#### Complete Replacement
 
 The scope of replacement is recursive, but stops at any separately enclosed envelopes.
 
@@ -271,7 +243,7 @@ In this example, there is only a top set of replacements, so all variables are s
 ]
 ```
 
-### Scoped Replacement
+#### Scoped Replacement
 
 In this case, the `rhs` argument of the top-level function has been enclosed, so the enclosed substitutions are considered to be in a different scope:
 
@@ -307,7 +279,7 @@ Because of this, when the above expression is evaluated only the `$a` substituti
 ]
 ```
 
-## Replacement with Rescoping
+#### Replacement with Rescoping
 
 In this version, the inner expression has its own `replacement` assertions that pass the outer replacements inward under different names. One of these replacements is itself an expression:
 
@@ -344,7 +316,7 @@ By successive substitution, this expression evaluates to:
 5. `10 + 660`
 6. `670`
 
-## Higher-Ordered Functions
+### Higher-Ordered Functions
 
 Functions may take functions as parameters.
 
@@ -392,7 +364,7 @@ And finally:
 16
 ```
 
-## Structured Programming
+### Structured Programming
 
 Functions may perform tests yielding different evaluation paths. For example the conditional expression in C-like languages: `20 > 10 ? "Big" : "Small"` may be encoded as:
 
@@ -412,7 +384,7 @@ Functions may perform tests yielding different evaluation paths. For example the
 "Big"
 ```
 
-## Atomic Swap
+### Atomic Swap
 
 In this example an [adaptor signature](https://bitcoinops.org/en/topics/adaptor-signatures/) is represented by the type `EncryptedSignature`, and a "hidden value" or "tweak" is represented by the type `DecryptionKey`.
 
@@ -543,3 +515,7 @@ Transaction(Alice) [
 ```
 
 Bob broadcasts that transaction to receive Alice’s payment, completing the coinswap.
+
+## See Also
+
+- <doc:Expressions>

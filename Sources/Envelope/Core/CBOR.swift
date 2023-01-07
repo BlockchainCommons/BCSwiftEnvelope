@@ -4,67 +4,9 @@ import SecureComponents
 /// Support for CBOR encoding and decoding of ``Envelope``.
 
 public extension Envelope {
-    /// Returns the envelope encoded as CBOR.
-    var untaggedCBOR: CBOR {
-        switch self {
-        case .node(let subject, let assertions, _):
-            precondition(!assertions.isEmpty)
-            var result = [subject.taggedCBOR]
-            for assertion in assertions {
-                result.append(assertion.taggedCBOR)
-            }
-            return CBOR.array(result)
-        case .leaf(let cbor, _):
-            return CBOR.tagged(.leaf, cbor)
-        case .wrapped(let envelope, _):
-            return CBOR.tagged(.wrappedEnvelope, envelope.untaggedCBOR)
-        case .knownValue(let knownValue, _):
-            return knownValue.taggedCBOR
-        case .assertion(let assertion):
-            return assertion.taggedCBOR
-        case .encrypted(let encryptedMessage):
-            return encryptedMessage.taggedCBOR
-        case .elided(let digest):
-            return digest.taggedCBOR
-        }
-    }
-
     /// Returns the envelope encoded as tagged CBOR.
     var taggedCBOR: CBOR {
         CBOR.tagged(.envelope, untaggedCBOR)
-    }
-
-    /// Creates an envelope by decoding the provided untagged CBOR.
-    ///
-    /// Throws if the provided CBOR is not a well-formed envelope.
-    init(untaggedCBOR cbor: CBOR) throws {
-        switch cbor {
-        case CBOR.tagged(.leaf, let item):
-            self.init(cbor: item)
-        case CBOR.tagged(.knownValue, let item):
-            self.init(knownValue: try KnownValue(untaggedCBOR: item))
-        case CBOR.tagged(.wrappedEnvelope, let item):
-            self.init(wrapped: try Envelope(untaggedCBOR: item))
-        case CBOR.tagged(.assertion, let item):
-            self.init(assertion: try Assertion(untaggedCBOR: item))
-        case CBOR.tagged(.envelope, let item):
-            self = try Envelope(untaggedCBOR: item)
-        case CBOR.tagged(.message, let item):
-            let message = try EncryptedMessage(untaggedCBOR: item)
-            try self.init(encryptedMessage: message)
-        case CBOR.tagged(.digest, let item):
-            let digest = try Digest(untaggedCBOR: item)
-            self.init(elided: digest)
-        case CBOR.array(let elements):
-            guard elements.count >= 2 else {
-                throw CBORError.invalidFormat
-            }
-            let subject = try Envelope(taggedCBOR: elements[0])
-            let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0 ) }
-            try self.init(subject: subject, assertions: assertions)
-        default:
-            throw Error.invalidFormat
-        }
     }
 
     /// Creates an envelope by decoding the provided tagged CBOR.
@@ -114,6 +56,68 @@ public extension Envelope {
             print(cbor.diagAnnotated)
             print("===")
             throw error
+        }
+    }
+}
+
+// MARK: - Internal
+
+extension Envelope {
+    /// Returns the envelope encoded as CBOR.
+    var untaggedCBOR: CBOR {
+        switch self {
+        case .node(let subject, let assertions, _):
+            precondition(!assertions.isEmpty)
+            var result = [subject.taggedCBOR]
+            for assertion in assertions {
+                result.append(assertion.taggedCBOR)
+            }
+            return CBOR.array(result)
+        case .leaf(let cbor, _):
+            return CBOR.tagged(.leaf, cbor)
+        case .wrapped(let envelope, _):
+            return CBOR.tagged(.wrappedEnvelope, envelope.untaggedCBOR)
+        case .knownValue(let knownValue, _):
+            return knownValue.taggedCBOR
+        case .assertion(let assertion):
+            return assertion.taggedCBOR
+        case .encrypted(let encryptedMessage):
+            return encryptedMessage.taggedCBOR
+        case .elided(let digest):
+            return digest.taggedCBOR
+        }
+    }
+    
+    /// Creates an envelope by decoding the provided untagged CBOR.
+    ///
+    /// Throws if the provided CBOR is not a well-formed envelope.
+    init(untaggedCBOR cbor: CBOR) throws {
+        switch cbor {
+        case CBOR.tagged(.leaf, let item):
+            self.init(cbor: item)
+        case CBOR.tagged(.knownValue, let item):
+            self.init(knownValue: try KnownValue(untaggedCBOR: item))
+        case CBOR.tagged(.wrappedEnvelope, let item):
+            self.init(wrapped: try Envelope(untaggedCBOR: item))
+        case CBOR.tagged(.assertion, let item):
+            self.init(assertion: try Assertion(untaggedCBOR: item))
+        case CBOR.tagged(.envelope, let item):
+            self = try Envelope(untaggedCBOR: item)
+        case CBOR.tagged(.message, let item):
+            let message = try EncryptedMessage(untaggedCBOR: item)
+            try self.init(encryptedMessage: message)
+        case CBOR.tagged(.digest, let item):
+            let digest = try Digest(untaggedCBOR: item)
+            self.init(elided: digest)
+        case CBOR.array(let elements):
+            guard elements.count >= 2 else {
+                throw CBORError.invalidFormat
+            }
+            let subject = try Envelope(taggedCBOR: elements[0])
+            let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0 ) }
+            try self.init(subject: subject, assertions: assertions)
+        default:
+            throw Error.invalidFormat
         }
     }
 }
