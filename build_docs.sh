@@ -21,6 +21,7 @@ find ~/Library/Developer/Xcode/DerivedData \
 
 $(xcrun --find docc) process-archive \
     transform-for-static-hosting docs_source \
+    --hosting-base-path /BCSwiftEnvelope \
     --output-path docs
 
 rm -rf docs_source
