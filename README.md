@@ -10,7 +10,7 @@ NOTE: Until recently this implementation was part of [BCSwiftSecureComponents](h
 
 Documentation:
 
-* [Documentation](https://BlockchainCommons.github.io/BCSwiftEnvelope/documentation/envelope/) in this repo.
+* [Documentation](https://blockchaincommons.github.io/BCSwiftEnvelope/documentation/envelope/) in this repo.
 * [IETF Internet Draft](https://datatracker.ietf.org/doc/draft-mcnally-envelope/)
 
 Videos:
