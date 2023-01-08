@@ -35,7 +35,9 @@ This assertion-predicate-object triplet may be more easily understood by conside
 <!--    subject:Alice --> |predicate:knows| object:Bob-->
 <!--```-->
 
-> "Alice knows Bob."
+```
+"Alice knows Bob."
+```
 
 There can be any number assertions associated with each subject:
 
@@ -47,7 +49,9 @@ There can be any number assertions associated with each subject:
 <!--    subject:Alice --> |predicate:dislikes| object:Carol-->
 <!--```-->
 
-> "Alice knows Bob and dislikes Carol."
+```
+"Alice knows Bob and dislikes Carol."
+```
 
 In "Envelope notation" the above would be written:
 
