@@ -177,11 +177,13 @@ The envelope protocol specifies a structured format for hierarchical binary data
 ### Encoding and Decoding Envelopes
 
 - ``Envelope/Envelope/taggedCBOR``
-- ``Envelope/Envelope/ur``
-- ``Envelope/Envelope/urString``
 - ``Envelope/Envelope/init(taggedCBOR:)``
+- ``Envelope/Envelope/ur``
 - ``Envelope/Envelope/init(ur:)``
+- ``Envelope/Envelope/urString``
 - ``Envelope/Envelope/init(urString:)``
+- ``Envelope/Envelope/untaggedCBOR``
+- ``Envelope/Envelope/init(untaggedCBOR:)``
 
 ### Splitting Envelopes with SSKR
 
@@ -230,6 +232,8 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - ``Envelope/Envelope/ParameterIdentifier``
 - ``Envelope/Envelope/extractObject(_:forParameter:)``
 - ``Envelope/Envelope/extractObjects(_:forParameter:)``
+- ``Envelope/Envelope/parameter(_:value:)-4zn4z``
+- ``Envelope/Envelope/parameter(_:value:)-5mguw``
 
 ### Envelope Expressions: Requests and Responses
 

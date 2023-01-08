@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "e4c2e4c37bcb01ab6597d7675e5fc7cc11b58d16"
+        "revision" : "f66ab3d7f299c8567dcaf384bacf7793acbb1c63",
+        "version" : "0.39.0"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/WolfMcNally/Graph.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "243181ba08bc8d1044a93c5372bf0cee7643543d"
+        "revision" : "04538aebf46f120dcce1392a215a7a850c45b4e6",
+        "version" : "0.7.0"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/WolfMcNally/GraphDot.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "536c079ba9ea1988050854a7710cbb62c702d75a"
+        "revision" : "dafe511afa3873e22c5cfd8478a9025d65480f99",
+        "version" : "0.4.0"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/WolfMcNally/GraphMermaid.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "7fb2f93e18a72dc8e7f2d451921f2b83e1dbb291"
+        "revision" : "251b091ef0bc75629ab8891784495701b7723465",
+        "version" : "0.4.0"
       }
     },
     {
@@ -93,10 +93,19 @@
     {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-collections",
+      "location" : "https://github.com/wolfmcnally/swift-collections",
       "state" : {
-        "branch" : "main",
-        "revision" : "53a8adc54374f620002a3b6401d39e0feb3c57ae"
+        "revision" : "53a8adc54374f620002a3b6401d39e0feb3c57ae",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-docc-plugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-docc-plugin",
+      "state" : {
+        "revision" : "3303b164430d9a7055ba484c8ead67a52f7b74f6",
+        "version" : "1.0.0"
       }
     },
     {
@@ -113,8 +122,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/WolfMcNally/TreeDistance.git",
       "state" : {
-        "branch" : "master",
-        "revision" : "70c61c96c4db96ed6ebf7ef16fb0f0ca60d048a9"
+        "revision" : "d655b0e516def12b1d4ec30935ecc833ad073f24",
+        "version" : "0.1.0"
       }
     },
     {
@@ -122,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BlockchainCommons/URKit.git",
       "state" : {
-        "revision" : "07b7459e429ed13d42dcaa800200b935ce3297b2",
-        "version" : "7.5.0"
+        "revision" : "e0520d366d0c2e852fb96c471e4a490b05ee10c6",
+        "version" : "8.0.0"
       }
     },
     {
@@ -131,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/wolfmcnally/WolfBase.git",
       "state" : {
-        "revision" : "883d3e868ab61b2001f2cbf4566bb5e72ab10603",
-        "version" : "4.7.0"
+        "revision" : "f47ff5ac3fde68b52e3cf26cac2a464fbc113bb9",
+        "version" : "5.0.1"
       }
     },
     {

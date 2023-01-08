@@ -35,8 +35,6 @@ These objects are normally random, but they are fixed for these test vectors:
 9. [Verifiable Credential](#Test-Vector-9-Verifiable-Credential)
 10. [Redacted Verifiable Credential](#Test-Vector-10-Redacted-Verifiable-Credential)
 
----
-
 ## Test Vector 1: Hello, World!
 
 The simplest case: encoding a plaintext string as the envelope's `subject`. The `subject` can be any CBOR-encodable structure.

@@ -60,9 +60,7 @@ public extension Envelope {
     }
 }
 
-// MARK: - Internal
-
-extension Envelope {
+public extension Envelope {
     /// Returns the envelope encoded as CBOR.
     var untaggedCBOR: CBOR {
         switch self {

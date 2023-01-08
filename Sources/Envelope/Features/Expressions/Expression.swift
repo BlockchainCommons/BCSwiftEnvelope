@@ -44,6 +44,34 @@ public extension Envelope {
     func addParameter(_ name: String, value: CBOREncodable?) -> Envelope {
         try! addAssertion(.parameter(name, value: value))
     }
+    
+    /// Creates a new envelope containing a `❰parameter❱: value` assertion.
+    ///
+    /// - Parameters:
+    ///   - param: A ``ParameterIdentifier``. This will be encoded as either an unsigned integer or a string.
+    ///   - value: The argument value.
+    ///
+    /// - Returns: The new assertion envelope. If `value` is `nil`, returns the original envelope.
+    static func parameter(_ param: ParameterIdentifier, value: CBOREncodable?) -> Envelope? {
+        guard let value else {
+            return nil
+        }
+        return Envelope(param.cbor, Envelope(value))
+    }
+    
+    /// Creates a new envelope containing a `❰parameter❱: value` assertion.
+    ///
+    /// - Parameters:
+    ///   - param: A parameter name. This will be encoded as a string.
+    ///   - value: The argument value.
+    ///
+    /// - Returns: The new envelope. If `value` is `nil`, returns the original envelope.
+    static func parameter(_ name: String, value: CBOREncodable?) -> Envelope? {
+        guard let value else {
+            return nil
+        }
+        return parameter(ParameterIdentifier(name), value: value)
+    }
 }
 
 // MARK: - Request Construction
@@ -154,22 +182,3 @@ public extension Envelope {
         try extractObject(T.self, forPredicate: .error)
     }
 }
-
-// MARK: - Internal
-
-extension Envelope {
-    static func parameter(_ param: ParameterIdentifier, value: CBOREncodable?) -> Envelope? {
-        guard let value else {
-            return nil
-        }
-        return Envelope(param.cbor, Envelope(value))
-    }
-    
-    static func parameter(_ name: String, value: CBOREncodable?) -> Envelope? {
-        guard let value else {
-            return nil
-        }
-        return parameter(ParameterIdentifier(name), value: value)
-    }
-}
-

@@ -3,7 +3,6 @@ import SecureComponents
 
 extension Envelope.Error {
     static let invalidKey = Envelope.Error("invalidKey")
-    static let missingDigest = Envelope.Error("missingDigest")
     static let alreadyEncrypted = Envelope.Error("alreadyEncrypted")
     static let notEncrypted = Envelope.Error("notEncrypted")
     static let alreadyElided = Envelope.Error("alreadyElided")

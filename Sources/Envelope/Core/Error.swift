@@ -23,4 +23,5 @@ public extension Envelope {
 extension Envelope.Error {
     static let invalidDigest = Envelope.Error("invalidDigest")
     static let invalidFormat = Envelope.Error("invalidFormat")
+    static let missingDigest = Envelope.Error("missingDigest")
 }

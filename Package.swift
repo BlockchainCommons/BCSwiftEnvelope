@@ -5,8 +5,10 @@ import PackageDescription
 let package = Package(
     name: "Envelope",
     platforms: [
+        .macOS(.v12),
         .iOS(.v15),
-        .macOS(.v13)
+        .tvOS(.v15),
+        .watchOS(.v8)
     ],
     products: [
         .library(
@@ -14,13 +16,14 @@ let package = Package(
             targets: ["Envelope"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git", branch: "master"),
-        .package(url: "https://github.com/WolfMcNally/WolfBase", from: "4.0.0"),
-        .package(url: "https://github.com/WolfMcNally/Graph.git", branch: "master"),
-        .package(url: "https://github.com/WolfMcNally/GraphMermaid.git", branch: "master"),
-        .package(url: "https://github.com/WolfMcNally/GraphDot.git", branch: "master"),
+        .package(url: "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git", from: "0.1.0"),
+        .package(url: "https://github.com/WolfMcNally/WolfBase", from: "5.0.0"),
+        .package(url: "https://github.com/WolfMcNally/Graph.git", from: "0.1.0"),
+        .package(url: "https://github.com/WolfMcNally/GraphMermaid.git", from: "0.1.0"),
+        .package(url: "https://github.com/WolfMcNally/GraphDot.git", from: "0.1.0"),
         .package(url: "https://github.com/WolfMcNally/WolfLorem.git", from: "2.0.0"),
-        .package(url: "https://github.com/WolfMcNally/TreeDistance.git", branch: "master"),
+        .package(url: "https://github.com/WolfMcNally/TreeDistance.git", from: "0.1.0"),
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
     ],
     targets: [
         .target(
