@@ -17,6 +17,18 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - [Video: Gordian Architecture: Why CBOR?](https://www.youtube.com/watch?v=uoD5_Vr6qzw)
 - [Video: Diffing with Gordian Envelope](https://www.youtube.com/watch?v=kXk_XTACqh8)
 
+## Documentation on GitHub
+
+- [Envelope Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Overview.md)
+- [Examples](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Overview.md)
+- [Envelope Notation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Notation.md)
+- [Output Formats](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/OutputFormats.md)
+- [Elision and Redaction](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Elision.md)
+- [Noncorrelation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Noncorrelation.md)
+- [Existence Proofs](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/ExistenceProofs.md)
+- [Diffing Envelopes](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Diffing.md)
+- [Envelope Expressions](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Expressions.md)
+
 ## Topics
 
 ### Essentials
