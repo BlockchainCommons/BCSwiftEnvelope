@@ -1,6 +1,6 @@
 # Envelope Expressions
 
-Envelope Expressions are a method for encoding machine-evaluatable expressions using ``Envelope``.
+Encoding machine-evaluatable expressions using envelopes.
 
 ## Documentation on GitHub
 

@@ -19,15 +19,15 @@ The envelope protocol specifies a structured format for hierarchical binary data
 
 ## Documentation on GitHub
 
-- [Envelope Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Overview.md)
-- [Examples](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Overview.md)
-- [Envelope Notation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Notation.md)
-- [Output Formats](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/OutputFormats.md)
-- [Elision and Redaction](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Elision.md)
-- [Noncorrelation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Noncorrelation.md)
-- [Existence Proofs](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/ExistenceProofs.md)
-- [Diffing Envelopes](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Diffing.md)
-- [Envelope Expressions](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Expressions.md)
+- [Envelope Overview](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Overview.md) - A high-level introduction to Gordian Envelope.
+- [Examples](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Overview.md) - High-level examples of API usage.
+- [Envelope Notation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Notation.md) - A simplified textual notation for pretty-printing envelope instances.
+- [Output Formats](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/OutputFormats.md) - A comparison of the various Envelope output formats.
+- [Elision and Redaction](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Elision.md) - Removing information without invalidating the digest tree.
+- [Noncorrelation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Noncorrelation.md) - A discussion of noncorrelation, salt, and related concepts.
+- [Existence Proofs](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/ExistenceProofs.md) - Computing and verifying minimal proofs that an envelope contains some target information.
+- [Diffing Envelopes](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Diffing.md) - Computing and applying the changes between two envelopes.
+- [Envelope Expressions](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Expressions.md) - Encoding machine-evaluatable expressions using envelopes.
 
 ## Topics
 

@@ -1,6 +1,6 @@
 # Envelope Notation
 
-A simplified textual notation for pretty-printing instances of the `Envelope` type.
+A simplified textual notation for pretty-printing envelope instances.
 
 ## Documentation on GitHub
 
