@@ -36,16 +36,16 @@ extension Assertion: CBORTaggedCodable {
         [predicate.cbor, object.cbor]
     }
     
-    public static func decodeUntaggedCBOR(_ cbor: CBOR) throws -> Assertion {
+    public init(untaggedCBOR: CBOR) throws {
         guard
-            case CBOR.array(let array) = cbor,
+            case CBOR.array(let array) = untaggedCBOR,
             array.count == 2
         else {
             throw CBORDecodingError.invalidFormat
         }
-        let predicate = try Envelope.decodeCBOR(array[0])
-        let object = try Envelope.decodeCBOR(array[1])
-        return Self(predicate: predicate, object: object)
+        let predicate = try Envelope(cbor: array[0])
+        let object = try Envelope(cbor: array[1])
+        self = Self(predicate: predicate, object: object)
     }
 }
 

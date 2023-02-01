@@ -54,12 +54,12 @@ extension FunctionIdentifier: CBORTaggedCodable {
         }
     }
     
-    public static func decodeUntaggedCBOR(_ cbor: CBOR) throws -> FunctionIdentifier {
-        switch cbor {
+    public init(untaggedCBOR: CBOR) throws {
+        switch untaggedCBOR {
         case CBOR.unsigned(let value):
-            return Self(value)
+            self = Self(value)
         case CBOR.text(let name):
-            return Self(name)
+            self = Self(name)
         default:
             throw CBORDecodingError.invalidFormat
         }

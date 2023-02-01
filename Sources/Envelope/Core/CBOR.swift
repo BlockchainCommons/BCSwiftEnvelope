@@ -28,26 +28,26 @@ extension Envelope: CBORCodable {
         }
     }
     
-    public static func decodeUntaggedCBOR(_ cbor: CBOR) throws -> Envelope {
+    public init(untaggedCBOR: CBOR) throws {
         let result: Envelope
-        switch cbor {
+        switch untaggedCBOR {
         case CBOR.tagged(let tag, let item):
             switch tag {
             case .leaf:
-                result = Envelope(cbor: item)
+                result = Envelope(leaf: item)
             case KnownValue.cborTag:
-                result = Envelope(knownValue: try KnownValue.decodeUntaggedCBOR(item))
+                result = Envelope(knownValue: try KnownValue(untaggedCBOR: item))
             case .wrappedEnvelope:
-                result = Envelope(wrapped: try decodeUntaggedCBOR(item))
+                result = Envelope(wrapped: try Self(untaggedCBOR: item))
             case .assertion:
-                result = Envelope(assertion: try Assertion.decodeUntaggedCBOR(item))
+                result = Envelope(assertion: try Assertion(untaggedCBOR: item))
             case .envelope:
-                result = try Envelope.decodeUntaggedCBOR(item)
+                result = try Envelope(untaggedCBOR: item)
             case EncryptedMessage.cborTag:
-                let message = try EncryptedMessage.decodeUntaggedCBOR(item)
+                let message = try EncryptedMessage(untaggedCBOR: item)
                 result = try Envelope(encryptedMessage: message)
             case Digest.cborTag:
-                let digest = try Digest.decodeUntaggedCBOR(item)
+                let digest = try Digest(untaggedCBOR: item)
                 result = Envelope(elided: digest)
             default:
                 throw EnvelopeError.invalidFormat
@@ -56,13 +56,13 @@ extension Envelope: CBORCodable {
             guard elements.count >= 2 else {
                 throw CBORDecodingError.invalidFormat
             }
-            let subject = try Envelope.decodeTaggedCBOR(elements[0])
-            let assertions = try elements.dropFirst().map { try Envelope.decodeTaggedCBOR($0) }
+            let subject = try Envelope(taggedCBOR: elements[0])
+            let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0) }
             result = try Envelope(subject: subject, assertions: assertions)
         default:
             throw EnvelopeError.invalidFormat
         }
-        return result
+        self = result
     }
 }
 
@@ -74,7 +74,7 @@ public extension Envelope {
     func checkEncoding(knownTags: KnownTags? = nil) throws -> Envelope {
         do {
             let cbor = taggedCBOR
-            let restored = try Envelope.decodeTaggedCBOR(cbor)
+            let restored = try Envelope(taggedCBOR: cbor)
             guard self.digest == restored.digest else {
                 print("=== EXPECTED")
                 print(self.format)

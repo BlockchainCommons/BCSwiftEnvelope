@@ -90,12 +90,12 @@ extension KnownValue: CBORTaggedCodable {
         .unsigned(value)
     }
 
-    public static func decodeUntaggedCBOR(_ cbor: CBOR) throws -> KnownValue {
+    public init(untaggedCBOR: CBOR) throws {
         guard
-            case CBOR.unsigned(let rawValue) = cbor
+            case CBOR.unsigned(let rawValue) = untaggedCBOR
         else {
             throw EnvelopeError.invalidFormat
         }
-        return KnownValue(rawValue: rawValue)
+        self = KnownValue(rawValue: rawValue)
     }
 }

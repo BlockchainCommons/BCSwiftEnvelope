@@ -201,9 +201,9 @@ class ElisionExampleTests: XCTestCase {
         )
         
         let edits = credential.diff(target: warranty)
-        print(credential.encodeCBOR().count)
-        print(warranty.encodeCBOR().count)
-        print(edits.encodeCBOR().count)
+        print(credential.cborData.count)
+        print(warranty.cborData.count)
+        print(edits.cborData.count)
         print(edits.format())
         XCTAssert(try credential.transform(edits: edits).isIdentical(to: warranty))
     }

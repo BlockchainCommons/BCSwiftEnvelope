@@ -100,7 +100,7 @@ public extension Envelope {
             throw EnvelopeError.invalidRecipient
         }
 
-        let contentKey = try SymmetricKey.decodeTaggedCBOR(contentKeyData)
+        let contentKey = try SymmetricKey(taggedCBORData: contentKeyData)
         return try decryptSubject(with: contentKey).subject
     }
 }

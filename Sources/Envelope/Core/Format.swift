@@ -96,24 +96,24 @@ extension CBOR {
                 case PublicKeyBase.cborTag:
                     return "PublicKeyBase"
                 case Date.cborTag:
-                    let date = try Date.decodeUntaggedCBOR(cbor)
+                    let date = try Date(untaggedCBOR: cbor)
                     var s = date.ISO8601Format()
                     if s.count == 20 && s.hasSuffix("T00:00:00Z") {
                         s = s.prefix(count: 10)
                     }
                     return s
                 case CID.cborTag:
-                    return try CID.decodeUntaggedCBOR(cbor).shortDescription.flanked("CID(", ")")
+                    return try CID(untaggedCBOR: cbor).shortDescription.flanked("CID(", ")")
                 case URL.cborTag:
-                    return try URL.decodeUntaggedCBOR(cbor)†.flanked("URI(", ")")
+                    return try URL(untaggedCBOR: cbor)†.flanked("URI(", ")")
                 case UUID.cborTag:
-                    return try UUID.decodeUntaggedCBOR(cbor)†.flanked("UUID(", ")")
+                    return try UUID(untaggedCBOR: cbor)†.flanked("UUID(", ")")
                 case Digest.cborTag:
-                    return try Digest.decodeUntaggedCBOR(cbor).shortDescription.flanked("Digest(", ")")
+                    return try Digest(untaggedCBOR: cbor).shortDescription.flanked("Digest(", ")")
                 case FunctionIdentifier.cborTag:
-                    return try FunctionIdentifier.decodeUntaggedCBOR(cbor)†.flanked("«", "»")
+                    return try FunctionIdentifier(untaggedCBOR: cbor)†.flanked("«", "»")
                 case ParameterIdentifier.cborTag:
-                    return try ParameterIdentifier.decodeUntaggedCBOR(cbor)†.flanked("❰", "❱")
+                    return try ParameterIdentifier(untaggedCBOR: cbor)†.flanked("❰", "❱")
                 case Envelope.requestCBORTag:
                     return Envelope(cbor).format(knownTags: knownTags).flanked("request(", ")")
                 case Envelope.responseCBORTag:
@@ -138,7 +138,7 @@ extension CBOR: EnvelopeFormat {
         do {
             switch self {
             case CBOR.tagged(Envelope.cborTag, cbor):
-                return try Envelope.decodeUntaggedCBOR(cbor).formatItem(knownTags: knownTags)
+                return try Envelope(untaggedCBOR: cbor).formatItem(knownTags: knownTags)
             default:
                 return .item(envelopeSummary(knownTags: knownTags))
             }

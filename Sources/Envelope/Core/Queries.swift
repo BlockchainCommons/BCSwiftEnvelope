@@ -203,7 +203,7 @@ public extension Envelope {
             return try subject.extractSubject(type)
         case .leaf(let cbor, _):
             let t = (type.self as! CBORDecodable.Type)
-            return try t.decodeCBOR(cbor) as! T
+            return try t.init(cbor: cbor) as! T
         case .knownValue(let knownValue, _):
             guard let result = knownValue as? T else {
                 throw EnvelopeError.invalidFormat

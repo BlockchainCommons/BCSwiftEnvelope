@@ -30,30 +30,30 @@ public extension Envelope {
             guard !subject.isEncrypted else {
                 throw EnvelopeError.alreadyEncrypted
             }
-            let encodedCBOR = subject.encodeCBOR()
+            let encodedCBOR = subject.cborData
             let subjectDigest = subject.digest
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: subjectDigest, nonce: testNonce)
             let encryptedSubject = try Envelope(encryptedMessage: encryptedMessage)
             result = Envelope(subject: encryptedSubject, uncheckedAssertions: assertions)
             originalDigest = envelopeDigest
         case .leaf(let cbor, let envelopeDigest):
-            let encodedCBOR = CBOR.tagged(.leaf, cbor).encodeCBOR()
+            let encodedCBOR = CBOR.tagged(.leaf, cbor).cborData
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: envelopeDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = envelopeDigest
         case .wrapped(_, let wrappedDigest):
-            let encodedCBOR = self.untaggedCBOR.encodeCBOR()
+            let encodedCBOR = self.untaggedCBOR.cborData
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: wrappedDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = wrappedDigest
         case .knownValue(let knownValue, let envelopeDigest):
-            let encodedCBOR = knownValue.taggedCBOR.encodeCBOR()
+            let encodedCBOR = knownValue.taggedCBOR.cborData
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: envelopeDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = envelopeDigest
         case .assertion(let assertion):
             let assertionDigest = assertion.digest
-            let encodedCBOR = assertion.taggedCBOR.encodeCBOR()
+            let encodedCBOR = assertion.taggedCBOR.cborData
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: assertionDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = assertionDigest
@@ -90,7 +90,7 @@ public extension Envelope {
         }
 
         let cbor = try CBOR(encodedCBOR)
-        let resultSubject = try Envelope.decodeUntaggedCBOR(cbor).subject
+        let resultSubject = try Envelope(untaggedCBOR: cbor).subject
 
         guard resultSubject.digest == subjectDigest else {
             throw EnvelopeError.invalidDigest

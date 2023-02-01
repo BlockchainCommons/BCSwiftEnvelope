@@ -91,7 +91,7 @@ public extension Envelope {
         {
             try! self.init(encryptedMessage: encryptedMessage)
         } else if let cborItem = subject as? CBOREncodable {
-            self.init(cborEncodable: cborItem)
+            self.init(leaf: cborItem.cbor)
         } else {
             preconditionFailure()
         }
@@ -190,13 +190,9 @@ extension Envelope {
         self = .elided(digest)
     }
 
-    init(cbor: CBOR) {
-        let digest = Digest(cbor.encodeCBOR())
-        self = .leaf(cbor, digest)
-    }
-
-    init(cborEncodable item: CBOREncodable) {
-        self.init(cbor: item.cbor)
+    init(leaf: CBOR) {
+        let digest = Digest(leaf.cborData)
+        self = .leaf(leaf, digest)
     }
 
     init(wrapped envelope: Envelope) {

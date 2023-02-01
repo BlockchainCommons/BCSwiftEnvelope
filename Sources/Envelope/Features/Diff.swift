@@ -99,7 +99,7 @@ enum EnvelopeTreeLabel: CBORCodable {
         return CBOR.array(components.map { $0.cbor })
     }
 
-    static func decodeCBOR(_ cbor: CBOR) throws -> EnvelopeTreeLabel {
+    init(cbor: CBOR) throws {
         guard
             case CBOR.array(var elements) = cbor,
             case CBOR.unsigned(let identifier) = elements.removeFirst()
@@ -110,18 +110,18 @@ enum EnvelopeTreeLabel: CBORCodable {
         switch identifier {
         case 0:
             let element = elements.removeFirst()
-            let digest = Digest(element.encodeCBOR())
-            return .leaf(element, digest)
+            let digest = Digest(element.cborData)
+            self = .leaf(element, digest)
         case 1:
-            return .wrapped
+            self = .wrapped
         case 2:
-            return .knownValue(try KnownValue.decodeTaggedCBOR(elements.removeFirst()))
+            self = .knownValue(try KnownValue(taggedCBOR: elements.removeFirst()))
         case 3:
-            return .assertion
+            self = .assertion
         case 4:
-            return .encrypted(try EncryptedMessage.decodeTaggedCBOR(elements.removeFirst()))
+            self = .encrypted(try EncryptedMessage(taggedCBOR: elements.removeFirst()))
         case 5:
-            return .elided(try Digest.decodeTaggedCBOR(elements.removeFirst()))
+            self = .elided(try Digest(taggedCBOR: elements.removeFirst()))
         default:
             throw EnvelopeError.invalidDiff
         }
@@ -287,8 +287,8 @@ extension EnvelopeEdit {
             guard components.count >= 2 else {
                 throw EnvelopeError.invalidDiff
             }
-            id = try UInt64.decodeCBOR(components.removeFirst())
-            let label = try EnvelopeTreeLabel.decodeCBOR(components.removeFirst())
+            id = try UInt64(cbor: components.removeFirst())
+            let label = try EnvelopeTreeLabel(cbor: components.removeFirst())
             if components.isEmpty {
                 operation = .rename(label: label)
             } else {

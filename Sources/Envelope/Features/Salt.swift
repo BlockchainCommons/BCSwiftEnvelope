@@ -33,6 +33,6 @@ public extension Envelope {
     ///
     /// Only used for testing.
     func addSalt<R: RandomNumberGenerator>(using rng: inout R) -> Envelope {
-        addSalt(Salt(forSize: taggedCBOR.encodeCBOR().count, using: &rng))
+        addSalt(Salt(forSize: taggedCBOR.cborData.count, using: &rng))
     }
 }
