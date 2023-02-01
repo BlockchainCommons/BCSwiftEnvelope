@@ -30,13 +30,13 @@ public indirect enum Envelope: DigestProvider {
     case elided(Digest)
 }
 
-extension Envelope: CustomStringConvertible {
-    public var description: String {
+public extension Envelope {
+    func description(knownTags: KnownTags?) -> String {
         switch self {
         case .node(subject: let subject, assertions: let assertions, digest: _):
             return ".node(\(subject), \(assertions))"
         case .leaf(let cbor, _):
-            return ".cbor(\(cbor.formatItem.description))"
+            return ".cbor(\(cbor.formatItem(knownTags: knownTags).description))"
         case .wrapped(let envelope, _):
             return ".wrapped(\(envelope))"
         case .knownValue(let knownValue, _):
@@ -48,6 +48,12 @@ extension Envelope: CustomStringConvertible {
         case .elided(_):
             return ".elided"
         }
+    }
+}
+
+extension Envelope: CustomStringConvertible {
+    public var description: String {
+        description(knownTags: nil)
     }
 }
 
@@ -160,7 +166,7 @@ extension Envelope {
 
     init(subject: Envelope, assertions: [Envelope]) throws {
         guard assertions.allSatisfy({ $0.isSubjectAssertion || $0.isSubjectElided || $0.isSubjectEncrypted }) else {
-            throw Error.invalidFormat
+            throw EnvelopeError.invalidFormat
         }
         self.init(subject: subject, uncheckedAssertions: assertions)
     }
@@ -175,7 +181,7 @@ extension Envelope {
 
     init(encryptedMessage: EncryptedMessage) throws {
         guard encryptedMessage.digest != nil else {
-            throw Error.missingDigest
+            throw EnvelopeError.missingDigest
         }
         self = .encrypted(encryptedMessage)
     }
@@ -185,7 +191,7 @@ extension Envelope {
     }
 
     init(cbor: CBOR) {
-        let digest = Digest(cbor.cborEncode)
+        let digest = Digest(cbor.encodeCBOR())
         self = .leaf(cbor, digest)
     }
 

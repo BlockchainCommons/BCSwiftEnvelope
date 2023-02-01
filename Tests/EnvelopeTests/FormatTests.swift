@@ -6,7 +6,7 @@ import WolfBase
 class FormatTests: XCTestCase {
     func testPlaintext() throws {
         let envelope = Envelope(plaintextHello)
-        XCTAssertEqual(envelope.format,
+        XCTAssertEqual(envelope.format(),
         """
         "Hello."
         """)
@@ -36,7 +36,7 @@ class FormatTests: XCTestCase {
     func testSignedPlaintext() throws {
         let envelope = Envelope(plaintextHello)
             .sign(with: alicePrivateKeys, randomGenerator: generateFakeRandomNumbers)
-        XCTAssertEqual(envelope.format,
+        XCTAssertEqual(envelope.format(),
         """
         "Hello." [
             verifiedBy: Signature
@@ -104,7 +104,7 @@ class FormatTests: XCTestCase {
         let envelope = try Envelope("Alice")
             .addAssertion("knows", "Bob")
             .encryptSubject(with: SymmetricKey(), testNonce: fakeNonce)
-        XCTAssertEqual(envelope.format,
+        XCTAssertEqual(envelope.format(),
         """
         ENCRYPTED [
             "knows": "Bob"
@@ -170,7 +170,7 @@ class FormatTests: XCTestCase {
     
     func testTopLevelAssertion() throws {
         let envelope = Envelope("knows", "Bob")
-        XCTAssertEqual(envelope.format,
+        XCTAssertEqual(envelope.format(),
         """
         "knows": "Bob"
         """)
@@ -221,7 +221,7 @@ class FormatTests: XCTestCase {
         let envelope = Envelope("Alice")
             .addAssertion("knows", "Bob")
         let elided = try envelope.elideRemoving(Envelope("Bob"))
-        XCTAssertEqual(elided.format,
+        XCTAssertEqual(elided.format(),
         """
         "Alice" [
             "knows": ELIDED
@@ -290,7 +290,7 @@ class FormatTests: XCTestCase {
             .addAssertion("knows", "Bob")
             .addAssertion("knows", "Carol")
             .sign(with: alicePrivateKeys, randomGenerator: generateFakeRandomNumbers)
-        XCTAssertEqual(envelope.format,
+        XCTAssertEqual(envelope.format(),
         """
         "Alice" [
             "knows": "Bob"
@@ -420,7 +420,7 @@ class FormatTests: XCTestCase {
         target.insert(envelope)
         target.insert(envelope.subject)
         let elided = try envelope.elideRevealing(target)
-        XCTAssertEqual(elided.format,
+        XCTAssertEqual(elided.format(),
         """
         "Alice" [
             ELIDED (3)
@@ -490,7 +490,7 @@ class FormatTests: XCTestCase {
             .addAssertion("knows", "Carol")
             .wrap()
             .sign(with: alicePrivateKeys, randomGenerator: generateFakeRandomNumbers)
-        XCTAssertEqual(envelope.format,
+        XCTAssertEqual(envelope.format(),
         """
         {
             "Alice" [
@@ -640,7 +640,7 @@ class FormatTests: XCTestCase {
             .encryptSubject(with: fakeContentKey, testNonce: fakeNonce).checkEncoding()
             .addRecipient(bobPublicKeys, contentKey: fakeContentKey, testKeyMaterial: fakeContentKey, testNonce: fakeNonce).checkEncoding()
             .addRecipient(carolPublicKeys, contentKey: fakeContentKey, testKeyMaterial: fakeContentKey, testNonce: fakeNonce).checkEncoding()
-        XCTAssertEqual(envelope.format,
+        XCTAssertEqual(envelope.format(),
         """
         ENCRYPTED [
             hasRecipient: SealedMessage
@@ -743,7 +743,7 @@ class FormatTests: XCTestCase {
         let envelope = try Envelope("subject")
             .addAssertion(predicate, object)
             .checkEncoding()
-        XCTAssertEqual(envelope.format,
+        XCTAssertEqual(envelope.format(),
         """
         "subject" [
             "predicate" [
@@ -917,7 +917,7 @@ class FormatTests: XCTestCase {
             .addAssertion(.dereferenceVia, "IPFS")
             .checkEncoding()
         
-        XCTAssertEqual(bookMetadata.format,
+        XCTAssertEqual(bookMetadata.format(),
         """
         Digest(e8aa201d) [
             "format": "EPUB"
@@ -1388,7 +1388,7 @@ class FormatTests: XCTestCase {
         .addAssertion("photo", "This is James Maxwell's photo.")
         .addAssertion("certificateNumber", "123-456-789")
         .addAssertion("subject", "RF and Microwave Engineering")
-        .addAssertion("continuingEducationUnits", 1.5)
+        .addAssertion("continuingEducationUnits", 1)
         .addAssertion("professionalDevelopmentHours", 15)
         .addAssertion("topics", ["Subject 1", "Subject 2"])
         .wrap()
@@ -1397,12 +1397,12 @@ class FormatTests: XCTestCase {
         .checkEncoding()
 
     func testCredential() throws {
-        XCTAssertEqual(Self.credential.format,
+        XCTAssertEqual(Self.credential.format(),
         """
         {
             CID(4676635a) [
                 "certificateNumber": "123-456-789"
-                "continuingEducationUnits": 1.5
+                "continuingEducationUnits": 1
                 "expirationDate": 2028-01-01
                 "firstName": "James"
                 "issueDate": 2020-01-01
@@ -1422,9 +1422,9 @@ class FormatTests: XCTestCase {
         """)
         XCTAssertEqual(Self.credential.treeFormat(),
         """
-        6142d9bc NODE
-            dbd70e79 subj WRAPPED
-                b750a45f subj NODE
+        0f80bc2e NODE
+            7d578d57 subj WRAPPED
+                50797e6e subj NODE
                     bdd347d4 subj CID(4676635a)
                     0536afd8 ASSERTION
                         a791d0c7 pred "photo"
@@ -1435,6 +1435,9 @@ class FormatTests: XCTestCase {
                     34f8f7d3 ASSERTION
                         b1e12d58 pred "issueDate"
                         2511c0df obj 2020-01-01
+                    355ceaad ASSERTION
+                        b6d5ea01 pred "continuingEducationUnits"
+                        48fc721f obj 1
                     3d00d64f ASSERTION
                         2f9bee2f pred controller
                         4035b4bd obj "Example Electrical Engineering Board"
@@ -1444,9 +1447,6 @@ class FormatTests: XCTestCase {
                     46d6cfea ASSERTION
                         8982354d pred isA
                         112e2cdb obj "Certificate of Completion"
-                    4a69fca3 ASSERTION
-                        b6d5ea01 pred "continuingEducationUnits"
-                        02a61366 obj 1.5
                     5545f6e2 ASSERTION
                         954c8356 pred issuer
                         4035b4bd obj "Example Electrical Engineering Board"
@@ -1465,9 +1465,9 @@ class FormatTests: XCTestCase {
                     e96b24d9 ASSERTION
                         c8c1a6dd pred "professionalDevelopmentHours"
                         0bf6b955 obj 15
-            8c02e1c6 ASSERTION
+            7d9fc69d ASSERTION
                 d59f8c0f pred verifiedBy
-                2deb70b6 obj Signature
+                55f21ff1 obj Signature
             afe231cc ASSERTION
                 61fb6a6b pred note
                 f4bf011f obj "Signed by Example Electrical Engineering…"
@@ -1486,6 +1486,9 @@ class FormatTests: XCTestCase {
                     "issueDate"
                     2020-01-01
                 ASSERTION
+                    "continuingEducationUnits"
+                    1
+                ASSERTION
                     controller
                     "Example Electrical Engineering Board"
                 ASSERTION
@@ -1494,9 +1497,6 @@ class FormatTests: XCTestCase {
                 ASSERTION
                     isA
                     "Certificate of Completion"
-                ASSERTION
-                    "continuingEducationUnits"
-                    1.5
                 ASSERTION
                     issuer
                     "Example Electrical Engineering Board"
@@ -1526,9 +1526,9 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(Self.credential.mermaidFormat(),
         #"""
         graph LR
-            1(("6142d9bc<br/>NODE"))
-            2[/"dbd70e79<br/>WRAPPED"\]
-            3(("b750a45f<br/>NODE"))
+            1(("0f80bc2e<br/>NODE"))
+            2[/"7d578d57<br/>WRAPPED"\]
+            3(("50797e6e<br/>NODE"))
             4["bdd347d4<br/>CID(4676635a)"]
             5(["0536afd8<br/>ASSERTION"])
             6["a791d0c7<br/>#quot;photo#quot;"]
@@ -1539,18 +1539,18 @@ class FormatTests: XCTestCase {
             11(["34f8f7d3<br/>ASSERTION"])
             12["b1e12d58<br/>#quot;issueDate#quot;"]
             13["2511c0df<br/>2020-01-01"]
-            14(["3d00d64f<br/>ASSERTION"])
-            15[/"2f9bee2f<br/>controller"/]
-            16["4035b4bd<br/>#quot;Example Electrical Engineering Board#quot;"]
-            17(["44736993<br/>ASSERTION"])
-            18["05651934<br/>#quot;topics#quot;"]
-            19["264aec65<br/>[#quot;Subject 1#quot;, #quot;Subject 2#quot;]"]
-            20(["46d6cfea<br/>ASSERTION"])
-            21[/"8982354d<br/>isA"/]
-            22["112e2cdb<br/>#quot;Certificate of Completion#quot;"]
-            23(["4a69fca3<br/>ASSERTION"])
-            24["b6d5ea01<br/>#quot;continuingEducationUnits#quot;"]
-            25["02a61366<br/>1.5"]
+            14(["355ceaad<br/>ASSERTION"])
+            15["b6d5ea01<br/>#quot;continuingEducationUnits#quot;"]
+            16["48fc721f<br/>1"]
+            17(["3d00d64f<br/>ASSERTION"])
+            18[/"2f9bee2f<br/>controller"/]
+            19["4035b4bd<br/>#quot;Example Electrical Engineering Board#quot;"]
+            20(["44736993<br/>ASSERTION"])
+            21["05651934<br/>#quot;topics#quot;"]
+            22["264aec65<br/>[#quot;Subject 1#quot;, #quot;Subject 2#quot;]"]
+            23(["46d6cfea<br/>ASSERTION"])
+            24[/"8982354d<br/>isA"/]
+            25["112e2cdb<br/>#quot;Certificate of Completion#quot;"]
             26(["5545f6e2<br/>ASSERTION"])
             27[/"954c8356<br/>issuer"/]
             28["4035b4bd<br/>#quot;Example Electrical Engineering Board#quot;"]
@@ -1569,9 +1569,9 @@ class FormatTests: XCTestCase {
             41(["e96b24d9<br/>ASSERTION"])
             42["c8c1a6dd<br/>#quot;professionalDevelopmentHours#quot;"]
             43["0bf6b955<br/>15"]
-            44(["8c02e1c6<br/>ASSERTION"])
+            44(["7d9fc69d<br/>ASSERTION"])
             45[/"d59f8c0f<br/>verifiedBy"/]
-            46["2deb70b6<br/>Signature"]
+            46["55f21ff1<br/>Signature"]
             47(["afe231cc<br/>ASSERTION"])
             48[/"61fb6a6b<br/>note"/]
             49["f4bf011f<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
@@ -1736,17 +1736,17 @@ class FormatTests: XCTestCase {
             10["#quot;issueDate#quot;"]
             11["2020-01-01"]
             12(["ASSERTION"])
-            13[/"controller"/]
-            14["#quot;Example Electrical Engineering Board#quot;"]
+            13["#quot;continuingEducationUnits#quot;"]
+            14["1"]
             15(["ASSERTION"])
-            16["#quot;topics#quot;"]
-            17["[#quot;Subject 1#quot;, #quot;Subject 2#quot;]"]
+            16[/"controller"/]
+            17["#quot;Example Electrical Engineering Board#quot;"]
             18(["ASSERTION"])
-            19[/"isA"/]
-            20["#quot;Certificate of Completion#quot;"]
+            19["#quot;topics#quot;"]
+            20["[#quot;Subject 1#quot;, #quot;Subject 2#quot;]"]
             21(["ASSERTION"])
-            22["#quot;continuingEducationUnits#quot;"]
-            23["1.5"]
+            22[/"isA"/]
+            23["#quot;Certificate of Completion#quot;"]
             24(["ASSERTION"])
             25[/"issuer"/]
             26["#quot;Example Electrical Engineering Board#quot;"]
@@ -1939,7 +1939,7 @@ class FormatTests: XCTestCase {
             .addAssertion(.note, "Signed by Employer Corp.")
             .sign(with: bobPrivateKeys, randomGenerator: generateFakeRandomNumbers)
             .checkEncoding()
-        XCTAssertEqual(warranty.format,
+        XCTAssertEqual(warranty.format(),
         """
         {
             {
@@ -1968,25 +1968,25 @@ class FormatTests: XCTestCase {
         """)
         XCTAssertEqual(warranty.treeFormat(),
         """
-        697b9b63 NODE
-            0cbbb246 subj WRAPPED
-                ceecf43c subj NODE
-                    6e5c92a5 subj WRAPPED
-                        6142d9bc subj NODE
-                            dbd70e79 subj WRAPPED
-                                b750a45f subj NODE
+        26cb6de4 NODE
+            aff8616d subj WRAPPED
+                0991b260 subj NODE
+                    77c8ffca subj WRAPPED
+                        0f80bc2e subj NODE
+                            7d578d57 subj WRAPPED
+                                50797e6e subj NODE
                                     bdd347d4 subj CID(4676635a)
                                     0536afd8 ELIDED
                                     1d598c65 ASSERTION
                                         eb62836d pred "lastName"
                                         997a0e2d obj "Maxwell"
                                     34f8f7d3 ELIDED
+                                    355ceaad ELIDED
                                     3d00d64f ELIDED
                                     44736993 ELIDED
                                     46d6cfea ASSERTION
                                         8982354d pred isA
                                         112e2cdb obj "Certificate of Completion"
-                                    4a69fca3 ELIDED
                                     5545f6e2 ASSERTION
                                         954c8356 pred issuer
                                         4035b4bd obj "Example Electrical Engineering Board"
@@ -2001,9 +2001,9 @@ class FormatTests: XCTestCase {
                                         0eb38394 pred "subject"
                                         b059b0f2 obj "RF and Microwave Engineering"
                                     e96b24d9 ELIDED
-                            8c02e1c6 ASSERTION
+                            7d9fc69d ASSERTION
                                 d59f8c0f pred verifiedBy
-                                2deb70b6 obj Signature
+                                55f21ff1 obj Signature
                             afe231cc ASSERTION
                                 61fb6a6b pred note
                                 f4bf011f obj "Signed by Example Electrical Engineering…"
@@ -2016,9 +2016,9 @@ class FormatTests: XCTestCase {
             648b2cc3 ASSERTION
                 61fb6a6b pred note
                 46f4bfd7 obj "Signed by Employer Corp."
-            b370f85a ASSERTION
+            a5fd7192 ASSERTION
                 d59f8c0f pred verifiedBy
-                efe20914 obj Signature
+                702c3ab3 obj Signature
         """)
         XCTAssertEqual(warranty.treeFormat(hideNodes: true),
         """
@@ -2033,10 +2033,10 @@ class FormatTests: XCTestCase {
                         ELIDED
                         ELIDED
                         ELIDED
+                        ELIDED
                         ASSERTION
                             isA
                             "Certificate of Completion"
-                        ELIDED
                         ASSERTION
                             issuer
                             "Example Electrical Engineering Board"
@@ -2074,25 +2074,25 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(warranty.mermaidFormat(),
         #"""
         graph LR
-            1(("697b9b63<br/>NODE"))
-            2[/"0cbbb246<br/>WRAPPED"\]
-            3(("ceecf43c<br/>NODE"))
-            4[/"6e5c92a5<br/>WRAPPED"\]
-            5(("6142d9bc<br/>NODE"))
-            6[/"dbd70e79<br/>WRAPPED"\]
-            7(("b750a45f<br/>NODE"))
+            1(("26cb6de4<br/>NODE"))
+            2[/"aff8616d<br/>WRAPPED"\]
+            3(("0991b260<br/>NODE"))
+            4[/"77c8ffca<br/>WRAPPED"\]
+            5(("0f80bc2e<br/>NODE"))
+            6[/"7d578d57<br/>WRAPPED"\]
+            7(("50797e6e<br/>NODE"))
             8["bdd347d4<br/>CID(4676635a)"]
             9{{"0536afd8<br/>ELIDED"}}
             10(["1d598c65<br/>ASSERTION"])
             11["eb62836d<br/>#quot;lastName#quot;"]
             12["997a0e2d<br/>#quot;Maxwell#quot;"]
             13{{"34f8f7d3<br/>ELIDED"}}
-            14{{"3d00d64f<br/>ELIDED"}}
-            15{{"44736993<br/>ELIDED"}}
-            16(["46d6cfea<br/>ASSERTION"])
-            17[/"8982354d<br/>isA"/]
-            18["112e2cdb<br/>#quot;Certificate of Completion#quot;"]
-            19{{"4a69fca3<br/>ELIDED"}}
+            14{{"355ceaad<br/>ELIDED"}}
+            15{{"3d00d64f<br/>ELIDED"}}
+            16{{"44736993<br/>ELIDED"}}
+            17(["46d6cfea<br/>ASSERTION"])
+            18[/"8982354d<br/>isA"/]
+            19["112e2cdb<br/>#quot;Certificate of Completion#quot;"]
             20(["5545f6e2<br/>ASSERTION"])
             21[/"954c8356<br/>issuer"/]
             22["4035b4bd<br/>#quot;Example Electrical Engineering Board#quot;"]
@@ -2107,9 +2107,9 @@ class FormatTests: XCTestCase {
             31["0eb38394<br/>#quot;subject#quot;"]
             32["b059b0f2<br/>#quot;RF and Microwave Engineering#quot;"]
             33{{"e96b24d9<br/>ELIDED"}}
-            34(["8c02e1c6<br/>ASSERTION"])
+            34(["7d9fc69d<br/>ASSERTION"])
             35[/"d59f8c0f<br/>verifiedBy"/]
-            36["2deb70b6<br/>Signature"]
+            36["55f21ff1<br/>Signature"]
             37(["afe231cc<br/>ASSERTION"])
             38[/"61fb6a6b<br/>note"/]
             39["f4bf011f<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
@@ -2122,9 +2122,9 @@ class FormatTests: XCTestCase {
             46(["648b2cc3<br/>ASSERTION"])
             47[/"61fb6a6b<br/>note"/]
             48["46f4bfd7<br/>#quot;Signed by Employer Corp.#quot;"]
-            49(["b370f85a<br/>ASSERTION"])
+            49(["a5fd7192<br/>ASSERTION"])
             50[/"d59f8c0f<br/>verifiedBy"/]
-            51["efe20914<br/>Signature"]
+            51["702c3ab3<br/>Signature"]
             1 -->|subj| 2
             2 -->|subj| 3
             3 -->|subj| 4
@@ -2140,9 +2140,9 @@ class FormatTests: XCTestCase {
             7 --> 14
             7 --> 15
             7 --> 16
-            16 -->|pred| 17
-            16 -->|obj| 18
-            7 --> 19
+            7 --> 17
+            17 -->|pred| 18
+            17 -->|obj| 19
             7 --> 20
             20 -->|pred| 21
             20 -->|obj| 22
@@ -2190,10 +2190,10 @@ class FormatTests: XCTestCase {
             style 13 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
             style 14 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
             style 15 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
-            style 16 stroke:red,stroke-width:3.0px
-            style 17 stroke:#55f,stroke-width:3.0px
+            style 16 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+            style 17 stroke:red,stroke-width:3.0px
             style 18 stroke:#55f,stroke-width:3.0px
-            style 19 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+            style 19 stroke:#55f,stroke-width:3.0px
             style 20 stroke:red,stroke-width:3.0px
             style 21 stroke:#55f,stroke-width:3.0px
             style 22 stroke:#55f,stroke-width:3.0px
@@ -2241,9 +2241,9 @@ class FormatTests: XCTestCase {
             linkStyle 12 stroke-width:2.0px
             linkStyle 13 stroke-width:2.0px
             linkStyle 14 stroke-width:2.0px
-            linkStyle 15 stroke:green,stroke-width:2.0px
-            linkStyle 16 stroke:#55f,stroke-width:2.0px
-            linkStyle 17 stroke-width:2.0px
+            linkStyle 15 stroke-width:2.0px
+            linkStyle 16 stroke:green,stroke-width:2.0px
+            linkStyle 17 stroke:#55f,stroke-width:2.0px
             linkStyle 18 stroke-width:2.0px
             linkStyle 19 stroke:green,stroke-width:2.0px
             linkStyle 20 stroke:#55f,stroke-width:2.0px
@@ -2291,10 +2291,10 @@ class FormatTests: XCTestCase {
             9{{"ELIDED"}}
             10{{"ELIDED"}}
             11{{"ELIDED"}}
-            12(["ASSERTION"])
-            13[/"isA"/]
-            14["#quot;Certificate of Completion#quot;"]
-            15{{"ELIDED"}}
+            12{{"ELIDED"}}
+            13(["ASSERTION"])
+            14[/"isA"/]
+            15["#quot;Certificate of Completion#quot;"]
             16(["ASSERTION"])
             17[/"issuer"/]
             18["#quot;Example Electrical Engineering Board#quot;"]
@@ -2338,9 +2338,9 @@ class FormatTests: XCTestCase {
             4 --> 10
             4 --> 11
             4 --> 12
-            12 --> 13
-            12 --> 14
-            4 --> 15
+            4 --> 13
+            13 --> 14
+            13 --> 15
             4 --> 16
             16 --> 17
             16 --> 18
@@ -2384,10 +2384,10 @@ class FormatTests: XCTestCase {
             style 9 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
             style 10 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
             style 11 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
-            style 12 stroke:red,stroke-width:3.0px
-            style 13 stroke:#55f,stroke-width:3.0px
+            style 12 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+            style 13 stroke:red,stroke-width:3.0px
             style 14 stroke:#55f,stroke-width:3.0px
-            style 15 stroke:#55f,stroke-width:3.0px,stroke-dasharray:5.0 5.0
+            style 15 stroke:#55f,stroke-width:3.0px
             style 16 stroke:red,stroke-width:3.0px
             style 17 stroke:#55f,stroke-width:3.0px
             style 18 stroke:#55f,stroke-width:3.0px

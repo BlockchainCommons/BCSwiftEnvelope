@@ -1,7 +1,7 @@
 import Foundation
 
-extension Envelope.Error {
-    static let notWrapped = Envelope.Error("notWrapped")
+extension EnvelopeError {
+    static let notWrapped = EnvelopeError("notWrapped")
 }
 
 public extension Envelope {
@@ -15,7 +15,7 @@ public extension Envelope {
     /// Throws an exception if this is not a wrapped envelope.
     func unwrap() throws -> Envelope {
         guard case .wrapped(let envelope, _) = subject else {
-            throw Error.notWrapped
+            throw EnvelopeError.notWrapped
         }
         return envelope
     }

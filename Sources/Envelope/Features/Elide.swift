@@ -175,7 +175,7 @@ public extension Envelope {
     /// Throws an exception if the digest of the unelided version does not match.
     func unelide(_ envelope: Envelope) throws -> Envelope {
         guard digest == envelope.digest else {
-            throw Error.invalidDigest
+            throw EnvelopeError.invalidDigest
         }
         return envelope
     }

@@ -2,6 +2,7 @@ import Foundation
 import Graph
 import GraphMermaid
 import WolfBase
+import SecureComponents
 
 public extension Envelope {
     /// Returns the [Mermaid](https://mermaid.js.org/#/) format notation for this envelope.
@@ -22,11 +23,13 @@ public extension Envelope {
         public let layoutDirection: LayoutDirection
         public let theme: Theme
         public let includeDigests: Bool
+        public let knownTags: KnownTags?
 
-        public init(layoutDirection: LayoutDirection? = nil, theme: Theme? = nil, includeDigests: Bool = true) {
+        public init(layoutDirection: LayoutDirection? = nil, theme: Theme? = nil, includeDigests: Bool = true, knownTags: KnownTags? = nil) {
             self.layoutDirection = layoutDirection ?? .leftToRight
             self.theme = theme ?? .color
             self.includeDigests = includeDigests
+            self.knownTags = knownTags
         }
 
         public enum LayoutDirection {
@@ -61,7 +64,7 @@ extension MermaidEnvelopeGraph: MermaidEncodable {
         if data.includeDigests {
             labelComponents.append(envelope.shortID)
         }
-        labelComponents.append(envelope.summary(maxLength: 40).replacingOccurrences(of: "\"", with: "#quot;"))
+        labelComponents.append(envelope.summary(maxLength: 40, knownTags: data.knownTags).replacingOccurrences(of: "\"", with: "#quot;"))
         let label = labelComponents.joined(separator: "<br/>").flanked("\"")
 
         var attributes = NodeAttributes(label: label)
@@ -135,12 +138,12 @@ extension Envelope {
         self.digest.shortDescription
     }
     
-    func summary(maxLength: Int = .max) -> String {
+    func summary(maxLength: Int = .max, knownTags: KnownTags?) -> String {
         switch self {
         case .node(_, _, _):
             return "NODE"
         case .leaf(let cbor, _):
-            return cbor.envelopeSummary(maxLength: maxLength)
+            return cbor.envelopeSummary(maxLength: maxLength, knownTags: knownTags)
         case .wrapped(_, _):
             return "WRAPPED"
         case .knownValue(let knownValue, _):

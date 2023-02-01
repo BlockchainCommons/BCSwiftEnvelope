@@ -14,7 +14,7 @@ class ProofTests: XCTestCase {
             .addAssertion("knows", "Bob", salted: true)
             .addAssertion("knows", "Carol", salted: true)
             .addAssertion("knows", "Dan", salted: true)
-        XCTAssertEqual(aliceFriends.format,
+        XCTAssertEqual(aliceFriends.format(),
         """
         "Alice" [
             {
@@ -39,7 +39,7 @@ class ProofTests: XCTestCase {
         /// Alice provides just the root digest of her document to a third party. This is
         /// simply an envelope in which everything has been elided and nothing revealed.
         let aliceFriendsRoot = try aliceFriends.elideRevealing([])
-        XCTAssertEqual(aliceFriendsRoot.format, "ELIDED")
+        XCTAssertEqual(aliceFriendsRoot.format(), "ELIDED")
         
         /// Now Alice wants to prove to the third party that her document contains a "knows
         /// Bob" assertion. To do this, she produces a proof that is an envelope with the
@@ -52,7 +52,7 @@ class ProofTests: XCTestCase {
         /// guess who else she knows.
         let knowsBobAssertion = Envelope("knows", "Bob")
         let aliceKnowsBobProof = try aliceFriends.proof(contains: knowsBobAssertion)!.checkEncoding()
-        XCTAssertEqual(aliceKnowsBobProof.format,
+        XCTAssertEqual(aliceKnowsBobProof.format(),
         """
         ELIDED [
             ELIDED [
@@ -84,7 +84,7 @@ class ProofTests: XCTestCase {
         /// reveals the digest of the salt for each assertion, which might make Alice's other
         /// associates easier to guess.
         let knowsProof = try aliceFriends.proof(contains: Envelope("knows"))!.checkEncoding()
-        XCTAssertEqual(knowsProof.format,
+        XCTAssertEqual(knowsProof.format(),
         """
         ELIDED [
             {
@@ -130,7 +130,7 @@ class ProofTests: XCTestCase {
         let addressAssertion = Envelope("address", "123 Main St.")
         let addressProof = try credential.proof(contains: addressAssertion)!.checkEncoding()
         /// The proof includes digests from all the elided assertions.
-        XCTAssertEqual(addressProof.format,
+        XCTAssertEqual(addressProof.format(),
         """
         {
             ELIDED [

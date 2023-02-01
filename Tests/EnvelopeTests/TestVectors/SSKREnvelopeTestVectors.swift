@@ -172,10 +172,10 @@ final class SSKREnvelopeTestVectors: XCTestCase {
             header2("Test Vector \(index): \(name)")
 
             header3("Payload in CBOR Diagnostic Notation")
-            monospaced(payload.cbor.diagAnnotated)
+            monospaced(payload.cbor.diagnostic(annotate: true, knownTags: knownTags))
 
             header3("Payload Enclosed in Envelope")
-            monospaced(envelopeWithPayload.format)
+            monospaced(envelopeWithPayload.format())
             
             formatShares()
         }
@@ -197,11 +197,11 @@ final class SSKREnvelopeTestVectors: XCTestCase {
             monospaced(share.ur†)
             
             header4("Tagged CBOR Binary")
-            monospaced(share.taggedCBOR.hex)
+            monospaced(share.taggedCBOR.dump())
             header4("Tagged CBOR Diagnostic Notation")
-            monospaced(share.taggedCBOR.diagAnnotated)
+            monospaced(share.taggedCBOR.diagnostic(annotate: true, knownTags: knownTags))
             header4("Tagged CBOR Annotated Binary")
-            monospaced(share.taggedCBOR.dump)
+            monospaced(share.taggedCBOR.dump(annotate: true, knownTags: knownTags))
             divider()
         }
     }

@@ -1,146 +1,82 @@
 import Foundation
 import SecureComponents
 
-public extension Envelope {
-    /// A type used to identify functions in envelope expressions.
-    enum FunctionIdentifier: Hashable {
-        case known(value: Int, name: String?)
-        case named(name: String)
-    }
+/// A type used to identify functions in envelope expressions.
+public enum FunctionIdentifier: Hashable {
+    case known(UInt64)
+    case named(String)
 }
 
-public extension Envelope.FunctionIdentifier {
-    init(_ value: Int, _ name: String? = nil) {
-        self = .known(value: value, name: name)
+public extension FunctionIdentifier {
+    init(_ value: UInt64) {
+        self = .known(value)
     }
     
     init(_ name: String) {
-        self = .named(name: name)
+        self = .named(name)
     }
 }
 
-extension Envelope.FunctionIdentifier: ExpressibleByStringLiteral {
-    public init(stringLiteral value: StringLiteralType) {
-        self.init(value)
+extension FunctionIdentifier: ExpressibleByIntegerLiteral {
+    public init(integerLiteral value: IntegerLiteralType) {
+        self.init(UInt64(value))
     }
 }
 
-public extension Envelope.FunctionIdentifier {
-    static func ==(lhs: Envelope.FunctionIdentifier, rhs: Envelope.FunctionIdentifier) -> Bool {
-        if
-            case .known(let lValue, _) = lhs,
-            case .known(let rValue, _) = rhs
-        {
-            return lValue == rValue
-        } else if
-            case .named(let lName) = lhs,
-            case .named(let rName) = rhs
-        {
-            return lName == rName
-        } else {
-            return false
-        }
+extension FunctionIdentifier: ExpressibleByStringLiteral {
+    public init(stringLiteral name: StringLiteralType) {
+        self.init(name)
     }
 }
 
-public extension Envelope.FunctionIdentifier {
-    var isKnown: Bool {
-        guard case .known = self else {
-            return false
-        }
-        return true
-    }
-    
-    var isNamed: Bool {
-        guard case .named = self else {
-            return false
-        }
-        return true
-    }
-    
-    var name: String? {
-        switch self {
-        case .known(value: _, name: let name):
-            return name
-        case .named(name: let name):
-            return name
-        }
-    }
-    
-    var value: Int? {
-        switch self {
-        case .known(value: let value, name: _):
-            return value
-        case .named(name: _):
-            return nil
-        }
-    }
-}
-
-public extension Envelope.FunctionIdentifier {
-    static func knownIdentifier(for value: Int) -> Envelope.FunctionIdentifier {
-        knownFunctionIdentifiersByValue[value] ?? Envelope.FunctionIdentifier(value)
-    }
-
-    static func setKnownIdentifier(_ identifier: Envelope.FunctionIdentifier) {
-        guard case .known(value: let value, name: _) = identifier else {
-            preconditionFailure()
-        }
-        knownFunctionIdentifiersByValue[value] = identifier
-    }
-}
-
-extension Envelope.FunctionIdentifier: CBORCodable {
-    public static func cborDecode(_ cbor: CBOR) throws -> Envelope.FunctionIdentifier {
-        try Envelope.FunctionIdentifier(taggedCBOR: cbor)
-    }
-
-    public var cbor: CBOR {
-        switch self {
-        case .known(value: let value, name: _):
-            return CBOR.tagged(.function, CBOR.unsignedInt(UInt64(value)))
-        case .named(name: let name):
-            return CBOR.tagged(.function, CBOR.utf8String(name))
-        }
-    }
-}
-
-public extension Envelope.FunctionIdentifier {
-    init(taggedCBOR cbor: CBOR) throws {
-        guard case CBOR.tagged(.function, let item) = cbor else {
-            throw CBORError.invalidTag
-        }
-        switch item {
-        case CBOR.unsignedInt(let value):
-            if let knownIdentifier = knownFunctionIdentifiersByValue[Int(value)] {
-                self = knownIdentifier
-            } else {
-                self.init(Int(value))
-            }
-        case CBOR.utf8String(let name):
-            self.init(name)
+public extension FunctionIdentifier {
+    static func ==(lhs: FunctionIdentifier, rhs: FunctionIdentifier) -> Bool {
+        switch (lhs, rhs) {
+        case (.known(let l), .known(let r)):
+            return l == r
+        case (.named(let l), .named(let r)):
+            return l == r
         default:
-            throw CBORError.invalidFormat
+            return false
         }
     }
 }
 
-extension Envelope.FunctionIdentifier: CustomStringConvertible {
-    public var description: String {
+extension FunctionIdentifier: CBORTaggedCodable {
+    public static var cborTag = Tag.function
+    
+    public var untaggedCBOR: CBOR {
         switch self {
-        case .known(value: let value, name: let name):
-            return name ?? String(value)
+        case .known(value: let value):
+            return value.cbor
         case .named(name: let name):
+            return name.cbor
+        }
+    }
+    
+    public static func decodeUntaggedCBOR(_ cbor: CBOR) throws -> FunctionIdentifier {
+        switch cbor {
+        case CBOR.unsigned(let value):
+            return Self(value)
+        case CBOR.text(let name):
+            return Self(name)
+        default:
+            throw CBORDecodingError.invalidFormat
+        }
+    }
+}
+
+extension FunctionIdentifier: CustomStringConvertible {
+    public func description(knownIdentifiers: [Int: String]? = nil) -> String {
+        switch self {
+        case .known(let value):
+            return knownIdentifiers?[Int(value)] ?? String(value)
+        case .named(let name):
             return name.flanked("\"")
         }
     }
-}
 
-fileprivate var knownFunctionIdentifiersByValue: [Int: Envelope.FunctionIdentifier] = {
-    knownFunctionIdentifiers.reduce(into: [Int: Envelope.FunctionIdentifier]()) {
-        guard case .known(value: let value, name: _) = $1 else {
-            preconditionFailure()
-        }
-        $0[value] = $1
+    public var description: String {
+        return description(knownIdentifiers: nil)
     }
-}()
+}

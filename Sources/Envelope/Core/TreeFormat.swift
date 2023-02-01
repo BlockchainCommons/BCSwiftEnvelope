@@ -15,13 +15,13 @@ public extension Envelope {
     ///   - target: All elements in `target` will be highlighted with an asterisk.
     ///
     /// - Returns: The tree notation description.
-    func treeFormat(hideNodes: Bool = false, highlighting target: Set<Digest> = []) -> String {
+    func treeFormat(hideNodes: Bool = false, highlighting target: Set<Digest> = [], knownTags: KnownTags? = nil) -> String {
         var elements: [TreeElement] = []
         walk(hideNodes: hideNodes) { (envelope, level, incomingEdge, _) -> Int? in
             elements.append(TreeElement(level: level, envelope: envelope, incomingEdge: incomingEdge, showID: !hideNodes, isHighlighted: target.contains(envelope.digest)))
             return nil
         }
-        return elements.map { $0.string }.joined(separator: "\n")
+        return elements.map { $0.string(knownTags: knownTags) }.joined(separator: "\n")
     }
 }
 
@@ -40,12 +40,12 @@ struct TreeElement {
         self.isHighlighted = isHighlighted
     }
     
-    var string: String {
+    func string(knownTags: KnownTags?) -> String {
         let line = [
             isHighlighted ? "*" : nil,
             showID ? envelope.shortID : nil,
             incomingEdge.label,
-            envelope.summary(maxLength: 40)
+            envelope.summary(maxLength: 40, knownTags: knownTags)
         ]
             .compactMap { $0 }
             .joined(separator: " ")

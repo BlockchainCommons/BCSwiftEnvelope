@@ -10,7 +10,7 @@ class CoreEncodingTests: XCTestCase {
 
     func test1() throws {
         let e = try Envelope(plaintextHello).checkEncoding()
-        XCTAssertEqual(e.diagAnnotated,
+        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
             """
             200(   ; envelope
                24("Hello.")   ; leaf
@@ -22,7 +22,7 @@ class CoreEncodingTests: XCTestCase {
     func test2() throws {
         let array: CBOR = [1, 2, 3]
         let e = try Envelope(array).checkEncoding()
-        XCTAssertEqual(e.diagAnnotated,
+        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
             """
             200(   ; envelope
                24(   ; leaf
@@ -39,7 +39,7 @@ class CoreEncodingTests: XCTestCase {
         let e3 = Envelope("E", "F")
         
         let e4 = try e2.addAssertion(e3)
-        XCTAssertEqual(e4.format,
+        XCTAssertEqual(e4.format(),
         """
         {
             "C": "D"
@@ -49,7 +49,7 @@ class CoreEncodingTests: XCTestCase {
         """
         )
         
-        XCTAssertEqual(e4.diagAnnotated,
+        XCTAssertEqual(e4.diagnostic(annotate: true, knownTags: knownTags),
         """
         200(   ; envelope
            [
@@ -83,7 +83,7 @@ class CoreEncodingTests: XCTestCase {
         
         let e5 = try e1.addAssertion(e4)
         
-        XCTAssertEqual(e5.format,
+        XCTAssertEqual(e5.format(),
             """
             {
                 "A": "B"
@@ -97,7 +97,7 @@ class CoreEncodingTests: XCTestCase {
             """
         )
 
-        XCTAssertEqual(e5.diagAnnotated,
+        XCTAssertEqual(e5.diagnostic(annotate: true, knownTags: knownTags),
             """
             200(   ; envelope
                [

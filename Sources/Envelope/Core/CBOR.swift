@@ -3,66 +3,8 @@ import SecureComponents
 
 /// Support for CBOR encoding and decoding of ``Envelope``.
 
-public extension Envelope {
-    /// Returns the envelope encoded as tagged CBOR.
-    var taggedCBOR: CBOR {
-        CBOR.tagged(.envelope, untaggedCBOR)
-    }
-
-    /// Creates an envelope by decoding the provided tagged CBOR.
-    ///
-    /// Throws if the provided CBOR is not tagged as an envelope.
-    /// Throws if the tagged CBOR is not a well-formed envelope.
-    init(taggedCBOR: CBOR) throws {
-        guard case let CBOR.tagged(.envelope, untaggedCBOR) = taggedCBOR else {
-            throw CBORError.invalidTag
-        }
-        try self.init(untaggedCBOR: untaggedCBOR)
-    }
-}
-
 extension Envelope: CBORCodable {
-    public var cbor: CBOR {
-        taggedCBOR
-    }
-
-    public static func cborDecode(_ cbor: CBOR) throws -> Envelope {
-        try Envelope(taggedCBOR: cbor)
-    }
-}
-
-public extension Envelope {
-    /// Used by test suite to check round-trip encoding of ``Envelope``.
-    ///
-    /// Not needed in production code.
-    @discardableResult
-    func checkEncoding() throws -> Envelope {
-        do {
-            let cbor = taggedCBOR
-            let restored = try Envelope(taggedCBOR: cbor)
-            guard self.digest == restored.digest else {
-                print("=== EXPECTED")
-                print(self.format)
-                print("=== GOT")
-                print(restored.format)
-                print("===")
-                throw Error.invalidFormat
-            }
-            return self
-        } catch {
-            print("===")
-            print(format)
-            print("===")
-            print(cbor.diagAnnotated)
-            print("===")
-            throw error
-        }
-    }
-}
-
-public extension Envelope {
-    /// Returns the envelope encoded as CBOR.
-    var untaggedCBOR: CBOR {
+    public var untaggedCBOR: CBOR {
         switch self {
         case .node(let subject, let assertions, _):
             precondition(!assertions.isEmpty)
@@ -86,36 +28,69 @@ public extension Envelope {
         }
     }
     
-    /// Creates an envelope by decoding the provided untagged CBOR.
-    ///
-    /// Throws if the provided CBOR is not a well-formed envelope.
-    init(untaggedCBOR cbor: CBOR) throws {
+    public static func decodeUntaggedCBOR(_ cbor: CBOR) throws -> Envelope {
+        let result: Envelope
         switch cbor {
-        case CBOR.tagged(.leaf, let item):
-            self.init(cbor: item)
-        case CBOR.tagged(.knownValue, let item):
-            self.init(knownValue: try KnownValue(untaggedCBOR: item))
-        case CBOR.tagged(.wrappedEnvelope, let item):
-            self.init(wrapped: try Envelope(untaggedCBOR: item))
-        case CBOR.tagged(.assertion, let item):
-            self.init(assertion: try Assertion(untaggedCBOR: item))
-        case CBOR.tagged(.envelope, let item):
-            self = try Envelope(untaggedCBOR: item)
-        case CBOR.tagged(.message, let item):
-            let message = try EncryptedMessage(untaggedCBOR: item)
-            try self.init(encryptedMessage: message)
-        case CBOR.tagged(.digest, let item):
-            let digest = try Digest(untaggedCBOR: item)
-            self.init(elided: digest)
+        case CBOR.tagged(let tag, let item):
+            switch tag {
+            case .leaf:
+                result = Envelope(cbor: item)
+            case KnownValue.cborTag:
+                result = Envelope(knownValue: try KnownValue.decodeUntaggedCBOR(item))
+            case .wrappedEnvelope:
+                result = Envelope(wrapped: try decodeUntaggedCBOR(item))
+            case .assertion:
+                result = Envelope(assertion: try Assertion.decodeUntaggedCBOR(item))
+            case .envelope:
+                result = try Envelope.decodeUntaggedCBOR(item)
+            case EncryptedMessage.cborTag:
+                let message = try EncryptedMessage.decodeUntaggedCBOR(item)
+                result = try Envelope(encryptedMessage: message)
+            case Digest.cborTag:
+                let digest = try Digest.decodeUntaggedCBOR(item)
+                result = Envelope(elided: digest)
+            default:
+                throw EnvelopeError.invalidFormat
+            }
         case CBOR.array(let elements):
             guard elements.count >= 2 else {
-                throw CBORError.invalidFormat
+                throw CBORDecodingError.invalidFormat
             }
-            let subject = try Envelope(taggedCBOR: elements[0])
-            let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0 ) }
-            try self.init(subject: subject, assertions: assertions)
+            let subject = try Envelope.decodeTaggedCBOR(elements[0])
+            let assertions = try elements.dropFirst().map { try Envelope.decodeTaggedCBOR($0) }
+            result = try Envelope(subject: subject, assertions: assertions)
         default:
-            throw Error.invalidFormat
+            throw EnvelopeError.invalidFormat
+        }
+        return result
+    }
+}
+
+public extension Envelope {
+    /// Used by test suite to check round-trip encoding of ``Envelope``.
+    ///
+    /// Not needed in production code.
+    @discardableResult
+    func checkEncoding(knownTags: KnownTags? = nil) throws -> Envelope {
+        do {
+            let cbor = taggedCBOR
+            let restored = try Envelope.decodeTaggedCBOR(cbor)
+            guard self.digest == restored.digest else {
+                print("=== EXPECTED")
+                print(self.format)
+                print("=== GOT")
+                print(restored.format)
+                print("===")
+                throw EnvelopeError.invalidFormat
+            }
+            return self
+        } catch {
+            print("===")
+            print(format)
+            print("===")
+            print(cbor.diagnostic(annotate: true, knownTags: knownTags))
+            print("===")
+            throw error
         }
     }
 }

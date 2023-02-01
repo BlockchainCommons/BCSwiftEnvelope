@@ -61,7 +61,7 @@ class ScenarioTests: XCTestCase {
             dereferenceVia: "IPFS"
         ]
         """
-        XCTAssertEqual(bookMetadata.format, expectedFormat)
+        XCTAssertEqual(bookMetadata.format(), expectedFormat)
     }
 
     func testIdentifier() throws {
@@ -92,8 +92,8 @@ class ScenarioTests: XCTestCase {
             ]
         ]
         """
-        print(aliceSignedDocument.format)
-        XCTAssertEqual(aliceSignedDocument.format, expectedFormat)
+        print(aliceSignedDocument.format())
+        XCTAssertEqual(aliceSignedDocument.format(), expectedFormat)
 
         // Signatures have a random component, so anything with a signature will have a
         // non-deterministic digest. Therefore, the two results of signing the same object
@@ -149,7 +149,7 @@ class ScenarioTests: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(aliceRegistration.format, expectedRegistrationFormat)
+        XCTAssertEqual(aliceRegistration.format(), expectedRegistrationFormat)
 
         // Alice receives the registration document back, validates its signature, and
         // extracts the URI that now points to her record.
@@ -171,7 +171,7 @@ class ScenarioTests: XCTestCase {
             note: "Challenge to Alice from Bob."
         ]
         """
-        XCTAssertEqual(aliceChallenge.format, aliceChallengeExpectedFormat)
+        XCTAssertEqual(aliceChallenge.format(), aliceChallengeExpectedFormat)
 
         // Alice responds by adding her registered URI to the nonce, and signing it.
         let aliceChallengeResponse = try aliceChallenge
@@ -197,7 +197,7 @@ class ScenarioTests: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(aliceChallengeResponse.format, aliceChallengeResponseExpectedFormat)
+        XCTAssertEqual(aliceChallengeResponse.format(), aliceChallengeResponseExpectedFormat)
 
         // Bob receives Alice's response, and first checks that the nonce is the once he sent.
         let responseNonce = try aliceChallengeResponse
@@ -264,7 +264,7 @@ class ScenarioTests: XCTestCase {
         // Validate the state's signature
         try johnSmithResidentCard.verifySignature(from: statePublicKeys)
 
-        //print(johnSmithResidentCard.format)
+        //print(johnSmithResidentCard.format())
         
         let expectedFormat =
         """
@@ -302,7 +302,7 @@ class ScenarioTests: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(johnSmithResidentCard.format, expectedFormat)
+        XCTAssertEqual(johnSmithResidentCard.format(), expectedFormat)
 
         //print(johnSmithResidentCard.diagAnnotated)
 
@@ -384,12 +384,12 @@ class ScenarioTests: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(elidedCredential.format, expectedElidedFormat)
+        XCTAssertEqual(elidedCredential.format(), expectedElidedFormat)
 
         // Encrypt instead of elide
         let key = SymmetricKey()
         let encryptedCredential = try top.elideRevealing(target, encryptingWith: key).checkEncoding()
-        //print(encryptedCredential.format)
+        //print(encryptedCredential.format())
         let expectedEncryptedFormat =
         """
         {
@@ -416,7 +416,7 @@ class ScenarioTests: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(encryptedCredential.format, expectedEncryptedFormat)
+        XCTAssertEqual(encryptedCredential.format(), expectedEncryptedFormat)
     }
 
     /// See [The Art of Immutable Architecture, by Michael L. Perry](https://amzn.to/3Kszr1p).
@@ -509,11 +509,11 @@ class ScenarioTests: XCTestCase {
             isA: "PurchaseOrderLineItem"
         ]
         """
-        XCTAssertEqual(line2.format, line2ExpectedFormat)
+        XCTAssertEqual(line2.format(), line2ExpectedFormat)
 
 //        let revokeLine1 = Envelope(purchaseOrder.digest)
 //            .add(Assertion(revoke: Reference(digest: line1.digest)))
-//        print(revokeLine1.format)
+//        print(revokeLine1.format())
 
         let purchaseOrderProjection = try purchaseOrder
             .addAssertion("lineItem", line1)
@@ -542,7 +542,7 @@ class ScenarioTests: XCTestCase {
             isA: "PurchaseOrder"
         ]
         """
-        XCTAssertEqual(purchaseOrderProjection.format, purchaseOrderProjectionExpectedFormat)
+        XCTAssertEqual(purchaseOrderProjection.format(), purchaseOrderProjectionExpectedFormat)
     }
     
     func testExampleCredential() {
@@ -574,8 +574,8 @@ class ScenarioTests: XCTestCase {
             .wrap()
             .sign(with: omarPrivateKey, note: "Signed by Omar")
         
-        print(omar.format)
-        print(jonathan.format)
-        print(cert.format)
+        print(omar.format())
+        print(jonathan.format())
+        print(cert.format())
     }
 }

@@ -18,7 +18,7 @@ class NonCorrelationTests: XCTestCase {
             salt: Salt
         ]
         """
-        XCTAssertEqual(e2.format, e2ExpectedFormat)
+        XCTAssertEqual(e2.format(), e2ExpectedFormat)
 
         // So even though its content is the same, it doesn't correlate.
         XCTAssertFalse(e1.isEquivalent(to: e2))
@@ -38,7 +38,7 @@ class NonCorrelationTests: XCTestCase {
             note: "Bar"
         ]
         """
-        XCTAssertEqual(e1.format, e1ExpectedFormat)
+        XCTAssertEqual(e1.format(), e1ExpectedFormat)
 
         // e1 and e2 have the same predicate
         XCTAssert(e1.assertions.first!.predicate!.isEquivalent(to: e2.assertions.first!.predicate!))
@@ -52,7 +52,7 @@ class NonCorrelationTests: XCTestCase {
             ELIDED
         ]
         """
-        XCTAssertEqual(e1Elided.format, redactedExpectedFormat)
+        XCTAssertEqual(e1Elided.format(), redactedExpectedFormat)
     }
     
     func testAddSalt() throws {
@@ -73,7 +73,7 @@ class NonCorrelationTests: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(e1.format, e1ExpectedFormat)
+        XCTAssertEqual(e1.format(), e1ExpectedFormat)
 
         let e1Elided = try e1.elideRevealing(e1).checkEncoding()
         
@@ -82,6 +82,6 @@ class NonCorrelationTests: XCTestCase {
             ELIDED
         ]
         """
-        XCTAssertEqual(e1Elided.format, redactedExpectedFormat)
+        XCTAssertEqual(e1Elided.format(), redactedExpectedFormat)
     }
 }

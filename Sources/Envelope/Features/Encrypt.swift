@@ -1,11 +1,11 @@
 import Foundation
 import SecureComponents
 
-extension Envelope.Error {
-    static let invalidKey = Envelope.Error("invalidKey")
-    static let alreadyEncrypted = Envelope.Error("alreadyEncrypted")
-    static let notEncrypted = Envelope.Error("notEncrypted")
-    static let alreadyElided = Envelope.Error("alreadyElided")
+extension EnvelopeError {
+    static let invalidKey = EnvelopeError("invalidKey")
+    static let alreadyEncrypted = EnvelopeError("alreadyEncrypted")
+    static let notEncrypted = EnvelopeError("notEncrypted")
+    static let alreadyElided = EnvelopeError("alreadyElided")
 }
 
 public extension Envelope {
@@ -28,39 +28,39 @@ public extension Envelope {
         switch self {
         case .node(let subject, let assertions, let envelopeDigest):
             guard !subject.isEncrypted else {
-                throw Error.alreadyEncrypted
+                throw EnvelopeError.alreadyEncrypted
             }
-            let encodedCBOR = subject.cborEncode
+            let encodedCBOR = subject.encodeCBOR()
             let subjectDigest = subject.digest
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: subjectDigest, nonce: testNonce)
             let encryptedSubject = try Envelope(encryptedMessage: encryptedMessage)
             result = Envelope(subject: encryptedSubject, uncheckedAssertions: assertions)
             originalDigest = envelopeDigest
         case .leaf(let cbor, let envelopeDigest):
-            let encodedCBOR = CBOR.tagged(.leaf, cbor).cborEncode
+            let encodedCBOR = CBOR.tagged(.leaf, cbor).encodeCBOR()
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: envelopeDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = envelopeDigest
         case .wrapped(_, let wrappedDigest):
-            let encodedCBOR = self.untaggedCBOR.cborEncode
+            let encodedCBOR = self.untaggedCBOR.encodeCBOR()
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: wrappedDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = wrappedDigest
         case .knownValue(let knownValue, let envelopeDigest):
-            let encodedCBOR = knownValue.taggedCBOR.cborEncode
+            let encodedCBOR = knownValue.taggedCBOR.encodeCBOR()
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: envelopeDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = envelopeDigest
         case .assertion(let assertion):
             let assertionDigest = assertion.digest
-            let encodedCBOR = assertion.taggedCBOR.cborEncode
+            let encodedCBOR = assertion.taggedCBOR.encodeCBOR()
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: assertionDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = assertionDigest
         case .encrypted(_):
-            throw Error.alreadyEncrypted
+            throw EnvelopeError.alreadyEncrypted
         case .elided(_):
-            throw Error.alreadyElided
+            throw EnvelopeError.alreadyElided
         }
 
         assert(result.digest == originalDigest)
@@ -76,31 +76,31 @@ public extension Envelope {
     /// - Throws: If the envelope is not encrypted or if the `SymmetricKey` is not correct.
     func decryptSubject(with key: SymmetricKey) throws -> Envelope {
         guard case .encrypted(let message) = subject else {
-            throw Error.notEncrypted
+            throw EnvelopeError.notEncrypted
         }
 
         guard
             let encodedCBOR = key.decrypt(message: message)
         else {
-            throw Error.invalidKey
+            throw EnvelopeError.invalidKey
         }
 
         guard let subjectDigest = message.digest else {
-            throw Error.missingDigest
+            throw EnvelopeError.missingDigest
         }
 
         let cbor = try CBOR(encodedCBOR)
-        let resultSubject = try Envelope(untaggedCBOR: cbor).subject
+        let resultSubject = try Envelope.decodeUntaggedCBOR(cbor).subject
 
         guard resultSubject.digest == subjectDigest else {
-            throw Error.invalidDigest
+            throw EnvelopeError.invalidDigest
         }
 
         switch self {
         case .node(subject: _, assertions: let assertions, digest: let originalDigest):
             let result = Envelope(subject: resultSubject, uncheckedAssertions: assertions)
             guard result.digest == originalDigest else {
-                throw Error.invalidDigest
+                throw EnvelopeError.invalidDigest
             }
             return result
         default:

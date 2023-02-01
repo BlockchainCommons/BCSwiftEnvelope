@@ -161,20 +161,20 @@ final class EnvelopeTestVectors: XCTestCase {
             paragraph(explanation)
 
             header3("Payload in Envelope Notation")
-            monospaced(envelope.format)
+            monospaced(envelope.format())
 
             header3("UR")
             note("The CBOR in a UR is never tagged, because the UR `type` field serves this purpose.")
             monospaced(envelope.ur†)
 
             header3("Tagged CBOR Binary")
-            monospaced(envelope.taggedCBOR.hex)
+            monospaced(envelope.taggedCBOR.dump())
 
             header3("Tagged CBOR Diagnostic Notation")
-            monospaced(envelope.diagAnnotated)
+            monospaced(envelope.diagnostic(annotate: true, knownTags: knownTags))
 
             header3("Tagged CBOR Annotated Binary")
-            monospaced(envelope.dump)
+            monospaced(envelope.dump(annotate: true, knownTags: knownTags))
 
             divider()
         }

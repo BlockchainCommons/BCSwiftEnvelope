@@ -10,7 +10,7 @@ class TestFunction: XCTestCase {
             .addParameter(.rhs, value: 3)
     }
     
-    func testWellKnown() {
+    func testKnown() {
         let envelope = twoPlusThree()
         let expectedFormat = """
         «add» [
@@ -18,10 +18,10 @@ class TestFunction: XCTestCase {
             ❰rhs❱: 3
         ]
         """
-        XCTAssertEqual(envelope.format, expectedFormat)
+        XCTAssertEqual(envelope.format(), expectedFormat)
     }
     
-    func testQuoted() {
+    func testNamed() {
         let envelope = Envelope(function: "foo")
             .addParameter("bar", value: 2)
             .addParameter("baz", value: 3)
@@ -32,7 +32,7 @@ class TestFunction: XCTestCase {
             ❰"baz"❱: 3
         ]
         """
-        XCTAssertEqual(envelope.format, expectedFormat)
+        XCTAssertEqual(envelope.format(), expectedFormat)
     }
     
     func testRequest() {
@@ -47,7 +47,7 @@ class TestFunction: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(requestEnvelope.format, expectedRequestFormat)
+        XCTAssertEqual(requestEnvelope.format(), expectedRequestFormat)
 
         let responseEnvelope = Envelope(response: uuid, result: 5)
         let expectedResponseFormat = """
@@ -55,6 +55,6 @@ class TestFunction: XCTestCase {
             result: 5
         ]
         """
-        XCTAssertEqual(responseEnvelope.format, expectedResponseFormat)
+        XCTAssertEqual(responseEnvelope.format(), expectedResponseFormat)
     }
 }

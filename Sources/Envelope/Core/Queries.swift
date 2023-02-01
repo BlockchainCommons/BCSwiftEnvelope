@@ -1,10 +1,10 @@
 import Foundation
 import SecureComponents
 
-extension Envelope.Error {
-    static let nonexistentPredicate = Envelope.Error("nonexistentPredicate")
-    static let nonexistentAssertion = Envelope.Error("nonexistentAssertion")
-    static let ambiguousPredicate = Envelope.Error("ambiguousPredicate")
+extension EnvelopeError {
+    static let nonexistentPredicate = EnvelopeError("nonexistentPredicate")
+    static let nonexistentAssertion = EnvelopeError("nonexistentAssertion")
+    static let ambiguousPredicate = EnvelopeError("ambiguousPredicate")
 }
 
 public extension Envelope {
@@ -196,32 +196,32 @@ public extension Envelope {
         switch self {
         case .wrapped(let envelope, _):
             guard let result = envelope as? T else {
-                throw Error.invalidFormat
+                throw EnvelopeError.invalidFormat
             }
             return result
         case .node(let subject, _, _):
             return try subject.extractSubject(type)
         case .leaf(let cbor, _):
             let t = (type.self as! CBORDecodable.Type)
-            return try t.cborDecode(cbor) as! T
+            return try t.decodeCBOR(cbor) as! T
         case .knownValue(let knownValue, _):
             guard let result = knownValue as? T else {
-                throw Error.invalidFormat
+                throw EnvelopeError.invalidFormat
             }
             return result
         case .assertion(let assertion):
             guard let result = assertion as? T else {
-                throw Error.invalidFormat
+                throw EnvelopeError.invalidFormat
             }
             return result
         case .encrypted(let encryptedMessage):
             guard let result = encryptedMessage as? T else {
-                throw Error.invalidFormat
+                throw EnvelopeError.invalidFormat
             }
             return result
         case .elided(let digest):
             guard let result = digest as? T else {
-                throw Error.invalidFormat
+                throw EnvelopeError.invalidFormat
             }
             return result
         }
@@ -252,13 +252,13 @@ public extension Envelope {
     func assertion(withPredicate predicate: Envelope) throws -> Envelope {
         let a = assertions(withPredicate: predicate)
         guard !a.isEmpty else {
-            throw Error.nonexistentPredicate
+            throw EnvelopeError.nonexistentPredicate
         }
         guard
             a.count == 1,
             let result = a.first
         else {
-            throw Error.ambiguousPredicate
+            throw EnvelopeError.ambiguousPredicate
         }
         return result
     }

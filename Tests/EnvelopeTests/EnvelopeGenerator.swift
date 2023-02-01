@@ -37,7 +37,7 @@ public class EnvelopeGenerator {
         case .string:
             return Envelope(Lorem.shortTitle(using: &rng))
         case .knownValue:
-            return Envelope(Envelope.KnownValue(rawValue: UInt64.random(in: UInt64.min ... UInt64.max, using: &rng)))
+            return Envelope(KnownValue(rawValue: UInt64.random(in: UInt64.min ... UInt64.max, using: &rng)))
         }
     }
     

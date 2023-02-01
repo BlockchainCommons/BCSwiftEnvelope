@@ -1,8 +1,8 @@
 import Foundation
 import SecureComponents
 
-extension Envelope.Error {
-    static let unverifiedSignature = Envelope.Error("unverifiedSignature")
+extension EnvelopeError {
+    static let unverifiedSignature = EnvelopeError("unverifiedSignature")
 }
 
 public extension Envelope {
@@ -176,7 +176,7 @@ extension Envelope {
     @discardableResult
     func verifySignature(_ signature: Signature, key: SigningPublicKey) throws -> Envelope {
         guard isVerifiedSignature(signature, key: key) else {
-            throw Error.unverifiedSignature
+            throw EnvelopeError.unverifiedSignature
         }
         return self
     }
@@ -188,7 +188,7 @@ extension Envelope {
     @discardableResult
     func verifySignature(key: SigningPublicKey) throws -> Envelope {
         guard try hasVerifiedSignature(key: key) else {
-            throw Error.unverifiedSignature
+            throw EnvelopeError.unverifiedSignature
         }
         return self
     }
@@ -210,7 +210,7 @@ extension Envelope {
     @discardableResult
     func verifySignatures(with keys: [SigningPublicKey], threshold: Int? = nil) throws -> Envelope {
         guard try hasVerifiedSignatures(with: keys, threshold: threshold) else {
-            throw Error.unverifiedSignature
+            throw EnvelopeError.unverifiedSignature
         }
         return self
     }

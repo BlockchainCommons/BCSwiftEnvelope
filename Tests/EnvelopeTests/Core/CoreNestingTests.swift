@@ -13,21 +13,21 @@ class CoreNestingTests: XCTestCase {
         let b = Envelope("B")
         
         let knowsBob = Envelope(knows, bob)
-        XCTAssertEqual(knowsBob.format,
+        XCTAssertEqual(knowsBob.format(),
             """
             "knows": "Bob"
             """
         )
         
         let ab = Envelope(a, b)
-        XCTAssertEqual(ab.format,
+        XCTAssertEqual(ab.format(),
             """
             "A": "B"
             """
         )
         
         let knowsABBob = try Envelope(knows.addAssertion(ab), bob).checkEncoding()
-        XCTAssertEqual(knowsABBob.format,
+        XCTAssertEqual(knowsABBob.format(),
             """
             "knows" [
                 "A": "B"
@@ -37,7 +37,7 @@ class CoreNestingTests: XCTestCase {
         )
         
         let knowsBobAB = try Envelope(knows, bob.addAssertion(ab)).checkEncoding()
-        XCTAssertEqual(knowsBobAB.format,
+        XCTAssertEqual(knowsBobAB.format(),
             """
             "knows": "Bob" [
                 "A": "B"
@@ -48,7 +48,7 @@ class CoreNestingTests: XCTestCase {
         let knowsBobEncloseAB = try knowsBob
             .addAssertion(ab)
             .checkEncoding()
-        XCTAssertEqual(knowsBobEncloseAB.format,
+        XCTAssertEqual(knowsBobEncloseAB.format(),
             """
             {
                 "knows": "Bob"
@@ -61,7 +61,7 @@ class CoreNestingTests: XCTestCase {
         let aliceKnowsBob = try alice
             .addAssertion(knowsBob)
             .checkEncoding()
-        XCTAssertEqual(aliceKnowsBob.format,
+        XCTAssertEqual(aliceKnowsBob.format(),
             """
             "Alice" [
                 "knows": "Bob"
@@ -72,7 +72,7 @@ class CoreNestingTests: XCTestCase {
         let aliceABKnowsBob = try aliceKnowsBob
             .addAssertion(ab)
             .checkEncoding()
-        XCTAssertEqual(aliceABKnowsBob.format,
+        XCTAssertEqual(aliceABKnowsBob.format(),
             """
             "Alice" [
                 "A": "B"
@@ -84,7 +84,7 @@ class CoreNestingTests: XCTestCase {
         let aliceKnowsABBob = try alice
             .addAssertion(Envelope(knows.addAssertion(ab), bob))
             .checkEncoding()
-        XCTAssertEqual(aliceKnowsABBob.format,
+        XCTAssertEqual(aliceKnowsABBob.format(),
             """
             "Alice" [
                 "knows" [
@@ -98,7 +98,7 @@ class CoreNestingTests: XCTestCase {
         let aliceKnowsBobAB = try alice
             .addAssertion(Envelope(knows, bob.addAssertion(ab)))
             .checkEncoding()
-        XCTAssertEqual(aliceKnowsBobAB.format,
+        XCTAssertEqual(aliceKnowsBobAB.format(),
             """
             "Alice" [
                 "knows": "Bob" [
@@ -111,7 +111,7 @@ class CoreNestingTests: XCTestCase {
         let aliceKnowsABBobAB = try alice
             .addAssertion(Envelope(knows.addAssertion(ab), bob.addAssertion(ab)))
             .checkEncoding()
-        XCTAssertEqual(aliceKnowsABBobAB.format,
+        XCTAssertEqual(aliceKnowsABBobAB.format(),
             """
             "Alice" [
                 "knows" [
@@ -128,7 +128,7 @@ class CoreNestingTests: XCTestCase {
             .addAssertion(ab)
             .addAssertion(Envelope(knows.addAssertion(ab), bob.addAssertion(ab)))
             .checkEncoding()
-        XCTAssertEqual(aliceABKnowsABBobAB.format,
+        XCTAssertEqual(aliceABKnowsABBobAB.format(),
             """
             "Alice" [
                 "A": "B"
@@ -149,7 +149,7 @@ class CoreNestingTests: XCTestCase {
                     .addAssertion(ab)
             )
             .checkEncoding()
-        XCTAssertEqual(aliceABKnowsABBobABEncloseAB.format,
+        XCTAssertEqual(aliceABKnowsABBobABEncloseAB.format(),
             """
             "Alice" [
                 {
@@ -175,7 +175,7 @@ class CoreNestingTests: XCTestCase {
         """
         "Hello."
         """
-        XCTAssertEqual(envelope.format, expectedFormat)
+        XCTAssertEqual(envelope.format(), expectedFormat)
         
         let elidedEnvelope = envelope.elide()
         XCTAssert(elidedEnvelope.isEquivalent(to: envelope))
@@ -184,7 +184,7 @@ class CoreNestingTests: XCTestCase {
         """
         ELIDED
         """
-        XCTAssertEqual(elidedEnvelope.format, expectedElidedFormat)
+        XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
     }
     
     func testNestingOnce() throws {
@@ -198,7 +198,7 @@ class CoreNestingTests: XCTestCase {
             "Hello."
         }
         """
-        XCTAssertEqual(envelope.format, expectedFormat)
+        XCTAssertEqual(envelope.format(), expectedFormat)
         
         let elidedEnvelope = try Envelope(plaintextHello)
             .elide()
@@ -213,7 +213,7 @@ class CoreNestingTests: XCTestCase {
             ELIDED
         }
         """
-        XCTAssertEqual(elidedEnvelope.format, expectedElidedFormat)
+        XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
     }
     
     func testNestingTwice() throws {
@@ -230,7 +230,7 @@ class CoreNestingTests: XCTestCase {
             }
         }
         """
-        XCTAssertEqual(envelope.format, expectedFormat)
+        XCTAssertEqual(envelope.format(), expectedFormat)
         
         let target = try envelope
             .unwrap()
@@ -245,7 +245,7 @@ class CoreNestingTests: XCTestCase {
             }
         }
         """
-        XCTAssertEqual(elidedEnvelope.format, expectedElidedFormat)
+        XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
         XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
         XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
     }
@@ -270,7 +270,7 @@ class CoreNestingTests: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(envelope.format, expectedFormat)
+        XCTAssertEqual(envelope.format(), expectedFormat)
     }
     
     func testAssertionOnBareAssertion() throws {
@@ -284,6 +284,6 @@ class CoreNestingTests: XCTestCase {
             "assertion-predicate": "assertion-object"
         ]
         """
-        XCTAssertEqual(envelope.format, expectedFormat)
+        XCTAssertEqual(envelope.format(), expectedFormat)
     }
 }

@@ -70,8 +70,8 @@ d8c8d8186648656c6c6f2e
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                 # tag(200)   ; envelope
-   d8 18              # tag(24)   ; leaf
+d8 c8                 # tag(envelope)   ; envelope
+   d8 18              # tag(leaf)   ; leaf
       66              # text(6)
          48656c6c6f2e # "Hello."
 ```
@@ -135,21 +135,21 @@ d8c882d8c8d8186648656c6c6f2ed8c8d8dd82d8c8d8df03d8c8d818d8de58407ea48881b7997689
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                                    # tag(200)   ; envelope
+d8 c8                                    # tag(envelope)   ; envelope
    82                                    # array(2)
-      d8 c8                              # tag(200)   ; envelope
-         d8 18                           # tag(24)   ; leaf
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 18                           # tag(leaf)   ; leaf
             66                           # text(6)
                48656c6c6f2e              # "Hello."
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      03                  # unsigned(3)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 de               # tag(222)   ; signature
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 de               # tag(signature)   ; signature
                         5840             # bytes(64)
                            7ea48881b79976894c52eeac7710978d51a3b63cd6435741278b4e82e59995a62a8b7c6c0f49749c711f501af645714776cb6a624d040b30bfc48c70dbcabba6
 ```
@@ -230,32 +230,32 @@ d8c883d8c8d8186648656c6c6f2ed8c8d8dd82d8c8d8df03d8c8d818d8de584088671a0125b4838c
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                                    # tag(200)   ; envelope
+d8 c8                                    # tag(envelope)   ; envelope
    83                                    # array(3)
-      d8 c8                              # tag(200)   ; envelope
-         d8 18                           # tag(24)   ; leaf
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 18                           # tag(leaf)   ; leaf
             66                           # text(6)
                48656c6c6f2e              # "Hello."
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      03                  # unsigned(3)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 de               # tag(222)   ; signature
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 de               # tag(signature)   ; signature
                         5840             # bytes(64)
                            88671a0125b4838caceb76d20f0781e9953debdbbaf079df465e878430e09464bc706f5839e4022fc61124f26758ba758105e6707b402b24a7ac4c1cc816fbc7
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      03                  # unsigned(3)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 de               # tag(222)   ; signature
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 de               # tag(signature)   ; signature
                         5840             # bytes(64)
                            7ea48881b79976894c52eeac7710978d51a3b63cd6435741278b4e82e59995a62a8b7c6c0f49749c711f501af645714776cb6a624d040b30bfc48c70dbcabba6
 ```
@@ -304,8 +304,8 @@ d8c8d8c98449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac05099304976559439d42608c2
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                                    # tag(200)   ; envelope
-   d8 c9                                 # tag(201)   ; crypto-msg
+d8 c8                                    # tag(envelope)   ; envelope
+   d8 c9                                 # tag(crypto-msg)   ; crypto-msg
       84                                 # array(4)
          49                              # bytes(9)
             095cadd29c5be8c916
@@ -361,8 +361,8 @@ d8c8d8c984586009a4494231ef9cc0707f42928c31577554e9f6aec8227ce2f678a7045f3e8341c5
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                                    # tag(200)   ; envelope
-   d8 c9                                 # tag(201)   ; crypto-msg
+d8 c8                                    # tag(envelope)   ; envelope
+   d8 c9                                 # tag(crypto-msg)   ; crypto-msg
       84                                 # array(4)
          5860                            # bytes(96)
             09a4494231ef9cc0707f42928c31577554e9f6aec8227ce2f678a7045f3e8341c5752fa7a632367228490500bb8402aad1cb12f58a3e3c17133a9c4807e1c1868570681062553e66050ff698711431511dad8cdda38c4dfc9c5eb910327eddc2
@@ -440,10 +440,10 @@ d8c882d8c8d8c98449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac05099304976559439d4
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                                    # tag(200)   ; envelope
+d8 c8                                    # tag(envelope)   ; envelope
    82                                    # array(2)
-      d8 c8                              # tag(200)   ; envelope
-         d8 c9                           # tag(201)   ; crypto-msg
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 c9                           # tag(crypto-msg)   ; crypto-msg
             84                           # array(4)
                49                        # bytes(9)
                   095cadd29c5be8c916
@@ -453,15 +453,15 @@ d8 c8                                    # tag(200)   ; envelope
                   99304976559439d42608c28971c8cfa2
                5824                      # bytes(36)
                   d8cb5820886a0c85832fa119d5dc3a195308bf13547f1f16aef032f6c2ef9912cd5992e5
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      03                  # unsigned(3)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 de               # tag(222)   ; signature
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 de               # tag(signature)   ; signature
                         5840             # bytes(64)
                            7ea48881b79976894c52eeac7710978d51a3b63cd6435741278b4e82e59995a62a8b7c6c0f49749c711f501af645714776cb6a624d040b30bfc48c70dbcabba6
 ```
@@ -571,10 +571,10 @@ d8c883d8c8d8c98449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac05099304976559439d4
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                                    # tag(200)   ; envelope
+d8 c8                                    # tag(envelope)   ; envelope
    83                                    # array(3)
-      d8 c8                              # tag(200)   ; envelope
-         d8 c9                           # tag(201)   ; crypto-msg
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 c9                           # tag(crypto-msg)   ; crypto-msg
             84                           # array(4)
                49                        # bytes(9)
                   095cadd29c5be8c916
@@ -584,17 +584,17 @@ d8 c8                                    # tag(200)   ; envelope
                   99304976559439d42608c28971c8cfa2
                5824                      # bytes(36)
                   d8cb5820886a0c85832fa119d5dc3a195308bf13547f1f16aef032f6c2ef9912cd5992e5
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      05                  # unsigned(5)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 cf               # tag(207)   ; crypto-sealed
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 cf               # tag(crypto-sealed)   ; crypto-sealed
                         82               # array(2)
-                           d8 c9         # tag(201)   ; crypto-msg
+                           d8 c9         # tag(crypto-msg)   ; crypto-msg
                               83         # array(3)
                                  5824    # bytes(36)
                                     46e9ee0c04df9cb7e3ed792967171429c81ca4f31fd53842650618052e58ef89c6537ca2
@@ -602,20 +602,20 @@ d8 c8                                    # tag(200)   ; envelope
                                     4d785658f36c22fb5aed3ac0
                                  50      # bytes(16)
                                     cfa7d5f40e249c702cfc470c5d28cf73
-                           d8 e6         # tag(230)   ; agreement-public-key
+                           d8 e6         # tag(agreement-public-key)   ; agreement-public-key
                               5820       # bytes(32)
                                  4c50899fe27d22ca8a2ced45cdc7a69ee06840bcc01d98058a228e03b697546c
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      05                  # unsigned(5)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 cf               # tag(207)   ; crypto-sealed
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 cf               # tag(crypto-sealed)   ; crypto-sealed
                         82               # array(2)
-                           d8 c9         # tag(201)   ; crypto-msg
+                           d8 c9         # tag(crypto-msg)   ; crypto-msg
                               83         # array(3)
                                  5824    # bytes(36)
                                     72b00f2bb307c8bf0311ce6f86765eda9a64ea3a2c9d9e39b423b6837a4c5d0c3769af34
@@ -623,7 +623,7 @@ d8 c8                                    # tag(200)   ; envelope
                                     4d785658f36c22fb5aed3ac0
                                  50      # bytes(16)
                                     8e2d5c30ae9c3b94bf12454398baaeb7
-                           d8 e6         # tag(230)   ; agreement-public-key
+                           d8 e6         # tag(agreement-public-key)   ; agreement-public-key
                               5820       # bytes(32)
                                  4c50899fe27d22ca8a2ced45cdc7a69ee06840bcc01d98058a228e03b697546c
 ```
@@ -750,10 +750,10 @@ d8c884d8c8d8c9844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050ceae0883f0fd
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                                    # tag(200)   ; envelope
+d8 c8                                    # tag(envelope)   ; envelope
    84                                    # array(4)
-      d8 c8                              # tag(200)   ; envelope
-         d8 c9                           # tag(201)   ; crypto-msg
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 c9                           # tag(crypto-msg)   ; crypto-msg
             84                           # array(4)
                4b                        # bytes(11)
                   098c13829f7fe1ca547500
@@ -763,28 +763,28 @@ d8 c8                                    # tag(200)   ; envelope
                   ceae0883f0fd75d64fbbd5e7517b428f
                5824                      # bytes(36)
                   d8cb5820886a0c85832fa119d5dc3a195308bf13547f1f16aef032f6c2ef9912cd5992e5
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      03                  # unsigned(3)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 de               # tag(222)   ; signature
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 de               # tag(signature)   ; signature
                         5840             # bytes(64)
                            7ea48881b79976894c52eeac7710978d51a3b63cd6435741278b4e82e59995a62a8b7c6c0f49749c711f501af645714776cb6a624d040b30bfc48c70dbcabba6
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      05                  # unsigned(5)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 cf               # tag(207)   ; crypto-sealed
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 cf               # tag(crypto-sealed)   ; crypto-sealed
                         82               # array(2)
-                           d8 c9         # tag(201)   ; crypto-msg
+                           d8 c9         # tag(crypto-msg)   ; crypto-msg
                               83         # array(3)
                                  5824    # bytes(36)
                                     46e9ee0c04df9cb7e3ed792967171429c81ca4f31fd53842650618052e58ef89c6537ca2
@@ -792,20 +792,20 @@ d8 c8                                    # tag(200)   ; envelope
                                     4d785658f36c22fb5aed3ac0
                                  50      # bytes(16)
                                     cfa7d5f40e249c702cfc470c5d28cf73
-                           d8 e6         # tag(230)   ; agreement-public-key
+                           d8 e6         # tag(agreement-public-key)   ; agreement-public-key
                               5820       # bytes(32)
                                  4c50899fe27d22ca8a2ced45cdc7a69ee06840bcc01d98058a228e03b697546c
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      05                  # unsigned(5)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 cf               # tag(207)   ; crypto-sealed
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 cf               # tag(crypto-sealed)   ; crypto-sealed
                         82               # array(2)
-                           d8 c9         # tag(201)   ; crypto-msg
+                           d8 c9         # tag(crypto-msg)   ; crypto-msg
                               83         # array(3)
                                  5824    # bytes(36)
                                     72b00f2bb307c8bf0311ce6f86765eda9a64ea3a2c9d9e39b423b6837a4c5d0c3769af34
@@ -813,7 +813,7 @@ d8 c8                                    # tag(200)   ; envelope
                                     4d785658f36c22fb5aed3ac0
                                  50      # bytes(16)
                                     8e2d5c30ae9c3b94bf12454398baaeb7
-                           d8 e6         # tag(230)   ; agreement-public-key
+                           d8 e6         # tag(agreement-public-key)   ; agreement-public-key
                               5820       # bytes(32)
                                  4c50899fe27d22ca8a2ced45cdc7a69ee06840bcc01d98058a228e03b697546c
 ```
@@ -1162,7 +1162,7 @@ d8c882d8c8d8e086d8c8d818d8ca5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622
                                        ),
                                        200(   ; envelope
                                           24(   ; leaf
-                                             32(   ; uri
+                                             32(
                                                 "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
                                              )
                                           )
@@ -1233,266 +1233,269 @@ d8c882d8c8d8e086d8c8d818d8ca5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                                    # tag(200)   ; envelope
+d8 c8                                    # tag(envelope)   ; envelope
    82                                    # array(2)
-      d8 c8                              # tag(200)   ; envelope
-         d8 e0                           # tag(224)   ; wrapped-envelope
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 e0                           # tag(wrapped-envelope)   ; wrapped-envelope
             86                           # array(6)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 ca               # tag(202)   ; crypto-cid
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 ca               # tag(crypto-cid)   ; crypto-cid
                         5820             # bytes(32)
                            174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
-               d8 c8                     # tag(200)   ; envelope
-                  d8 dd                  # tag(221)   ; assertion
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 dd                  # tag(assertion)   ; assertion
                      82                  # array(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 df         # tag(223)   ; known-value
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 df         # tag(known-value)   ; known-value
                               04         # unsigned(4)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 18         # tag(24)   ; leaf
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 18         # tag(leaf)   ; leaf
                               78 43      # text(67)
                                  546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742e # "The State of Example recognizes JOHN SMITH as a Permanent Resident."
-               d8 c8                     # tag(200)   ; envelope
-                  d8 dd                  # tag(221)   ; assertion
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 dd                  # tag(assertion)   ; assertion
                      82                  # array(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 df         # tag(223)   ; known-value
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 df         # tag(known-value)   ; known-value
                               0e         # unsigned(14)
-                        d8 c8            # tag(200)   ; envelope
+                        d8 c8            # tag(envelope)   ; envelope
                            8c            # array(12)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 18   # tag(24)   ; leaf
-                                    d8 ca # tag(202)   ; crypto-cid
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 18   # tag(leaf)   ; leaf
+                                    d8 ca # tag(crypto-cid)   ; crypto-cid
                                        5820 # bytes(32)
                                           78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              6c # text(12)
                                                 6269727468436f756e747279 # "birthCountry"
-                                       d8 c8 # tag(200)   ; envelope
+                                       d8 c8 # tag(envelope)   ; envelope
                                           82 # array(2)
-                                             d8 c8 # tag(200)   ; envelope
-                                                d8 18 # tag(24)   ; leaf
+                                             d8 c8 # tag(envelope)   ; envelope
+                                                d8 18 # tag(leaf)   ; leaf
                                                    62 # text(2)
                                                       6273 # "bs"
-                                             d8 c8 # tag(200)   ; envelope
-                                                d8 dd # tag(221)   ; assertion
+                                             d8 c8 # tag(envelope)   ; envelope
+                                                d8 dd # tag(assertion)   ; assertion
                                                    82 # array(2)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 df # tag(223)   ; known-value
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 df # tag(known-value)   ; known-value
                                                             04 # unsigned(4)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 18 # tag(24)   ; leaf
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 18 # tag(leaf)   ; leaf
                                                             6b # text(11)
                                                                54686520426168616d6173 # "The Bahamas"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              69 # text(9)
                                                 6c70724e756d626572 # "lprNumber"
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              6b # text(11)
                                                 3939392d3939392d393939 # "999-999-999"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 df # tag(223)   ; known-value
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 df # tag(known-value)   ; known-value
                                              02 # unsigned(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              66 # text(6)
                                                 506572736f6e # "Person"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              6a # text(10)
                                                 66616d696c794e616d65 # "familyName"
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              65 # text(5)
                                                 534d495448 # "SMITH"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              6d # text(13)
                                                 7265736964656e7453696e6365 # "residentSince"
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
-                                             c1 1a5a516300 # date(2018-01-07 00:00:00 +0000)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
+                                             c1 # tag(1)
+                                                1a5a516300 # unsigned(1515283200)
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 df # tag(223)   ; known-value
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 df # tag(known-value)   ; known-value
                                              02 # unsigned(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              72 # text(18)
                                                 5065726d616e656e74205265736964656e74 # "Permanent Resident"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              6b # text(11)
                                                 6c707243617465676f7279 # "lprCategory"
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              63 # text(3)
                                                 433039 # "C09"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              69 # text(9)
                                                 676976656e4e616d65 # "givenName"
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              64 # text(4)
                                                 4a4f484e # "JOHN"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              69 # text(9)
                                                 626972746844617465 # "birthDate"
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
-                                             c1 1a07c56780 # date(1974-02-18 00:00:00 +0000)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
+                                             c1 # tag(1)
+                                                1a07c56780 # unsigned(130377600)
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              63 # text(3)
                                                 736578 # "sex"
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              64 # text(4)
                                                 4d414c45 # "MALE"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              65 # text(5)
                                                 696d616765 # "image"
-                                       d8 c8 # tag(200)   ; envelope
+                                       d8 c8 # tag(envelope)   ; envelope
                                           83 # array(3)
-                                             d8 c8 # tag(200)   ; envelope
-                                                d8 18 # tag(24)   ; leaf
-                                                   d8 cb # tag(203)   ; crypto-digest
+                                             d8 c8 # tag(envelope)   ; envelope
+                                                d8 18 # tag(leaf)   ; leaf
+                                                   d8 cb # tag(crypto-digest)   ; crypto-digest
                                                       5820 # bytes(32)
                                                          36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999
-                                             d8 c8 # tag(200)   ; envelope
-                                                d8 dd # tag(221)   ; assertion
+                                             d8 c8 # tag(envelope)   ; envelope
+                                                d8 dd # tag(assertion)   ; assertion
                                                    82 # array(2)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 df # tag(223)   ; known-value
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 df # tag(known-value)   ; known-value
                                                             04 # unsigned(4)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 18 # tag(24)   ; leaf
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 18 # tag(leaf)   ; leaf
                                                             78 1f # text(31)
                                                                5468697320697320616e20696d616765206f66204a6f686e20536d6974682e # "This is an image of John Smith."
-                                             d8 c8 # tag(200)   ; envelope
-                                                d8 dd # tag(221)   ; assertion
+                                             d8 c8 # tag(envelope)   ; envelope
+                                                d8 dd # tag(assertion)   ; assertion
                                                    82 # array(2)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 df # tag(223)   ; known-value
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 df # tag(known-value)   ; known-value
                                                             09 # unsigned(9)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 18 # tag(24)   ; leaf
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 18 # tag(leaf)   ; leaf
                                                             78 61 # text(97)
                                                                68747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939 # "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-               d8 c8                     # tag(200)   ; envelope
-                  d8 dd                  # tag(221)   ; assertion
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 dd                  # tag(assertion)   ; assertion
                      82                  # array(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 18         # tag(24)   ; leaf
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 18         # tag(leaf)   ; leaf
                               6a         # text(10)
                                  64617465497373756564 # "dateIssued"
-                        d8 c8            # tag(200)   ; envelope
-                           d8 18         # tag(24)   ; leaf
-                              c1 1a62688780 # date(2022-04-27 00:00:00 +0000)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 dd                  # tag(221)   ; assertion
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 18         # tag(leaf)   ; leaf
+                              c1         # tag(1)
+                                 1a62688780 # unsigned(1651017600)
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 dd                  # tag(assertion)   ; assertion
                      82                  # array(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 df         # tag(223)   ; known-value
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 df         # tag(known-value)   ; known-value
                               02         # unsigned(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 18         # tag(24)   ; leaf
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 18         # tag(leaf)   ; leaf
                               6a         # text(10)
                                  63726564656e7469616c # "credential"
-               d8 c8                     # tag(200)   ; envelope
-                  d8 dd                  # tag(221)   ; assertion
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 dd                  # tag(assertion)   ; assertion
                      82                  # array(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 df         # tag(223)   ; known-value
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 df         # tag(known-value)   ; known-value
                               0d         # unsigned(13)
-                        d8 c8            # tag(200)   ; envelope
+                        d8 c8            # tag(envelope)   ; envelope
                            83            # array(3)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 18   # tag(24)   ; leaf
-                                    d8 ca # tag(202)   ; crypto-cid
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 18   # tag(leaf)   ; leaf
+                                    d8 ca # tag(crypto-cid)   ; crypto-cid
                                        5820 # bytes(32)
                                           04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 df # tag(223)   ; known-value
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 df # tag(known-value)   ; known-value
                                              09 # unsigned(9)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
-                                             d8 20 # tag(32)   ; uri
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
+                                             d8 20 # tag(32)
                                                 78 5e # text(94)
                                                    68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 df # tag(223)   ; known-value
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 df # tag(known-value)   ; known-value
                                              04 # unsigned(4)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              78 1e # text(30)
                                                 49737375656420627920746865205374617465206f66204578616d706c65 # "Issued by the State of Example"
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      03                  # unsigned(3)
-               d8 c8                     # tag(200)   ; envelope
+               d8 c8                     # tag(envelope)   ; envelope
                   82                     # array(2)
-                     d8 c8               # tag(200)   ; envelope
-                        d8 18            # tag(24)   ; leaf
-                           d8 de         # tag(222)   ; signature
+                     d8 c8               # tag(envelope)   ; envelope
+                        d8 18            # tag(leaf)   ; leaf
+                           d8 de         # tag(signature)   ; signature
                               5840       # bytes(64)
                                  ed0ef0ff39080449abbdf00f2d69f71d03bc50356137b2dcd0967098288444ab41525ad910179c3566679620f5125e596137087051f146000d6a7083aa04ccb9
-                     d8 c8               # tag(200)   ; envelope
-                        d8 dd            # tag(221)   ; assertion
+                     d8 c8               # tag(envelope)   ; envelope
+                        d8 dd            # tag(assertion)   ; assertion
                            82            # array(2)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 df   # tag(223)   ; known-value
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 df   # tag(known-value)   ; known-value
                                     04   # unsigned(4)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 18   # tag(24)   ; leaf
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 18   # tag(leaf)   ; leaf
                                     78 1d # text(29)
                                        4d61646520627920746865205374617465206f66204578616d706c652e # "Made by the State of Example."
 ```
@@ -1737,7 +1740,7 @@ d8c882d8c8d8e086d8c8d818d8ca5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622
                                        ),
                                        200(   ; envelope
                                           24(   ; leaf
-                                             32(   ; uri
+                                             32(
                                                 "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
                                              )
                                           )
@@ -1808,190 +1811,190 @@ d8c882d8c8d8e086d8c8d818d8ca5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 c8                                    # tag(200)   ; envelope
+d8 c8                                    # tag(envelope)   ; envelope
    82                                    # array(2)
-      d8 c8                              # tag(200)   ; envelope
-         d8 e0                           # tag(224)   ; wrapped-envelope
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 e0                           # tag(wrapped-envelope)   ; wrapped-envelope
             86                           # array(6)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 18                  # tag(24)   ; leaf
-                     d8 ca               # tag(202)   ; crypto-cid
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 18                  # tag(leaf)   ; leaf
+                     d8 ca               # tag(crypto-cid)   ; crypto-cid
                         5820             # bytes(32)
                            174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
-               d8 c8                     # tag(200)   ; envelope
-                  d8 cb                  # tag(203)   ; crypto-digest
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 cb                  # tag(crypto-digest)   ; crypto-digest
                      5820                # bytes(32)
                         00b6228c61fcce0113249a37841feb5e9bea819fda1baa8479a096b3de0fefe2
-               d8 c8                     # tag(200)   ; envelope
-                  d8 dd                  # tag(221)   ; assertion
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 dd                  # tag(assertion)   ; assertion
                      82                  # array(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 df         # tag(223)   ; known-value
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 df         # tag(known-value)   ; known-value
                               0e         # unsigned(14)
-                        d8 c8            # tag(200)   ; envelope
+                        d8 c8            # tag(envelope)   ; envelope
                            8c            # array(12)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 18   # tag(24)   ; leaf
-                                    d8 ca # tag(202)   ; crypto-cid
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 18   # tag(leaf)   ; leaf
+                                    d8 ca # tag(crypto-cid)   ; crypto-cid
                                        5820 # bytes(32)
                                           78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 cb   # tag(203)   ; crypto-digest
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 cb   # tag(crypto-digest)   ; crypto-digest
                                     5820 # bytes(32)
                                        02a6d8f04ef590e767e298ae9c088c79b7f8ff3cc105d35e022d5dfb2572c611
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 cb   # tag(203)   ; crypto-digest
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 cb   # tag(crypto-digest)   ; crypto-digest
                                     5820 # bytes(32)
                                        2d3dba4203f7afbdd1720a25fd47a43310c29198d8a9b5b189139e12a8b5557a
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 cb   # tag(203)   ; crypto-digest
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 cb   # tag(crypto-digest)   ; crypto-digest
                                     5820 # bytes(32)
                                        3969b88654bb8ca2161183e28a9f3c1003cd6e495c7df1a6925e9a121fa197bd
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              6a # text(10)
                                                 66616d696c794e616d65 # "familyName"
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              65 # text(5)
                                                 534d495448 # "SMITH"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 cb   # tag(203)   ; crypto-digest
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 cb   # tag(crypto-digest)   ; crypto-digest
                                     5820 # bytes(32)
                                        43bce9dc0178b8a98354c16f4c23d385b6a0af5ad593a605cf0963728674dfcc
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 cb   # tag(203)   ; crypto-digest
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 cb   # tag(crypto-digest)   ; crypto-digest
                                     5820 # bytes(32)
                                        4c83b4ed34afb6bd8333d5ff2a076b6b57463d08b4823718a1b60a4ef3b86bf2
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 cb   # tag(203)   ; crypto-digest
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 cb   # tag(crypto-digest)   ; crypto-digest
                                     5820 # bytes(32)
                                        512afdf4281061fdacf395fdee9640ea50a1006d8c84b1f9cf403acbb2a8f4b2
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              69 # text(9)
                                                 676976656e4e616d65 # "givenName"
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              64 # text(4)
                                                 4a4f484e # "JOHN"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 cb   # tag(203)   ; crypto-digest
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 cb   # tag(crypto-digest)   ; crypto-digest
                                     5820 # bytes(32)
                                        b04a0a6f1a4648caca5702eea3e5ebf573660dbbcf612c600a03201be0efd512
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 cb   # tag(203)   ; crypto-digest
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 cb   # tag(crypto-digest)   ; crypto-digest
                                     5820 # bytes(32)
                                        c4a26205554a10c9ac69c1ee38ff7d8780115b7e48b14e488e6eb160c7457b33
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              65 # text(5)
                                                 696d616765 # "image"
-                                       d8 c8 # tag(200)   ; envelope
+                                       d8 c8 # tag(envelope)   ; envelope
                                           83 # array(3)
-                                             d8 c8 # tag(200)   ; envelope
-                                                d8 18 # tag(24)   ; leaf
-                                                   d8 cb # tag(203)   ; crypto-digest
+                                             d8 c8 # tag(envelope)   ; envelope
+                                                d8 18 # tag(leaf)   ; leaf
+                                                   d8 cb # tag(crypto-digest)   ; crypto-digest
                                                       5820 # bytes(32)
                                                          36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999
-                                             d8 c8 # tag(200)   ; envelope
-                                                d8 dd # tag(221)   ; assertion
+                                             d8 c8 # tag(envelope)   ; envelope
+                                                d8 dd # tag(assertion)   ; assertion
                                                    82 # array(2)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 df # tag(223)   ; known-value
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 df # tag(known-value)   ; known-value
                                                             04 # unsigned(4)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 18 # tag(24)   ; leaf
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 18 # tag(leaf)   ; leaf
                                                             78 1f # text(31)
                                                                5468697320697320616e20696d616765206f66204a6f686e20536d6974682e # "This is an image of John Smith."
-                                             d8 c8 # tag(200)   ; envelope
-                                                d8 dd # tag(221)   ; assertion
+                                             d8 c8 # tag(envelope)   ; envelope
+                                                d8 dd # tag(assertion)   ; assertion
                                                    82 # array(2)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 df # tag(223)   ; known-value
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 df # tag(known-value)   ; known-value
                                                             09 # unsigned(9)
-                                                      d8 c8 # tag(200)   ; envelope
-                                                         d8 18 # tag(24)   ; leaf
+                                                      d8 c8 # tag(envelope)   ; envelope
+                                                         d8 18 # tag(leaf)   ; leaf
                                                             78 61 # text(97)
                                                                68747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939 # "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-               d8 c8                     # tag(200)   ; envelope
-                  d8 cb                  # tag(203)   ; crypto-digest
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 cb                  # tag(crypto-digest)   ; crypto-digest
                      5820                # bytes(32)
                         533031750faea0e60d37b3dcb4e4088737af0a1e84c2b8c009de1f278ab93054
-               d8 c8                     # tag(200)   ; envelope
-                  d8 dd                  # tag(221)   ; assertion
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 dd                  # tag(assertion)   ; assertion
                      82                  # array(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 df         # tag(223)   ; known-value
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 df         # tag(known-value)   ; known-value
                               02         # unsigned(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 18         # tag(24)   ; leaf
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 18         # tag(leaf)   ; leaf
                               6a         # text(10)
                                  63726564656e7469616c # "credential"
-               d8 c8                     # tag(200)   ; envelope
-                  d8 dd                  # tag(221)   ; assertion
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 dd                  # tag(assertion)   ; assertion
                      82                  # array(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 df         # tag(223)   ; known-value
+                        d8 c8            # tag(envelope)   ; envelope
+                           d8 df         # tag(known-value)   ; known-value
                               0d         # unsigned(13)
-                        d8 c8            # tag(200)   ; envelope
+                        d8 c8            # tag(envelope)   ; envelope
                            83            # array(3)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 18   # tag(24)   ; leaf
-                                    d8 ca # tag(202)   ; crypto-cid
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 18   # tag(leaf)   ; leaf
+                                    d8 ca # tag(crypto-cid)   ; crypto-cid
                                        5820 # bytes(32)
                                           04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 df # tag(223)   ; known-value
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 df # tag(known-value)   ; known-value
                                              09 # unsigned(9)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
-                                             d8 20 # tag(32)   ; uri
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
+                                             d8 20 # tag(32)
                                                 78 5e # text(94)
                                                    68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 dd   # tag(221)   ; assertion
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 dd   # tag(assertion)   ; assertion
                                     82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 df # tag(223)   ; known-value
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 df # tag(known-value)   ; known-value
                                              04 # unsigned(4)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
+                                       d8 c8 # tag(envelope)   ; envelope
+                                          d8 18 # tag(leaf)   ; leaf
                                              78 1e # text(30)
                                                 49737375656420627920746865205374617465206f66204578616d706c65 # "Issued by the State of Example"
-      d8 c8                              # tag(200)   ; envelope
-         d8 dd                           # tag(221)   ; assertion
+      d8 c8                              # tag(envelope)   ; envelope
+         d8 dd                           # tag(assertion)   ; assertion
             82                           # array(2)
-               d8 c8                     # tag(200)   ; envelope
-                  d8 df                  # tag(223)   ; known-value
+               d8 c8                     # tag(envelope)   ; envelope
+                  d8 df                  # tag(known-value)   ; known-value
                      03                  # unsigned(3)
-               d8 c8                     # tag(200)   ; envelope
+               d8 c8                     # tag(envelope)   ; envelope
                   82                     # array(2)
-                     d8 c8               # tag(200)   ; envelope
-                        d8 18            # tag(24)   ; leaf
-                           d8 de         # tag(222)   ; signature
+                     d8 c8               # tag(envelope)   ; envelope
+                        d8 18            # tag(leaf)   ; leaf
+                           d8 de         # tag(signature)   ; signature
                               5840       # bytes(64)
                                  ed0ef0ff39080449abbdf00f2d69f71d03bc50356137b2dcd0967098288444ab41525ad910179c3566679620f5125e596137087051f146000d6a7083aa04ccb9
-                     d8 c8               # tag(200)   ; envelope
-                        d8 dd            # tag(221)   ; assertion
+                     d8 c8               # tag(envelope)   ; envelope
+                        d8 dd            # tag(assertion)   ; assertion
                            82            # array(2)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 df   # tag(223)   ; known-value
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 df   # tag(known-value)   ; known-value
                                     04   # unsigned(4)
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 18   # tag(24)   ; leaf
+                              d8 c8      # tag(envelope)   ; envelope
+                                 d8 18   # tag(leaf)   ; leaf
                                     78 1d # text(29)
                                        4d61646520627920746865205374617465206f66204578616d706c652e # "Made by the State of Example."
 ```
