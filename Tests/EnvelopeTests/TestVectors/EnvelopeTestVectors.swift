@@ -168,13 +168,13 @@ final class EnvelopeTestVectors: XCTestCase {
             monospaced(envelope.ur†)
 
             header3("Tagged CBOR Binary")
-            monospaced(envelope.taggedCBOR.dump())
+            monospaced(envelope.taggedCBOR.hex())
 
             header3("Tagged CBOR Diagnostic Notation")
-            monospaced(envelope.diagnostic(annotate: true, knownTags: knownTags))
+            monospaced(envelope.diagnostic(annotate: true, context: formatContext))
 
             header3("Tagged CBOR Annotated Binary")
-            monospaced(envelope.dump(annotate: true, knownTags: knownTags))
+            monospaced(envelope.dump(annotate: true, context: formatContext))
 
             divider()
         }

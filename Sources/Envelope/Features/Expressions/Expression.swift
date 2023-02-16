@@ -5,18 +5,18 @@ import SecureComponents
 
 public extension Envelope {
     /// Creates an envelope with a `«function»` subject.
-    init(function identifier: FunctionIdentifier) {
+    init(function identifier: Function) {
         self.init(identifier)
     }
     
     /// Creates an envelope with a `«function»` subject.
     init(function name: String) {
-        self.init(function: FunctionIdentifier(name))
+        self.init(function: Function(name))
     }
     
     /// Creates an envelope with a `«function»` subject.
     init(function value: UInt64) {
-        self.init(function: FunctionIdentifier(value))
+        self.init(function: Function(value))
     }
 }
 
@@ -26,11 +26,11 @@ public extension Envelope {
     /// Creates a new envelope by adding a `❰parameter❱: value` assertion.
     ///
     /// - Parameters:
-    ///   - param: A ``ParameterIdentifier``. This will be encoded as either an unsigned integer or a string.
+    ///   - param: A ``Parameter``. This will be encoded as either an unsigned integer or a string.
     ///   - value: The argument value.
     ///
     /// - Returns: The new envelope. If `value` is `nil`, returns the original envelope.
-    func addParameter(_ param: ParameterIdentifier, value: CBOREncodable?) -> Envelope {
+    func addParameter(_ param: Parameter, value: CBOREncodable?) -> Envelope {
         try! addAssertion(.parameter(param, value: value))
     }
     
@@ -48,11 +48,11 @@ public extension Envelope {
     /// Creates a new envelope containing a `❰parameter❱: value` assertion.
     ///
     /// - Parameters:
-    ///   - param: A ``ParameterIdentifier``. This will be encoded as either an unsigned integer or a string.
+    ///   - param: A ``Parameter``. This will be encoded as either an unsigned integer or a string.
     ///   - value: The argument value.
     ///
     /// - Returns: The new assertion envelope. If `value` is `nil`, returns the original envelope.
-    static func parameter(_ param: ParameterIdentifier, value: CBOREncodable?) -> Envelope? {
+    static func parameter(_ param: Parameter, value: CBOREncodable?) -> Envelope? {
         guard let value else {
             return nil
         }
@@ -70,7 +70,7 @@ public extension Envelope {
         guard let value else {
             return nil
         }
-        return parameter(ParameterIdentifier(name), value: value)
+        return parameter(Parameter(name), value: value)
     }
 }
 
@@ -129,14 +129,14 @@ public extension Envelope {
     ///
     /// - Throws: Throws an exception if there is not exactly one matching `parameter`,
     /// or if the parameter value is not the correct type.
-    func extractObject<T>(_ type: T.Type, forParameter parameter: ParameterIdentifier) throws -> T where T: CBORDecodable {
+    func extractObject<T>(_ type: T.Type, forParameter parameter: Parameter) throws -> T where T: CBORDecodable {
         try extractObject(type, forPredicate: parameter)
     }
     
     /// Returns an array of arguments for the given parameter.
     ///
     /// - Throws: Throws an exception if any of the parameter values are not the correct type.
-    func extractObjects<T>(_ type: T.Type, forParameter parameter: ParameterIdentifier) throws -> [T] where T: CBORDecodable {
+    func extractObjects<T>(_ type: T.Type, forParameter parameter: Parameter) throws -> [T] where T: CBORDecodable {
         try extractObjects(type, forPredicate: parameter)
     }
 }

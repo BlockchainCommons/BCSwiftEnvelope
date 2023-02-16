@@ -3,6 +3,12 @@ import SecureComponents
 import Envelope
 import WolfBase
 
+let formatContext = FormatContext(
+    tags: knownTags,
+    functions: knownFunctions,
+    parameters: knownParameters
+)
+
 class CoreTests: XCTestCase {
     static let basicEnvelope = Envelope("Hello.")
     static let knownValueEnvelope = Envelope(.note)
@@ -18,7 +24,7 @@ class CoreTests: XCTestCase {
     func testIntSubject() throws {
         let e = try Envelope(42).checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            24(42)   ; leaf
@@ -39,7 +45,7 @@ class CoreTests: XCTestCase {
     func testNegativeIntSubject() throws {
         let e = try Envelope(-42).checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            24(-42)   ; leaf
@@ -60,7 +66,7 @@ class CoreTests: XCTestCase {
     func testCBOREncodableSubject() throws {
         let e = try Self.basicEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            24("Hello.")   ; leaf
@@ -83,7 +89,7 @@ class CoreTests: XCTestCase {
     func testKnownValueSubject() throws {
         let e = try Self.knownValueEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            223(4)   ; known-value
@@ -105,7 +111,7 @@ class CoreTests: XCTestCase {
     func testAssertionSubject() throws {
         let e = try Self.assertionEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            221(   ; assertion
@@ -136,7 +142,7 @@ class CoreTests: XCTestCase {
     func testSubjectWithAssertion() throws {
         let e = Self.singleAssertionEnvelope
         
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            [
@@ -176,7 +182,7 @@ class CoreTests: XCTestCase {
     func testSubjectWithTwoAssertions() throws {
         let e = Self.doubleAssertionEnvelope
         
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            [
@@ -229,7 +235,7 @@ class CoreTests: XCTestCase {
     func testWrapped() throws {
         let e = try Self.wrappedEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            224(   ; wrapped-envelope
@@ -253,7 +259,7 @@ class CoreTests: XCTestCase {
     func testDoubleWrapped() throws {
         let e = try Self.doubleWrappedEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            224(   ; wrapped-envelope
@@ -309,7 +315,7 @@ class CoreTests: XCTestCase {
 
         XCTAssertEqual(e.digest†, "Digest(9fbec3ea6c65e4b190ec35c7e461f75285202fe5556cc6a60eccac3d012f01a6)")
 
-        XCTAssertEqual(e.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            24(   ; leaf

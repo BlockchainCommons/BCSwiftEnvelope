@@ -25,7 +25,7 @@ class ElisionTests: XCTestCase {
         """
         )
 
-        XCTAssertEqual(e2.diagnostic(annotate: true, knownTags: knownTags),
+        XCTAssertEqual(e2.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            203(   ; crypto-digest

@@ -61,7 +61,7 @@ extension KnownValue: CustomStringConvertible {
 
 extension KnownValue: DigestProvider {
     public var digest: Digest {
-        Digest(taggedCBOR)
+        Digest(taggedCBOR.cborData)
     }
 }
 

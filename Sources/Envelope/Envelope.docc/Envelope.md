@@ -239,13 +239,13 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - ``Envelope/Envelope/init(function:)-1k57u``
 - ``Envelope/Envelope/init(function:)-20y6m``
 - ``Envelope/Envelope/init(function:name:)``
-- ``Envelope/Envelope/FunctionIdentifier``
+- ``Envelope/Envelope/Function``
 
 ### Envelope Expressions: Parameters
 
 - ``Envelope/Envelope/addParameter(_:value:)-1xchn``
 - ``Envelope/Envelope/addParameter(_:value:)-8f3k5``
-- ``Envelope/Envelope/ParameterIdentifier``
+- ``Envelope/Envelope/Parameter``
 - ``Envelope/Envelope/extractObject(_:forParameter:)``
 - ``Envelope/Envelope/extractObjects(_:forParameter:)``
 - ``Envelope/Envelope/parameter(_:value:)-4zn4z``

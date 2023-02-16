@@ -18,7 +18,7 @@ class TestFunction: XCTestCase {
             ❰rhs❱: 3
         ]
         """
-        XCTAssertEqual(envelope.format(), expectedFormat)
+        XCTAssertEqual(envelope.format(context: formatContext), expectedFormat)
     }
     
     func testNamed() {
@@ -47,7 +47,7 @@ class TestFunction: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(requestEnvelope.format(), expectedRequestFormat)
+        XCTAssertEqual(requestEnvelope.format(context: formatContext), expectedRequestFormat)
 
         let responseEnvelope = Envelope(response: uuid, result: 5)
         let expectedResponseFormat = """

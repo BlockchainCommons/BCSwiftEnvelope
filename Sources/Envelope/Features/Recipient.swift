@@ -32,7 +32,7 @@ public extension Envelope {
     ///
     /// - Returns: The assertion envelope.
     static func hasRecipient(_ recipient: PublicKeyBase, contentKey: SymmetricKey, testKeyMaterial: DataProvider? = nil, testNonce: Nonce? = nil) -> Envelope {
-        let sealedMessage = SealedMessage(plaintext: contentKey.taggedCBOR, recipient: recipient, testKeyMaterial: testKeyMaterial, testNonce: testNonce)
+        let sealedMessage = SealedMessage(plaintext: contentKey.taggedCBOR.cborData, recipient: recipient, testKeyMaterial: testKeyMaterial, testNonce: testNonce)
         return Envelope(.hasRecipient, sealedMessage)
     }
 }

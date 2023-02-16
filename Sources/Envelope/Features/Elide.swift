@@ -107,7 +107,7 @@ public extension Envelope {
         let result: Envelope
         if target.contains(digest) != isRevealing {
             if let key {
-                let message = key.encrypt(plaintext: self.taggedCBOR, digest: self.digest)
+                let message = key.encrypt(plaintext: self.taggedCBOR.cborData, digest: self.digest)
                 result = try Envelope(encryptedMessage: message)
             } else {
                 result = elide()

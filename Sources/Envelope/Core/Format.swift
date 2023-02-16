@@ -2,63 +2,85 @@ import Foundation
 import WolfBase
 import SecureComponents
 
+public struct FormatContext {
+    public let tags: KnownTagsDict
+    public let functions: KnownFunctions
+    public let parameters: KnownParameters
+    
+    public init(tags: KnownTagsDict = [], functions: KnownFunctions = [], parameters: KnownParameters = []) {
+        self.tags = tags
+        self.functions = functions
+        self.parameters = parameters
+    }
+}
+
+extension FormatContext: KnownTags {
+    public func assignedName(for tag: Tag) -> String? {
+        tags.assignedName(for: tag)
+    }
+    
+    public func name(for tag: Tag) -> String {
+        tags.name(for: tag)
+    }
+}
+
 /// Support for the various text output formats for ``Envelope``.
 
 public extension Envelope {
     /// Returns the envelope notation for this envelope.
     ///
     /// See <doc:Notation> for a description of envelope notation.
-    func format(knownTags: KnownTags? = nil) -> String {
-        formatItem(knownTags: knownTags).format.trim()
+    func format(context: FormatContext? = nil) -> String {
+        formatItem(context: context).format.trim()
     }
 
     /// Returns the CBOR diagnostic notation for this envelope.
     ///
     /// See [RFC-8949 §8](https://www.rfc-editor.org/rfc/rfc8949.html#name-diagnostic-notation)
     /// for information on CBOR diagnostic notation.
-    func diagnostic(annotate: Bool = false, knownTags: KnownTags? = nil) -> String {
-        cbor.diagnostic(annotate: annotate, knownTags: knownTags)
+    func diagnostic(annotate: Bool = false, context: FormatContext? = nil) -> String {
+        cbor.diagnostic(annotate: annotate, knownTags: context)
     }
 
     /// Returns the CBOR hex dump of this envelope.
     ///
     /// See [RFC-8949](https://www.rfc-editor.org/rfc/rfc8949.html) for information on
     /// the CBOR binary format.
-    func dump(annotate: Bool = false, knownTags: KnownTags? = nil) -> String {
-        cbor.dump(annotate: annotate, knownTags: knownTags)
+    func dump(annotate: Bool = false, context: FormatContext? = nil) -> String {
+        cbor.hex(annotate: annotate, knownTags: context)
     }
 }
 
 protocol EnvelopeFormat {
-    func formatItem(knownTags: KnownTags?) -> EnvelopeFormatItem
+    func formatItem(context: FormatContext?) -> EnvelopeFormatItem
 }
 
 extension Digest: EnvelopeFormat {
-    func formatItem(knownTags: KnownTags?) -> EnvelopeFormatItem {
+    func formatItem(context: FormatContext?) -> EnvelopeFormatItem {
         return .item(data.prefix(8).hex)
     }
 }
 
 extension CID: EnvelopeFormat {
-    func formatItem(knownTags: KnownTags?) -> EnvelopeFormatItem {
+    func formatItem(context: FormatContext?) -> EnvelopeFormatItem {
         return .item(data.hex)
     }
 }
 
 extension Assertion: EnvelopeFormat {
-    func formatItem(knownTags: KnownTags?) -> EnvelopeFormatItem {
-        .list([predicate.formatItem(knownTags: knownTags), ": ", object.formatItem(knownTags: knownTags)])
+    func formatItem(context: FormatContext?) -> EnvelopeFormatItem {
+        .list([predicate.formatItem(context: context), ": ", object.formatItem(context: context)])
     }
 }
 
 extension KnownValue: EnvelopeFormat {
-    func formatItem(knownTags: KnownTags?) -> EnvelopeFormatItem {
+    func formatItem(context: FormatContext?) -> EnvelopeFormatItem {
         .item(name)
     }
 }
 
 extension CBOR {
-    func envelopeSummary(maxLength: Int = .max, knownTags: KnownTags?) -> String {
+    func envelopeSummary(maxLength: Int = .max, context: FormatContext?) -> String {
         do {
             switch self {
             case .unsigned(let n):
@@ -70,7 +92,7 @@ extension CBOR {
             case .text(let string):
                 return (string.count > maxLength ? string.prefix(count: maxLength).trim() + "…" : string).flanked(.quote)
             case .array(let elements):
-                return elements.map { $0.envelopeSummary(maxLength: maxLength, knownTags: knownTags) }.joined(separator: ", ").flanked("[", "]")
+                return elements.map { $0.envelopeSummary(maxLength: maxLength, context: context) }.joined(separator: ", ").flanked("[", "]")
             case CBOR.tagged(let tag, let cbor):
                 switch tag {
                 case Envelope.cborTag:
@@ -110,21 +132,21 @@ extension CBOR {
                     return try UUID(untaggedCBOR: cbor)†.flanked("UUID(", ")")
                 case Digest.cborTag:
                     return try Digest(untaggedCBOR: cbor).shortDescription.flanked("Digest(", ")")
-                case FunctionIdentifier.cborTag:
-                    return try FunctionIdentifier(untaggedCBOR: cbor)†.flanked("«", "»")
-                case ParameterIdentifier.cborTag:
-                    return try ParameterIdentifier(untaggedCBOR: cbor)†.flanked("❰", "❱")
+                case Function.cborTag:
+                    return try KnownFunctions.name(for: Function(untaggedCBOR: cbor), knownFunctions: context?.functions).flanked("«", "»")
+                case Parameter.cborTag:
+                    return try KnownParameters.name(for: Parameter(untaggedCBOR: cbor), knownParameters: context?.parameters).flanked("❰", "❱")
                 case Envelope.requestCBORTag:
-                    return Envelope(cbor).format(knownTags: knownTags).flanked("request(", ")")
+                    return Envelope(cbor).format(context: context).flanked("request(", ")")
                 case Envelope.responseCBORTag:
-                    return Envelope(cbor).format(knownTags: knownTags).flanked("response(", ")")
+                    return Envelope(cbor).format(context: context).flanked("response(", ")")
                 default:
-                    let name = KnownTags.name(for: tag, knownTags: knownTags)
-                    return "\(name)(\(cbor.envelopeSummary(maxLength: maxLength, knownTags: knownTags)))"
+                    let name = name(for: tag, knownTags: context)
+                    return "\(name)(\(cbor.envelopeSummary(maxLength: maxLength, context: context)))"
                 }
             case .map(_):
                 return "Map"
-            case .value(let v):
+            case .simple(let v):
                 return v.description
             }
         } catch {
@@ -134,13 +156,13 @@ extension CBOR {
 }
 
 extension CBOR: EnvelopeFormat {
-    func formatItem(knownTags: KnownTags? = nil) -> EnvelopeFormatItem {
+    func formatItem(context: FormatContext? = nil) -> EnvelopeFormatItem {
         do {
             switch self {
             case CBOR.tagged(Envelope.cborTag, cbor):
-                return try Envelope(untaggedCBOR: cbor).formatItem(knownTags: knownTags)
+                return try Envelope(untaggedCBOR: cbor).formatItem(context: context)
             default:
-                return .item(envelopeSummary(knownTags: knownTags))
+                return .item(envelopeSummary(context: context))
             }
         } catch {
             return "<error>"
@@ -149,22 +171,22 @@ extension CBOR: EnvelopeFormat {
 }
 
 extension Envelope: EnvelopeFormat {
-    func formatItem(knownTags: KnownTags? = nil) -> EnvelopeFormatItem {
+    func formatItem(context: FormatContext? = nil) -> EnvelopeFormatItem {
         switch self {
         case .leaf(let cbor, _):
-            return cbor.formatItem(knownTags: knownTags)
+            return cbor.formatItem(context: context)
         case .knownValue(let predicate, _):
-            return predicate.formatItem(knownTags: knownTags)
+            return predicate.formatItem(context: context)
         case .wrapped(let envelope, _):
-            return .list([.begin("{"), envelope.formatItem(knownTags: knownTags), .end("}")])
+            return .list([.begin("{"), envelope.formatItem(context: context), .end("}")])
         case .assertion(let assertion):
-            return assertion.formatItem(knownTags: knownTags)
+            return assertion.formatItem(context: context)
         case .encrypted(_):
             return .item("ENCRYPTED")
         case .node(subject: let subject, assertions: let assertions, digest: _):
             var items: [EnvelopeFormatItem] = []
 
-            let subjectItem = subject.formatItem(knownTags: knownTags)
+            let subjectItem = subject.formatItem(context: context)
             var elidedCount = 0
             var encryptedCount = 0
             var assertionsItems: [[EnvelopeFormatItem]] = []
@@ -174,7 +196,7 @@ extension Envelope: EnvelopeFormat {
                 } else if $0.isEncrypted {
                     encryptedCount += 1
                 } else {
-                    assertionsItems.append([$0.formatItem(knownTags: knownTags)])
+                    assertionsItems.append([$0.formatItem(context: context)])
                 }
             }
             assertionsItems.sort { $0.lexicographicallyPrecedes($1) }

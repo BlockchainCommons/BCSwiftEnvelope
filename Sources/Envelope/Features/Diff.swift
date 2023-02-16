@@ -187,14 +187,14 @@ extension EnvelopeTreeLabel: TransformableLabel {
 }
 
 extension EnvelopeTreeLabel {
-    func description(knownTags: KnownTags?) -> String {
+    func description(context: FormatContext?) -> String {
         switch self {
         case .leaf(let cbor, _):
-            return Envelope(cbor).summary(knownTags: knownTags)
+            return Envelope(cbor).summary(context: context)
         case .wrapped:
             return "WRAPPED"
         case .knownValue(let knownValue):
-            return Envelope(knownValue).summary(knownTags: knownTags)
+            return Envelope(knownValue).summary(context: context)
         case .assertion:
             return "ASSERTION"
         case .encrypted:
