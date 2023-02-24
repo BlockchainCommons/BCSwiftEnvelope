@@ -22,7 +22,7 @@ class CryptoTests: XCTestCase {
         // Alice ➡️ ☁️ ➡️ Bob
 
         // Bob receives the envelope and reads the message.
-        let receivedPlaintext = try Envelope.decodeUR(ur)
+        let receivedPlaintext = try Envelope(ur: ur)
             .checkEncoding()
             .extractSubject(String.self)
         XCTAssertEqual(receivedPlaintext, plaintextHello)
@@ -50,7 +50,7 @@ class CryptoTests: XCTestCase {
         // Alice ➡️ ☁️ ➡️ Bob
 
         // Bob receives the envelope.
-        let receivedEnvelope = try Envelope.decodeUR(ur).checkEncoding()
+        let receivedEnvelope = try Envelope(ur: ur).checkEncoding()
 
         // Bob receives the message, validates Alice's signature, and reads the message.
         let receivedPlaintext = try receivedEnvelope.verifySignature(from: alicePublicKeys)
@@ -90,7 +90,7 @@ class CryptoTests: XCTestCase {
         // Alice & Carol ➡️ ☁️ ➡️ Bob
 
         // Bob receives the envelope and verifies the message was signed by both Alice and Carol.
-        let receivedPlaintext = try Envelope.decodeUR(ur)
+        let receivedPlaintext = try Envelope(ur: ur)
             .checkEncoding()
             .verifySignatures(from: [alicePublicKeys, carolPublicKeys])
             .extractSubject(String.self)
@@ -121,7 +121,7 @@ class CryptoTests: XCTestCase {
         // Alice ➡️ ☁️ ➡️ Bob
 
         // Bob receives the envelope.
-        let receivedEnvelope = try Envelope.decodeUR(ur).checkEncoding()
+        let receivedEnvelope = try Envelope(ur: ur).checkEncoding()
 
         // Bob decrypts and reads the message.
         let receivedPlaintext = try receivedEnvelope
@@ -172,7 +172,7 @@ class CryptoTests: XCTestCase {
         // Alice ➡️ ☁️ ➡️ Bob
 
         // Bob receives the envelope, decrypts it using the shared key, and then validates Alice's signature.
-        let receivedPlaintext = try Envelope.decodeUR(ur).checkEncoding()
+        let receivedPlaintext = try Envelope(ur: ur).checkEncoding()
             .decryptSubject(with: key).checkEncoding()
             .unwrap().checkEncoding()
             .verifySignature(from: alicePublicKeys)
@@ -229,7 +229,7 @@ class CryptoTests: XCTestCase {
         // Alice ➡️ ☁️ ➡️ Bob
 
         // Bob receives the envelope, validates Alice's signature, then decrypts the message.
-        let receivedPlaintext = try Envelope.decodeUR(ur).checkEncoding()
+        let receivedPlaintext = try Envelope(ur: ur).checkEncoding()
             .verifySignature(from: alicePublicKeys)
             .decryptSubject(with: key).checkEncoding()
             .extractSubject(String.self)
@@ -263,7 +263,7 @@ class CryptoTests: XCTestCase {
         // Alice ➡️ ☁️ ➡️ Carol
 
         // The envelope is received
-        let receivedEnvelope = try Envelope.decodeUR(ur)
+        let receivedEnvelope = try Envelope(ur: ur)
 
         // Bob decrypts and reads the message
         let bobReceivedPlaintext = try receivedEnvelope
@@ -309,7 +309,7 @@ class CryptoTests: XCTestCase {
         // Alice ➡️ ☁️ ➡️ Carol
 
         // The envelope is received
-        let receivedEnvelope = try Envelope.decodeUR(ur)
+        let receivedEnvelope = try Envelope(ur: ur)
 
         // Bob validates Alice's signature, then decrypts and reads the message
         let bobReceivedPlaintext = try receivedEnvelope
@@ -360,7 +360,7 @@ class CryptoTests: XCTestCase {
         // Alice ➡️ ☁️ ➡️ Carol
 
         // The envelope is received
-        let receivedEnvelope = try Envelope.decodeUR(ur)
+        let receivedEnvelope = try Envelope(ur: ur)
 
         // Bob decrypts the envelope, then extracts the inner envelope and validates
         // Alice's signature, then reads the message
@@ -430,8 +430,8 @@ class CryptoTests: XCTestCase {
         // Dan ➡️ ☁️ ➡️ Carol
 
         // let aliceEnvelope = try Envelope(ur: sentURs[0]) // UNRECOVERED
-        let bobEnvelope = try Envelope.decodeUR(sentURs[1])
-        let carolEnvelope = try Envelope.decodeUR(sentURs[2])
+        let bobEnvelope = try Envelope(ur: sentURs[1])
+        let carolEnvelope = try Envelope(ur: sentURs[2])
 
         // At some future point, Dan retrieves two of the three envelopes so he can recover his seed.
         let recoveredEnvelopes = [bobEnvelope, carolEnvelope]

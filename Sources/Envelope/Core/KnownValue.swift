@@ -1,6 +1,5 @@
 import Foundation
 import SecureComponents
-import DCBOR
 
 /// A value in a namespace of unsigned integers, frequently used as predicates.
 ///

@@ -13,7 +13,7 @@ public extension Envelope {
     ///   - note: Optional text note to add to the `Signature`
     ///
     /// - Returns: The signed envelope.
-    func sign(with privateKeys: PrivateKeyBase, note: String? = nil, tag: Data? = nil, randomGenerator: ((Int) -> Data)? = nil) -> Envelope {
+    func sign(with privateKeys: PrivateKeyBase, note: String? = nil, tag: Data? = nil, randomGenerator: Crypto.RandomGenerator = Crypto.randomData) -> Envelope {
         var assertions: [Envelope] = []
         if let note {
             assertions.append(Envelope(.note, note))
@@ -27,7 +27,7 @@ public extension Envelope {
     ///   - privateKeys: An array of signers' `PrivateKeyBase`s.
     ///
     /// - Returns: The signed envelope.
-    func sign(with privateKeys: [PrivateKeyBase], tag: Data? = nil, randomGenerator: ((Int) -> Data)? = nil) -> Envelope {
+    func sign(with privateKeys: [PrivateKeyBase], tag: Data? = nil, randomGenerator: Crypto.RandomGenerator = Crypto.randomData) -> Envelope {
         privateKeys.reduce(into: self) {
             $0 = $0.sign(with: $1, tag: tag, randomGenerator: randomGenerator)
         }
@@ -40,7 +40,7 @@ public extension Envelope {
     ///   - uncoveredAssertions: Assertions to add to the `Signature`.
     ///
     /// - Returns: The signed envelope.
-    func sign(with privateKeys: PrivateKeyBase, uncoveredAssertions: [Envelope], tag: Data? = nil, randomGenerator: ((Int) -> Data)? = nil) throws -> Envelope {
+    func sign(with privateKeys: PrivateKeyBase, uncoveredAssertions: [Envelope], tag: Data? = nil, randomGenerator: Crypto.RandomGenerator = Crypto.randomData) throws -> Envelope {
         let signature = try Envelope(privateKeys.signingPrivateKey.schnorrSign(subject.digest, tag: tag, randomGenerator: randomGenerator))
             .addAssertions(uncoveredAssertions)
         return try addAssertion(Envelope(.verifiedBy, signature))

@@ -79,11 +79,7 @@ public extension Envelope {
             throw EnvelopeError.notEncrypted
         }
 
-        guard
-            let encodedCBOR = key.decrypt(message: message)
-        else {
-            throw EnvelopeError.invalidKey
-        }
+        let encodedCBOR = try key.decrypt(message: message)
 
         guard let subjectDigest = message.digest else {
             throw EnvelopeError.missingDigest

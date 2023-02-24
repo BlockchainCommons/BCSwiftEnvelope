@@ -27,8 +27,8 @@ public extension Envelope {
     /// - Returns: An array of arrays. Each element of the outer array represents an
     /// SSKR group, and the elements of each inner array are the envelope with a unique
     /// `sskrShare: SSKRShare` assertion added to each.
-    func split(groupThreshold: Int, groups: [(Int, Int)], contentKey: SymmetricKey, testRandomGenerator: ((Int) -> Data)? = nil) -> [[Envelope]] {
-        let shares = try! SSKRGenerate(groupThreshold: groupThreshold, groups: groups, secret: contentKey, testRandomGenerator: testRandomGenerator)
+    func split(groupThreshold: Int, groups: [(Int, Int)], contentKey: SymmetricKey, testRandomGenerator: @escaping Crypto.RandomGenerator = Crypto.randomData) -> [[Envelope]] {
+        let shares = try! Crypto.splitSSKR(groupThreshold: groupThreshold, groups: groups, secret: contentKey.providedData, testRandomGenerator: testRandomGenerator)
         return shares.map { groupShares in
             groupShares.map { share in
                 self.addSSKRShare(share)

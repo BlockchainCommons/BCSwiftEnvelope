@@ -29,7 +29,7 @@ class ElisionTests: XCTestCase {
         """
         200(   ; envelope
            203(   ; crypto-digest
-              h'886a0c85832fa119d5dc3a195308bf13547f1f16aef032f6c2ef9912cd5992e5'
+              h'8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
            )
         )
         """

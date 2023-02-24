@@ -41,7 +41,7 @@ class ScenarioTests: XCTestCase {
 
         let expectedFormat =
         """
-        Digest(e8aa201d) [
+        Digest(26d05af5) [
             "format": "EPUB"
             "work": CID(7fb90a9d) [
                 "author": CID(9c747ace) [
@@ -501,7 +501,7 @@ class ScenarioTests: XCTestCase {
 
         let line2ExpectedFormat =
         """
-        Digest(9be5259b) [
+        Digest(bb891eed) [
             "priceEach": "4.99"
             "product": CID(ae464c5f)
             "quantity": 3
@@ -524,14 +524,14 @@ class ScenarioTests: XCTestCase {
         let purchaseOrderProjectionExpectedFormat =
         """
         CID(1bebb5b6) [
-            "lineItem": Digest(9be5259b) [
+            "lineItem": Digest(bb891eed) [
                 "priceEach": "10.99"
                 "product": CID(5bcca01f)
                 "quantity": 4
                 hasName: "Quality Widget"
                 isA: "PurchaseOrderLineItem"
             ]
-            "lineItem": Digest(9be5259b) [
+            "lineItem": Digest(bb891eed) [
                 "priceEach": "4.99"
                 "product": CID(ae464c5f)
                 "quantity": 3

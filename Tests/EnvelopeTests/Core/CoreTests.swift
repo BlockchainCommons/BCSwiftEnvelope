@@ -31,7 +31,7 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        XCTAssertEqual(e.digest†, "Digest(b828e7bda50941d5618ae287093288dd06a229250fca262764a408defd29f91c)")
+        XCTAssertEqual(e.digest†, "Digest(7f83f7bda2d63959d34767689f06d47576683d378d9eb8d09386c9a020395c53)")
         
         XCTAssertEqual(e.format(),
         """
@@ -52,7 +52,7 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        XCTAssertEqual(e.digest†, "Digest(a5deb6e4c1b034cfc4027271e4a2c777f08ced8060fa77156c4f0e494b03b741)")
+        XCTAssertEqual(e.digest†, "Digest(9e0ad272780de7aa1dbdfbc99058bb81152f623d3b95b5dfb0a036badfcc9055)")
         
         XCTAssertEqual(e.format(),
         """
@@ -75,7 +75,7 @@ class CoreTests: XCTestCase {
         
         try e.checkEncoding()
         
-        XCTAssertEqual(e.digest†, "Digest(886a0c85832fa119d5dc3a195308bf13547f1f16aef032f6c2ef9912cd5992e5)")
+        XCTAssertEqual(e.digest†, "Digest(8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59)")
         
         XCTAssertEqual(e.format(),
         """
@@ -98,7 +98,7 @@ class CoreTests: XCTestCase {
         
         try e.checkEncoding()
         
-        XCTAssertEqual(e.digest†, "Digest(61fb6a6b9699d363cafbd309506125c95234b64479f5671cb45cbe7013ffdcf5)")
+        XCTAssertEqual(e.digest†, "Digest(499c8a11a42152b721ae9f16dd412bcf5e47ecace3ef20acfd84d96409c382c6)")
         
         XCTAssertEqual(e.format(),
         """
@@ -129,7 +129,7 @@ class CoreTests: XCTestCase {
         
         try e.checkEncoding()
         
-        XCTAssertEqual(e.digest†, "Digest(55560bdf060f1220199c87e84e29cecef96ef811de4f399dab2fde9425d0d418)")
+        XCTAssertEqual(e.digest†, "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
         
         XCTAssertEqual(e.format(),
         """
@@ -167,7 +167,7 @@ class CoreTests: XCTestCase {
         
         try e.checkEncoding()
         
-        XCTAssertEqual(e.digest†, "Digest(e54d6fd38e9952f0d781a08549934cffd28c8e1ef407917fa8e96df69f5f2a90)")
+        XCTAssertEqual(e.digest†, "Digest(8955db5e016affb133df56c11fe6c5c82fa3036263d651286d134c7e56c0e9f2)")
         
         XCTAssertEqual(e.format(),
         """
@@ -196,7 +196,7 @@ class CoreTests: XCTestCase {
                           24("knows")   ; leaf
                        ),
                        200(   ; envelope
-                          24("Bob")   ; leaf
+                          24("Carol")   ; leaf
                        )
                     ]
                  )
@@ -208,7 +208,7 @@ class CoreTests: XCTestCase {
                           24("knows")   ; leaf
                        ),
                        200(   ; envelope
-                          24("Carol")   ; leaf
+                          24("Bob")   ; leaf
                        )
                     ]
                  )
@@ -219,7 +219,7 @@ class CoreTests: XCTestCase {
         
         try e.checkEncoding()
         
-        XCTAssertEqual(e.digest†, "Digest(c733401eaf0c41cd0b3a44b568d4d4dd07e46e481bd3ef6eb457cd6674590614)")
+        XCTAssertEqual(e.digest†, "Digest(b8d857f6e06a836fbc68ca0ce43e55ceb98eefd949119dab344e11c4ba5a0471)")
         
         XCTAssertEqual(e.format(),
         """
@@ -246,7 +246,7 @@ class CoreTests: XCTestCase {
         
         try e.checkEncoding()
         
-        XCTAssertEqual(e.digest†, "Digest(5c0cf317b53dec87641ed2ca7944b900e18e936496c73b42866d29657aeb3a14)")
+        XCTAssertEqual(e.digest†, "Digest(172a5e51431062e7b13525cbceb8ad8475977444cf28423e21c0d1dcbdfcaf47)")
         
         XCTAssertEqual(e.format(),
         """
@@ -272,7 +272,7 @@ class CoreTests: XCTestCase {
         
         try e.checkEncoding()
         
-        XCTAssertEqual(e.digest†, "Digest(c4d50ab4bb904e68d2cf9cd6ca3f65b535f822d7e4a817c9eef0fc75eb83170a)")
+        XCTAssertEqual(e.digest†, "Digest(8b14f3bcd7c05aac8f2162e7047d7ef5d5eab7d82ee3f9dc4846c70bae4d200b)")
         
         XCTAssertEqual(e.format(),
         """
@@ -309,18 +309,18 @@ class CoreTests: XCTestCase {
 
         XCTAssertEqual(e.format(),
         """
-        Digest(886a0c85)
+        Digest(8cc96cdb)
         """
         )
 
-        XCTAssertEqual(e.digest†, "Digest(9fbec3ea6c65e4b190ec35c7e461f75285202fe5556cc6a60eccac3d012f01a6)")
+        XCTAssertEqual(e.digest†, "Digest(54568793aa0038328ac5fbc6f226a59d6f4caf02dfd7753f4d2cbd8e64ab3e94)")
 
         XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            24(   ; leaf
               203(   ; crypto-digest
-                 h'886a0c85832fa119d5dc3a195308bf13547f1f16aef032f6c2ef9912cd5992e5'
+                 h'8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
               )
            )
         )
