@@ -46,7 +46,7 @@ public extension Envelope {
     ///
     /// See [RFC-8949](https://www.rfc-editor.org/rfc/rfc8949.html) for information on
     /// the CBOR binary format.
-    func dump(annotate: Bool = false, context: FormatContext? = nil) -> String {
+    func hex(annotate: Bool = false, context: FormatContext? = nil) -> String {
         cbor.hex(annotate: annotate, knownTags: context)
     }
 }

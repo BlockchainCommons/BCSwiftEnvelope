@@ -9,8 +9,8 @@ class CryptoTests: XCTestCase {
         let envelope = try Envelope(plaintextHello).checkEncoding()
         let ur = envelope.ur
 
-//        print(envelope.taggedCBOR.diag)
-//        print(envelope.taggedCBOR.dump)
+//        print(envelope.diagnostic())
+//        print(envelope.hex())
 //        print(ur)
 
         let expectedFormat =
@@ -36,7 +36,7 @@ class CryptoTests: XCTestCase {
         let ur = envelope.ur
 
 //        print(envelope.diagAnnotated)
-//        print(envelope.dump)
+//        print(envelope.hex())
 //        print(envelope.ur)
 
         let expectedFormat =
@@ -74,8 +74,8 @@ class CryptoTests: XCTestCase {
             .checkEncoding()
         let ur = envelope.ur
 
-//        print(envelope.taggedCBOR.diag)
-//        print(envelope.taggedCBOR.dump)
+//        print(envelope.taggedCBOR.diagnostic())
+//        print(envelope.taggedCBOR.hex())
 //        print(envelope.ur)
 
         let expectedFormat =
@@ -108,8 +108,8 @@ class CryptoTests: XCTestCase {
             .encryptSubject(with: key).checkEncoding()
         let ur = envelope.ur
 
-//        print(envelope.taggedCBOR.diag)
-//        print(envelope.taggedCBOR.dump)
+//        print(envelope.taggedCBOR.diagnostic())
+//        print(envelope.taggedCBOR.hex())
 //        print(envelope.ur)
 
         let expectedFormat =
@@ -165,8 +165,8 @@ class CryptoTests: XCTestCase {
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
 
-//        print(envelope.taggedCBOR.diag)
-//        print(envelope.taggedCBOR.dump)
+//        print(envelope.taggedCBOR.diagnostic())
+//        print(envelope.taggedCBOR.hex())
 //        print(envelope.ur)
 
         // Alice ➡️ ☁️ ➡️ Bob
@@ -222,8 +222,8 @@ class CryptoTests: XCTestCase {
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
 
-//        print(envelope.taggedCBOR.diag)
-//        print(envelope.taggedCBOR.dump)
+//        print(envelope.taggedCBOR.diagnostic())
+//        print(envelope.taggedCBOR.hex())
 //        print(envelope.ur)
 
         // Alice ➡️ ☁️ ➡️ Bob
@@ -255,8 +255,8 @@ class CryptoTests: XCTestCase {
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
 
-//        print(envelope.taggedCBOR.diag)
-//        print(envelope.taggedCBOR.dump)
+//        print(envelope.taggedCBOR.diagnostic())
+//        print(envelope.taggedCBOR.hex())
 //        print(envelope.ur)
 
         // Alice ➡️ ☁️ ➡️ Bob
@@ -301,8 +301,8 @@ class CryptoTests: XCTestCase {
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
 
-//        print(envelope.taggedCBOR.diag)
-//        print(envelope.taggedCBOR.dump)
+//        print(envelope.taggedCBOR.diagnostic())
+//        print(envelope.taggedCBOR.hex())
 //        print(envelope.ur)
 
         // Alice ➡️ ☁️ ➡️ Bob
@@ -352,8 +352,8 @@ class CryptoTests: XCTestCase {
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
 
-//        print(envelope.taggedCBOR.diag)
-//        print(envelope.taggedCBOR.dump)
+//        print(envelope.taggedCBOR.diagnostic())
+//        print(envelope.taggedCBOR.hex())
 //        print(envelope.ur)
 
         // Alice ➡️ ☁️ ➡️ Bob
@@ -421,8 +421,8 @@ class CryptoTests: XCTestCase {
         // Dan sends one envelope to each of Alice, Bob, and Carol.
 
 //        print(sentEnvelopes[0].format())
-//        print(sentEnvelopes[0].taggedCBOR.diag)
-//        print(sentEnvelopes[0].taggedCBOR.dump)
+//        print(sentEnvelopes[0].taggedCBOR.diagnostic())
+//        print(sentEnvelopes[0].taggedCBOR.hex())
 //        print(sentEnvelopes[0].ur)
 
         // Dan ➡️ ☁️ ➡️ Alice
