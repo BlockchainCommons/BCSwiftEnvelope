@@ -90,7 +90,9 @@ extension CBOR {
             case .bytes(let data):
                 return "Bytes(\(data.count))"
             case .text(let string):
-                return (string.count > maxLength ? string.prefix(count: maxLength).trim() + "…" : string).flanked(.quote)
+                return (string.count > maxLength ? string.prefix(count: maxLength).trim() + "…" : string)
+                    .replacingOccurrences(of: "\n", with: "\\n")
+                    .flanked(.quote)
             case .array(let elements):
                 return elements.map { $0.envelopeSummary(maxLength: maxLength, context: context) }.joined(separator: ", ").flanked("[", "]")
             case CBOR.tagged(let tag, let cbor):
