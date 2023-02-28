@@ -117,7 +117,7 @@ public extension Envelope {
     ///
     /// Used for an immediate response to a request without a proper ID.
     init(error: CBOREncodable?) {
-        self = Envelope(CBOR.tagged(Self.requestCBORTag, "unknown"))
+        self = Envelope(CBOR.tagged(Self.responseCBORTag, "unknown"))
             .addAssertion(.error, error)
     }
 }
