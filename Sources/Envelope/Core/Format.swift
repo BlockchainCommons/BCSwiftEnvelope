@@ -22,7 +22,11 @@ extension FormatContext: KnownTags {
     public func name(for tag: Tag) -> String {
         tags.name(for: tag)
     }
-    
+
+    public func tag(for value: UInt64) -> Tag? {
+        tags.tag(for: value)
+    }
+
     public func tag(for name: String) -> Tag? {
         tags.tag(for: name)
     }
