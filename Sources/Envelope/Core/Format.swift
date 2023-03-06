@@ -22,6 +22,10 @@ extension FormatContext: KnownTags {
     public func name(for tag: Tag) -> String {
         tags.name(for: tag)
     }
+    
+    public func tag(for name: String) -> Tag? {
+        tags.tag(for: name)
+    }
 }
 
 /// Support for the various text output formats for ``Envelope``.
