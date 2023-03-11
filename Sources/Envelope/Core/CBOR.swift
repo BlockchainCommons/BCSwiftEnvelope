@@ -54,7 +54,7 @@ extension Envelope: CBORCodable {
             }
         case CBOR.array(let elements):
             guard elements.count >= 2 else {
-                throw CBORDecodingError.invalidFormat
+                throw CBORError.invalidFormat
             }
             let subject = try Envelope(taggedCBOR: elements[0])
             let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0) }

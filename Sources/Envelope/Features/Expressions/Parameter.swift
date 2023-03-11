@@ -81,7 +81,7 @@ extension Parameter: CBORTaggedCodable {
         case CBOR.text(let name):
             self = Self(name)
         default:
-            throw CBORDecodingError.invalidFormat
+            throw CBORError.invalidFormat
         }
     }
 }

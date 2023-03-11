@@ -41,7 +41,7 @@ extension Assertion: CBORTaggedCodable {
             case CBOR.array(let array) = untaggedCBOR,
             array.count == 2
         else {
-            throw CBORDecodingError.invalidFormat
+            throw CBORError.invalidFormat
         }
         let predicate = try Envelope(cbor: array[0])
         let object = try Envelope(cbor: array[1])
@@ -146,7 +146,7 @@ public extension Envelope {
 
     /// Returns a new ``Envelope`` with the given assertion added.
     ///
-    /// The value passed for `predicate` is a ``KnownValue-swift.struct`` and the value passed for `object` may be any of the same values that can be passed to ``Envelope/Envelope/init(_:)-2fdao``.
+    /// The value passed for `predicate` is a ``KnownValue`` and the value passed for `object` may be any of the same values that can be passed to ``Envelope/Envelope/init(_:)-2fdao``.
     ///
     /// ```swift
     /// let e = Envelope("Alice")
@@ -161,7 +161,7 @@ public extension Envelope {
     /// ```
     ///
     /// - Parameters:
-    ///   - predicate: The assertion's predicate, a ``KnownValue-swift.struct``.
+    ///   - predicate: The assertion's predicate, a ``KnownValue``.
     ///   - object: The assertion's object. If `nil`, no assertion is added.
     ///   - salted: If `true`, add a `salt: Salt` assertion. See ``Envelope/Envelope/addSalt()``.
     ///
@@ -206,7 +206,7 @@ public extension Envelope {
     ///
     /// The expressions passed for `predicate` and `object` are lazily evaluated only if `condition` is `true`.
     ///
-    /// See ``addAssertion(_:_:salted:)-9sf9h`` for more information.
+    /// See ``addAssertion(_:_:salted:)-277sn`` for more information.
     func addAssertion(if condition: Bool, _ predicate: @autoclosure () -> KnownValue, _ object: @autoclosure () -> Any?, salted: Bool = false) -> Envelope {
         guard condition else {
             return self

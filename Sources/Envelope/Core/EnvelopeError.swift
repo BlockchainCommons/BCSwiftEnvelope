@@ -4,7 +4,7 @@ import Foundation
 ///
 /// This is an extensible enumerated type. Parts of the Envelope package that throw
 /// their own specific errors define them close to where they are thrown.
-struct EnvelopeError: Error {
+public struct EnvelopeError: Error {
     public let type: String
     
     init(_ type: String) {

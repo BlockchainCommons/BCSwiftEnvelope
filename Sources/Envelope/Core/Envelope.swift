@@ -63,8 +63,8 @@ public extension Envelope {
     /// Create an envelope with the given subject.
     ///
     /// If the subject is another ``Envelope``, a wrapped envelope is created.
-    /// If the subject is a ``KnownValue-swift.struct``, a known value envelope is created.
-    /// If the subject is an ``Assertion-swift.struct``, an assertion envelope is created.
+    /// If the subject is a ``KnownValue``, a known value envelope is created.
+    /// If the subject is an ``Assertion``, an assertion envelope is created.
     /// If the subject is an `EncryptedMessage`, with a properly declared `Digest`, then an encrypted Envelope is created.
     /// If the subject is any type conforming to `CBOREncodable`, then a leaf envelope is created.
     /// Any other type passed as `subject` is a programmer error and results in a trap.
@@ -99,7 +99,7 @@ public extension Envelope {
     
     /// Create an envelope with the given subject.
     ///
-    /// This is a convenience constructor for ``KnownValue-swift.struct`` subjects.
+    /// This is a convenience constructor for ``KnownValue`` subjects.
     ///
     /// ```swift
     /// let e = Envelope(.verifiedBy)
@@ -109,7 +109,7 @@ public extension Envelope {
     /// ```
     /// verifiedBy
     /// ```
-    /// - Parameter knownValue: The envelope's subject, a ``KnownValue-swift.struct``.
+    /// - Parameter knownValue: The envelope's subject, a ``KnownValue``.
     init(_ knownValue: KnownValue) {
         self.init(knownValue: knownValue)
     }

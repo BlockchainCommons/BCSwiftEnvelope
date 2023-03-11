@@ -40,15 +40,15 @@ The envelope protocol specifies a structured format for hierarchical binary data
 ### Creating an Envelope with a Subject
 
 - ``Envelope/Envelope/init(_:)-2fdao``
-- ``Envelope/Envelope/init(_:)-8c8jv``
+- ``Envelope/Envelope/init(_:)-34o49``
 
 ### Adding Assertions to an Envelope
 
 - ``Envelope/Envelope/addAssertion(_:_:salted:)-277sn``
-- ``Envelope/Envelope/addAssertion(_:_:salted:)-9sf9h``
+- ``Envelope/Envelope/addAssertion(_:_:salted:)-7l0kw``
 - ``Envelope/Envelope/addAssertion(_:salted:)``
 - ``Envelope/Envelope/addAssertion(if:_:_:salted:)-1by3y``
-- ``Envelope/Envelope/addAssertion(if:_:_:salted:)-58rqr``
+- ``Envelope/Envelope/addAssertion(if:_:_:salted:)-4jn3r``
 - ``Envelope/Envelope/addAssertion(if:_:salted:)``
 - ``Envelope/Envelope/addAssertions(_:salted:)``
 
@@ -56,11 +56,10 @@ The envelope protocol specifies a structured format for hierarchical binary data
 
 - <doc:Notation>
 - <doc:OutputFormats>
-- ``Envelope/Envelope/format``
-- ``Envelope/Envelope/treeFormat(hideNodes:highlighting:)``
-- ``Envelope/Envelope/diag``
-- ``Envelope/Envelope/diagAnnotated``
-- ``Envelope/Envelope/dump``
+- ``Envelope/Envelope/format(context:)``
+- ``Envelope/Envelope/treeFormat(hideNodes:highlighting:context:)``
+- ``Envelope/Envelope/diagnostic(annotate:context:)``
+- ``Envelope/Envelope/hex(annotate:context:)``
 - ``Envelope/Envelope/mermaidFormat(hideNodes:layoutDirection:theme:)``
 - ``Envelope/Envelope/MermaidOptions``
 
@@ -83,39 +82,39 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - ``Envelope/Envelope/isSubjectEncrypted``
 - ``Envelope/Envelope/isSubjectObscured``
 - ``Envelope/Envelope/replaceSubject(with:)``
-- ``Envelope/Envelope/KnownValue-swift.struct``
+- ``Envelope/KnownValue``
 
 ### Working with Assertions
 
 - ``Envelope/Envelope/init(_:_:)-7fxwn``
-- ``Envelope/Envelope/init(_:_:)-8vvce``
+- ``Envelope/Envelope/init(_:_:)-5h6a6``
 - ``Envelope/Envelope/predicate``
 - ``Envelope/Envelope/object``
-- ``Envelope/Envelope/assertion-swift.property``
+- ``Envelope/Envelope/assertion``
 - ``Envelope/Envelope/assertions``
 - ``Envelope/Envelope/hasAssertions``
 - ``Envelope/Envelope/isSubjectAssertion``
-- ``Envelope/Envelope/assertion(withPredicate:)-7asyh``
 - ``Envelope/Envelope/assertion(withPredicate:)-8hkhz``
-- ``Envelope/Envelope/assertion(withPredicate:)-p6cf``
-- ``Envelope/Envelope/assertions(withPredicate:)-5u4ly``
+- ``Envelope/Envelope/assertion(withPredicate:)-3dqv7``
+- ``Envelope/Envelope/assertion(withPredicate:)-1ujsv``
 - ``Envelope/Envelope/assertions(withPredicate:)-5znmy``
-- ``Envelope/Envelope/assertions(withPredicate:)-817l4``
-- ``Envelope/Envelope/extractObject(_:forPredicate:)-237rm``
-- ``Envelope/Envelope/extractObject(_:forPredicate:)-atjk``
-- ``Envelope/Envelope/extractObject(_:forPredicate:)-doan``
+- ``Envelope/Envelope/assertions(withPredicate:)-3l05k``
+- ``Envelope/Envelope/assertions(withPredicate:)-44zyw``
+- ``Envelope/Envelope/extractObject(_:forPredicate:)-23b00``
+- ``Envelope/Envelope/extractObject(_:forPredicate:)-1lsfm``
+- ``Envelope/Envelope/extractObject(_:forPredicate:)-675fq``
 - ``Envelope/Envelope/extractObject(forPredicate:)-7at6i``
-- ``Envelope/Envelope/extractObject(forPredicate:)-8h0e3``
-- ``Envelope/Envelope/extractObject(forPredicate:)-786xl``
-- ``Envelope/Envelope/extractObjects(_:forPredicate:)-9ghw6``
-- ``Envelope/Envelope/extractObjects(_:forPredicate:)-9lujg``
+- ``Envelope/Envelope/extractObject(forPredicate:)-ypga``
+- ``Envelope/Envelope/extractObject(forPredicate:)-5pof``
+- ``Envelope/Envelope/extractObjects(_:forPredicate:)-55b0m``
+- ``Envelope/Envelope/extractObjects(_:forPredicate:)-85q2w``
 - ``Envelope/Envelope/extractObjects(forPredicate:)-1cnrl``
-- ``Envelope/Envelope/extractObjects(forPredicate:)-9hhb5``
+- ``Envelope/Envelope/extractObjects(forPredicate:)-9e4gg``
 - ``Envelope/Envelope/isA(_:)``
 - ``Envelope/Envelope/id(_:)``
 - ``Envelope/Envelope/removeAssertion(_:)``
 - ``Envelope/Envelope/replaceAssertion(_:with:)``
-- ``Envelope/Envelope/Assertion-swift.struct``
+- ``Envelope/Assertion``
 
 ### Elision
 
@@ -151,7 +150,7 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - ``Envelope/Envelope/isInternal``
 - ``Envelope/Envelope/isObscured``
 - ``Envelope/Envelope/leaf``
-- ``Envelope/Envelope/knownValue-swift.property``
+- ``Envelope/Envelope/knownValue``
 
 ### Recursively Walking the Envelope Structure
 
@@ -236,20 +235,20 @@ The envelope protocol specifies a structured format for hierarchical binary data
 
 ### Envelope Expressions: Functions
 
+- ``Envelope/Envelope/init(function:)-9uddl``
 - ``Envelope/Envelope/init(function:)-1k57u``
-- ``Envelope/Envelope/init(function:)-20y6m``
-- ``Envelope/Envelope/init(function:name:)``
-- ``Envelope/Envelope/Function``
+- ``Envelope/Envelope/init(function:)-n6hx``
+- ``Envelope/Function``
 
 ### Envelope Expressions: Parameters
 
-- ``Envelope/Envelope/addParameter(_:value:)-1xchn``
-- ``Envelope/Envelope/addParameter(_:value:)-8f3k5``
-- ``Envelope/Envelope/Parameter``
+- ``Envelope/Envelope/addParameter(_:value:)-8g1uy``
+- ``Envelope/Envelope/addParameter(_:value:)-5j06r``
+- ``Envelope/Parameter``
 - ``Envelope/Envelope/extractObject(_:forParameter:)``
 - ``Envelope/Envelope/extractObjects(_:forParameter:)``
-- ``Envelope/Envelope/parameter(_:value:)-4zn4z``
-- ``Envelope/Envelope/parameter(_:value:)-5mguw``
+- ``Envelope/Envelope/parameter(_:value:)-8ag8n``
+- ``Envelope/Envelope/parameter(_:value:)-9sbgf``
 
 ### Envelope Expressions: Requests and Responses
 
@@ -267,8 +266,8 @@ The envelope protocol specifies a structured format for hierarchical binary data
 
 ### Debugging Tools
 
-- ``Envelope/Envelope/checkEncoding()``
-- ``Envelope/Envelope/Error``
+- ``Envelope/Envelope/checkEncoding(knownTags:)``
+- ``Envelope/EnvelopeError``
 
 ### Test Vectors
 
