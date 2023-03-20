@@ -92,13 +92,13 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
-           223(4)   ; known-value
+           202(4)   ; known-value
         )
         """)
         
         try e.checkEncoding()
         
-        XCTAssertEqual(e.digest†, "Digest(499c8a11a42152b721ae9f16dd412bcf5e47ecace3ef20acfd84d96409c382c6)")
+        XCTAssertEqual(e.digest†, "Digest(49a5f41b242e76fa4ed7083f4fb3b9cab117f3437b38083b7375d6f19f199508)")
         
         XCTAssertEqual(e.format(),
         """
@@ -114,7 +114,7 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
-           221(   ; assertion
+           201(   ; assertion
               [
                  200(   ; envelope
                     24("knows")   ; leaf
@@ -150,7 +150,7 @@ class CoreTests: XCTestCase {
                  24("Alice")   ; leaf
               ),
               200(   ; envelope
-                 221(   ; assertion
+                 201(   ; assertion
                     [
                        200(   ; envelope
                           24("knows")   ; leaf
@@ -190,7 +190,7 @@ class CoreTests: XCTestCase {
                  24("Alice")   ; leaf
               ),
               200(   ; envelope
-                 221(   ; assertion
+                 201(   ; assertion
                     [
                        200(   ; envelope
                           24("knows")   ; leaf
@@ -202,7 +202,7 @@ class CoreTests: XCTestCase {
                  )
               ),
               200(   ; envelope
-                 221(   ; assertion
+                 201(   ; assertion
                     [
                        200(   ; envelope
                           24("knows")   ; leaf
@@ -238,7 +238,7 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
-           224(   ; wrapped-envelope
+           203(   ; wrapped-envelope
               24("Hello.")   ; leaf
            )
         )
@@ -262,8 +262,8 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
-           224(   ; wrapped-envelope
-              224(   ; wrapped-envelope
+           203(   ; wrapped-envelope
+              203(   ; wrapped-envelope
                  24("Hello.")   ; leaf
               )
            )
@@ -313,13 +313,13 @@ class CoreTests: XCTestCase {
         """
         )
 
-        XCTAssertEqual(e.digest†, "Digest(54568793aa0038328ac5fbc6f226a59d6f4caf02dfd7753f4d2cbd8e64ab3e94)")
+        XCTAssertEqual(e.digest†, "Digest(17db10e567ceb05522f0074c27c7d7796cac1d5ce20e45f405ab9063fdeeff1a)")
 
         XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
            24(   ; leaf
-              203(   ; crypto-digest
+              204(   ; digest
                  h'8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
               )
            )

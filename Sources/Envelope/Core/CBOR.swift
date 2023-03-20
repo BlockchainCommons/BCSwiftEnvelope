@@ -3,6 +3,18 @@ import SecureComponents
 
 /// Support for CBOR encoding and decoding of ``Envelope``.
 
+/// All envelopes are tagged with the `envelope` tag. Within that tag, each of
+/// the seven cases has a unique CBOR signature:
+///
+/// * `.node` contains a CBOR array, the first element of which is the subject,
+/// followed by one or more assertions.
+/// * `.leaf` is tagged #6.24, which is the IANA tag for embedded CBOR.
+/// * `.wrapped` is tagged with the `wrapped-envelope` tag.
+/// * `.knownValue` is tagged with the `known-value` tag.
+/// * `.assertion` is tagged with the `assertion` tag.
+/// * `.encrypted` is tagged with the `crypto-msg` tag.
+/// * `.elided` is tagged with the `crypto-digest` tag.
+
 extension Envelope: CBORCodable {
     public var untaggedCBOR: CBOR {
         switch self {
@@ -93,4 +105,8 @@ public extension Envelope {
             throw error
         }
     }
+}
+
+extension Envelope: CBORTaggedCodable {
+    public static var cborTag = Tag.envelope
 }

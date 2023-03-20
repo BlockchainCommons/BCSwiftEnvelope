@@ -54,7 +54,7 @@ class CoreEncodingTests: XCTestCase {
         200(   ; envelope
            [
               200(   ; envelope
-                 221(   ; assertion
+                 201(   ; assertion
                     [
                        200(   ; envelope
                           24("C")   ; leaf
@@ -66,7 +66,7 @@ class CoreEncodingTests: XCTestCase {
                  )
               ),
               200(   ; envelope
-                 221(   ; assertion
+                 201(   ; assertion
                     [
                        200(   ; envelope
                           24("E")   ; leaf
@@ -102,7 +102,7 @@ class CoreEncodingTests: XCTestCase {
             200(   ; envelope
                [
                   200(   ; envelope
-                     221(   ; assertion
+                     201(   ; assertion
                         [
                            200(   ; envelope
                               24("A")   ; leaf
@@ -116,7 +116,7 @@ class CoreEncodingTests: XCTestCase {
                   200(   ; envelope
                      [
                         200(   ; envelope
-                           221(   ; assertion
+                           201(   ; assertion
                               [
                                  200(   ; envelope
                                     24("C")   ; leaf
@@ -128,7 +128,7 @@ class CoreEncodingTests: XCTestCase {
                            )
                         ),
                         200(   ; envelope
-                           221(   ; assertion
+                           201(   ; assertion
                               [
                                  200(   ; envelope
                                     24("E")   ; leaf
