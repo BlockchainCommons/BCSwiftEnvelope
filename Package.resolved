@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BlockchainCommons/BCSwiftDCBOR",
       "state" : {
-        "revision" : "56da4c7bc3ecdb16308bb6b738a461da4c05e3c4",
-        "version" : "0.7.1"
+        "revision" : "b2fc439f9a2cb33589c628f1688d1b10abff04ab",
+        "version" : "0.8.0"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git",
       "state" : {
-        "revision" : "1bd01344c906fc04140f661b02e60516d40b0aae",
-        "version" : "4.0.1"
+        "revision" : "445f57cbc68bfae892d281ab74fad7ef4df1f3f5",
+        "version" : "4.0.2"
       }
     },
     {
@@ -95,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-docc-plugin",
       "state" : {
-        "revision" : "10bc670db657d11bdd561e07de30a9041311b2b1",
-        "version" : "1.1.0"
+        "revision" : "9b1258905c21fc1b97bf03d1b4ca12c4ec4e5fda",
+        "version" : "1.2.0"
       }
     },
     {
