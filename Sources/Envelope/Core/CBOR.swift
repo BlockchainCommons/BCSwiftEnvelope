@@ -35,8 +35,8 @@ extension Envelope: CBORCodable {
             return assertion.taggedCBOR
         case .encrypted(let encryptedMessage):
             return encryptedMessage.taggedCBOR
-        case .compressed(let compressed, _):
-            return compressed.taggedCBOR
+        case .compressed(let compressed, let digest):
+            return CBOR.tagged(.compressed, [digest, compressed.taggedCBOR])
         case .elided(let digest):
             return digest.taggedCBOR
         }
@@ -49,7 +49,7 @@ extension Envelope: CBORCodable {
             switch tag {
             case .leaf:
                 result = Envelope(leaf: item)
-            case KnownValue.cborTag:
+            case .knownValue:
                 result = Envelope(knownValue: try KnownValue(untaggedCBOR: item))
             case .wrappedEnvelope:
                 result = Envelope(wrapped: try Self(untaggedCBOR: item))
@@ -57,10 +57,20 @@ extension Envelope: CBORCodable {
                 result = Envelope(assertion: try Assertion(untaggedCBOR: item))
             case .envelope:
                 result = try Envelope(untaggedCBOR: item)
-            case EncryptedMessage.cborTag:
+            case .encrypted:
                 let message = try EncryptedMessage(untaggedCBOR: item)
                 result = try Envelope(encryptedMessage: message)
-            case Digest.cborTag:
+            case .compressed:
+                guard
+                    case let CBOR.array(elements) = item,
+                    elements.count == 2
+                else {
+                    throw CBORError.invalidFormat
+                }
+                let digest = try Digest(cbor: elements[0])
+                let compressed = try Compressed(cbor: elements[1])
+                result = Envelope(compressed: compressed, digest: digest)
+            case .digest:
                 let digest = try Digest(untaggedCBOR: item)
                 result = Envelope(elided: digest)
             default:
@@ -100,7 +110,7 @@ public extension Envelope {
             return self
         } catch {
             print("===")
-            print(format)
+            print(format())
             print("===")
             print(cbor.diagnostic(annotate: true, knownTags: knownTags))
             print("===")

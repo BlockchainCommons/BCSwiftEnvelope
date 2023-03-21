@@ -16,11 +16,11 @@ class CompressionTests: XCTestCase {
     func testCompress() throws {
         let original = Envelope(source)
         XCTAssertEqual(original.cborData.count, 371)
-        let compressed = original.compress()
-        XCTAssertEqual(compressed.cborData.count, 252)
+        let compressed = try original.compress().checkEncoding(knownTags: knownTags)
+        XCTAssertEqual(compressed.cborData.count, 291)
 
         XCTAssertEqual(original.digest, compressed.digest)
-        let uncompressed = try compressed.uncompress()
+        let uncompressed = try compressed.uncompress().checkEncoding(knownTags: knownTags)
         XCTAssertEqual(uncompressed.digest, original.digest)
         XCTAssertEqual(uncompressed.structuralDigest, original.structuralDigest)
     }
@@ -44,8 +44,8 @@ class CompressionTests: XCTestCase {
                 52762b01 obj Signature
         """
         )
-        let compressed = original.compressSubject()
-        XCTAssertEqual(compressed.cborData.count, 359)
+        let compressed = try original.compressSubject().checkEncoding(knownTags: knownTags)
+        XCTAssertEqual(compressed.cborData.count, 398)
         XCTAssertEqual(compressed.treeFormat(context: formatContext), """
         19a0c95c NODE
             b2d791c3 subj COMPRESSED
@@ -54,7 +54,7 @@ class CompressionTests: XCTestCase {
                 52762b01 obj Signature
         """
         )
-        let uncompressed = try compressed.uncompressSubject()
+        let uncompressed = try compressed.uncompressSubject().checkEncoding(knownTags: knownTags)
         XCTAssertEqual(uncompressed.digest, original.digest)
         XCTAssertEqual(uncompressed.structuralDigest, original.structuralDigest)
     }
