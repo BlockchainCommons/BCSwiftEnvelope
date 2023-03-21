@@ -82,14 +82,18 @@ extension MermaidEnvelopeGraph: MermaidEncodable {
         case .knownValue(_, _):
             attributes.shape = .parallelogram
             attributes.strokeColor = "#55f"
-        case .assertion(_):
+        case .assertion:
             attributes.shape = .stadium
             attributes.strokeColor = "red"
-        case .encrypted(_):
+        case .encrypted:
             attributes.shape = .asymmetric
             attributes.dashArray = [5, 5]
             attributes.strokeColor = "#55f"
-        case .elided(_):
+        case .compressed:
+            attributes.shape = .subroutine
+            attributes.dashArray = [5, 5]
+            attributes.strokeColor = "#55f"
+        case .elided:
             attributes.shape = .hexagon
             attributes.dashArray = [5, 5]
             attributes.strokeColor = "#55f"
@@ -148,11 +152,13 @@ extension Envelope {
             return "WRAPPED"
         case .knownValue(let knownValue, _):
             return knownValue.name
-        case .assertion(_):
+        case .assertion:
             return "ASSERTION"
-        case .encrypted(_):
+        case .encrypted:
             return "ENCRYPTED"
-        case .elided(_):
+        case .compressed:
+            return "COMPRESSED"
+        case .elided:
             return "ELIDED"
         }
     }

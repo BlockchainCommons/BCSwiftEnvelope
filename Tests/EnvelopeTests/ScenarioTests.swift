@@ -501,7 +501,7 @@ class ScenarioTests: XCTestCase {
 
         let line2ExpectedFormat =
         """
-        Digest(70defd3f) [
+        Digest(162b659d) [
             "priceEach": "4.99"
             "product": CID(ae464c5f)
             "quantity": 3
@@ -524,14 +524,14 @@ class ScenarioTests: XCTestCase {
         let purchaseOrderProjectionExpectedFormat =
         """
         CID(1bebb5b6) [
-            "lineItem": Digest(70defd3f) [
+            "lineItem": Digest(162b659d) [
                 "priceEach": "10.99"
                 "product": CID(5bcca01f)
                 "quantity": 4
                 hasName: "Quality Widget"
                 isA: "PurchaseOrderLineItem"
             ]
-            "lineItem": Digest(70defd3f) [
+            "lineItem": Digest(162b659d) [
                 "priceEach": "4.99"
                 "product": CID(ae464c5f)
                 "quantity": 3

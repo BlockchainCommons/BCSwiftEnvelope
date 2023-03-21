@@ -5,6 +5,8 @@ extension EnvelopeError {
     static let invalidKey = EnvelopeError("invalidKey")
     static let alreadyEncrypted = EnvelopeError("alreadyEncrypted")
     static let notEncrypted = EnvelopeError("notEncrypted")
+    static let alreadyCompressed = EnvelopeError("alreadyCompressed")
+    static let notCompressed = EnvelopeError("notCompressed")
     static let alreadyElided = EnvelopeError("alreadyElided")
 }
 
@@ -57,9 +59,14 @@ public extension Envelope {
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: assertionDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = assertionDigest
-        case .encrypted(_):
+        case .encrypted:
             throw EnvelopeError.alreadyEncrypted
-        case .elided(_):
+        case .compressed(let compressed, let compressedDigest):
+            let encodedCBOR = compressed.taggedCBOR.cborData
+            let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: compressedDigest, nonce: testNonce)
+            result = try Envelope(encryptedMessage: encryptedMessage)
+            originalDigest = compressedDigest
+        case .elided:
             throw EnvelopeError.alreadyElided
         }
 

@@ -97,6 +97,14 @@ public extension Envelope {
         return true
     }
     
+    /// `true` if the envelope is case `.compressed`, `false` otherwise.
+    var isCompressed: Bool {
+        guard case .compressed = self else {
+            return false
+        }
+        return true
+    }
+    
     /// `true` if the envelope is case `.elided`, `false` otherwise.
     var isElided: Bool {
         guard case .elided = self else {
@@ -153,6 +161,21 @@ public extension Envelope {
         }
     }
     
+    /// `true` if the subject of the envelope has been compressed, `false` otherwise.
+    var isSubjectCompressed: Bool {
+        switch self {
+        case .compressed:
+            return true
+        case .node(subject: let subject, assertions: _, digest: _):
+            if case .compressed = subject {
+                return true
+            }
+            return false
+        default:
+            return false
+        }
+    }
+
     /// `true` if the subject of the envelope has been elided, `false` otherwise.
     var isSubjectElided: Bool {
         switch self {
@@ -168,7 +191,9 @@ public extension Envelope {
         }
     }
     
-    /// `true` if the subject of the envelope has been encrypted or elided, `false` otherwise
+    /// `true` if the subject of the envelope has been encrypted or elided, `false` otherwise.
+    ///
+    /// Obscured assertion envelopes may exist in the list of an envelope's assertion.
     var isSubjectObscured: Bool {
         isSubjectEncrypted || isSubjectElided
     }
@@ -216,6 +241,11 @@ public extension Envelope {
             return result
         case .encrypted(let encryptedMessage):
             guard let result = encryptedMessage as? T else {
+                throw EnvelopeError.invalidFormat
+            }
+            return result
+        case .compressed(let compressed, _):
+            guard let result = compressed as? T else {
                 throw EnvelopeError.invalidFormat
             }
             return result

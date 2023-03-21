@@ -26,6 +26,9 @@ public indirect enum Envelope: DigestProvider {
     /// Represents an encrypted envelope.
     case encrypted(EncryptedMessage)
     
+    /// Represents a compressed envelope.
+    case compressed(Compressed, Digest)
+    
     /// Represents an elided envelope.
     case elided(Digest)
 }
@@ -43,9 +46,11 @@ public extension Envelope {
             return ".knownValue(\(knownValue))"
         case .assertion(let assertion):
             return ".assertion(\(assertion.predicate), \(assertion.object))"
-        case .encrypted(_):
+        case .encrypted:
             return ".encrypted"
-        case .elided(_):
+        case .compressed:
+            return ".compressed"
+        case .elided:
             return ".elided"
         }
     }
@@ -184,6 +189,10 @@ extension Envelope {
             throw EnvelopeError.missingDigest
         }
         self = .encrypted(encryptedMessage)
+    }
+    
+    init(compressed: Compressed, digest: Digest) {
+        self = .compressed(compressed, digest)
     }
 
     init(elided digest: Digest) {

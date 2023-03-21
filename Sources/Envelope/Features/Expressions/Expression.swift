@@ -77,12 +77,9 @@ public extension Envelope {
 // MARK: - Request Construction
 
 public extension Envelope {
-    static let requestCBORTag: Tag = 215
-    static let responseCBORTag: Tag = 216
-    
     /// Creates an envelope with a `CID` subject and a `body: «function»` assertion.
     init(request id: CID, body: CBOREncodable) {
-        self = Envelope(CBOR.tagged(Self.requestCBORTag, id.cbor))
+        self = Envelope(CBOR.tagged(.request, id.cbor))
             .addAssertion(.body, body)
     }
 }
@@ -92,13 +89,13 @@ public extension Envelope {
 public extension Envelope {
     /// Creates an envelope with a `CID` subject and a `result: value` assertion.
     init(response id: CID, result: CBOREncodable? = KnownValue.ok) {
-        self = Envelope(CBOR.tagged(Self.responseCBORTag, id.taggedCBOR))
+        self = Envelope(CBOR.tagged(.response, id.taggedCBOR))
             .addAssertion(.result, result)
     }
     
     /// Creates an envelope with a `CID` subject and a `result: value` assertion for each provided result.
     init(response id: CID, results: [CBOREncodable]) {
-        var e = Envelope(CBOR.tagged(Self.responseCBORTag, id.taggedCBOR))
+        var e = Envelope(CBOR.tagged(.response, id.taggedCBOR))
         for result in results {
             e = e.addAssertion(.result, result)
         }
@@ -107,7 +104,7 @@ public extension Envelope {
     
     /// Creates an envelope with a `CID` subject and a `error: value` assertion.
     init(response id: CID, error: CBOREncodable) {
-        self = Envelope(CBOR.tagged(Self.responseCBORTag, id.taggedCBOR))
+        self = Envelope(CBOR.tagged(.response, id.taggedCBOR))
             .addAssertion(.error, error)
     }
     
@@ -117,7 +114,7 @@ public extension Envelope {
     ///
     /// Used for an immediate response to a request without a proper ID.
     init(error: CBOREncodable?) {
-        self = Envelope(CBOR.tagged(Self.responseCBORTag, "unknown"))
+        self = Envelope(CBOR.tagged(.response, "unknown"))
             .addAssertion(.error, error)
     }
 }

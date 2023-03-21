@@ -146,15 +146,15 @@ extension CBOR {
                     return try KnownFunctions.name(for: Function(untaggedCBOR: cbor), knownFunctions: context?.functions).flanked("«", "»")
                 case Parameter.cborTag:
                     return try KnownParameters.name(for: Parameter(untaggedCBOR: cbor), knownParameters: context?.parameters).flanked("❰", "❱")
-                case Envelope.requestCBORTag:
+                case .request:
                     return Envelope(cbor).format(context: context).flanked("request(", ")")
-                case Envelope.responseCBORTag:
+                case .response:
                     return Envelope(cbor).format(context: context).flanked("response(", ")")
                 default:
                     let name = name(for: tag, knownTags: context)
                     return "\(name)(\(cbor.envelopeSummary(maxLength: maxLength, context: context)))"
                 }
-            case .map(_):
+            case .map:
                 return "Map"
             case .simple(let v):
                 return v.description
@@ -191,8 +191,10 @@ extension Envelope: EnvelopeFormat {
             return .list([.begin("{"), envelope.formatItem(context: context), .end("}")])
         case .assertion(let assertion):
             return assertion.formatItem(context: context)
-        case .encrypted(_):
+        case .encrypted:
             return .item("ENCRYPTED")
+        case .compressed:
+            return .item("COMPRESSED")
         case .node(subject: let subject, assertions: let assertions, digest: _):
             var items: [EnvelopeFormatItem] = []
 

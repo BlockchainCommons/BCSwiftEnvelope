@@ -35,6 +35,8 @@ extension Envelope: CBORCodable {
             return assertion.taggedCBOR
         case .encrypted(let encryptedMessage):
             return encryptedMessage.taggedCBOR
+        case .compressed(let compressed, _):
+            return compressed.taggedCBOR
         case .elided(let digest):
             return digest.taggedCBOR
         }
