@@ -201,17 +201,25 @@ extension Envelope: EnvelopeFormat {
             let subjectItem = subject.formatItem(context: context)
             var elidedCount = 0
             var encryptedCount = 0
+            var compressedCount = 0
             var assertionsItems: [[EnvelopeFormatItem]] = []
             assertions.forEach {
                 if $0.isElided {
                     elidedCount += 1
                 } else if $0.isEncrypted {
                     encryptedCount += 1
+                } else if $0.isCompressed {
+                    compressedCount += 1
                 } else {
                     assertionsItems.append([$0.formatItem(context: context)])
                 }
             }
             assertionsItems.sort { $0.lexicographicallyPrecedes($1) }
+            if compressedCount > 1 {
+                assertionsItems.append([.item("COMPRESSED (\(compressedCount))")])
+            } else if compressedCount > 0 {
+                assertionsItems.append([.item("COMPRESSED")])
+            }
             if elidedCount > 1 {
                 assertionsItems.append([.item("ELIDED (\(elidedCount))")])
             } else if elidedCount > 0 {
