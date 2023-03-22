@@ -74,7 +74,7 @@ public extension Envelope {
     /// ```
     ///
     /// - Parameters:
-    ///   - assertion: The assertion envelope to be added. May be obscured (encrypted or elided), but adding an encrypted or elided envelope that is not an assertion is an encoding error, and will be flagged when the envelope is unencrypted or unelided. If `assertion` is `nil`, no assertion is addded.
+    ///   - assertion: The assertion envelope to be added. May be obscured (encrypted, elided, or compressed), but adding an obscured envelope that is not an assertion is an encoding error, and will be flagged when the envelope is unobscured. If `assertion` is `nil`, no assertion is addded.
     ///   - salted: If `true`, add a `salt: Salt` assertion. See ``Envelope/Envelope/addSalt()``.
     ///
     /// - Returns: The envelope with the assertion added. If `assertion` is nil, returns the unmodifed envelope.

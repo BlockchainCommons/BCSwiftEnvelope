@@ -5,10 +5,14 @@ public extension Envelope {
     /// Returns the compressed variant of this envelope.
     ///
     /// Returns the same envelope if it is already compressed.
-    func compress() -> Envelope {
+    func compress() throws -> Envelope {
         switch self {
         case .compressed:
             return self
+        case .encrypted:
+            throw EnvelopeError.alreadyEncrypted
+        case .elided:
+            throw EnvelopeError.alreadyElided
         default:
             return Envelope(compressed: Compressed(uncompressedData: cborData), digest: digest)
         }
@@ -35,11 +39,11 @@ public extension Envelope {
     /// Returns this envelope with its subject compressed.
     ///
     /// Returns the same envelope if its subject is already compressed.
-    func compressSubject() -> Envelope {
+    func compressSubject() throws -> Envelope {
         guard !subject.isCompressed else {
             return self
         }
-        return replaceSubject(with: subject.compress())
+        return replaceSubject(with: try subject.compress())
     }
     
     /// Returs this envelope with its subject uncompressed.

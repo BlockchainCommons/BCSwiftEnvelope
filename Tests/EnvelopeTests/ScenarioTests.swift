@@ -388,7 +388,7 @@ class ScenarioTests: XCTestCase {
 
         // Encrypt instead of elide
         let key = SymmetricKey()
-        let encryptedCredential = try top.elideRevealing(target, encryptingWith: key).checkEncoding()
+        let encryptedCredential = try top.elideRevealing(target, action: .encrypt(key)).checkEncoding()
         //print(encryptedCredential.format())
         let expectedEncryptedFormat =
         """

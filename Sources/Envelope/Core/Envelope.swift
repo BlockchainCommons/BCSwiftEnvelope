@@ -170,7 +170,7 @@ extension Envelope {
     }
 
     init(subject: Envelope, assertions: [Envelope]) throws {
-        guard assertions.allSatisfy({ $0.isSubjectAssertion || $0.isSubjectElided || $0.isSubjectEncrypted }) else {
+        guard assertions.allSatisfy({ $0.isSubjectAssertion || $0.isSubjectObscured }) else {
             throw EnvelopeError.invalidFormat
         }
         self.init(subject: subject, uncheckedAssertions: assertions)

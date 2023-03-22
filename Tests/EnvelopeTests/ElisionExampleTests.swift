@@ -362,14 +362,22 @@ class ElisionExampleTests: XCTestCase {
         }
 
         let key = SymmetricKey()
-        with(try envelope.elideRemoving(envelope, encryptingWith: key).checkEncoding()) { e in
+        with(try envelope.elideRemoving(envelope, action: .encrypt(key)).checkEncoding()) { e in
             XCTAssertEqual(e.format(),
             """
             ENCRYPTED
             """
             )
         }
-        
+
+        with(try envelope.elideRemoving(envelope, action: .compress).checkEncoding()) { e in
+            XCTAssertEqual(e.format(),
+            """
+            COMPRESSED
+            """
+            )
+        }
+
         with(try envelope.elideRemoving(envelope.subject).checkEncoding()) { e in
             XCTAssertEqual(e.format(),
             """
@@ -379,11 +387,21 @@ class ElisionExampleTests: XCTestCase {
             """
             )
         }
-        
-        with(try envelope.elideRemoving(envelope.subject, encryptingWith: key).checkEncoding()) { e in
+
+        with(try envelope.elideRemoving(envelope.subject, action: .encrypt(key)).checkEncoding()) { e in
             XCTAssertEqual(e.format(),
             """
             ENCRYPTED [
+                "knows": "Bob"
+            ]
+            """
+            )
+        }
+
+        with(try envelope.elideRemoving(envelope.subject, action: .compress).checkEncoding()) { e in
+            XCTAssertEqual(e.format(),
+            """
+            COMPRESSED [
                 "knows": "Bob"
             ]
             """
@@ -401,11 +419,21 @@ class ElisionExampleTests: XCTestCase {
             )
         }
 
-        with(try envelope.elideRemoving(assertion, encryptingWith: key).checkEncoding()) { e in
+        with(try envelope.elideRemoving(assertion, action: .encrypt(key)).checkEncoding()) { e in
             XCTAssertEqual(e.format(),
             """
             "Alice" [
                 ENCRYPTED
+            ]
+            """
+            )
+        }
+
+        with(try envelope.elideRemoving(assertion, action: .compress).checkEncoding()) { e in
+            XCTAssertEqual(e.format(),
+            """
+            "Alice" [
+                COMPRESSED
             ]
             """
             )
@@ -421,11 +449,21 @@ class ElisionExampleTests: XCTestCase {
             )
         }
 
-        with(try envelope.elideRemoving(assertion.predicate!, encryptingWith: key).checkEncoding()) { e in
+        with(try envelope.elideRemoving(assertion.predicate!, action: .encrypt(key)).checkEncoding()) { e in
             XCTAssertEqual(e.format(),
             """
             "Alice" [
                 ENCRYPTED: "Bob"
+            ]
+            """
+            )
+        }
+
+        with(try envelope.elideRemoving(assertion.predicate!, action: .compress).checkEncoding()) { e in
+            XCTAssertEqual(e.format(),
+            """
+            "Alice" [
+                COMPRESSED: "Bob"
             ]
             """
             )
@@ -441,11 +479,21 @@ class ElisionExampleTests: XCTestCase {
             )
         }
 
-        with(try envelope.elideRemoving(assertion.object!, encryptingWith: key).checkEncoding()) { e in
+        with(try envelope.elideRemoving(assertion.object!, action: .encrypt(key)).checkEncoding()) { e in
             XCTAssertEqual(e.format(),
             """
             "Alice" [
                 "knows": ENCRYPTED
+            ]
+            """
+            )
+        }
+
+        with(try envelope.elideRemoving(assertion.object!, action: .compress).checkEncoding()) { e in
+            XCTAssertEqual(e.format(),
+            """
+            "Alice" [
+                "knows": COMPRESSED
             ]
             """
             )

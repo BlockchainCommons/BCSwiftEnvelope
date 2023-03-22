@@ -191,11 +191,11 @@ public extension Envelope {
         }
     }
     
-    /// `true` if the subject of the envelope has been encrypted or elided, `false` otherwise.
+    /// `true` if the subject of the envelope has been encrypted, elided, or compressed, `false` otherwise.
     ///
-    /// Obscured assertion envelopes may exist in the list of an envelope's assertion.
+    /// Obscured assertion envelopes may exist in the list of an envelope's assertions.
     var isSubjectObscured: Bool {
-        isSubjectEncrypted || isSubjectElided
+        isSubjectEncrypted || isSubjectElided || isSubjectCompressed
     }
 }
 
@@ -209,7 +209,7 @@ public extension Envelope {
     
     /// `true` if the envelope is either encrypted or elided, `false` otherwise.
     var isObscured: Bool {
-        isEncrypted || isElided
+        isEncrypted || isElided || isCompressed
     }
 }
 
