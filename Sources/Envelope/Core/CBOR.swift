@@ -35,8 +35,8 @@ extension Envelope: CBORCodable {
             return assertion.taggedCBOR
         case .encrypted(let encryptedMessage):
             return encryptedMessage.taggedCBOR
-        case .compressed(let compressed, let digest):
-            return CBOR.tagged(.compressed, [digest, compressed.taggedCBOR])
+        case .compressed(let compressed):
+            return compressed.taggedCBOR
         case .elided(let digest):
             return digest.taggedCBOR
         }
@@ -61,15 +61,8 @@ extension Envelope: CBORCodable {
                 let message = try EncryptedMessage(untaggedCBOR: item)
                 result = try Envelope(encryptedMessage: message)
             case .compressed:
-                guard
-                    case let CBOR.array(elements) = item,
-                    elements.count == 2
-                else {
-                    throw CBORError.invalidFormat
-                }
-                let digest = try Digest(cbor: elements[0])
-                let compressed = try Compressed(cbor: elements[1])
-                result = Envelope(compressed: compressed, digest: digest)
+                let compressed = try Compressed(untaggedCBOR: item)
+                result = try Envelope(compressed: compressed)
             case .digest:
                 let digest = try Digest(untaggedCBOR: item)
                 result = Envelope(elided: digest)

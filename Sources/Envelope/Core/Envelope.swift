@@ -27,7 +27,7 @@ public indirect enum Envelope: DigestProvider {
     case encrypted(EncryptedMessage)
     
     /// Represents a compressed envelope.
-    case compressed(Compressed, Digest)
+    case compressed(Compressed)
     
     /// Represents an elided envelope.
     case elided(Digest)
@@ -191,8 +191,11 @@ extension Envelope {
         self = .encrypted(encryptedMessage)
     }
     
-    init(compressed: Compressed, digest: Digest) {
-        self = .compressed(compressed, digest)
+    init(compressed: Compressed) throws {
+        guard compressed.digest != nil else {
+            throw EnvelopeError.missingDigest
+        }
+        self = .compressed(compressed)
     }
 
     init(elided digest: Digest) {

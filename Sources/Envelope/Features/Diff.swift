@@ -41,7 +41,7 @@ enum EnvelopeTreeLabel: CBORCodable {
     case knownValue(KnownValue)
     case assertion
     case encrypted(EncryptedMessage)
-    case compressed(Compressed, Digest)
+    case compressed(Compressed)
     case elided(Digest)
     
     init(_ envelope: Envelope) {
@@ -58,8 +58,8 @@ enum EnvelopeTreeLabel: CBORCodable {
             self = .assertion
         case .encrypted(let encryptedMessage):
             self = .encrypted(encryptedMessage)
-        case .compressed(let compressed, let digest):
-            self = .compressed(compressed, digest)
+        case .compressed(let compressed):
+            self = .compressed(compressed)
         case .elided(let digest):
             self = .elided(digest)
         }
@@ -98,8 +98,8 @@ enum EnvelopeTreeLabel: CBORCodable {
             break
         case .encrypted(let encryptedMessage):
             components.append(encryptedMessage)
-        case .compressed(let compressed, let digest):
-            components.append([compressed, digest].cbor)
+        case .compressed(let compressed):
+            components.append(compressed)
         case .elided(let digest):
             components.append(digest)
         }
@@ -128,16 +128,7 @@ enum EnvelopeTreeLabel: CBORCodable {
         case 4:
             self = .encrypted(try EncryptedMessage(taggedCBOR: elements.removeFirst()))
         case 5:
-            guard
-                case let CBOR.array(a) = elements.removeFirst(),
-                a.count == 2
-            else {
-                throw EnvelopeError.invalidDiff
-            }
-            
-            let compressed = try Compressed(taggedCBOR: a[0])
-            let digest = try Digest(taggedCBOR: a[1])
-            self = .compressed(compressed, digest)
+            self = .compressed(try Compressed(taggedCBOR: elements.removeFirst()))
         case 6:
             self = .elided(try Digest(taggedCBOR: elements.removeFirst()))
         default:
@@ -179,12 +170,11 @@ extension EnvelopeTreeLabel: Equatable {
             }
             return lhsEncryptedMessage.digest == rhsEncryptedMessage.digest
             
-        case .compressed(let lhsCompressed, let lhsDigest):
-            guard case .compressed(let rhsCompressed, let rhsDigest) = rhs else {
+        case .compressed(let lhsCompressed):
+            guard case .compressed(let rhsCompressed) = rhs else {
                 return false
             }
-            return lhsCompressed == rhsCompressed &&
-                lhsDigest == rhsDigest
+            return lhsCompressed == rhsCompressed
 
         case .elided(let lhsDigest):
             guard case .elided(let rhsDigest) = rhs else {
@@ -275,8 +265,8 @@ func treeToEnvelope(_ root: EnvelopeTreeNode) throws -> Envelope {
         result = Envelope(predicate, object)
     case .encrypted(let encryptedMessage):
         result = try Envelope(encryptedMessage: encryptedMessage)
-    case .compressed(let compressed, let digest):
-        result = Envelope(compressed: compressed, digest: digest)
+    case .compressed(let compressed):
+        result = try Envelope(compressed: compressed)
     case .elided(let digest):
         result = Envelope(elided: digest)
     }

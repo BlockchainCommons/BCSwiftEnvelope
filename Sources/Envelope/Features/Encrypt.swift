@@ -61,7 +61,8 @@ public extension Envelope {
             originalDigest = assertionDigest
         case .encrypted:
             throw EnvelopeError.alreadyEncrypted
-        case .compressed(let compressed, let compressedDigest):
+        case .compressed(let compressed):
+            let compressedDigest = compressed.digest!
             let encodedCBOR = compressed.taggedCBOR.cborData
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: compressedDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)

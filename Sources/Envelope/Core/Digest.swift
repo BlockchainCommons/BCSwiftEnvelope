@@ -23,8 +23,8 @@ public extension Envelope {
             return assertion.digest
         case .encrypted(let encryptedMessage):
             return encryptedMessage.digest!
-        case .compressed(_, let digest):
-            return digest
+        case .compressed(let compressed):
+            return compressed.digest!
         case .elided(digest: let digest):
             return digest
         }

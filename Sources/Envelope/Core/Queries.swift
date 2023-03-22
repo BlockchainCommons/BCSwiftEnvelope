@@ -244,7 +244,7 @@ public extension Envelope {
                 throw EnvelopeError.invalidFormat
             }
             return result
-        case .compressed(let compressed, _):
+        case .compressed(let compressed):
             guard let result = compressed as? T else {
                 throw EnvelopeError.invalidFormat
             }
