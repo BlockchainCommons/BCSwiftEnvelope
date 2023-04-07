@@ -4,11 +4,13 @@ import SecureComponents
 
 public struct FormatContext {
     public let tags: KnownTagsDict
+    public let knownValues: KnownValues
     public let functions: KnownFunctions
     public let parameters: KnownParameters
     
-    public init(tags: KnownTagsDict = [], functions: KnownFunctions = [], parameters: KnownParameters = []) {
+    public init(tags: KnownTagsDict = [], knownValues: KnownValues = [], functions: KnownFunctions = [], parameters: KnownParameters = []) {
         self.tags = tags
+        self.knownValues = knownValues
         self.functions = functions
         self.parameters = parameters
     }
@@ -110,11 +112,11 @@ extension CBOR {
                 case KnownValue.cborTag:
                     guard
                         case let CBOR.unsigned(rawValue) = cbor,
-                        case let predicate = KnownValue(rawValue: rawValue)
+                        case let knownValue = KnownValues.knownValue(for: rawValue, knownValues: context?.knownValues)
                     else {
                         return "<not a known value>"
                     }
-                    return predicate†
+                    return knownValue†
                 case Signature.cborTag:
                     return "Signature"
                 case Nonce.cborTag:

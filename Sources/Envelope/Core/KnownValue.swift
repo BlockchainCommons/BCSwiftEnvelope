@@ -14,28 +14,9 @@ public struct KnownValue {
     public let assignedName: String?
     
     /// Create a known value with the given unsigned integer value and name.
-    public init(_ rawValue: UInt64, _ name: String?) {
+    public init(_ rawValue: UInt64, _ name: String? = nil) {
         self.value = rawValue
         self.assignedName = name
-    }
-    
-    /// Create a known value with the given unsigned integer value.
-    public init(rawValue: UInt64) {
-        guard let p = knownValuesByRawValue[rawValue] else {
-            self = KnownValue(rawValue, nil)
-            return
-        }
-        self = p
-    }
-    
-    /// Create a known value with the given name.
-    ///
-    /// The constructor fails if the registry contains no such named known value.
-    public init?(name: String) {
-        guard let p = knownValuesByName[name] else {
-            return nil
-        }
-        self = p
     }
     
     /// The human readable name.
@@ -52,6 +33,12 @@ extension KnownValue: Equatable {
     }
 }
 
+extension KnownValue: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(value)
+    }
+}
+
 extension KnownValue: CustomStringConvertible {
     public var description: String {
         assignedName ?? String(value)
@@ -63,24 +50,6 @@ extension KnownValue: DigestProvider {
         Digest(taggedCBOR.cborData)
     }
 }
-
-fileprivate var knownValuesByRawValue: [UInt64: KnownValue] = {
-    var result: [UInt64: KnownValue] = [:]
-    knownValueRegistry.forEach {
-        result[$0.value] = $0
-    }
-    return result
-}()
-
-fileprivate var knownValuesByName: [String: KnownValue] = {
-    var result: [String: KnownValue] = [:]
-    knownValueRegistry.forEach {
-        if let name = $0.assignedName {
-            result[name] = $0
-        }
-    }
-    return result
-}()
 
 extension KnownValue: CBORTaggedCodable {
     public static let cborTag = Tag.knownValue
@@ -95,6 +64,6 @@ extension KnownValue: CBORTaggedCodable {
         else {
             throw EnvelopeError.invalidFormat
         }
-        self = KnownValue(rawValue: rawValue)
+        self = KnownValue(rawValue)
     }
 }

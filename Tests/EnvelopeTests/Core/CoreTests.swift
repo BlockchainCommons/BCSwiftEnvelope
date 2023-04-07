@@ -5,6 +5,7 @@ import WolfBase
 
 let formatContext = FormatContext(
     tags: knownTags,
+    knownValues: knownValues,
     functions: knownFunctions,
     parameters: knownParameters
 )

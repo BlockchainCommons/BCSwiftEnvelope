@@ -86,7 +86,7 @@ public extension KnownValue {
     static let processing = KnownValue(104, "processing")
 }
 
-var knownValueRegistry: [KnownValue] = [
+public var knownValues: KnownValues = [
     // General-purpose
     .id,
     .isA,
