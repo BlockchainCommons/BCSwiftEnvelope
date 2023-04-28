@@ -85,7 +85,7 @@ extension Assertion: EnvelopeFormat {
 
 extension KnownValue: EnvelopeFormat {
     func formatItem(context: FormatContext?) -> EnvelopeFormatItem {
-        .item(name)
+        .item(context?.knownValues.assignedName(for: self) ?? name)
     }
 }
 
