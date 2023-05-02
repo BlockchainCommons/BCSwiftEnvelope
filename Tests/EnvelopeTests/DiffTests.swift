@@ -103,7 +103,7 @@ class DiffTests: XCTestCase {
     }
 
     func makeRNG() -> some RandomNumberGenerator {
-        let state: Xoroshiro256StarStar.State = (7943088474095033134, 2201563221578303974, 15451724982873067437, 14892261624674498107)
-        return Xoroshiro256StarStar(state: state)
+        let state: Xoshiro256StarStar.State = (7943088474095033134, 2201563221578303974, 15451724982873067437, 14892261624674498107)
+        return Xoshiro256StarStar(state: state)
     }
 }
