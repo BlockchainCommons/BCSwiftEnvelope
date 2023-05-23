@@ -74,8 +74,6 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        try e.checkEncoding()
-        
         XCTAssertEqual(e.digest†, "Digest(8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59)")
         
         XCTAssertEqual(e.format(),
@@ -112,6 +110,11 @@ class CoreTests: XCTestCase {
     func testAssertionSubject() throws {
         let e = try Self.assertionEnvelope.checkEncoding()
         
+        XCTAssertEqual(e.predicate.digest†, "Digest(db7dd21c5169b4848d2a1bcb0a651c9617cdd90bae29156baaefbb2a8abef5ba)")
+        XCTAssertEqual(e.object.digest†, "Digest(13b741949c37b8e09cc3daa3194c58e4fd6b2f14d4b1d0f035a46d6d5a1d3f11)")
+        XCTAssertEqual(e.subject.digest†, "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
+        XCTAssertEqual(e.digest†, "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
+
         XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
         200(   ; envelope
@@ -128,8 +131,6 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        try e.checkEncoding()
-        
         XCTAssertEqual(e.digest†, "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
         
         XCTAssertEqual(e.format(),
@@ -141,7 +142,7 @@ class CoreTests: XCTestCase {
     }
     
     func testSubjectWithAssertion() throws {
-        let e = Self.singleAssertionEnvelope
+        let e = try Self.singleAssertionEnvelope.checkEncoding()
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
@@ -166,8 +167,6 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        try e.checkEncoding()
-        
         XCTAssertEqual(e.digest†, "Digest(8955db5e016affb133df56c11fe6c5c82fa3036263d651286d134c7e56c0e9f2)")
         
         XCTAssertEqual(e.format(),
@@ -181,7 +180,7 @@ class CoreTests: XCTestCase {
     }
     
     func testSubjectWithTwoAssertions() throws {
-        let e = Self.doubleAssertionEnvelope
+        let e = try Self.doubleAssertionEnvelope.checkEncoding()
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
         """
@@ -218,8 +217,6 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        try e.checkEncoding()
-        
         XCTAssertEqual(e.digest†, "Digest(b8d857f6e06a836fbc68ca0ce43e55ceb98eefd949119dab344e11c4ba5a0471)")
         
         XCTAssertEqual(e.format(),
@@ -245,8 +242,6 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        try e.checkEncoding()
-        
         XCTAssertEqual(e.digest†, "Digest(172a5e51431062e7b13525cbceb8ad8475977444cf28423e21c0d1dcbdfcaf47)")
         
         XCTAssertEqual(e.format(),
@@ -270,8 +265,6 @@ class CoreTests: XCTestCase {
            )
         )
         """)
-        
-        try e.checkEncoding()
         
         XCTAssertEqual(e.digest†, "Digest(8b14f3bcd7c05aac8f2162e7047d7ef5d5eab7d82ee3f9dc4846c70bae4d200b)")
         

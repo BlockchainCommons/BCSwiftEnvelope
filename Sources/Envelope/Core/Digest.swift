@@ -124,7 +124,7 @@ public extension Envelope {
 
     /// Tests two envelopes for structural equality.
     ///
-    /// Calling `e1.isIdentical(to: d2)` has a complexity of `O(1)` if the envelopes are
+    /// Calling `e1.isIdentical(to: e2)` has a complexity of `O(1)` if the envelopes are
     /// not semantically equivalent (that is, their top-level digests are different, and
     /// thus they *must* have different structures) and a complexity of `O(m + n)` where
     /// `m` and `n` are the number of elements in each of the two envelopes when they

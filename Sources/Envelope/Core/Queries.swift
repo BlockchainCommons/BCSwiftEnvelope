@@ -207,7 +207,7 @@ public extension Envelope {
         isNode || isWrapped || isSubjectAssertion
     }
     
-    /// `true` if the envelope is either encrypted or elided, `false` otherwise.
+    /// `true` if the envelope is encrypted, elided, or compressed; `false` otherwise.
     var isObscured: Bool {
         isEncrypted || isElided || isCompressed
     }

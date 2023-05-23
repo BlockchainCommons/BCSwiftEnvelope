@@ -71,6 +71,7 @@ public extension Envelope {
     /// If the subject is a ``KnownValue``, a known value envelope is created.
     /// If the subject is an ``Assertion``, an assertion envelope is created.
     /// If the subject is an `EncryptedMessage`, with a properly declared `Digest`, then an encrypted Envelope is created.
+    /// If the subject is a `Compressed`, with a properly declared `Digest`, then a compressed Envelope is created.
     /// If the subject is any type conforming to `CBOREncodable`, then a leaf envelope is created.
     /// Any other type passed as `subject` is a programmer error and results in a trap.
     ///
@@ -90,11 +91,10 @@ public extension Envelope {
             self.init(knownValue: knownValue)
         } else if let assertion = subject as? Assertion {
             self.init(assertion: assertion)
-        } else if
-            let encryptedMessage = subject as? EncryptedMessage,
-            encryptedMessage.digest != nil
-        {
+        } else if let encryptedMessage = subject as? EncryptedMessage, encryptedMessage.digest != nil {
             try! self.init(encryptedMessage: encryptedMessage)
+        } else if let compressed = subject as? Compressed, compressed.digest != nil {
+            try! self.init(compressed: compressed)
         } else if let cborItem = subject as? CBOREncodable {
             self.init(leaf: cborItem.cbor)
         } else {
