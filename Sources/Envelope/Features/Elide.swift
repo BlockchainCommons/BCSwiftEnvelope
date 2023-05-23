@@ -51,7 +51,7 @@ public extension Envelope {
     ///
     /// - Parameters:
     ///   - target: A `DigestProvider`.
-    ///   - key: If provided, encrypt the targeted element using the `SymmetricKey` instead of eliding it.
+    ///   - action: If provided, perform the specified action (encryption or compression) instead of elision.
     ///
     /// - Returns: The elided envelope.
     func elideRemoving(_ target: DigestProvider, action: ObscureAction = .elide) -> Envelope {
@@ -84,7 +84,7 @@ public extension Envelope {
     ///
     /// - Parameters:
     ///   - target: A `DigestProvider`.
-    ///   - key: If provided, encrypt the targeted element using the `SymmetricKey` instead of eliding it.
+    ///   - action: If provided, perform the specified action (encryption or compression) instead of elision.
     ///
     /// - Returns: The elided envelope.
     func elideRevealing(_ target: DigestProvider, action: ObscureAction = .elide) -> Envelope {

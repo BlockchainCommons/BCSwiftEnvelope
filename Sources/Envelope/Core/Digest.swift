@@ -95,12 +95,14 @@ public extension Envelope {
     var structuralDigest: Digest {
         var image = Data()
         walk { (envelope, _, _, _) -> Int? in
-            // Add a discriminator to the image for the encrypted and elided cases.
+            // Add a discriminator to the image for the obscured cases.
             switch envelope {
             case .encrypted:
                 image.append(contentsOf: [0])
             case .elided:
                 image.append(contentsOf: [1])
+            case .compressed:
+                image.append(contentsOf: [2])
             default:
                 break
             }

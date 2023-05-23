@@ -220,7 +220,7 @@ class FormatTests: XCTestCase {
     func testElidedObject() throws {
         let envelope = Envelope("Alice")
             .addAssertion("knows", "Bob")
-        let elided = try envelope.elideRemoving(Envelope("Bob"))
+        let elided = envelope.elideRemoving(Envelope("Bob"))
         XCTAssertEqual(elided.format(),
         """
         "Alice" [
@@ -419,7 +419,7 @@ class FormatTests: XCTestCase {
         var target = Set<Digest>()
         target.insert(envelope)
         target.insert(envelope.subject)
-        let elided = try envelope.elideRevealing(target)
+        let elided = envelope.elideRevealing(target)
         XCTAssertEqual(elided.format(),
         """
         "Alice" [
@@ -1930,7 +1930,7 @@ class FormatTests: XCTestCase {
         target.insert(try content.assertion(withPredicate: .issuer).shallowDigests)
         target.insert(try content.assertion(withPredicate: "subject").shallowDigests)
         target.insert(try content.assertion(withPredicate: "expirationDate").shallowDigests)
-        let redactedCredential = try credential.elideRevealing(target)
+        let redactedCredential = credential.elideRevealing(target)
         let warranty = try redactedCredential
             .wrap()
             .addAssertion("employeeHiredDate", Date(iso8601: "2022-01-01"))
