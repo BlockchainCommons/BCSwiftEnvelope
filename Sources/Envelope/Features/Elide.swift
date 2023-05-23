@@ -32,8 +32,8 @@ public extension Envelope {
     ///   - action: If provided, perform the specified action (encryption or compression) instead of elision.
     ///
     /// - Returns: The elided envelope.
-    func elideRemoving(_ target: Set<Digest>, action: ObscureAction = .elide) throws -> Envelope {
-        try elide(target, isRevealing: false, action: action)
+    func elideRemoving(_ target: Set<Digest>, action: ObscureAction = .elide) -> Envelope {
+        elide(target, isRevealing: false, action: action)
     }
     
     /// Returns a version of this envelope with elements in the `target` set elided.
@@ -43,8 +43,8 @@ public extension Envelope {
     ///   - action: If provided, perform the specified action (encryption or compression) instead of elision.
     ///
     /// - Returns: The elided envelope.
-    func elideRemoving(_ target: [DigestProvider], action: ObscureAction = .elide) throws -> Envelope {
-        try elide(target, isRevealing: false, action: action)
+    func elideRemoving(_ target: [DigestProvider], action: ObscureAction = .elide) -> Envelope {
+        elide(target, isRevealing: false, action: action)
     }
     
     /// Returns a version of this envelope with the target element elided.
@@ -54,8 +54,8 @@ public extension Envelope {
     ///   - key: If provided, encrypt the targeted element using the `SymmetricKey` instead of eliding it.
     ///
     /// - Returns: The elided envelope.
-    func elideRemoving(_ target: DigestProvider, action: ObscureAction = .elide) throws -> Envelope {
-        try elide(target, isRevealing: false, action: action)
+    func elideRemoving(_ target: DigestProvider, action: ObscureAction = .elide) -> Envelope {
+        elide(target, isRevealing: false, action: action)
     }
     
     /// Returns a version of this envelope with elements *not* in the `target` set elided.
@@ -65,8 +65,8 @@ public extension Envelope {
     ///   - action: If provided, perform the specified action (encryption or compression) instead of elision.
     ///
     /// - Returns: The elided envelope.
-    func elideRevealing(_ target: Set<Digest>, action: ObscureAction = .elide) throws -> Envelope {
-        try elide(target, isRevealing: true, action: action)
+    func elideRevealing(_ target: Set<Digest>, action: ObscureAction = .elide) -> Envelope {
+        elide(target, isRevealing: true, action: action)
     }
     
     /// Returns a version of this envelope with elements *not* in the `target` set elided.
@@ -76,8 +76,8 @@ public extension Envelope {
     ///   - action: If provided, perform the specified action (encryption or compression) instead of elision.
     ///
     /// - Returns: The elided envelope.
-    func elideRevealing(_ target: [DigestProvider], action: ObscureAction = .elide) throws -> Envelope {
-        try elide(target, isRevealing: true, action: action)
+    func elideRevealing(_ target: [DigestProvider], action: ObscureAction = .elide) -> Envelope {
+        elide(target, isRevealing: true, action: action)
     }
     
     /// Returns a version of this envelope with all elements *except* the target element elided.
@@ -87,8 +87,8 @@ public extension Envelope {
     ///   - key: If provided, encrypt the targeted element using the `SymmetricKey` instead of eliding it.
     ///
     /// - Returns: The elided envelope.
-    func elideRevealing(_ target: DigestProvider, action: ObscureAction = .elide) throws -> Envelope {
-        try elide(target, isRevealing: true, action: action)
+    func elideRevealing(_ target: DigestProvider, action: ObscureAction = .elide) -> Envelope {
+        elide(target, isRevealing: true, action: action)
     }
 }
 
@@ -112,7 +112,7 @@ public extension Envelope {
     ///   - action: If provided, perform the specified action (encryption or compression) instead of elision.
     ///
     /// - Returns: The elided envelope.
-    func elide(_ target: Set<Digest>, isRevealing: Bool, action: ObscureAction = .elide) throws -> Envelope {
+    func elide(_ target: Set<Digest>, isRevealing: Bool, action: ObscureAction = .elide) -> Envelope {
         let result: Envelope
         if target.contains(digest) != isRevealing {
             switch action {
@@ -120,27 +120,27 @@ public extension Envelope {
                 result = elide()
             case .encrypt(let key):
                 let message = key.encrypt(plaintext: self.taggedCBOR.cborData, digest: self.digest)
-                result = try Envelope(encryptedMessage: message)
+                result = try! Envelope(encryptedMessage: message)
             case .compress:
-                result = try compress()
+                result = try! compress()
             }
         } else if case .assertion(let assertion) = self {
-            let predicate = try assertion.predicate.elide(target, isRevealing: isRevealing, action: action)
-            let object = try assertion.object.elide(target, isRevealing: isRevealing, action: action)
+            let predicate = assertion.predicate.elide(target, isRevealing: isRevealing, action: action)
+            let object = assertion.object.elide(target, isRevealing: isRevealing, action: action)
             let elidedAssertion = Assertion(predicate: predicate, object: object)
             assert(elidedAssertion == assertion)
             result = Envelope(assertion: elidedAssertion)
         } else if case .node(let subject, let assertions, _) = self {
-            let elidedSubject = try subject.elide(target, isRevealing: isRevealing, action: action)
+            let elidedSubject = subject.elide(target, isRevealing: isRevealing, action: action)
             assert(elidedSubject.digest == subject.digest)
-            let elidedAssertions = try assertions.map { assertion in
-                let elidedAssertion = try assertion.elide(target, isRevealing: isRevealing, action: action)
+            let elidedAssertions = assertions.map { assertion in
+                let elidedAssertion = assertion.elide(target, isRevealing: isRevealing, action: action)
                 assert(elidedAssertion.digest == assertion.digest)
                 return elidedAssertion
             }
             result = Envelope(subject: elidedSubject, uncheckedAssertions: elidedAssertions)
         } else if case .wrapped(let envelope, _) = self {
-            let elidedEnvelope = try envelope.elide(target, isRevealing: isRevealing, action: action)
+            let elidedEnvelope = envelope.elide(target, isRevealing: isRevealing, action: action)
             assert(elidedEnvelope.digest == envelope.digest)
             result = Envelope(wrapped: elidedEnvelope)
         } else {
@@ -160,8 +160,8 @@ public extension Envelope {
     ///   - action: If provided, perform the specified action (encryption or compression) instead of elision.
     ///
     /// - Returns: The elided envelope.
-    func elide(_ target: [DigestProvider], isRevealing: Bool, action: ObscureAction = .elide) throws -> Envelope {
-        try elide(Set(target.map { $0.digest }), isRevealing: isRevealing, action: action)
+    func elide(_ target: [DigestProvider], isRevealing: Bool, action: ObscureAction = .elide) -> Envelope {
+        elide(Set(target.map { $0.digest }), isRevealing: isRevealing, action: action)
     }
     
     /// Returns an elided version of this envelope.
@@ -174,8 +174,8 @@ public extension Envelope {
     ///   - action: If provided, perform the specified action (encryption or compression) instead of elision.
     ///
     /// - Returns: The elided envelope.
-    func elide(_ target: DigestProvider, isRevealing: Bool, action: ObscureAction = .elide) throws -> Envelope {
-        try elide([target], isRevealing: isRevealing, action: action)
+    func elide(_ target: DigestProvider, isRevealing: Bool, action: ObscureAction = .elide) -> Envelope {
+        elide([target], isRevealing: isRevealing, action: action)
     }
 }
 

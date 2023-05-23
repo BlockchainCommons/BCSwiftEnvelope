@@ -9,7 +9,7 @@ public extension Envelope {
     func proof(contains target: Set<Digest>) -> Envelope? {
         let revealSet = revealSet(of: target)
         guard target.isSubset(of: revealSet) else { return nil }
-        return try! elideRevealing(revealSet).elideRemoving(target)
+        return elideRevealing(revealSet).elideRemoving(target)
     }
 
     /// Returns a proof that this envelope includes the target element.
