@@ -38,7 +38,7 @@ class ProofTests: XCTestCase {
         
         /// Alice provides just the root digest of her document to a third party. This is
         /// simply an envelope in which everything has been elided and nothing revealed.
-        let aliceFriendsRoot = try aliceFriends.elideRevealing([])
+        let aliceFriendsRoot = aliceFriends.elideRevealing([])
         XCTAssertEqual(aliceFriendsRoot.format(), "ELIDED")
         
         /// Now Alice wants to prove to the third party that her document contains a "knows
@@ -124,7 +124,7 @@ class ProofTests: XCTestCase {
             .sign(with: alicePrivateKeys)
             .addAssertion(.note, "Signed by the State of Example")
         
-        let credentialRoot = try credential.elideRevealing([])
+        let credentialRoot = credential.elideRevealing([])
 
         /// In this case the holder of a credential wants to prove a single assertion from it, the address.
         let addressAssertion = Envelope("address", "123 Main St.")

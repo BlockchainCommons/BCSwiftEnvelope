@@ -85,7 +85,7 @@ final class SSKREnvelopeTestVectors: XCTestCase {
         list([
             "Symmetric key used for encryption: `\(fakeContentKey.data.hex)`",
             "Nonce for encryption: `\(fakeNonce.data.hex)`",
-            "Random generator for SSKR returns repeating sequence: `\(generateFakeRandomNumbers(100).hex)`"
+            "Random generator for SSKR returns repeating sequence: `\(fakeRandomData(100).hex)`"
         ])
 
         formatIndex(testCases)
@@ -149,7 +149,7 @@ final class SSKREnvelopeTestVectors: XCTestCase {
         }
 
         func generateShares() throws -> [[Envelope]] {
-            var fakeRandomGenerator = makeFakeRandomGenerator()
+            var rng = makeFakeRandomNumberGenerator()
             
             // Encrypt the envelope with the content key. This is the key that will be split below using SSKR.
             let encryptedEnvelope = try envelopeWithPayload.encryptSubject(with: fakeContentKey, testNonce: fakeNonce)
@@ -159,8 +159,8 @@ final class SSKREnvelopeTestVectors: XCTestCase {
                 groupThreshold: groupThreshold,
                 groups: groups,
                 contentKey: fakeContentKey,
-                testRandomGenerator: {
-                    fakeRandomGenerator.data(count: $0)
+                testRNG: {
+                    rng.data(count: $0)
                 }
             )
             

@@ -35,7 +35,7 @@ class FormatTests: XCTestCase {
     
     func testSignedPlaintext() throws {
         let envelope = Envelope(plaintextHello)
-            .sign(with: alicePrivateKeys, randomGenerator: generateFakeRandomNumbers)
+            .sign(with: alicePrivateKeys, rng: fakeRandomData)
         XCTAssertEqual(envelope.format(),
         """
         "Hello." [
@@ -289,7 +289,7 @@ class FormatTests: XCTestCase {
         let envelope = Envelope("Alice")
             .addAssertion("knows", "Bob")
             .addAssertion("knows", "Carol")
-            .sign(with: alicePrivateKeys, randomGenerator: generateFakeRandomNumbers)
+            .sign(with: alicePrivateKeys, rng: fakeRandomData)
         XCTAssertEqual(envelope.format(),
         """
         "Alice" [
@@ -489,7 +489,7 @@ class FormatTests: XCTestCase {
             .addAssertion("knows", "Bob")
             .addAssertion("knows", "Carol")
             .wrap()
-            .sign(with: alicePrivateKeys, randomGenerator: generateFakeRandomNumbers)
+            .sign(with: alicePrivateKeys, rng: fakeRandomData)
         XCTAssertEqual(envelope.format(),
         """
         {
@@ -1392,7 +1392,7 @@ class FormatTests: XCTestCase {
         .addAssertion("professionalDevelopmentHours", 15)
         .addAssertion("topics", ["Subject 1", "Subject 2"])
         .wrap()
-        .sign(with: alicePrivateKeys, randomGenerator: generateFakeRandomNumbers)
+        .sign(with: alicePrivateKeys, rng: fakeRandomData)
         .addAssertion(.note, "Signed by Example Electrical Engineering Board")
         .checkEncoding()
 
@@ -1937,7 +1937,7 @@ class FormatTests: XCTestCase {
             .addAssertion("employeeStatus", "active")
             .wrap()
             .addAssertion(.note, "Signed by Employer Corp.")
-            .sign(with: bobPrivateKeys, randomGenerator: generateFakeRandomNumbers)
+            .sign(with: bobPrivateKeys, rng: fakeRandomData)
             .checkEncoding()
         XCTAssertEqual(warranty.format(),
         """

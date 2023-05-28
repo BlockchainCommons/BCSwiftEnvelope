@@ -29,7 +29,7 @@ class CompressionTests: XCTestCase {
         let original = Envelope("Alice")
             .addAssertion(.note, source)
             .wrap()
-            .sign(with: alicePrivateKeys, randomGenerator: generateFakeRandomNumbers)
+            .sign(with: alicePrivateKeys, rng: fakeRandomData)
         XCTAssertEqual(original.cborData.count, 482)
         XCTAssertEqual(original.treeFormat(context: formatContext), """
         19a0c95c NODE

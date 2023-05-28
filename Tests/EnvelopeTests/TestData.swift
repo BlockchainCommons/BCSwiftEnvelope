@@ -32,12 +32,3 @@ let statePublicKeys = statePrivateKeys.publicKeys
 
 let fakeContentKey = SymmetricKey(‡"526afd95b2229c5381baec4a1788507a3c4a566ca5cce64543b46ad12aff0035")!
 let fakeNonce = Nonce(‡"4d785658f36c22fb5aed3ac0")!
-
-func makeFakeRandomGenerator() -> RandomNumberGenerator {
-    Xoshiro256StarStar(state: (17295166580085024720, 422929670265678780, 5577237070365765850, 7953171132032326923))
-}
-
-func generateFakeRandomNumbers(_ count: Int) -> Data {
-    var rng = makeFakeRandomGenerator()
-    return rng.data(count: count)
-}

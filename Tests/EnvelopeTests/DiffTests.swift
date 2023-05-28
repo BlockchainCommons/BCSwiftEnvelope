@@ -89,7 +89,7 @@ class DiffTests: XCTestCase {
             .addAssertion("knows", "Carol")
             .addAssertion("knows", "Edward")
             .addAssertion("knows", "Geraldine")
-        let e2 = try e1
+        let e2 = e1
             .addAssertion("knows", "Frank")
             .removeAssertion(Envelope("knows", "Edward"))
             .removeAssertion(Envelope("knows", "Geraldine"))

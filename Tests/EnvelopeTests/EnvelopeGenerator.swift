@@ -121,7 +121,7 @@ public class EnvelopeGenerator {
             else {
                 return
             }
-            envelope = try! envelope.elideRemoving(Set([assertion.digest]), action: .encrypt(SymmetricKey()))
+            envelope = envelope.elideRemoving(Set([assertion.digest]), action: .encrypt(SymmetricKey()))
         case .elideAssertion:
             guard
                 let assertion = envelope.assertions.randomElement(using: &rng),
@@ -129,7 +129,7 @@ public class EnvelopeGenerator {
             else {
                 return
             }
-            envelope = try! envelope.elideRemoving(Set([assertion.digest]))
+            envelope = envelope.elideRemoving(Set([assertion.digest]))
         case .wrap:
             envelope = envelope.wrap()
         case .salt:

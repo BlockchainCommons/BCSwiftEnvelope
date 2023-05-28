@@ -20,7 +20,7 @@ class ElisionExampleTests: XCTestCase {
             .addAssertion("professionalDevelopmentHours", 15)
             .addAssertion("topics", ["Subject 1", "Subject 2"])
             .wrap()
-            .sign(with: alicePrivateKeys, randomGenerator: generateFakeRandomNumbers)
+            .sign(with: alicePrivateKeys, rng: fakeRandomData)
             .addAssertion(.note, "Signed by Example Electrical Engineering Board")
             .checkEncoding()
         XCTAssertEqual(credential.ur†, "ur:envelope/lstpsptpsbmntpsptpcstaadethdcxfgkoiahtjthnissawsfhzcmyyldsutfzcttefpaxjtmobsbwimcaleykvsdtgajntpsptpsolftpsptpcsjsiaihjpjyiniyiniahsjyihglkpjnidihjptpsptpcsjeeheyeodpeeecendpemetestpsptpsolftpsptpcsjtihksjoinjphsjyinjljtfyhsjyihtpsptpcssecyjncscxaetpsptpsolftpsptpcsisjzhsjkjyglhsjnihtpsptpcsiogthsksktihjzjztpsptpsolftpsptpcsininjkjkkpihfyhsjyihtpsptpcssecyhybdvyaetpsptpsolftpsptpcsihjoisjljyjltpsptpcsksckghisinjkcxinjkcxgehsjnihjkcxgthsksktihjzjzdijkcxjoisjljyjldmtpsptpsolftpsptpcskscejojpjliyihjkjkinjljthsjzfyihkoihjzjljojnihjtjyfdjlkpjpjktpsptpcsbstpsptpsolftpsptpcsiniyinjpjkjyglhsjnihtpsptpcsihgehsjnihjktpsptpsolftpsptpcsiyjyjljoiniajktpsptpcslfingukpidimihiajycxehingukpidimihiajycxeytpsptpsolftpsptpcskscsiajljtjyinjtkpinjtiofeiekpiahsjyinjljtgojtinjyjktpsptpcsadtpsptpsolftpsptpsgaotpsptpcskscffxihjpjyiniyiniahsjyihcxjliycxfxjljnjojzihjyinjljttpsptpsolftpsptpcsiojkkpidimihiajytpsptpcskscegmfgcxhsjtiecxgtiniajpjlkthskoihcxfejtioinjtihihjpinjtiotpsptpsolftpsptpsgattpsptpcsksdkfekshsjnjojzihcxfejzihiajyjpiniahsjzcxfejtioinjtihihjpinjtiocxfwjlhsjpietpsptpsolftpsptpsgbttpsptpcsksdkfekshsjnjojzihcxfejzihiajyjpiniahsjzcxfejtioinjtihihjpinjtiocxfwjlhsjpietpsptpsolftpsptpsgaxtpsptpcstaadfzhdfzinglfpkbcyamyladcacnbzcmidwkjehezeispahnpliasbwkpfcwwzgwolrhguzoryntynbynepshljnfhbaghpfaaiyftfwhkdyknrhoelntlnnwmhloyssntskktuotpsptpsolftpsptpsgaatpsptpcsksdmguiniojtihiecxidkkcxfekshsjnjojzihcxfejzihiajyjpiniahsjzcxfejtioinjtihihjpinjtiocxfwjlhsjpietesfkbfd")
@@ -51,7 +51,7 @@ class ElisionExampleTests: XCTestCase {
         var target: Set<Digest> = []
         
         /// With an empty target, the entire document is elided.
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             ELIDED
@@ -61,7 +61,7 @@ class ElisionExampleTests: XCTestCase {
         
         /// By adding the top-level digest of the document, its macro structure is revealed. The subject of the document is the drivers license proper. The two assertions are the `.note` and `.verifiedBy` assertions.
         target.insert(credential)
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             ELIDED [
@@ -75,7 +75,7 @@ class ElisionExampleTests: XCTestCase {
         for assertion in credential.assertions {
             target.insert(assertion.deepDigests)
         }
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             ELIDED [
@@ -88,7 +88,7 @@ class ElisionExampleTests: XCTestCase {
         
         /// We insert the digest of the document's subject. The subject is a wrapped envelope, which is still elided.
         target.insert(credential.subject)
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             {
@@ -104,7 +104,7 @@ class ElisionExampleTests: XCTestCase {
         /// We insert the digest of the wrapped envelope, revealing its macro structure. This is the actual content of the document.
         let content = try credential.subject.unwrap()
         target.insert(content)
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             {
@@ -121,7 +121,7 @@ class ElisionExampleTests: XCTestCase {
         
         /// We insert the digest of the wrapped envelope's subject, revealing the employee's CID according to the certifying agency.
         target.insert(content.subject)
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             {
@@ -143,7 +143,7 @@ class ElisionExampleTests: XCTestCase {
         target.insert(try content.assertion(withPredicate: .issuer).shallowDigests)
         target.insert(try content.assertion(withPredicate: "subject").shallowDigests)
         target.insert(try content.assertion(withPredicate: "expirationDate").shallowDigests)
-        let redactedCredential = try credential.elideRevealing(target)
+        let redactedCredential = credential.elideRevealing(target)
         XCTAssertEqual(redactedCredential.format(),
         """
         {
@@ -251,7 +251,7 @@ class ElisionExampleTests: XCTestCase {
         var target: Set<Digest> = []
         
         /// With an empty target, the entire document is elided.
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             ELIDED
@@ -261,7 +261,7 @@ class ElisionExampleTests: XCTestCase {
         
         /// By adding the top-level digest of the document, its macro structure is revealed. The subject of the document is the drivers license proper. The two assertions are the `.note` and `.verifiedBy` assertions.
         target.insert(credential)
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             ELIDED [
@@ -275,7 +275,7 @@ class ElisionExampleTests: XCTestCase {
         for assertion in credential.assertions {
             target.insert(assertion.deepDigests)
         }
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             ELIDED [
@@ -288,7 +288,7 @@ class ElisionExampleTests: XCTestCase {
         
         /// We insert the digest of the document's subject. The subject is a wrapped envelope, which is still elided.
         target.insert(credential.subject)
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             {
@@ -304,7 +304,7 @@ class ElisionExampleTests: XCTestCase {
         /// We insert the digest of the wrapped envelope, revealing its macro structure. This is the actual content of the document.
         let content = try credential.subject.unwrap()
         target.insert(content)
-        with(try credential.elideRevealing(target)) {
+        with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             {
@@ -323,7 +323,7 @@ class ElisionExampleTests: XCTestCase {
         /// The only actual assertions we want to reveal are `birthDate` and `photo`, so we do this by finding those specific assertions by their predicate. The `shallowDigests` attribute returns just a necessary set of attributes to reveal the assertion, its predicate, and its object (yes, all three of them need to be revealed) but *not* any deeper assertions on them.
         target.insert(try content.assertion(withPredicate: "birthDate").shallowDigests)
         target.insert(try content.assertion(withPredicate: "photo").shallowDigests)
-        let redactedCredential = try credential.elideRevealing(target)
+        let redactedCredential = credential.elideRevealing(target)
         XCTAssertEqual(redactedCredential.format(),
         """
         {
