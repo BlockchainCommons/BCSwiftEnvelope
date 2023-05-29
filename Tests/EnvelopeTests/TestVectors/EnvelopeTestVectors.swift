@@ -11,18 +11,20 @@ final class EnvelopeTestVectors: XCTestCase {
             envelope: Envelope(plaintextHello)
         )
 
+        var rng = makeFakeRandomNumberGenerator()
         let signedPlaintext = TestCase(
             name: "Signed Plaintext",
             explanation: "A string has been signed by Alice.",
             envelope: Envelope(plaintextHello)
-                .sign(with: alicePrivateKeys, rng: fakeRandomData)
+                .signUsing(with: alicePrivateKeys, rng: &rng)
         )
 
+        rng = makeFakeRandomNumberGenerator()
         let multisignedPlaintext = TestCase(
             name: "Multisigned Plaintext",
             explanation: "Alice and Carol jointly send a signed plaintext message to Bob.",
             envelope: Envelope(plaintextHello)
-                .sign(with: [alicePrivateKeys, carolPrivateKeys], rng: fakeRandomData)
+                .signUsing(with: [alicePrivateKeys, carolPrivateKeys], rng: &rng)
         )
 
         let symmetricEncryption = TestCase(
@@ -32,21 +34,23 @@ final class EnvelopeTestVectors: XCTestCase {
                 .encryptSubject(with: fakeContentKey, testNonce: fakeNonce)
         )
 
+        rng = makeFakeRandomNumberGenerator()
         let signThenEncrypt = TestCase(
             name: "Sign Then Encrypt",
             explanation: "A message is first signed, then encrypted. Its signature can only be checked once the envelope is decrypted.",
             envelope: try Envelope(plaintextHello)
-                .sign(with: alicePrivateKeys, rng: fakeRandomData)
+                .signUsing(with: alicePrivateKeys, rng: &rng)
                 .wrap()
                 .encryptSubject(with: fakeContentKey, testNonce: fakeNonce)
         )
 
+        rng = makeFakeRandomNumberGenerator()
         let encryptThenSign = TestCase(
             name: "Encrypt Then Sign",
             explanation: "A message is first encrypted, then signed. Its signature may be checked before the envelope is decrypted.",
             envelope: try Envelope(plaintextHello)
                 .encryptSubject(with: fakeContentKey, testNonce: fakeNonce)
-                .sign(with: alicePrivateKeys, rng: fakeRandomData)
+                .signUsing(with: alicePrivateKeys, rng: &rng)
         )
 
         let multiRecipient = TestCase(
@@ -58,11 +62,12 @@ final class EnvelopeTestVectors: XCTestCase {
                 .addRecipient(carolPublicKeys, contentKey: fakeContentKey, testKeyMaterial: fakeContentKey, testNonce: fakeNonce)
         )
 
+        rng = makeFakeRandomNumberGenerator()
         let visibleSignatureMultiRecipient = TestCase(
             name: "Visible Signature Multi-Recipient",
             explanation: "Alice encrypts a message using the public keys of Bob and Carol so that it can only be decrypted by the private key of either Bob or Carol. Each of the `SealedMessage` encrypts just the symmetric key used to encrypt the payload. Alice then signs the envelope so her signature may be verified by anyone with her public key.",
             envelope: try Envelope(plaintextHello)
-                .sign(with: alicePrivateKeys, rng: fakeRandomData)
+                .signUsing(with: alicePrivateKeys, rng: &rng)
                 .encryptSubject(with: fakeContentKey, testNonce: fakeNonce)
                 .addRecipient(bobPublicKeys, contentKey: fakeContentKey, testKeyMaterial: fakeContentKey, testNonce: fakeNonce)
                 .addRecipient(carolPublicKeys, contentKey: fakeContentKey, testKeyMaterial: fakeContentKey, testNonce: fakeNonce)
@@ -122,12 +127,13 @@ final class EnvelopeTestVectors: XCTestCase {
             "Bob's Seed: `\(bobSeed.data.hex)`",
             "Carol's Seed: `\(carolSeed.data.hex)`",
         ])
-
+        
+        var rng = makeFakeRandomNumberGenerator()
         paragraph("These objects are normally random, but they are fixed for these test vectors:")
         list([
             "Symmetric key used for encryption: `\(fakeContentKey.data.hex)`",
             "Nonce for encryption: `\(fakeNonce.data.hex)`",
-            "Random generator for signing returns pseudorandom sequence beginning: `\(fakeRandomData(100).hex)`"
+            "Random generator for signing returns pseudorandom sequence beginning: `\(rng.randomData(100).hex)`"
         ])
 
         formatIndex(testCases)
@@ -197,7 +203,9 @@ final class EnvelopeTestVectors: XCTestCase {
         .addAssertion(.note, "This is an image of John Smith.")
         .addAssertion(.dereferenceVia, "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999")
 
-    static let johnSmithResidentCard = try! Envelope(CID(‡"174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8")!)
+    static let johnSmithResidentCard = {
+        var rng = makeFakeRandomNumberGenerator()
+        return try! Envelope(CID(‡"174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8")!)
         .addAssertion(.isA, "credential")
         .addAssertion("dateIssued", Date(iso8601: "2022-04-27"))
         .addAssertion(.issuer, Envelope(stateIdentifier)
@@ -219,7 +227,8 @@ final class EnvelopeTestVectors: XCTestCase {
         )
         .addAssertion(.note, "The State of Example recognizes JOHN SMITH as a Permanent Resident.")
         .wrap()
-        .sign(with: statePrivateKeys, note: "Made by the State of Example.", rng: fakeRandomData)
+        .signUsing(with: statePrivateKeys, note: "Made by the State of Example.", rng: &rng)
+    }()
 
     static let johnSmithRedactedCredential: Envelope = try! {
         var target: Set<Digest> = []

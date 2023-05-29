@@ -26,32 +26,33 @@ class CompressionTests: XCTestCase {
     }
     
     func testCompressSubject() throws {
+        var rng = makeFakeRandomNumberGenerator()
         let original = Envelope("Alice")
             .addAssertion(.note, source)
             .wrap()
-            .sign(with: alicePrivateKeys, rng: fakeRandomData)
+            .signUsing(with: alicePrivateKeys, rng: &rng)
         XCTAssertEqual(original.cborData.count, 482)
         XCTAssertEqual(original.treeFormat(context: formatContext), """
-        19a0c95c NODE
+        5e71d9ec NODE
             b2d791c3 subj WRAPPED
                 14881a1f subj NODE
                     13941b48 subj "Alice"
                     2a23230d ASSERTION
                         49a5f41b pred note
                         27bd67e6 obj "Lorem ipsum dolor sit amet consectetur a…"
-            b69b976d ASSERTION
+            f1cbc460 ASSERTION
                 9d7ba9eb pred verifiedBy
-                52762b01 obj Signature
+                e44578ed obj Signature
         """
         )
         let compressed = try original.compressSubject().checkEncoding(knownTags: knownTags)
         XCTAssertEqual(compressed.cborData.count, 395)
         XCTAssertEqual(compressed.treeFormat(context: formatContext), """
-        19a0c95c NODE
+        5e71d9ec NODE
             b2d791c3 subj COMPRESSED
-            b69b976d ASSERTION
+            f1cbc460 ASSERTION
                 9d7ba9eb pred verifiedBy
-                52762b01 obj Signature
+                e44578ed obj Signature
         """
         )
         let uncompressed = try compressed.uncompressSubject().checkEncoding(knownTags: knownTags)

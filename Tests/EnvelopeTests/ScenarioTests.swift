@@ -236,7 +236,9 @@ class ScenarioTests: XCTestCase {
             .addAssertion(.dereferenceVia, "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999")
 
         // John Smith's Permanent Resident Card issued by the State of Example
-        let johnSmithResidentCard = try Envelope(CID(‡"174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8")!)
+        let johnSmithResidentCard = {
+            var rng = makeFakeRandomNumberGenerator()
+            return try! Envelope(CID(‡"174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8")!)
             .addAssertion(.isA, "credential")
             .addAssertion("dateIssued", Date(iso8601: "2022-04-27"))
             .addAssertion(.issuer, Envelope(stateIdentifier)
@@ -258,8 +260,9 @@ class ScenarioTests: XCTestCase {
             )
             .addAssertion(.note, "The State of Example recognizes JOHN SMITH as a Permanent Resident.")
             .wrap()
-            .sign(with: statePrivateKeys, note: "Made by the State of Example.", rng: fakeRandomData)
+            .signUsing(with: statePrivateKeys, note: "Made by the State of Example.", rng: &rng)
             .checkEncoding()
+        }()
 
         // Validate the state's signature
         try johnSmithResidentCard.verifySignature(from: statePublicKeys)

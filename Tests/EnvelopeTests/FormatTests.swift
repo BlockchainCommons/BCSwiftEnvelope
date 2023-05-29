@@ -34,8 +34,9 @@ class FormatTests: XCTestCase {
     }
     
     func testSignedPlaintext() throws {
+        var rng = makeFakeRandomNumberGenerator()
         let envelope = Envelope(plaintextHello)
-            .sign(with: alicePrivateKeys, rng: fakeRandomData)
+            .signUsing(with: alicePrivateKeys, rng: &rng)
         XCTAssertEqual(envelope.format(),
         """
         "Hello." [
@@ -44,11 +45,11 @@ class FormatTests: XCTestCase {
         """)
         XCTAssertEqual(envelope.treeFormat(),
         """
-        a6211fb0 NODE
+        f987a100 NODE
             8cc96cdb subj "Hello."
-            b4136c33 ASSERTION
+            823a7958 ASSERTION
                 9d7ba9eb pred verifiedBy
-                7d950941 obj Signature
+                93387377 obj Signature
         """)
         XCTAssertEqual(envelope.treeFormat(hideNodes: true),
         """
@@ -61,11 +62,11 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(envelope.mermaidFormat(),
         """
         graph LR
-            1(("a6211fb0<br/>NODE"))
+            1(("f987a100<br/>NODE"))
             2["8cc96cdb<br/>#quot;Hello.#quot;"]
-            3(["b4136c33<br/>ASSERTION"])
+            3(["823a7958<br/>ASSERTION"])
             4[/"9d7ba9eb<br/>verifiedBy"/]
-            5["7d950941<br/>Signature"]
+            5["93387377<br/>Signature"]
             1 -->|subj| 2
             1 --> 3
             3 -->|pred| 4
@@ -286,10 +287,11 @@ class FormatTests: XCTestCase {
     }
 
     func testSignedSubject() throws {
+        var rng = makeFakeRandomNumberGenerator()
         let envelope = Envelope("Alice")
             .addAssertion("knows", "Bob")
             .addAssertion("knows", "Carol")
-            .sign(with: alicePrivateKeys, rng: fakeRandomData)
+            .signUsing(with: alicePrivateKeys, rng: &rng)
         XCTAssertEqual(envelope.format(),
         """
         "Alice" [
@@ -300,7 +302,7 @@ class FormatTests: XCTestCase {
         """)
         XCTAssertEqual(envelope.treeFormat(),
         """
-        65f8235d NODE
+        6cd79bd6 NODE
             13941b48 subj "Alice"
             4012caf2 ASSERTION
                 db7dd21c pred "knows"
@@ -308,9 +310,9 @@ class FormatTests: XCTestCase {
             78d666eb ASSERTION
                 db7dd21c pred "knows"
                 13b74194 obj "Bob"
-            bef4a3a8 ASSERTION
+            7cd7252e ASSERTION
                 9d7ba9eb pred verifiedBy
-                3bec6b45 obj Signature
+                a83508b8 obj Signature
         """)
         XCTAssertEqual(envelope.treeFormat(hideNodes: true),
         """
@@ -329,7 +331,7 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(envelope.mermaidFormat(),
         """
         graph LR
-            1(("65f8235d<br/>NODE"))
+            1(("6cd79bd6<br/>NODE"))
             2["13941b48<br/>#quot;Alice#quot;"]
             3(["4012caf2<br/>ASSERTION"])
             4["db7dd21c<br/>#quot;knows#quot;"]
@@ -337,9 +339,9 @@ class FormatTests: XCTestCase {
             6(["78d666eb<br/>ASSERTION"])
             7["db7dd21c<br/>#quot;knows#quot;"]
             8["13b74194<br/>#quot;Bob#quot;"]
-            9(["bef4a3a8<br/>ASSERTION"])
+            9(["7cd7252e<br/>ASSERTION"])
             10[/"9d7ba9eb<br/>verifiedBy"/]
-            11["3bec6b45<br/>Signature"]
+            11["a83508b8<br/>Signature"]
             1 -->|subj| 2
             1 --> 3
             3 -->|pred| 4
@@ -428,11 +430,11 @@ class FormatTests: XCTestCase {
         """)
         XCTAssertEqual(elided.treeFormat(),
         """
-        65f8235d NODE
+        6cd79bd6 NODE
             13941b48 subj "Alice"
             4012caf2 ELIDED
             78d666eb ELIDED
-            bef4a3a8 ELIDED
+            7cd7252e ELIDED
         """)
         XCTAssertEqual(elided.treeFormat(hideNodes: true),
         """
@@ -445,11 +447,11 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(elided.mermaidFormat(),
         """
         graph LR
-            1(("65f8235d<br/>NODE"))
+            1(("6cd79bd6<br/>NODE"))
             2["13941b48<br/>#quot;Alice#quot;"]
             3{{"4012caf2<br/>ELIDED"}}
             4{{"78d666eb<br/>ELIDED"}}
-            5{{"bef4a3a8<br/>ELIDED"}}
+            5{{"7cd7252e<br/>ELIDED"}}
             1 -->|subj| 2
             1 --> 3
             1 --> 4
@@ -485,11 +487,12 @@ class FormatTests: XCTestCase {
     }
 
     func testWrapThenSign() throws {
+        var rng = makeFakeRandomNumberGenerator()
         let envelope = Envelope("Alice")
             .addAssertion("knows", "Bob")
             .addAssertion("knows", "Carol")
             .wrap()
-            .sign(with: alicePrivateKeys, rng: fakeRandomData)
+            .signUsing(with: alicePrivateKeys, rng: &rng)
         XCTAssertEqual(envelope.format(),
         """
         {
@@ -503,7 +506,7 @@ class FormatTests: XCTestCase {
         """)
         XCTAssertEqual(envelope.treeFormat(),
         """
-        58866b08 NODE
+        6a388c1d NODE
             9e3b0673 subj WRAPPED
                 b8d857f6 subj NODE
                     13941b48 subj "Alice"
@@ -513,9 +516,9 @@ class FormatTests: XCTestCase {
                     78d666eb ASSERTION
                         db7dd21c pred "knows"
                         13b74194 obj "Bob"
-            05c6c627 ASSERTION
+            27435202 ASSERTION
                 9d7ba9eb pred verifiedBy
-                5e92bccf obj Signature
+                0bdbcecd obj Signature
         """)
         XCTAssertEqual(envelope.treeFormat(hideNodes: true),
         """
@@ -535,7 +538,7 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(envelope.mermaidFormat(),
         #"""
         graph LR
-            1(("58866b08<br/>NODE"))
+            1(("6a388c1d<br/>NODE"))
             2[/"9e3b0673<br/>WRAPPED"\]
             3(("b8d857f6<br/>NODE"))
             4["13941b48<br/>#quot;Alice#quot;"]
@@ -545,9 +548,9 @@ class FormatTests: XCTestCase {
             8(["78d666eb<br/>ASSERTION"])
             9["db7dd21c<br/>#quot;knows#quot;"]
             10["13b74194<br/>#quot;Bob#quot;"]
-            11(["05c6c627<br/>ASSERTION"])
+            11(["27435202<br/>ASSERTION"])
             12[/"9d7ba9eb<br/>verifiedBy"/]
-            13["5e92bccf<br/>Signature"]
+            13["0bdbcecd<br/>Signature"]
             1 -->|subj| 2
             2 -->|subj| 3
             3 -->|subj| 4
@@ -1377,7 +1380,9 @@ class FormatTests: XCTestCase {
         """)
     }
 
-    static let credential = try! Envelope(CID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
+    static let credential = {
+        var rng = makeFakeRandomNumberGenerator()
+        return try! Envelope(CID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
         .addAssertion(.isA, "Certificate of Completion")
         .addAssertion(.issuer, "Example Electrical Engineering Board")
         .addAssertion(.controller, "Example Electrical Engineering Board")
@@ -1392,9 +1397,10 @@ class FormatTests: XCTestCase {
         .addAssertion("professionalDevelopmentHours", 15)
         .addAssertion("topics", ["Subject 1", "Subject 2"])
         .wrap()
-        .sign(with: alicePrivateKeys, rng: fakeRandomData)
+        .signUsing(with: alicePrivateKeys, rng: &rng)
         .addAssertion(.note, "Signed by Example Electrical Engineering Board")
         .checkEncoding()
+    }()
 
     func testCredential() throws {
         XCTAssertEqual(Self.credential.format(),
@@ -1422,7 +1428,7 @@ class FormatTests: XCTestCase {
         """)
         XCTAssertEqual(Self.credential.treeFormat(),
         """
-        e1335c97 NODE
+        31ff6d6b NODE
             5886e784 subj WRAPPED
                 c9860567 subj NODE
                     5fb45cf1 subj CID(4676635a)
@@ -1465,12 +1471,12 @@ class FormatTests: XCTestCase {
                     ebcbf71f ASSERTION
                         fde30b5c pred issuer
                         f8489ac1 obj "Example Electrical Engineering Board"
-            4025e72d ASSERTION
-                9d7ba9eb pred verifiedBy
-                73316b2b obj Signature
             55b14b17 ASSERTION
                 49a5f41b pred note
                 f106bad1 obj "Signed by Example Electrical Engineering…"
+            9902b6e6 ASSERTION
+                9d7ba9eb pred verifiedBy
+                4b4c0a2e obj Signature
         """)
         XCTAssertEqual(Self.credential.treeFormat(hideNodes: true),
         """
@@ -1516,17 +1522,17 @@ class FormatTests: XCTestCase {
                     issuer
                     "Example Electrical Engineering Board"
             ASSERTION
-                verifiedBy
-                Signature
-            ASSERTION
                 note
                 "Signed by Example Electrical Engineering…"
+            ASSERTION
+                verifiedBy
+                Signature
         """)
         XCTAssertEqual(Self.credential.elementsCount, Self.credential.treeFormat().split(separator: "\n").count)
         XCTAssertEqual(Self.credential.mermaidFormat(),
         #"""
         graph LR
-            1(("e1335c97<br/>NODE"))
+            1(("31ff6d6b<br/>NODE"))
             2[/"5886e784<br/>WRAPPED"\]
             3(("c9860567<br/>NODE"))
             4["5fb45cf1<br/>CID(4676635a)"]
@@ -1569,12 +1575,12 @@ class FormatTests: XCTestCase {
             41(["ebcbf71f<br/>ASSERTION"])
             42[/"fde30b5c<br/>issuer"/]
             43["f8489ac1<br/>#quot;Example Electrical Engineering Board#quot;"]
-            44(["4025e72d<br/>ASSERTION"])
-            45[/"9d7ba9eb<br/>verifiedBy"/]
-            46["73316b2b<br/>Signature"]
-            47(["55b14b17<br/>ASSERTION"])
-            48[/"49a5f41b<br/>note"/]
-            49["f106bad1<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
+            44(["55b14b17<br/>ASSERTION"])
+            45[/"49a5f41b<br/>note"/]
+            46["f106bad1<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
+            47(["9902b6e6<br/>ASSERTION"])
+            48[/"9d7ba9eb<br/>verifiedBy"/]
+            49["4b4c0a2e<br/>Signature"]
             1 -->|subj| 2
             2 -->|subj| 3
             3 -->|subj| 4
@@ -1766,11 +1772,11 @@ class FormatTests: XCTestCase {
             40[/"issuer"/]
             41["#quot;Example Electrical Engineering Board#quot;"]
             42(["ASSERTION"])
-            43[/"verifiedBy"/]
-            44["Signature"]
+            43[/"note"/]
+            44["#quot;Signed by Example Electrical Engineering…#quot;"]
             45(["ASSERTION"])
-            46[/"note"/]
-            47["#quot;Signed by Example Electrical Engineering…#quot;"]
+            46[/"verifiedBy"/]
+            47["Signature"]
             1 --> 2
             2 --> 3
             3 --> 4
@@ -1931,13 +1937,14 @@ class FormatTests: XCTestCase {
         target.insert(try content.assertion(withPredicate: "subject").shallowDigests)
         target.insert(try content.assertion(withPredicate: "expirationDate").shallowDigests)
         let redactedCredential = credential.elideRevealing(target)
+        var rng = makeFakeRandomNumberGenerator()
         let warranty = try redactedCredential
             .wrap()
             .addAssertion("employeeHiredDate", Date(iso8601: "2022-01-01"))
             .addAssertion("employeeStatus", "active")
             .wrap()
             .addAssertion(.note, "Signed by Employer Corp.")
-            .sign(with: bobPrivateKeys, rng: fakeRandomData)
+            .signUsing(with: bobPrivateKeys, rng: &rng)
             .checkEncoding()
         XCTAssertEqual(warranty.format(),
         """
@@ -1968,11 +1975,11 @@ class FormatTests: XCTestCase {
         """)
         XCTAssertEqual(warranty.treeFormat(),
         """
-        204c1cc5 NODE
-            6ef5d69b subj WRAPPED
-                08c5bd4a subj NODE
-                    bb862fc3 subj WRAPPED
-                        e1335c97 subj NODE
+        ed7529fe NODE
+            9222bb56 subj WRAPPED
+                2d6a7024 subj NODE
+                    5063b615 subj WRAPPED
+                        31ff6d6b subj NODE
                             5886e784 subj WRAPPED
                                 c9860567 subj NODE
                                     5fb45cf1 subj CID(4676635a)
@@ -2001,24 +2008,24 @@ class FormatTests: XCTestCase {
                                     ebcbf71f ASSERTION
                                         fde30b5c pred issuer
                                         f8489ac1 obj "Example Electrical Engineering Board"
-                            4025e72d ASSERTION
-                                9d7ba9eb pred verifiedBy
-                                73316b2b obj Signature
                             55b14b17 ASSERTION
                                 49a5f41b pred note
                                 f106bad1 obj "Signed by Example Electrical Engineering…"
+                            9902b6e6 ASSERTION
+                                9d7ba9eb pred verifiedBy
+                                4b4c0a2e obj Signature
                     4c159c16 ASSERTION
                         e1ae011e pred "employeeHiredDate"
                         13b5a817 obj 2022-01-01
                     e071508b ASSERTION
                         d03e7352 pred "employeeStatus"
                         1d7a790d obj "active"
+            16639289 ASSERTION
+                9d7ba9eb pred verifiedBy
+                c82b0b88 obj Signature
             8f255569 ASSERTION
                 49a5f41b pred note
                 f59806d2 obj "Signed by Employer Corp."
-            a9973eab ASSERTION
-                9d7ba9eb pred verifiedBy
-                a05ce2dc obj Signature
         """)
         XCTAssertEqual(warranty.treeFormat(hideNodes: true),
         """
@@ -2052,11 +2059,11 @@ class FormatTests: XCTestCase {
                             issuer
                             "Example Electrical Engineering Board"
                     ASSERTION
-                        verifiedBy
-                        Signature
-                    ASSERTION
                         note
                         "Signed by Example Electrical Engineering…"
+                    ASSERTION
+                        verifiedBy
+                        Signature
                 ASSERTION
                     "employeeHiredDate"
                     2022-01-01
@@ -2064,21 +2071,21 @@ class FormatTests: XCTestCase {
                     "employeeStatus"
                     "active"
             ASSERTION
-                note
-                "Signed by Employer Corp."
-            ASSERTION
                 verifiedBy
                 Signature
+            ASSERTION
+                note
+                "Signed by Employer Corp."
         """)
         XCTAssertEqual(warranty.elementsCount, warranty.treeFormat().split(separator: "\n").count)
         XCTAssertEqual(warranty.mermaidFormat(),
         #"""
         graph LR
-            1(("204c1cc5<br/>NODE"))
-            2[/"6ef5d69b<br/>WRAPPED"\]
-            3(("08c5bd4a<br/>NODE"))
-            4[/"bb862fc3<br/>WRAPPED"\]
-            5(("e1335c97<br/>NODE"))
+            1(("ed7529fe<br/>NODE"))
+            2[/"9222bb56<br/>WRAPPED"\]
+            3(("2d6a7024<br/>NODE"))
+            4[/"5063b615<br/>WRAPPED"\]
+            5(("31ff6d6b<br/>NODE"))
             6[/"5886e784<br/>WRAPPED"\]
             7(("c9860567<br/>NODE"))
             8["5fb45cf1<br/>CID(4676635a)"]
@@ -2107,24 +2114,24 @@ class FormatTests: XCTestCase {
             31(["ebcbf71f<br/>ASSERTION"])
             32[/"fde30b5c<br/>issuer"/]
             33["f8489ac1<br/>#quot;Example Electrical Engineering Board#quot;"]
-            34(["4025e72d<br/>ASSERTION"])
-            35[/"9d7ba9eb<br/>verifiedBy"/]
-            36["73316b2b<br/>Signature"]
-            37(["55b14b17<br/>ASSERTION"])
-            38[/"49a5f41b<br/>note"/]
-            39["f106bad1<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
+            34(["55b14b17<br/>ASSERTION"])
+            35[/"49a5f41b<br/>note"/]
+            36["f106bad1<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
+            37(["9902b6e6<br/>ASSERTION"])
+            38[/"9d7ba9eb<br/>verifiedBy"/]
+            39["4b4c0a2e<br/>Signature"]
             40(["4c159c16<br/>ASSERTION"])
             41["e1ae011e<br/>#quot;employeeHiredDate#quot;"]
             42["13b5a817<br/>2022-01-01"]
             43(["e071508b<br/>ASSERTION"])
             44["d03e7352<br/>#quot;employeeStatus#quot;"]
             45["1d7a790d<br/>#quot;active#quot;"]
-            46(["8f255569<br/>ASSERTION"])
-            47[/"49a5f41b<br/>note"/]
-            48["f59806d2<br/>#quot;Signed by Employer Corp.#quot;"]
-            49(["a9973eab<br/>ASSERTION"])
-            50[/"9d7ba9eb<br/>verifiedBy"/]
-            51["a05ce2dc<br/>Signature"]
+            46(["16639289<br/>ASSERTION"])
+            47[/"9d7ba9eb<br/>verifiedBy"/]
+            48["c82b0b88<br/>Signature"]
+            49(["8f255569<br/>ASSERTION"])
+            50[/"49a5f41b<br/>note"/]
+            51["f59806d2<br/>#quot;Signed by Employer Corp.#quot;"]
             1 -->|subj| 2
             2 -->|subj| 3
             3 -->|subj| 4
@@ -2310,11 +2317,11 @@ class FormatTests: XCTestCase {
             28[/"issuer"/]
             29["#quot;Example Electrical Engineering Board#quot;"]
             30(["ASSERTION"])
-            31[/"verifiedBy"/]
-            32["Signature"]
+            31[/"note"/]
+            32["#quot;Signed by Example Electrical Engineering…#quot;"]
             33(["ASSERTION"])
-            34[/"note"/]
-            35["#quot;Signed by Example Electrical Engineering…#quot;"]
+            34[/"verifiedBy"/]
+            35["Signature"]
             36(["ASSERTION"])
             37["#quot;employeeHiredDate#quot;"]
             38["2022-01-01"]
@@ -2322,11 +2329,11 @@ class FormatTests: XCTestCase {
             40["#quot;employeeStatus#quot;"]
             41["#quot;active#quot;"]
             42(["ASSERTION"])
-            43[/"note"/]
-            44["#quot;Signed by Employer Corp.#quot;"]
+            43[/"verifiedBy"/]
+            44["Signature"]
             45(["ASSERTION"])
-            46[/"verifiedBy"/]
-            47["Signature"]
+            46[/"note"/]
+            47["#quot;Signed by Employer Corp.#quot;"]
             1 --> 2
             2 --> 3
             3 --> 4

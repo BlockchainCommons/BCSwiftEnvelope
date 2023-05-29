@@ -81,11 +81,12 @@ final class SSKREnvelopeTestVectors: XCTestCase {
 
         header2("Constant Test Data")
 
+        var rng = makeFakeRandomNumberGenerator()
         paragraph("These objects are normally random, but they are fixed for these test vectors:")
         list([
             "Symmetric key used for encryption: `\(fakeContentKey.data.hex)`",
             "Nonce for encryption: `\(fakeNonce.data.hex)`",
-            "Random generator for SSKR returns repeating sequence: `\(fakeRandomData(100).hex)`"
+            "Random generator for SSKR returns repeating sequence: `\(rng.randomData(100).hex)`"
         ])
 
         formatIndex(testCases)
