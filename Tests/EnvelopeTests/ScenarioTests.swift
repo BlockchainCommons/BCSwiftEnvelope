@@ -260,7 +260,7 @@ class ScenarioTests: XCTestCase {
             )
             .addAssertion(.note, "The State of Example recognizes JOHN SMITH as a Permanent Resident.")
             .wrap()
-            .signUsing(with: statePrivateKeys, note: "Made by the State of Example.", rng: &rng)
+            .sign(with: statePrivateKeys, note: "Made by the State of Example.", using: &rng)
             .checkEncoding()
         }()
 

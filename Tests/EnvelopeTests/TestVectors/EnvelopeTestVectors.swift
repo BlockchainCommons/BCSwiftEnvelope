@@ -16,7 +16,7 @@ final class EnvelopeTestVectors: XCTestCase {
             name: "Signed Plaintext",
             explanation: "A string has been signed by Alice.",
             envelope: Envelope(plaintextHello)
-                .signUsing(with: alicePrivateKeys, rng: &rng)
+                .sign(with: alicePrivateKeys, using: &rng)
         )
 
         rng = makeFakeRandomNumberGenerator()
@@ -24,7 +24,7 @@ final class EnvelopeTestVectors: XCTestCase {
             name: "Multisigned Plaintext",
             explanation: "Alice and Carol jointly send a signed plaintext message to Bob.",
             envelope: Envelope(plaintextHello)
-                .signUsing(with: [alicePrivateKeys, carolPrivateKeys], rng: &rng)
+                .sign(with: [alicePrivateKeys, carolPrivateKeys], using: &rng)
         )
 
         let symmetricEncryption = TestCase(
@@ -39,7 +39,7 @@ final class EnvelopeTestVectors: XCTestCase {
             name: "Sign Then Encrypt",
             explanation: "A message is first signed, then encrypted. Its signature can only be checked once the envelope is decrypted.",
             envelope: try Envelope(plaintextHello)
-                .signUsing(with: alicePrivateKeys, rng: &rng)
+                .sign(with: alicePrivateKeys, using: &rng)
                 .wrap()
                 .encryptSubject(with: fakeContentKey, testNonce: fakeNonce)
         )
@@ -50,7 +50,7 @@ final class EnvelopeTestVectors: XCTestCase {
             explanation: "A message is first encrypted, then signed. Its signature may be checked before the envelope is decrypted.",
             envelope: try Envelope(plaintextHello)
                 .encryptSubject(with: fakeContentKey, testNonce: fakeNonce)
-                .signUsing(with: alicePrivateKeys, rng: &rng)
+                .sign(with: alicePrivateKeys, using: &rng)
         )
 
         let multiRecipient = TestCase(
@@ -67,7 +67,7 @@ final class EnvelopeTestVectors: XCTestCase {
             name: "Visible Signature Multi-Recipient",
             explanation: "Alice encrypts a message using the public keys of Bob and Carol so that it can only be decrypted by the private key of either Bob or Carol. Each of the `SealedMessage` encrypts just the symmetric key used to encrypt the payload. Alice then signs the envelope so her signature may be verified by anyone with her public key.",
             envelope: try Envelope(plaintextHello)
-                .signUsing(with: alicePrivateKeys, rng: &rng)
+                .sign(with: alicePrivateKeys, using: &rng)
                 .encryptSubject(with: fakeContentKey, testNonce: fakeNonce)
                 .addRecipient(bobPublicKeys, contentKey: fakeContentKey, testKeyMaterial: fakeContentKey, testNonce: fakeNonce)
                 .addRecipient(carolPublicKeys, contentKey: fakeContentKey, testKeyMaterial: fakeContentKey, testNonce: fakeNonce)
@@ -227,7 +227,7 @@ final class EnvelopeTestVectors: XCTestCase {
         )
         .addAssertion(.note, "The State of Example recognizes JOHN SMITH as a Permanent Resident.")
         .wrap()
-        .signUsing(with: statePrivateKeys, note: "Made by the State of Example.", rng: &rng)
+        .sign(with: statePrivateKeys, note: "Made by the State of Example.", using: &rng)
     }()
 
     static let johnSmithRedactedCredential: Envelope = try! {

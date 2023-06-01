@@ -1,5 +1,6 @@
 import Foundation
 import SecureComponents
+import WolfBase
 
 extension EnvelopeError {
     static let unverifiedSignature = EnvelopeError("unverifiedSignature")
@@ -14,14 +15,14 @@ public extension Envelope {
     ///   - rng: The random number generator to use.
     ///
     /// - Returns: The signed envelope.
-    func signUsing<T>(with privateKeys: PrivateKeyBase, note: String? = nil, tag: Data? = nil, rng: inout T) -> Envelope
+    func sign<T>(with privateKeys: PrivateKeyBase, note: String? = nil, tag: DataProvider? = nil, using rng: inout T) -> Envelope
     where T: RandomNumberGenerator
     {
         var assertions: [Envelope] = []
         if let note {
             assertions.append(Envelope(.note, note))
         }
-        return try! signUsing(with: privateKeys, uncoveredAssertions: assertions, tag: tag, rng: &rng)
+        return try! sign(with: privateKeys, uncoveredAssertions: assertions, tag: tag, using: &rng)
     }
     
     /// Creates a signature for the envelope's subject and returns a new envelope with a `verifiedBy: Signature` assertion.
@@ -31,9 +32,9 @@ public extension Envelope {
     ///   - note: Optional text note to add to the `Signature`
     ///
     /// - Returns: The signed envelope.
-    func sign(with privateKeys: PrivateKeyBase, note: String? = nil, tag: Data? = nil) -> Envelope {
+    func sign(with privateKeys: PrivateKeyBase, note: String? = nil, tag: DataProvider? = nil) -> Envelope {
         var rng = SecureRandomNumberGenerator()
-        return signUsing(with: privateKeys, note: note, tag: tag, rng: &rng)
+        return sign(with: privateKeys, note: note, tag: tag, using: &rng)
     }
     
     /// Creates several signatures for the envelope's subject and returns a new envelope with additional `verifiedBy: Signature` assertions.
@@ -43,11 +44,11 @@ public extension Envelope {
     ///   - rng: The random number generator to use.
     ///
     /// - Returns: The signed envelope.
-    func signUsing<T>(with privateKeys: [PrivateKeyBase], tag: Data? = nil, rng: inout T) -> Envelope
+    func sign<T>(with privateKeys: [PrivateKeyBase], tag: DataProvider? = nil, using rng: inout T) -> Envelope
     where T: RandomNumberGenerator
     {
         privateKeys.reduce(into: self) {
-            $0 = $0.signUsing(with: $1, tag: tag, rng: &rng)
+            $0 = $0.sign(with: $1, tag: tag, using: &rng)
         }
     }
     
@@ -57,9 +58,9 @@ public extension Envelope {
     ///   - privateKeys: An array of signers' `PrivateKeyBase`s.
     ///
     /// - Returns: The signed envelope.
-    func sign(with privateKeys: [PrivateKeyBase], tag: Data? = nil) -> Envelope {
+    func sign(with privateKeys: [PrivateKeyBase], tag: DataProvider? = nil) -> Envelope {
         var rng = SecureRandomNumberGenerator()
-        return signUsing(with: privateKeys, tag: tag, rng: &rng)
+        return sign(with: privateKeys, tag: tag, using: &rng)
     }
 
     /// Creates a signature for the envelope's subject and returns a new envelope with a `verifiedBy: Signature` assertion.
@@ -70,10 +71,10 @@ public extension Envelope {
     ///   - rng: The random number generator to use.
     ///
     /// - Returns: The signed envelope.
-    func signUsing<T>(with privateKeys: PrivateKeyBase, uncoveredAssertions: [Envelope], tag: Data? = nil, rng: inout T) throws -> Envelope
+    func sign<T>(with privateKeys: PrivateKeyBase, uncoveredAssertions: [Envelope], tag: DataProvider? = nil, using rng: inout T) throws -> Envelope
     where T: RandomNumberGenerator
     {
-        let signature = try Envelope(privateKeys.signingPrivateKey.schnorrSignUsing(subject.digest, tag: tag, rng: &rng))
+        let signature = try Envelope(privateKeys.signingPrivateKey.schnorrSign(subject.digest, tag: tag, using: &rng))
             .addAssertions(uncoveredAssertions)
         return try addAssertion(Envelope(.verifiedBy, signature))
     }
@@ -85,9 +86,9 @@ public extension Envelope {
     ///   - uncoveredAssertions: Assertions to add to the `Signature`.
     ///
     /// - Returns: The signed envelope.
-    func sign(with privateKeys: PrivateKeyBase, uncoveredAssertions: [Envelope], tag: Data? = nil) throws -> Envelope {
+    func sign(with privateKeys: PrivateKeyBase, uncoveredAssertions: [Envelope], tag: DataProvider? = nil) throws -> Envelope {
         var rng = SecureRandomNumberGenerator()
-        return signUsing(with: privateKeys, tag: tag, rng: &rng)
+        return sign(with: privateKeys, tag: tag, using: &rng)
     }
 }
 
@@ -214,7 +215,7 @@ public extension Envelope {
 
 extension Envelope {
     func isVerifiedSignature(_ signature: Signature, key: SigningPublicKey) -> Bool {
-        return key.isValidSignature(signature, for: subject.digest)
+        return key.verify(signature: signature, for: subject.digest)
     }
     
     @discardableResult

@@ -30,7 +30,7 @@ class CompressionTests: XCTestCase {
         let original = Envelope("Alice")
             .addAssertion(.note, source)
             .wrap()
-            .signUsing(with: alicePrivateKeys, rng: &rng)
+            .sign(with: alicePrivateKeys, using: &rng)
         XCTAssertEqual(original.cborData.count, 482)
         XCTAssertEqual(original.treeFormat(context: formatContext), """
         5e71d9ec NODE
