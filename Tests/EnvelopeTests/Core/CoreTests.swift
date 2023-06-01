@@ -322,4 +322,3 @@ class CoreTests: XCTestCase {
         )
     }
 }
-
