@@ -44,6 +44,7 @@ public extension Envelope {
     var recipients: [SealedMessage] {
         get throws {
             try assertions(withPredicate: .hasRecipient)
+                .filter { !$0.object.isObscured }
                 .map { try $0.object!.extractSubject(SealedMessage.self) }
         }
     }
@@ -84,6 +85,15 @@ public extension Envelope {
         try encryptSubject(to: [recipient])
     }
     
+    static func firstPlaintext(in sealedMessages: [SealedMessage], for privateKeys: PrivateKeyBase) throws -> Data {
+        for sealedMessage in sealedMessages {
+            if let plaintext = try? sealedMessage.decrypt(with: privateKeys) {
+                return plaintext
+            }
+        }
+        throw EnvelopeError.invalidRecipient
+    }
+
     /// Returns a new envelope with its subject decrypted using the recipient's
     /// `PrivateKeyBase`.
     ///
@@ -94,12 +104,8 @@ public extension Envelope {
     /// - Throws: If a `SealedMessage` for `recipient` is not found among the
     /// `hasRecipient` assertions on the envelope.
     func decrypt(to recipient: PrivateKeyBase) throws -> Envelope {
-        guard
-            let contentKeyData = try SealedMessage.firstPlaintext(in: recipients, for: recipient)
-        else {
-            throw EnvelopeError.invalidRecipient
-        }
-
+        let sealedMessage = try self.recipients
+        let contentKeyData = try Self.firstPlaintext(in: sealedMessage, for: recipient)
         let contentKey = try SymmetricKey(taggedCBORData: contentKeyData)
         return try decryptSubject(with: contentKey).subject
     }

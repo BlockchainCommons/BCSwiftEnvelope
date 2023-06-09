@@ -185,6 +185,7 @@ public extension Envelope {
     ///
     /// - Parameters:
     ///   - publicKeysArray: An array of potential signers' `PublicKeyBase`s.
+    ///   - threshold: Optional minimum number of signers.
     ///
     /// - Returns: `true` if the threshold of valid signatures is met, `false` otherwise.
     ///
@@ -203,6 +204,7 @@ public extension Envelope {
     ///
     /// - Parameters:
     ///   - publicKeysArray: An array of potential signers' `PublicKeyBase`s.
+    ///   - threshold: Optional minimum number of signers.
     ///
     /// - Returns: This envelope.
     ///
