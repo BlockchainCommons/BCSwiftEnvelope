@@ -3,11 +3,11 @@ import SecureComponents
 import Envelope
 import WolfBase
 
-let formatContext = FormatContext(
-    tags: knownTags,
-    knownValues: knownValues,
-    functions: knownFunctions,
-    parameters: knownParameters
+let globalFormatContext = FormatContext(
+    tags: globalTags,
+    knownValues: globalKnownValues,
+    functions: globalFunctions,
+    parameters: globalParameters
 )
 
 class CoreTests: XCTestCase {
@@ -25,7 +25,7 @@ class CoreTests: XCTestCase {
     func testIntSubject() throws {
         let e = try Envelope(42).checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            24(42)   ; leaf
@@ -46,7 +46,7 @@ class CoreTests: XCTestCase {
     func testNegativeIntSubject() throws {
         let e = try Envelope(-42).checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            24(-42)   ; leaf
@@ -67,7 +67,7 @@ class CoreTests: XCTestCase {
     func testCBOREncodableSubject() throws {
         let e = try Self.basicEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            24("Hello.")   ; leaf
@@ -88,7 +88,7 @@ class CoreTests: XCTestCase {
     func testKnownValueSubject() throws {
         let e = try Self.knownValueEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            202(4)   ; known-value
@@ -115,7 +115,7 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.subject.digest†, "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
         XCTAssertEqual(e.digest†, "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
 
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            201(   ; assertion
@@ -144,7 +144,7 @@ class CoreTests: XCTestCase {
     func testSubjectWithAssertion() throws {
         let e = try Self.singleAssertionEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            [
@@ -182,7 +182,7 @@ class CoreTests: XCTestCase {
     func testSubjectWithTwoAssertions() throws {
         let e = try Self.doubleAssertionEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            [
@@ -233,7 +233,7 @@ class CoreTests: XCTestCase {
     func testWrapped() throws {
         let e = try Self.wrappedEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            203(   ; wrapped-envelope
@@ -255,7 +255,7 @@ class CoreTests: XCTestCase {
     func testDoubleWrapped() throws {
         let e = try Self.doubleWrappedEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            203(   ; wrapped-envelope
@@ -309,7 +309,7 @@ class CoreTests: XCTestCase {
 
         XCTAssertEqual(e.digest†, "Digest(17db10e567ceb05522f0074c27c7d7796cac1d5ce20e45f405ab9063fdeeff1a)")
 
-        XCTAssertEqual(e.diagnostic(annotate: true, context: formatContext),
+        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
            24(   ; leaf

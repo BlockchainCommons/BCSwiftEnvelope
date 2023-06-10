@@ -218,7 +218,7 @@ class ScenarioTests: XCTestCase {
         let aliceDocumentPublicKeys = try aliceRegistration
             .verifySignature(from: exampleLedgerPublicKeys)
             .unwrap()
-            .extractObject(forPredicate: .entity)
+            .object(forPredicate: .entity)
             .unwrap()
             .extractObject(PublicKeyBase.self, forPredicate: .publicKeys)
 
@@ -489,16 +489,16 @@ class ScenarioTests: XCTestCase {
         let line1 = try Envelope(purchaseOrder.digest)
             .addAssertion(.isA, "PurchaseOrderLineItem")
             .addAssertion("product", qualityProduct.extractSubject(CID.self))
-            .addAssertion(.hasName, qualityProduct.extractObject(forPredicate: .hasName))
-            .addAssertion("priceEach", qualityProduct.extractObject(forPredicate: "priceEach"))
+            .addAssertion(.hasName, qualityProduct.object(forPredicate: .hasName))
+            .addAssertion("priceEach", qualityProduct.object(forPredicate: "priceEach"))
             .addAssertion("quantity", 4)
             .checkEncoding()
 
         let line2 = try Envelope(purchaseOrder.digest)
             .addAssertion(.isA, "PurchaseOrderLineItem")
             .addAssertion("product", cheapProduct.extractSubject(CID.self))
-            .addAssertion(.hasName, cheapProduct.extractObject(forPredicate: .hasName))
-            .addAssertion("priceEach", cheapProduct.extractObject(forPredicate: "priceEach"))
+            .addAssertion(.hasName, cheapProduct.object(forPredicate: .hasName))
+            .addAssertion("priceEach", cheapProduct.object(forPredicate: "priceEach"))
             .addAssertion("quantity", 3)
             .checkEncoding()
 

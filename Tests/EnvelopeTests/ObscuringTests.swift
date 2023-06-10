@@ -9,7 +9,7 @@ class ObscuringTests: XCTestCase {
     /// result), and some throw errors.
     ///
     /// | Operation > | Encrypt | Elide      | Compress   |
-    /// |-------------|---------|------------|------------|
+    /// |:------------|:--------|:-----------|:-----------|
     /// | Encrypted   | ERROR   | OK         | ERROR      |
     /// | Elided      | ERROR   | IDEMPOTENT | ERROR      |
     /// | Compressed  | OK      | OK         | IDEMPOTENT |
@@ -30,63 +30,63 @@ class ObscuringTests: XCTestCase {
         XCTAssertTrue(compressed.isObscured)
 
         
-        /// ENCRYPTION
+        // ENCRYPTION
         
-        /// Cannot encrypt an encrypted envelope.
-        ///
-        /// If allowed, would result in an envelope with the same digest but
-        /// double-encrypted, possibly with a different key, which is probably not what's
-        /// intended. If you want to double-encrypt then wrap the encrypted envelope first,
-        /// which will change its digest.
+        // Cannot encrypt an encrypted envelope.
+        //
+        // If allowed, would result in an envelope with the same digest but
+        // double-encrypted, possibly with a different key, which is probably not what's
+        // intended. If you want to double-encrypt then wrap the encrypted envelope first,
+        // which will change its digest.
         XCTAssertThrowsError(try encrypted.encryptSubject(with: key))
         
-        /// Cannot encrypt an elided envelope.
-        ///
-        /// Elided envelopes have no data to encrypt.
+        // Cannot encrypt an elided envelope.
+        //
+        // Elided envelopes have no data to encrypt.
         XCTAssertThrowsError(try elided.encryptSubject(with: key))
         
-        /// OK to encrypt a compressed envelope.
+        // OK to encrypt a compressed envelope.
         guard case .encrypted = try compressed.encryptSubject(with: key) else {
             XCTFail()
             return
         }
         
         
-        /// ELISION
+        // ELISION
         
-        /// OK to elide an encrypted envelope.
+        // OK to elide an encrypted envelope.
         guard case .elided = encrypted.elide() else {
             XCTFail()
             return
         }
         
-        /// Eliding an elided envelope is idempotent.
+        // Eliding an elided envelope is idempotent.
         guard case .elided = elided.elide() else {
             XCTFail()
             return
         }
         
-        /// OK to elide a compressed envelope.
+        // OK to elide a compressed envelope.
         guard case .elided = compressed.elide() else {
             XCTFail()
             return
         }
         
         
-        /// COMPRESSION
+        // COMPRESSION
         
-        /// Cannot compress an encrypted envelope.
-        ///
-        /// Encrypted envelopes cannot become smaller because encrypted data looks random,
-        /// and random data is not compressible.
+        // Cannot compress an encrypted envelope.
+        //
+        // Encrypted envelopes cannot become smaller because encrypted data looks random,
+        // and random data is not compressible.
         XCTAssertThrowsError(try encrypted.compress())
         
-        /// Cannot compress an elided envelope.
-        ///
-        /// Elided envelopes have no data to compress.
+        // Cannot compress an elided envelope.
+        //
+        // Elided envelopes have no data to compress.
         XCTAssertThrowsError(try elided.compress())
         
-        /// Compressing a compressed envelope is idempotent.
+        // Compressing a compressed envelope is idempotent.
         guard case .compressed = try compressed.compress() else {
             XCTFail()
             return

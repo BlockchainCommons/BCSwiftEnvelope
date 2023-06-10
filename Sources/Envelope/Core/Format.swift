@@ -2,38 +2,6 @@ import Foundation
 import WolfBase
 import SecureComponents
 
-public struct FormatContext {
-    public let tags: KnownTagsDict
-    public let knownValues: KnownValues
-    public let functions: KnownFunctions
-    public let parameters: KnownParameters
-    
-    public init(tags: KnownTagsDict = [], knownValues: KnownValues = [], functions: KnownFunctions = [], parameters: KnownParameters = []) {
-        self.tags = tags
-        self.knownValues = knownValues
-        self.functions = functions
-        self.parameters = parameters
-    }
-}
-
-extension FormatContext: KnownTags {
-    public func assignedName(for tag: Tag) -> String? {
-        tags.assignedName(for: tag)
-    }
-    
-    public func name(for tag: Tag) -> String {
-        tags.name(for: tag)
-    }
-
-    public func tag(for value: UInt64) -> Tag? {
-        tags.tag(for: value)
-    }
-
-    public func tag(for name: String) -> Tag? {
-        tags.tag(for: name)
-    }
-}
-
 /// Support for the various text output formats for ``Envelope``.
 
 public extension Envelope {
@@ -49,7 +17,7 @@ public extension Envelope {
     /// See [RFC-8949 §8](https://www.rfc-editor.org/rfc/rfc8949.html#name-diagnostic-notation)
     /// for information on CBOR diagnostic notation.
     func diagnostic(annotate: Bool = false, context: FormatContext? = nil) -> String {
-        cbor.diagnostic(annotate: annotate, knownTags: context)
+        cbor.diagnostic(annotate: annotate, tags: context)
     }
 
     /// Returns the CBOR hex dump of this envelope.
@@ -57,7 +25,7 @@ public extension Envelope {
     /// See [RFC-8949](https://www.rfc-editor.org/rfc/rfc8949.html) for information on
     /// the CBOR binary format.
     func hex(annotate: Bool = false, context: FormatContext? = nil) -> String {
-        cbor.hex(annotate: annotate, knownTags: context)
+        cbor.hex(annotate: annotate, tags: context)
     }
 }
 
@@ -112,7 +80,7 @@ extension CBOR {
                 case KnownValue.cborTag:
                     guard
                         case let CBOR.unsigned(rawValue) = cbor,
-                        case let knownValue = KnownValues.knownValue(for: rawValue, knownValues: context?.knownValues)
+                        case let knownValue = KnownValuesStore.knownValue(for: rawValue, knownValues: context?.knownValues)
                     else {
                         return "<not a known value>"
                     }
@@ -145,9 +113,9 @@ extension CBOR {
                 case Digest.cborTag:
                     return try Digest(untaggedCBOR: cbor).shortDescription.flanked("Digest(", ")")
                 case Function.cborTag:
-                    return try KnownFunctions.name(for: Function(untaggedCBOR: cbor), knownFunctions: context?.functions).flanked("«", "»")
+                    return try FunctionsStore.name(for: Function(untaggedCBOR: cbor), knownFunctions: context?.functions).flanked("«", "»")
                 case Parameter.cborTag:
-                    return try KnownParameters.name(for: Parameter(untaggedCBOR: cbor), knownParameters: context?.parameters).flanked("❰", "❱")
+                    return try ParametersStore.name(for: Parameter(untaggedCBOR: cbor), knownParameters: context?.parameters).flanked("❰", "❱")
                 case .request:
                     return Envelope(cbor).format(context: context).flanked("request(", ")")
                 case .response:

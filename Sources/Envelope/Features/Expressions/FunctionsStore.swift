@@ -1,6 +1,6 @@
 import Foundation
 
-public struct KnownFunctions {
+public struct FunctionsStore {
     var dict: [Function: String]
     
     public init<T>(_ functions: T) where T: Sequence, T.Element == Function {
@@ -22,7 +22,7 @@ public struct KnownFunctions {
         assignedName(for: function) ?? function.name
     }
     
-    public static func name(for function: Function, knownFunctions: KnownFunctions? = nil) -> String {
+    public static func name(for function: Function, knownFunctions: FunctionsStore? = nil) -> String {
         knownFunctions?.name(for: function) ?? function.name
     }
 
@@ -34,7 +34,7 @@ public struct KnownFunctions {
     }
 }
 
-extension KnownFunctions: ExpressibleByArrayLiteral {
+extension FunctionsStore: ExpressibleByArrayLiteral {
     public init(arrayLiteral elements: Function...) {
         self.init(elements)
     }

@@ -12,13 +12,13 @@ class ExpressionTests: XCTestCase {
             body: Envelope(function: .add)
                 .addParameter(.lhs, value: 2)
                 .addParameter(.rhs, value: 3))
-        print(request.format(context: formatContext))
+        print(request.format(context: globalFormatContext))
         
         let response = Envelope(
             response: cid, result: 5)
-        print(response.format(context: formatContext))
+        print(response.format(context: globalFormatContext))
 
         let errorResponse = Envelope(response: cid, error: "Internal Server Error")
-        print(errorResponse.format(context: formatContext))
+        print(errorResponse.format(context: globalFormatContext))
     }
 }

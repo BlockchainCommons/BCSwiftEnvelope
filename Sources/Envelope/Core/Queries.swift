@@ -312,22 +312,22 @@ public extension Envelope {
     /// Returns the object of the assertion with the given predicate.
     ///
     /// Throws an exception if there is no matching predicate or multiple matching predicates.
-    func extractObject(forPredicate predicate: Envelope) throws -> Envelope {
+    func object(forPredicate predicate: Envelope) throws -> Envelope {
         try assertion(withPredicate: predicate).object
     }
     
     /// Returns the object of the assertion with the given predicate.
     ///
     /// Throws an exception if there is no matching predicate or multiple matching predicates.
-    func extractObject(forPredicate predicate: CBOREncodable) throws -> Envelope {
-        try extractObject(forPredicate: Envelope(predicate))
+    func object(forPredicate predicate: CBOREncodable) throws -> Envelope {
+        try object(forPredicate: Envelope(predicate))
     }
 
     /// Returns the object of the assertion with the given predicate.
     ///
     /// Throws an exception if there is no matching predicate or multiple matching predicates.
-    func extractObject(forPredicate predicate: KnownValue) throws -> Envelope {
-        try extractObject(forPredicate: Envelope(knownValue: predicate))
+    func object(forPredicate predicate: KnownValue) throws -> Envelope {
+        try object(forPredicate: Envelope(knownValue: predicate))
     }
 
     /// Returns the object of the assertion with the given predicate.
@@ -335,7 +335,7 @@ public extension Envelope {
     /// Throws an exception if there is no matching predicate or multiple matching predicates.
     /// Throws an exception if the encoded type doesn't match the given type.
     func extractObject<T>(_ type: T.Type, forPredicate predicate: Envelope) throws -> T where T: CBORDecodable {
-        try extractObject(forPredicate: predicate).extractSubject(type)
+        try object(forPredicate: predicate).extractSubject(type)
     }
 
     /// Returns the object of the assertion with the given predicate.
@@ -357,13 +357,13 @@ public extension Envelope {
 
 public extension Envelope {
     /// Returns the objects of all assertions with the matching predicate.
-    func extractObjects(forPredicate predicate: Envelope) -> [Envelope] {
+    func objects(forPredicate predicate: Envelope) -> [Envelope] {
         assertions(withPredicate: predicate).map { $0.object! }
     }
     
     /// Returns the objects of all assertions with the matching predicate.
-    func extractObjects(forPredicate predicate: KnownValue) -> [Envelope] {
-        extractObjects(forPredicate: Envelope(predicate))
+    func objects(forPredicate predicate: KnownValue) -> [Envelope] {
+        objects(forPredicate: Envelope(predicate))
     }
     
     /// Returns the objects of all assertions with the matching predicate.
@@ -371,7 +371,7 @@ public extension Envelope {
     /// Throws an exception if the encoded type doesn't match the given type.
     func extractObjects<T>(_ type: T.Type, forPredicate predicate: CBOREncodable) throws -> [T] where T: CBORDecodable {
         let predicate = Envelope(predicate)
-        return try extractObjects(forPredicate: predicate).map { try $0.extractSubject(type) }
+        return try objects(forPredicate: predicate).map { try $0.extractSubject(type) }
     }
     
     /// Returns the objects of all assertions with the matching predicate.
@@ -379,7 +379,7 @@ public extension Envelope {
     /// Throws an exception if the encoded type doesn't match the given type.
     func extractObjects<T>(_ type: T.Type, forPredicate predicate: KnownValue) throws -> [T] where T: CBORDecodable {
         let predicate = Envelope(predicate)
-        return try extractObjects(forPredicate: predicate).map { try $0.extractSubject(type) }
+        return try objects(forPredicate: predicate).map { try $0.extractSubject(type) }
     }
 }
 

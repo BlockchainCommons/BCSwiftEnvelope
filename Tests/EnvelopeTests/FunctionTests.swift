@@ -18,7 +18,7 @@ class TestFunction: XCTestCase {
             ❰rhs❱: 3
         ]
         """
-        XCTAssertEqual(envelope.format(context: formatContext), expectedFormat)
+        XCTAssertEqual(envelope.format(context: globalFormatContext), expectedFormat)
     }
     
     func testNamed() {
@@ -36,25 +36,37 @@ class TestFunction: XCTestCase {
     }
     
     func testRequest() {
-        let uuid = CID(‡"c66be27dbad7cd095ca77647406d07976dc0f35f0d4d654bb0e96dd227a1e9fc")!
+        let requestID = CID(‡"c66be27dbad7cd095ca77647406d07976dc0f35f0d4d654bb0e96dd227a1e9fc")!
         
-        let requestEnvelope = Envelope(request: uuid, body: twoPlusThree())
-        let expectedRequestFormat = """
+        let requestEnvelope = Envelope(request: requestID, body: twoPlusThree())
+        XCTAssertEqual(requestEnvelope.format(context: globalFormatContext), """
         request(CID(c66be27d)) [
             body: «add» [
                 ❰lhs❱: 2
                 ❰rhs❱: 3
             ]
         ]
-        """
-        XCTAssertEqual(requestEnvelope.format(context: formatContext), expectedRequestFormat)
+        """)
 
-        let responseEnvelope = Envelope(response: uuid, result: 5)
-        let expectedResponseFormat = """
+        let responseEnvelope = Envelope(response: requestID, result: 5)
+        XCTAssertEqual(responseEnvelope.format(), """
         response(CID(c66be27d)) [
             result: 5
         ]
-        """
-        XCTAssertEqual(responseEnvelope.format(), expectedResponseFormat)
+        """)
+
+        let errorResponse = Envelope(response: requestID, error: "Internal Server Error")
+        XCTAssertEqual(errorResponse.format(), """
+        response(CID(c66be27d)) [
+            error: "Internal Server Error"
+        ]
+        """)
+        
+        let unknownErrorResponse = Envelope(error: "Decryption failure")
+        XCTAssertEqual(unknownErrorResponse.format(), """
+        response("unknown") [
+            error: "Decryption failure"
+        ]
+        """)
     }
 }

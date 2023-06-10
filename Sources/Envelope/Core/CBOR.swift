@@ -88,7 +88,7 @@ public extension Envelope {
     ///
     /// Not needed in production code.
     @discardableResult
-    func checkEncoding(knownTags: KnownTags? = nil) throws -> Envelope {
+    func checkEncoding(tags: TagsStoreProtocol? = nil) throws -> Envelope {
         do {
             let cbor = taggedCBOR
             let restored = try Envelope(taggedCBOR: cbor)
@@ -105,7 +105,7 @@ public extension Envelope {
             print("===")
             print(format())
             print("===")
-            print(cbor.diagnostic(annotate: true, knownTags: knownTags))
+            print(cbor.diagnostic(annotate: true, tags: tags))
             print("===")
             throw error
         }

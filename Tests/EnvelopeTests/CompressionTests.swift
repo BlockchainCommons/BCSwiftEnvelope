@@ -9,11 +9,11 @@ class CompressionTests: XCTestCase {
         print(source)
         let original = Envelope(source)
         XCTAssertEqual(original.cborData.count, 371)
-        let compressed = try original.compress().checkEncoding(knownTags: knownTags)
+        let compressed = try original.compress().checkEncoding(tags: globalTags)
         XCTAssertEqual(compressed.cborData.count, 282)
 
         XCTAssertEqual(original.digest, compressed.digest)
-        let uncompressed = try compressed.uncompress().checkEncoding(knownTags: knownTags)
+        let uncompressed = try compressed.uncompress().checkEncoding(tags: globalTags)
         XCTAssertEqual(uncompressed.digest, original.digest)
         XCTAssertEqual(uncompressed.structuralDigest, original.structuralDigest)
     }
@@ -25,7 +25,7 @@ class CompressionTests: XCTestCase {
             .wrap()
             .sign(with: alicePrivateKeys, using: &rng)
         XCTAssertEqual(original.cborData.count, 482)
-        XCTAssertEqual(original.treeFormat(context: formatContext), """
+        XCTAssertEqual(original.treeFormat(context: globalFormatContext), """
         1f87e614 NODE
             9065b9d5 subj WRAPPED
                 4aa501b7 subj NODE
@@ -37,16 +37,16 @@ class CompressionTests: XCTestCase {
                 9d7ba9eb pred verifiedBy
                 051e3ce1 obj Signature
         """)
-        let compressed = try original.compressSubject().checkEncoding(knownTags: knownTags)
+        let compressed = try original.compressSubject().checkEncoding(tags: globalTags)
         XCTAssertEqual(compressed.cborData.count, 391)
-        XCTAssertEqual(compressed.treeFormat(context: formatContext), """
+        XCTAssertEqual(compressed.treeFormat(context: globalFormatContext), """
         1f87e614 NODE
             9065b9d5 subj COMPRESSED
             a689e27d ASSERTION
                 9d7ba9eb pred verifiedBy
                 051e3ce1 obj Signature
         """)
-        let uncompressed = try compressed.uncompressSubject().checkEncoding(knownTags: knownTags)
+        let uncompressed = try compressed.uncompressSubject().checkEncoding(tags: globalTags)
         XCTAssertEqual(uncompressed.digest, original.digest)
         XCTAssertEqual(uncompressed.structuralDigest, original.structuralDigest)
     }

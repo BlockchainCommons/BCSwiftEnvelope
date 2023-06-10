@@ -23,7 +23,7 @@ public extension Envelope {
 // MARK: - Parameter Construction.
 
 public extension Envelope {
-    /// Creates a new envelope by adding a `❰parameter❱: value` assertion.
+    /// Adds a `❰parameter❱: value` assertion to the envelope.
     ///
     /// - Parameters:
     ///   - param: A ``Parameter``. This will be encoded as either an unsigned integer or a string.
@@ -34,7 +34,7 @@ public extension Envelope {
         try! addAssertion(.parameter(param, value: value))
     }
     
-    /// Creates a new envelope by adding a `❰parameter❱: value` assertion.
+    /// Adds a `❰parameter❱: value` assertion to the envelope.
     ///
     /// - Parameters:
     ///   - param: A parameter name. This will be encoded as a string.
@@ -51,7 +51,7 @@ public extension Envelope {
     ///   - param: A ``Parameter``. This will be encoded as either an unsigned integer or a string.
     ///   - value: The argument value.
     ///
-    /// - Returns: The new assertion envelope. If `value` is `nil`, returns the original envelope.
+    /// - Returns: The new assertion envelope. If `value` is `nil`, returns `nil`.
     static func parameter(_ param: Parameter, value: CBOREncodable?) -> Envelope? {
         guard let value else {
             return nil
@@ -112,7 +112,9 @@ public extension Envelope {
     ///
     /// If `error` is nil, no assertion will be added.
     ///
-    /// Used for an immediate response to a request without a proper ID.
+    /// Used for an immediate response to a request without a proper ID, for example
+    /// when a encrypted request envelope is received and the decryption fails, making
+    /// it impossible to extract the request ID.
     init(error: CBOREncodable?) {
         self = Envelope(CBOR.tagged(.response, "unknown"))
             .addAssertion(.error, error)
@@ -145,26 +147,26 @@ public extension Envelope {
     ///
     /// - Throws: Throws an exception if there is no `result` predicate.
     func result() throws -> Envelope {
-        try extractObject(forPredicate: .result)
+        try object(forPredicate: .result)
     }
     
     /// Returns the objects of every `result` predicate.
     func results() -> [Envelope] {
-        extractObjects(forPredicate: .result)
+        objects(forPredicate: .result)
     }
     
     /// Returns the object of the `result` predicate.
     ///
     /// - Throws: Throws an exception if there is no `result` predicate, or if its
     /// object cannot be decoded to the specified `type`.
-    func result<T: CBORDecodable>(_ type: T.Type) throws -> T {
+    func extractResult<T: CBORDecodable>(_ type: T.Type) throws -> T {
         try extractObject(T.self, forPredicate: .result)
     }
     
     /// Returns the objects of every `result` predicate.
     ///
     /// - Throws: Throws an if not all object cannot be decoded to the specified `type`.
-    func results<T: CBORDecodable>(_ type: T.Type) throws -> [T] {
+    func extractResults<T: CBORDecodable>(_ type: T.Type) throws -> [T] {
         try extractObjects(T.self, forPredicate: .result)
     }
     
@@ -172,7 +174,7 @@ public extension Envelope {
     ///
     /// - Throws: Throws an exception if there is no `result` predicate.
     func isResultOK() throws -> Bool {
-        try result(KnownValue.self) == .ok
+        try extractResult(KnownValue.self) == .ok
     }
     
     /// Returns the error value.

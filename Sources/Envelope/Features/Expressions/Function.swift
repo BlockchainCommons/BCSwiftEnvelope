@@ -85,10 +85,10 @@ extension Function: CBORTaggedCodable {
 }
 
 extension Function: CustomStringConvertible {
-    public func description(knownFunctions: KnownFunctions? = nil) -> String {
+    public func description(knownFunctions: FunctionsStore? = nil) -> String {
         switch self {
         case .known(_, _):
-            return KnownFunctions.name(for: self, knownFunctions: knownFunctions)
+            return FunctionsStore.name(for: self, knownFunctions: knownFunctions)
         case .named(let name):
             return name.flanked("\"")
         }

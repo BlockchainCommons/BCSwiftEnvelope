@@ -11,14 +11,22 @@ class NonCorrelationTests: XCTestCase {
         XCTAssert(e1.isEquivalent(to: e1.elide()))
 
         // e2 is the same message, but with random salt
-        let e2 = try e1.addSalt().checkEncoding()
+        var rng = makeFakeRandomNumberGenerator()
+        let e2 = try e1.addSalt(using: &rng).checkEncoding()
 
-        let e2ExpectedFormat = """
+        XCTAssertEqual(e2.format(), """
         "Hello." [
             salt: Salt
         ]
-        """
-        XCTAssertEqual(e2.format(), e2ExpectedFormat)
+        """)
+
+        XCTAssertEqual(e2.treeFormat(), """
+        7b7212f5 NODE
+            8cc96cdb subj "Hello."
+            425f48a1 ASSERTION
+                aa14a6e0 pred salt
+                ba8199d2 obj Salt
+        """)
 
         // So even though its content is the same, it doesn't correlate.
         XCTAssertFalse(e1.isEquivalent(to: e2))
@@ -57,8 +65,14 @@ class NonCorrelationTests: XCTestCase {
     
     func testAddSalt() throws {
         // Add salt to every part of an envelope.
-        let e1 = try Envelope(Envelope("Alpha").addSalt().checkEncoding()).checkEncoding()
-            .addAssertion(Envelope(.note).addSalt().checkEncoding(), Envelope("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.").addSalt().checkEncoding())
+        let source = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        let e1 = try Envelope("Alpha")
+            .addSalt().checkEncoding()
+            .wrap().checkEncoding()
+            .addAssertion(
+                Envelope(.note).addSalt().checkEncoding(),
+                Envelope(source).addSalt().checkEncoding()
+            )
         let e1ExpectedFormat = """
         {
             "Alpha" [

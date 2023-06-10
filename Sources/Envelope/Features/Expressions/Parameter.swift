@@ -87,10 +87,10 @@ extension Parameter: CBORTaggedCodable {
 }
 
 extension Parameter: CustomStringConvertible {
-    public func description(knownParameters: KnownParameters? = nil) -> String {
+    public func description(knownParameters: ParametersStore? = nil) -> String {
         switch self {
         case .known(_, _):
-            return KnownParameters.name(for: self, knownParameters: knownParameters)
+            return ParametersStore.name(for: self, knownParameters: knownParameters)
         case .named(let name):
             return name.flanked("\"")
         }

@@ -104,7 +104,7 @@ class FormatTests: XCTestCase {
     func testEncryptSubject() throws {
         let envelope = try Envelope("Alice")
             .addAssertion("knows", "Bob")
-            .encryptSubject(with: SymmetricKey(), testNonce: fakeNonce)
+            .encryptSubject(with: SymmetricKey())
         XCTAssertEqual(envelope.format(),
         """
         ENCRYPTED [
@@ -2474,6 +2474,6 @@ class FormatTests: XCTestCase {
             linkStyle 44 stroke-width:2.0px
             linkStyle 45 stroke-width:2.0px
         """#)
-        print(warranty.hex(annotate: true, context: formatContext))
+        print(warranty.hex(annotate: true, context: globalFormatContext))
     }
 }

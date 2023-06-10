@@ -1,6 +1,6 @@
 import Foundation
 
-public struct KnownParameters {
+public struct ParametersStore {
     var dict: [Parameter: String]
     
     public init<T>(_ parameters: T) where T: Sequence, T.Element == Parameter {
@@ -22,7 +22,7 @@ public struct KnownParameters {
         assignedName(for: parameter) ?? parameter.name
     }
     
-    public static func name(for parameter: Parameter, knownParameters: KnownParameters? = nil) -> String {
+    public static func name(for parameter: Parameter, knownParameters: ParametersStore? = nil) -> String {
         knownParameters?.name(for: parameter) ?? parameter.name
     }
 
@@ -34,7 +34,7 @@ public struct KnownParameters {
     }
 }
 
-extension KnownParameters: ExpressibleByArrayLiteral {
+extension ParametersStore: ExpressibleByArrayLiteral {
     public init(arrayLiteral elements: Parameter...) {
         self.init(elements)
     }

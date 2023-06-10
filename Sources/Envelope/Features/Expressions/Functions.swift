@@ -7,7 +7,7 @@ public extension Function {
     static let div = Function(4, "div")
 }
 
-public var knownFunctions: KnownFunctions = [
+public var globalFunctions: FunctionsStore = [
     .add,
     .sub,
     .mul,
