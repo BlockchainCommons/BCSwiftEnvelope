@@ -22,7 +22,7 @@ class ScenarioTests: XCTestCase {
             .addAssertion(.language, "es")
 
         let work = try Envelope(CID(‡"7fb90a9d96c07f39f75ea6acf392d79f241fac4ec0be2120f7c82489711e3e80")!)
-            .addAssertion(.isA, "novel")
+            .addType("novel")
             .addAssertion("isbn", "9780451191144")
             .addAssertion("author", author)
             .addAssertion(.dereferenceVia, "LibraryOfCongress")
@@ -44,6 +44,7 @@ class ScenarioTests: XCTestCase {
         Digest(26d05af5) [
             "format": "EPUB"
             "work": CID(7fb90a9d) [
+                isA: "novel"
                 "author": CID(9c747ace) [
                     dereferenceVia: "LibraryOfCongress"
                     hasName: "Ayn Rand"
@@ -56,7 +57,6 @@ class ScenarioTests: XCTestCase {
                 hasName: "La rebelión de Atlas" [
                     language: "es"
                 ]
-                isA: "novel"
             ]
             dereferenceVia: "IPFS"
         ]
@@ -239,15 +239,15 @@ class ScenarioTests: XCTestCase {
         let johnSmithResidentCard = {
             var rng = makeFakeRandomNumberGenerator()
             return try! Envelope(CID(‡"174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8")!)
-            .addAssertion(.isA, "credential")
+            .addType("credential")
             .addAssertion("dateIssued", Date(iso8601: "2022-04-27"))
             .addAssertion(.issuer, Envelope(stateIdentifier)
                 .addAssertion(.note, "Issued by the State of Example")
                 .addAssertion(.dereferenceVia, URL(string: "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8")!)
             )
             .addAssertion(.holder, Envelope(johnSmithIdentifier)
-                .addAssertion(.isA, "Person")
-                .addAssertion(.isA, "Permanent Resident")
+                .addType("Person")
+                .addType("Permanent Resident")
                 .addAssertion("givenName", "JOHN")
                 .addAssertion("familyName", "SMITH")
                 .addAssertion("sex", "MALE")
@@ -273,8 +273,11 @@ class ScenarioTests: XCTestCase {
         """
         {
             CID(174842ea) [
+                isA: "credential"
                 "dateIssued": 2022-04-27
                 holder: CID(78bc3000) [
+                    isA: "Permanent Resident"
+                    isA: "Person"
                     "birthCountry": "bs" [
                         note: "The Bahamas"
                     ]
@@ -289,10 +292,7 @@ class ScenarioTests: XCTestCase {
                     "lprNumber": "999-999-999"
                     "residentSince": 2018-01-07
                     "sex": "MALE"
-                    isA: "Permanent Resident"
-                    isA: "Person"
                 ]
-                isA: "credential"
                 issuer: CID(04363d5f) [
                     dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
                     note: "Issued by the State of Example"
@@ -365,6 +365,7 @@ class ScenarioTests: XCTestCase {
         """
         {
             CID(174842ea) [
+                isA: "credential"
                 holder: CID(78bc3000) [
                     "familyName": "SMITH"
                     "givenName": "JOHN"
@@ -374,7 +375,6 @@ class ScenarioTests: XCTestCase {
                     ]
                     ELIDED (8)
                 ]
-                isA: "credential"
                 issuer: CID(04363d5f) [
                     dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
                     note: "Issued by the State of Example"
@@ -397,6 +397,7 @@ class ScenarioTests: XCTestCase {
         """
         {
             CID(174842ea) [
+                isA: "credential"
                 holder: CID(78bc3000) [
                     "familyName": "SMITH"
                     "givenName": "JOHN"
@@ -406,7 +407,6 @@ class ScenarioTests: XCTestCase {
                     ]
                     ENCRYPTED (8)
                 ]
-                isA: "credential"
                 issuer: CID(04363d5f) [
                     dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
                     note: "Issued by the State of Example"
@@ -448,14 +448,14 @@ class ScenarioTests: XCTestCase {
         //
 
         let qualityProduct = try Envelope(CID(‡"5bcca01f5f370ceb3b7365f076e9600e294d4da6ddf7a616976c87775ea8f0f1")!)
-            .addAssertion(.isA, "Product")
+            .addType("Product")
             .addAssertion(.hasName, "Quality Widget")
             .addAssertion("seller", acmeCorpDocument)
             .addAssertion("priceEach", "10.99")
             .checkEncoding()
 
         let cheapProduct = try Envelope(CID(‡"ae464c5f9569ae23ff9a75e83caf485fb581d1ef9da147ca086d10e3d6f93e64")!)
-            .addAssertion(.isA, "Product")
+            .addType("Product")
             .addAssertion(.hasName, "Cheap Widget")
             .addAssertion("seller", acmeCorpDocument)
             .addAssertion("priceEach", "4.99")
@@ -469,7 +469,7 @@ class ScenarioTests: XCTestCase {
         // they are not declared as part of the creation of the PurchaseOrder itself.
 
         let purchaseOrder = try Envelope(CID(‡"1bebb5b6e447f819d5a4cb86409c5da1207d1460672dfe903f55cde833549625")!)
-            .addAssertion(.isA, "PurchaseOrder")
+            .addType("PurchaseOrder")
             .addAssertion(.hasName, "PO 123")
             .checkEncoding()
 
@@ -487,7 +487,7 @@ class ScenarioTests: XCTestCase {
         // document in its priceEach assertion.
 
         let line1 = try Envelope(purchaseOrder.digest)
-            .addAssertion(.isA, "PurchaseOrderLineItem")
+            .addType("PurchaseOrderLineItem")
             .addAssertion("product", qualityProduct.extractSubject(CID.self))
             .addAssertion(.hasName, qualityProduct.object(forPredicate: .hasName))
             .addAssertion("priceEach", qualityProduct.object(forPredicate: "priceEach"))
@@ -495,7 +495,7 @@ class ScenarioTests: XCTestCase {
             .checkEncoding()
 
         let line2 = try Envelope(purchaseOrder.digest)
-            .addAssertion(.isA, "PurchaseOrderLineItem")
+            .addType("PurchaseOrderLineItem")
             .addAssertion("product", cheapProduct.extractSubject(CID.self))
             .addAssertion(.hasName, cheapProduct.object(forPredicate: .hasName))
             .addAssertion("priceEach", cheapProduct.object(forPredicate: "priceEach"))
@@ -505,11 +505,11 @@ class ScenarioTests: XCTestCase {
         let line2ExpectedFormat =
         """
         Digest(162b659d) [
+            isA: "PurchaseOrderLineItem"
             "priceEach": "4.99"
             "product": CID(ae464c5f)
             "quantity": 3
             hasName: "Cheap Widget"
-            isA: "PurchaseOrderLineItem"
         ]
         """
         XCTAssertEqual(line2.format(), line2ExpectedFormat)
@@ -527,22 +527,22 @@ class ScenarioTests: XCTestCase {
         let purchaseOrderProjectionExpectedFormat =
         """
         CID(1bebb5b6) [
+            isA: "PurchaseOrder"
             "lineItem": Digest(162b659d) [
+                isA: "PurchaseOrderLineItem"
                 "priceEach": "10.99"
                 "product": CID(5bcca01f)
                 "quantity": 4
                 hasName: "Quality Widget"
-                isA: "PurchaseOrderLineItem"
             ]
             "lineItem": Digest(162b659d) [
+                isA: "PurchaseOrderLineItem"
                 "priceEach": "4.99"
                 "product": CID(ae464c5f)
                 "quantity": 3
                 hasName: "Cheap Widget"
-                isA: "PurchaseOrderLineItem"
             ]
             hasName: "PO 123"
-            isA: "PurchaseOrder"
         ]
         """
         XCTAssertEqual(purchaseOrderProjection.format(), purchaseOrderProjectionExpectedFormat)
@@ -573,7 +573,7 @@ class ScenarioTests: XCTestCase {
         let cert = Envelope(certCID)
             .addAssertion(.issuer, Envelope(omarCID).addAssertion(.note, "Omar's CID"))
             .addAssertion("subject", Envelope(jonathanCID).addAssertion(.note, "Jonathan's CID"))
-            .addAssertion(.isA, "Assessment of Blockchain Tech Writing Expertise")
+            .addType("Assessment of Blockchain Tech Writing Expertise")
             .wrap()
             .sign(with: omarPrivateKey, note: "Signed by Omar")
         

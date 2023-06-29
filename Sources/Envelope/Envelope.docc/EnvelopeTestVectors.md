@@ -829,8 +829,11 @@ John Smith is issued a Permanent Resident Card signed by the State of Example
 ```
 {
     CID(174842ea) [
+        isA: "credential"
         "dateIssued": 2022-04-27
         holder: CID(78bc3000) [
+            isA: "Permanent Resident"
+            isA: "Person"
             "birthCountry": "bs" [
                 note: "The Bahamas"
             ]
@@ -845,10 +848,7 @@ John Smith is issued a Permanent Resident Card signed by the State of Example
             "lprNumber": "999-999-999"
             "residentSince": 2018-01-07
             "sex": "MALE"
-            isA: "Permanent Resident"
-            isA: "Person"
         ]
-        isA: "credential"
         issuer: CID(04363d5f) [
             dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
             note: "Issued by the State of Example"
@@ -1511,6 +1511,7 @@ John wishes to identify himself to a third party using his government-issued cre
 ```
 {
     CID(174842ea) [
+        isA: "credential"
         holder: CID(78bc3000) [
             "familyName": "SMITH"
             "givenName": "JOHN"
@@ -1520,7 +1521,6 @@ John wishes to identify himself to a third party using his government-issued cre
             ]
             ELIDED (8)
         ]
-        isA: "credential"
         issuer: CID(04363d5f) [
             dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
             note: "Issued by the State of Example"

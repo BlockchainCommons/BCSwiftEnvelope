@@ -84,6 +84,45 @@ public extension KnownValue {
     
     /// Object providing the "in processing" result of a request.
     static let processing = KnownValue(104, "processing")
+    
+    
+    /// A cryptographic seed
+    static let seed = KnownValue(200, "seed")
+    
+    /// A private key
+    static let privateKey = KnownValue(201, "privateKey")
+    
+    /// A public key
+    static let publicKey = KnownValue(202, "publicKey")
+    
+    /// A master key
+    static let masterKey = KnownValue(203, "masterKey")
+
+    
+    /// A cryptocurrency asset specifier, e.g. "btc", "eth"
+    static let asset = KnownValue(300, "asset")
+    
+    /// A network, e.g. "main", "test"
+    static let network = KnownValue(301, "network")
+    
+    
+    /// A BIP-32 HD key
+    static let bip32key = KnownValue(400, "bip32key")
+    
+    /// Chain code for a BIP-32 key
+    static let chainCode = KnownValue(401, "chainCode")
+    
+    /// Derivation path for a BIP-32 key
+    static let derivationPath = KnownValue(402, "derivationPath")
+    
+    /// Derivation path for this key
+    static let parentPath = KnownValue(403, "parent")
+    
+    /// Allowable derivation paths from this key
+    static let childrenPath = KnownValue(404, "children")
+    
+    /// Parent fingerprint for a BIP-32 key
+    static let parentFingerprint = KnownValue(405, "parentFingerprint")
 }
 
 public var globalKnownValues: KnownValuesStore = [
@@ -114,4 +153,22 @@ public var globalKnownValues: KnownValuesStore = [
     .error,
     .ok,
     .processing,
+    
+    // Used by cryptography
+    .seed,
+    .privateKey,
+    .publicKey,
+    .masterKey,
+
+    // Used by cryptocurrency
+    .asset,
+    .network,
+    
+    // Used by BIP-32 HD keys
+    .bip32key,
+    .chainCode,
+    .derivationPath,
+    .parentPath,
+    .childrenPath,
+    .parentFingerprint,
 ]

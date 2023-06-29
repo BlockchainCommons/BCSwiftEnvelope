@@ -172,6 +172,7 @@ extension Envelope: EnvelopeFormat {
             var elidedCount = 0
             var encryptedCount = 0
             var compressedCount = 0
+            var typeAssertionsItems: [[EnvelopeFormatItem]] = []
             var assertionsItems: [[EnvelopeFormatItem]] = []
             assertions.forEach {
                 if $0.isElided {
@@ -181,10 +182,17 @@ extension Envelope: EnvelopeFormat {
                 } else if $0.isCompressed {
                     compressedCount += 1
                 } else {
-                    assertionsItems.append([$0.formatItem(context: context)])
+                    let item = [$0.formatItem(context: context)]
+                    if $0.predicate?.subject.knownValue == .isA {
+                        typeAssertionsItems.append(item)
+                    } else {
+                        assertionsItems.append(item)
+                    }
                 }
             }
+            typeAssertionsItems.sort { $0.lexicographicallyPrecedes($1) }
             assertionsItems.sort { $0.lexicographicallyPrecedes($1) }
+            assertionsItems.insert(contentsOf: typeAssertionsItems, at: 0)
             if compressedCount > 1 {
                 assertionsItems.append([.item("COMPRESSED (\(compressedCount))")])
             } else if compressedCount > 0 {

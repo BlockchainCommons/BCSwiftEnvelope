@@ -903,7 +903,7 @@ class FormatTests: XCTestCase {
             .addAssertion(.language, "es")
 
         let work = try Envelope(CID(‡"7fb90a9d96c07f39f75ea6acf392d79f241fac4ec0be2120f7c82489711e3e80")!)
-            .addAssertion(.isA, "novel")
+            .addType("novel")
             .addAssertion("isbn", "9780451191144")
             .addAssertion("author", author)
             .addAssertion(.dereferenceVia, "LibraryOfCongress")
@@ -925,6 +925,7 @@ class FormatTests: XCTestCase {
         Digest(26d05af5) [
             "format": "EPUB"
             "work": CID(7fb90a9d) [
+                isA: "novel"
                 "author": CID(9c747ace) [
                     dereferenceVia: "LibraryOfCongress"
                     hasName: "Ayn Rand"
@@ -937,7 +938,6 @@ class FormatTests: XCTestCase {
                 hasName: "La rebelión de Atlas" [
                     language: "es"
                 ]
-                isA: "novel"
             ]
             dereferenceVia: "IPFS"
         ]
@@ -1383,7 +1383,7 @@ class FormatTests: XCTestCase {
     static let credential = {
         var rng = makeFakeRandomNumberGenerator()
         return try! Envelope(CID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
-        .addAssertion(.isA, "Certificate of Completion")
+        .addType("Certificate of Completion")
         .addAssertion(.issuer, "Example Electrical Engineering Board")
         .addAssertion(.controller, "Example Electrical Engineering Board")
         .addAssertion("firstName", "James")
@@ -1407,6 +1407,7 @@ class FormatTests: XCTestCase {
         """
         {
             CID(4676635a) [
+                isA: "Certificate of Completion"
                 "certificateNumber": "123-456-789"
                 "continuingEducationUnits": 1
                 "expirationDate": 2028-01-01
@@ -1418,7 +1419,6 @@ class FormatTests: XCTestCase {
                 "subject": "RF and Microwave Engineering"
                 "topics": ["Subject 1", "Subject 2"]
                 controller: "Example Electrical Engineering Board"
-                isA: "Certificate of Completion"
                 issuer: "Example Electrical Engineering Board"
             ]
         } [
@@ -1952,11 +1952,11 @@ class FormatTests: XCTestCase {
             {
                 {
                     CID(4676635a) [
+                        isA: "Certificate of Completion"
                         "expirationDate": 2028-01-01
                         "firstName": "James"
                         "lastName": "Maxwell"
                         "subject": "RF and Microwave Engineering"
-                        isA: "Certificate of Completion"
                         issuer: "Example Electrical Engineering Board"
                         ELIDED (7)
                     ]

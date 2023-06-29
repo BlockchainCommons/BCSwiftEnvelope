@@ -7,7 +7,7 @@ class ElisionExampleTests: XCTestCase {
     func testRedactionExample2() throws {
         var rng = makeFakeRandomNumberGenerator()
         let credential = try Envelope(CID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
-            .addAssertion(.isA, "Certificate of Completion")
+            .addType("Certificate of Completion")
             .addAssertion(.issuer, "Example Electrical Engineering Board")
             .addAssertion(.controller, "Example Electrical Engineering Board")
             .addAssertion("firstName", "James")
@@ -29,6 +29,7 @@ class ElisionExampleTests: XCTestCase {
         """
         {
             CID(4676635a) [
+                isA: "Certificate of Completion"
                 "certificateNumber": "123-456-789"
                 "continuingEducationUnits": 1
                 "expirationDate": 2028-01-01
@@ -40,7 +41,6 @@ class ElisionExampleTests: XCTestCase {
                 "subject": "RF and Microwave Engineering"
                 "topics": ["Subject 1", "Subject 2"]
                 controller: "Example Electrical Engineering Board"
-                isA: "Certificate of Completion"
                 issuer: "Example Electrical Engineering Board"
             ]
         } [
@@ -149,11 +149,11 @@ class ElisionExampleTests: XCTestCase {
         """
         {
             CID(4676635a) [
+                isA: "Certificate of Completion"
                 "expirationDate": 2028-01-01
                 "firstName": "James"
                 "lastName": "Maxwell"
                 "subject": "RF and Microwave Engineering"
-                isA: "Certificate of Completion"
                 issuer: "Example Electrical Engineering Board"
                 ELIDED (7)
             ]
@@ -178,11 +178,11 @@ class ElisionExampleTests: XCTestCase {
             {
                 {
                     CID(4676635a) [
+                        isA: "Certificate of Completion"
                         "expirationDate": 2028-01-01
                         "firstName": "James"
                         "lastName": "Maxwell"
                         "subject": "RF and Microwave Engineering"
-                        isA: "Certificate of Completion"
                         issuer: "Example Electrical Engineering Board"
                         ELIDED (7)
                     ]

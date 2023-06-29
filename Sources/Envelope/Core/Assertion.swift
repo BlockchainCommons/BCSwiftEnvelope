@@ -172,6 +172,10 @@ public extension Envelope {
         }
         return addAssertion(Assertion(predicate: predicate, object: object), salted: salted)
     }
+    
+    func addAssertion(_ predicate: KnownValue, _ object: KnownValue, salted: Bool = false) -> Envelope {
+        return addAssertion(Assertion(predicate: predicate, object: object), salted: salted)
+    }
 }
 
 public extension Envelope {
@@ -187,7 +191,7 @@ public extension Envelope {
         }
         return try addAssertion(assertion(), salted: salted)
     }
-
+    
     /// If the condition is met, returns a new ``Envelope`` with the given assertion
     /// added, otherwise returns the same envelope.
     ///
@@ -200,7 +204,7 @@ public extension Envelope {
         }
         return addAssertion(predicate(), object(), salted: salted)
     }
-
+    
     /// If the condition is met, returns a new ``Envelope`` with the given assertion
     /// added, otherwise returns the same envelope.
     ///
@@ -208,6 +212,13 @@ public extension Envelope {
     ///
     /// See ``addAssertion(_:_:salted:)-277sn`` for more information.
     func addAssertion(if condition: Bool, _ predicate: @autoclosure () -> KnownValue, _ object: @autoclosure () -> Any?, salted: Bool = false) -> Envelope {
+        guard condition else {
+            return self
+        }
+        return addAssertion(predicate(), object(), salted: salted)
+    }
+    
+    func addAssertion(if condition: Bool, _ predicate: @autoclosure () -> KnownValue, _ object: @autoclosure () -> KnownValue, salted: Bool = false) -> Envelope {
         guard condition else {
             return self
         }

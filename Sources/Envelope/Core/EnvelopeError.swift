@@ -22,6 +22,8 @@ extension EnvelopeError: CustomStringConvertible {
 
 extension EnvelopeError {
     static let invalidDigest = EnvelopeError("invalidDigest")
-    static let invalidFormat = EnvelopeError("invalidFormat")
     static let missingDigest = EnvelopeError("missingDigest")
+    
+    // This can also be thrown by clients of the package.
+    public static let invalidFormat = EnvelopeError("invalidFormat")
 }
