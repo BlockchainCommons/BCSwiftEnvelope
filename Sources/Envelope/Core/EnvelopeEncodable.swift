@@ -9,7 +9,7 @@ public protocol EnvelopeDecodable {
     init?(_ envelope: Envelope?) throws
 }
 
-extension EnvelopeDecodable {
+public extension EnvelopeDecodable {
     init?(_ envelope: Envelope?) throws {
         guard let envelope else {
             return nil

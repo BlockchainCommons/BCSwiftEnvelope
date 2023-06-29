@@ -238,7 +238,7 @@ final class EnvelopeTestVectors: XCTestCase {
         target.insert(top)
 
         // Reveal everything about the state's signature on the card
-        try target.insert(top.assertion(withPredicate: .verifiedBy)!.deepDigests)
+        try target.insert(top.assertion(withPredicate: .verifiedBy).deepDigests)
 
         // Reveal the top level of the card.
         target.insert(top.shallowDigests)
@@ -248,18 +248,18 @@ final class EnvelopeTestVectors: XCTestCase {
         target.insert(card.subject)
 
         // Reveal everything about the `isA` and `issuer` assertions at the top level of the card.
-        try target.insert(card.assertion(withPredicate: .isA)!.deepDigests)
-        try target.insert(card.assertion(withPredicate: .issuer)!.deepDigests)
+        try target.insert(card.assertion(withPredicate: .isA).deepDigests)
+        try target.insert(card.assertion(withPredicate: .issuer).deepDigests)
 
         // Reveal the `holder` assertion on the card, but not any of its sub-assertions.
-        let holder = try card.assertion(withPredicate: .holder)!
+        let holder = try card.assertion(withPredicate: .holder)
         target.insert(holder.shallowDigests)
 
         // Within the `holder` assertion, reveal everything about just the `givenName`, `familyName`, and `image` assertions.
         let holderObject = holder.object!
-        try target.insert(holderObject.assertion(withPredicate: "givenName")!.deepDigests)
-        try target.insert(holderObject.assertion(withPredicate: "familyName")!.deepDigests)
-        try target.insert(holderObject.assertion(withPredicate: "image")!.deepDigests)
+        try target.insert(holderObject.assertion(withPredicate: "givenName").deepDigests)
+        try target.insert(holderObject.assertion(withPredicate: "familyName").deepDigests)
+        try target.insert(holderObject.assertion(withPredicate: "image").deepDigests)
 
         // Perform the elision
         let elidedCredential = try top.elideRevealing(target).checkEncoding()

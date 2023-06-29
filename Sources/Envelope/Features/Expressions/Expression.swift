@@ -147,10 +147,7 @@ public extension Envelope {
     ///
     /// - Throws: Throws an exception if there is no `result` predicate.
     func result() throws -> Envelope {
-        guard let result = try object(forPredicate: .result) else {
-            throw EnvelopeError.invalidFormat
-        }
-        return result
+        try object(forPredicate: .result)
     }
     
     /// Returns the objects of every `result` predicate.
@@ -163,10 +160,7 @@ public extension Envelope {
     /// - Throws: Throws an exception if there is no `result` predicate, or if its
     /// object cannot be decoded to the specified `type`.
     func extractResult<T: CBORDecodable>(_ type: T.Type) throws -> T {
-        guard let result = try extractObject(T.self, forPredicate: .result) else {
-            throw EnvelopeError.invalidFormat
-        }
-        return result
+        try extractObject(T.self, forPredicate: .result)
     }
     
     /// Returns the objects of every `result` predicate.
@@ -187,9 +181,6 @@ public extension Envelope {
     ///
     /// - Throws: Throws an exception if there is no `error` predicate.
     func error<T: CBORDecodable>(_ type: T.Type) throws -> T {
-        guard let result = try extractObject(T.self, forPredicate: .error) else {
-            throw EnvelopeError.invalidFormat
-        }
-        return result
+        try extractObject(T.self, forPredicate: .error)
     }
 }
