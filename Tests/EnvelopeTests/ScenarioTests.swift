@@ -208,7 +208,7 @@ class ScenarioTests: XCTestCase {
         // Bob then extracts Alice's registered URI
         let responseURI = try aliceChallengeResponse
             .unwrap()
-            .extractObject(URL.self, forPredicate: .dereferenceVia)
+            .extractObject(URL.self, forPredicate: .dereferenceVia)!
         XCTAssertEqual(responseURI.absoluteString, "https://exampleledger.com/cid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f")
 
         // Bob uses the URI to ask ExampleLedger for Alice's identifier document, then
@@ -218,9 +218,9 @@ class ScenarioTests: XCTestCase {
         let aliceDocumentPublicKeys = try aliceRegistration
             .verifySignature(from: exampleLedgerPublicKeys)
             .unwrap()
-            .object(forPredicate: .entity)
+            .object(forPredicate: .entity)!
             .unwrap()
-            .extractObject(PublicKeyBase.self, forPredicate: .publicKeys)
+            .extractObject(PublicKeyBase.self, forPredicate: .publicKeys)!
 
         // Finally, Bob uses Alice's public keys to validate the challenge he sent her.
         try aliceChallengeResponse.verifySignature(from: aliceDocumentPublicKeys)
@@ -329,7 +329,7 @@ class ScenarioTests: XCTestCase {
         target.insert(top)
 
         // Reveal everything about the state's signature on the card
-        try target.insert(top.assertion(withPredicate: .verifiedBy).deepDigests)
+        try target.insert(top.assertion(withPredicate: .verifiedBy)!.deepDigests)
 
         // Reveal the top level of the card.
         target.insert(top.shallowDigests)
@@ -339,18 +339,18 @@ class ScenarioTests: XCTestCase {
         target.insert(card.subject)
 
         // Reveal everything about the `isA` and `issuer` assertions at the top level of the card.
-        try target.insert(card.assertion(withPredicate: .isA).deepDigests)
-        try target.insert(card.assertion(withPredicate: .issuer).deepDigests)
+        try target.insert(card.assertion(withPredicate: .isA)!.deepDigests)
+        try target.insert(card.assertion(withPredicate: .issuer)!.deepDigests)
 
         // Reveal the `holder` assertion on the card, but not any of its sub-assertions.
-        let holder = try card.assertion(withPredicate: .holder)
+        let holder = try card.assertion(withPredicate: .holder)!
         target.insert(holder.shallowDigests)
 
         // Within the `holder` assertion, reveal everything about just the `givenName`, `familyName`, and `image` assertions.
         let holderObject = holder.object!
-        try target.insert(holderObject.assertion(withPredicate: "givenName").deepDigests)
-        try target.insert(holderObject.assertion(withPredicate: "familyName").deepDigests)
-        try target.insert(holderObject.assertion(withPredicate: "image").deepDigests)
+        try target.insert(holderObject.assertion(withPredicate: "givenName")!.deepDigests)
+        try target.insert(holderObject.assertion(withPredicate: "familyName")!.deepDigests)
+        try target.insert(holderObject.assertion(withPredicate: "image")!.deepDigests)
 
         // Perform the elision
         let elidedCredential = try top.elideRevealing(target).checkEncoding()

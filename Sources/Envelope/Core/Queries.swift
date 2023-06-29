@@ -2,7 +2,6 @@ import Foundation
 import SecureComponents
 
 extension EnvelopeError {
-    static let nonexistentPredicate = EnvelopeError("nonexistentPredicate")
     static let nonexistentAssertion = EnvelopeError("nonexistentAssertion")
     static let ambiguousPredicate = EnvelopeError("ambiguousPredicate")
 }
@@ -276,13 +275,13 @@ public extension Envelope {
 }
 
 public extension Envelope {
-    /// Returns the assertion with the given predicate.
+    /// Returns the assertion with the given predicate, or `nil` if none exists.
     ///
-    /// Throws an exception if there is no matching predicate or multiple matching predicates.
-    func assertion(withPredicate predicate: Envelope) throws -> Envelope {
+    /// Throws an exception if there are multiple matching predicates.
+    func assertion(withPredicate predicate: Envelope) throws -> Envelope? {
         let a = assertions(withPredicate: predicate)
         guard !a.isEmpty else {
-            throw EnvelopeError.nonexistentPredicate
+            return nil
         }
         guard
             a.count == 1,
@@ -293,64 +292,64 @@ public extension Envelope {
         return result
     }
     
-    /// Returns the assertion with the given predicate.
+    /// Returns the assertion with the given predicate, or `nil` if none exists.
     ///
-    /// Throws an exception if there is no matching predicate or multiple matching predicates.
-    func assertion(withPredicate predicate: CBOREncodable) throws -> Envelope {
+    /// Throws an exception if there are multiple matching predicates.
+    func assertion(withPredicate predicate: CBOREncodable) throws -> Envelope? {
         try assertion(withPredicate: Envelope(predicate))
     }
     
-    /// Returns the assertion with the given predicate.
+    /// Returns the assertion with the given predicate, or `nil` if none exists.
     ///
-    /// Throws an exception if there is no matching predicate or multiple matching predicates.
-    func assertion(withPredicate predicate: KnownValue) throws -> Envelope {
+    /// Throws an exception if there are multiple matching predicates.
+    func assertion(withPredicate predicate: KnownValue) throws -> Envelope? {
         try assertion(withPredicate: Envelope(knownValue: predicate))
     }
 }
 
 public extension Envelope {
-    /// Returns the object of the assertion with the given predicate.
+    /// Returns the object of the assertion with the given predicate, or `nil` if none exists.
     ///
-    /// Throws an exception if there is no matching predicate or multiple matching predicates.
-    func object(forPredicate predicate: Envelope) throws -> Envelope {
-        try assertion(withPredicate: predicate).object
+    /// Throws an exception if there are multiple matching predicates.
+    func object(forPredicate predicate: Envelope) throws -> Envelope? {
+        try assertion(withPredicate: predicate)?.object
     }
     
-    /// Returns the object of the assertion with the given predicate.
+    /// Returns the object of the assertion with the given predicate, or `nil` if none exists.
     ///
-    /// Throws an exception if there is no matching predicate or multiple matching predicates.
-    func object(forPredicate predicate: CBOREncodable) throws -> Envelope {
+    /// Throws an exception if there are multiple matching predicates.
+    func object(forPredicate predicate: CBOREncodable) throws -> Envelope? {
         try object(forPredicate: Envelope(predicate))
     }
 
-    /// Returns the object of the assertion with the given predicate.
+    /// Returns the object of the assertion with the given predicate, or `nil` if none exists.
     ///
-    /// Throws an exception if there is no matching predicate or multiple matching predicates.
-    func object(forPredicate predicate: KnownValue) throws -> Envelope {
+    /// Throws an exception if there are multiple matching predicates.
+    func object(forPredicate predicate: KnownValue) throws -> Envelope? {
         try object(forPredicate: Envelope(knownValue: predicate))
     }
 
-    /// Returns the object of the assertion with the given predicate.
+    /// Returns the object of the assertion with the given predicate, or `nil` if none exists.
     ///
-    /// Throws an exception if there is no matching predicate or multiple matching predicates.
+    /// Throws an exception if there are multiple matching predicates.
     /// Throws an exception if the encoded type doesn't match the given type.
-    func extractObject<T>(_ type: T.Type, forPredicate predicate: Envelope) throws -> T where T: CBORDecodable {
-        try object(forPredicate: predicate).extractSubject(type)
+    func extractObject<T>(_ type: T.Type, forPredicate predicate: Envelope) throws -> T? where T: CBORDecodable {
+        try object(forPredicate: predicate)?.extractSubject(type)
     }
 
-    /// Returns the object of the assertion with the given predicate.
+    /// Returns the object of the assertion with the given predicate, or `nil` if none exists.
     ///
-    /// Throws an exception if there is no matching predicate or multiple matching predicates.
+    /// Throws an exception if there are multiple matching predicates.
     /// Throws an exception if the encoded type doesn't match the given type.
-    func extractObject<T>(_ type: T.Type, forPredicate predicate: CBOREncodable) throws -> T where T: CBORDecodable {
+    func extractObject<T>(_ type: T.Type, forPredicate predicate: CBOREncodable) throws -> T? where T: CBORDecodable {
         try extractObject(type, forPredicate: Envelope(predicate))
     }
 
-    /// Returns the object of the assertion with the given predicate.
+    /// Returns the object of the assertion with the given predicate, or `nil` if none exists.
     ///
-    /// Throws an exception if there is no matching predicate or multiple matching predicates.
+    /// Throws an exception if there are multiple matching predicates.
     /// Throws an exception if the encoded type doesn't match the given type.
-    func extractObject<T>(_ type: T.Type, forPredicate predicate: KnownValue) throws -> T where T: CBORDecodable {
+    func extractObject<T>(_ type: T.Type, forPredicate predicate: KnownValue) throws -> T? where T: CBORDecodable {
         try extractObject(type, forPredicate: Envelope(knownValue: predicate))
     }
 }

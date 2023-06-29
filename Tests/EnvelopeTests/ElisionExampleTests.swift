@@ -138,12 +138,12 @@ class ElisionExampleTests: XCTestCase {
         }
 
         /// The only actual assertions we want to reveal are `firstName`, `lastName`, `.isA`, `issuer`, `subject` and `expirationDate`, so we do this by finding those specific assertions by their predicate. The `shallowDigests` attribute returns just a necessary set of attributes to reveal the assertion, its predicate, and its object (yes, all three of them need to be revealed) but *not* any deeper assertions on them.
-        target.insert(try content.assertion(withPredicate: "firstName").shallowDigests)
-        target.insert(try content.assertion(withPredicate: "lastName").shallowDigests)
-        target.insert(try content.assertion(withPredicate: .isA).shallowDigests)
-        target.insert(try content.assertion(withPredicate: .issuer).shallowDigests)
-        target.insert(try content.assertion(withPredicate: "subject").shallowDigests)
-        target.insert(try content.assertion(withPredicate: "expirationDate").shallowDigests)
+        target.insert(try content.assertion(withPredicate: "firstName")!.shallowDigests)
+        target.insert(try content.assertion(withPredicate: "lastName")!.shallowDigests)
+        target.insert(try content.assertion(withPredicate: .isA)!.shallowDigests)
+        target.insert(try content.assertion(withPredicate: .issuer)!.shallowDigests)
+        target.insert(try content.assertion(withPredicate: "subject")!.shallowDigests)
+        target.insert(try content.assertion(withPredicate: "expirationDate")!.shallowDigests)
         let redactedCredential = credential.elideRevealing(target)
         XCTAssertEqual(redactedCredential.format(),
         """
@@ -322,8 +322,8 @@ class ElisionExampleTests: XCTestCase {
         }
         
         /// The only actual assertions we want to reveal are `birthDate` and `photo`, so we do this by finding those specific assertions by their predicate. The `shallowDigests` attribute returns just a necessary set of attributes to reveal the assertion, its predicate, and its object (yes, all three of them need to be revealed) but *not* any deeper assertions on them.
-        target.insert(try content.assertion(withPredicate: "birthDate").shallowDigests)
-        target.insert(try content.assertion(withPredicate: "photo").shallowDigests)
+        target.insert(try content.assertion(withPredicate: "birthDate")!.shallowDigests)
+        target.insert(try content.assertion(withPredicate: "photo")!.shallowDigests)
         let redactedCredential = credential.elideRevealing(target)
         XCTAssertEqual(redactedCredential.format(),
         """

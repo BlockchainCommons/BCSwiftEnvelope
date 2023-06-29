@@ -128,7 +128,7 @@ public extension Envelope {
     ///
     /// - Throws: Throws an exception if there is not exactly one matching `parameter`,
     /// or if the parameter value is not the correct type.
-    func extractObject<T>(_ type: T.Type, forParameter parameter: Parameter) throws -> T where T: CBORDecodable {
+    func extractObject<T>(_ type: T.Type, forParameter parameter: Parameter) throws -> T? where T: CBORDecodable {
         try extractObject(type, forPredicate: parameter)
     }
     
@@ -147,7 +147,10 @@ public extension Envelope {
     ///
     /// - Throws: Throws an exception if there is no `result` predicate.
     func result() throws -> Envelope {
-        try object(forPredicate: .result)
+        guard let result = try object(forPredicate: .result) else {
+            throw EnvelopeError.invalidFormat
+        }
+        return result
     }
     
     /// Returns the objects of every `result` predicate.
@@ -160,7 +163,10 @@ public extension Envelope {
     /// - Throws: Throws an exception if there is no `result` predicate, or if its
     /// object cannot be decoded to the specified `type`.
     func extractResult<T: CBORDecodable>(_ type: T.Type) throws -> T {
-        try extractObject(T.self, forPredicate: .result)
+        guard let result = try extractObject(T.self, forPredicate: .result) else {
+            throw EnvelopeError.invalidFormat
+        }
+        return result
     }
     
     /// Returns the objects of every `result` predicate.
@@ -181,6 +187,9 @@ public extension Envelope {
     ///
     /// - Throws: Throws an exception if there is no `error` predicate.
     func error<T: CBORDecodable>(_ type: T.Type) throws -> T {
-        try extractObject(T.self, forPredicate: .error)
+        guard let result = try extractObject(T.self, forPredicate: .error) else {
+            throw EnvelopeError.invalidFormat
+        }
+        return result
     }
 }

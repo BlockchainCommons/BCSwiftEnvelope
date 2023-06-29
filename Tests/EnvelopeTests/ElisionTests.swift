@@ -382,7 +382,7 @@ class ElisionTests: XCTestCase {
         // Reveal everything about one of the assertions
         target.formUnion(Self.assertionEnvelope.deepDigests)
         // Reveal the specific `livesAt` assertion
-        target.formUnion(try e1.assertion(withPredicate: "livesAt").deepDigests)
+        target.formUnion(try e1.assertion(withPredicate: "livesAt")!.deepDigests)
         let e2 = try e1.elideRevealing(target).checkEncoding()
         XCTAssertEqual(e2.format(),
         """
@@ -424,7 +424,7 @@ class ElisionTests: XCTestCase {
 
         var target3: Set<Digest> = []
         // Hide one of the assertions by finding its predicate
-        target3.formUnion(try e1.assertion(withPredicate: "livesAt").deepDigests)
+        target3.formUnion(try e1.assertion(withPredicate: "livesAt")!.deepDigests)
         let e3 = try e1.elideRemoving(target3).checkEncoding()
         XCTAssertEqual(e3.format(),
         """
