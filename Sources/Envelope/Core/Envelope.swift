@@ -97,6 +97,8 @@ public extension Envelope {
             try! self.init(compressed: compressed)
         } else if let cborItem = subject as? CBOREncodable {
             self.init(leaf: cborItem.cbor)
+        } else if let envelopeItem = subject as? EnvelopeEncodable {
+            self = envelopeItem.envelope
         } else {
             preconditionFailure()
         }

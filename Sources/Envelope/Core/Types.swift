@@ -27,6 +27,16 @@ public extension Envelope {
         objects(forPredicate: .isA)
     }
     
+    var type: Envelope {
+        get throws {
+            let t = types
+            guard t.count == 1 else {
+                throw EnvelopeError.ambiguousPredicate
+            }
+            return t.first!
+        }
+    }
+    
     func hasType(_ type: Envelope) -> Bool {
         types.contains { $0.digest == type.digest }
     }

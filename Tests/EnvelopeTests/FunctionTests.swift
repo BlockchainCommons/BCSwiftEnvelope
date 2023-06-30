@@ -49,22 +49,22 @@ class TestFunction: XCTestCase {
         """)
 
         let responseEnvelope = Envelope(response: requestID, result: 5)
-        XCTAssertEqual(responseEnvelope.format(), """
+        XCTAssertEqual(responseEnvelope.format(context: globalFormatContext), """
         response(CID(c66be27d)) [
             result: 5
         ]
         """)
 
         let errorResponse = Envelope(response: requestID, error: "Internal Server Error")
-        XCTAssertEqual(errorResponse.format(), """
+        XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
         response(CID(c66be27d)) [
             error: "Internal Server Error"
         ]
         """)
         
         let unknownErrorResponse = Envelope(error: "Decryption failure")
-        XCTAssertEqual(unknownErrorResponse.format(), """
-        response("unknown") [
+        XCTAssertEqual(unknownErrorResponse.format(context: globalFormatContext), """
+        response(unknown) [
             error: "Decryption failure"
         ]
         """)

@@ -867,13 +867,13 @@ John Smith is issued a Permanent Resident Card signed by the State of Example
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/lftpsptpsblntpsptpcstaadethdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosptpsptpsolftpsptpsgaotpsptpcsimiajpihieihjtjyinhsjztpsptpsolftpsptpsgaatpsptpcsksfxghisihcxgujyhsjyihcxjliycxfekshsjnjojzihcxjpihiajliojtinknihjkcxgegwfdglcxgugtgaghfdcxhsjkcxhscxgdihjpjnhsjtihjtjycxgmihjkinieihjtjydmtpsptpsolftpsptpsgbatpsplktpsptpcstaadethdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguotpsptpsolftpsptpcsimiyhsjninjzkkglhsjnihtpsptpcsihgugtgaghfdtpsptpsolftpsptpsgaotpsptpcsjpgdihjpjnhsjtihjtjycxgmihjkinieihjtjytpsptpsolftpsptpsgaotpsptpcsiygdihjpjkjljttpsptpsolftpsptpcsinioinkoihjtglhsjnihtpsptpcsiegegwfdgltpsptpsolftpsptpcsjzidinjpjyisfxjlkpjtjyjpkktpsplftpsptpcsididjktpsptpsolftpsptpsgaatpsptpcsjeghisihcxfwhsishsjnhsjktpsptpsolftpsptpcsihinjnhsioihtpsplstpsptpcstpsfhdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessatpsptpsolftpsptpsgaatpsptpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmtpsptpsolftpsptpsgastpsptpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesestpsptpsolftpsptpcsjejzjojpfxhsjyihiojljpkktpsptpcsiafxdyestpsptpsolftpsptpcsinidinjpjyisfyhsjyihtpsptpcssecyatskiolatpsptpsolftpsptpcsinjzjojpglkpjnidihjptpsptpcsjeesesesdpesesesdpesesestpsptpsolftpsptpcsjnjpihjkinieihjtjyguinjtiaihtpsptpcssecyhtgyiaaetpsptpsolftpsptpcsiajkihkstpsptpcsiegtfpgsfetpsptpsolftpsptpsgbttpsplstpsptpcstaadethdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvstpsptpsolftpsptpsgaatpsptpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihtpsptpsolftpsptpsgastpsptpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihettpsptpsolftpsptpcsimiehsjyihgajkjkkpihietpsptpcssecyidisltlatpsptpsolftpsptpsgaxtpsplftpsptpcstaadfzhdfztedrvolbsnndetprjnfwrpfgenpkmkcxayiywslddkcwbkctgtatdtpkonfruesbwysnrobeensntkjyldfxiaimcwhtpddrsohpjsuomtlyihcytimydycmztfmbsrdtpsptpsolftpsptpsgaatpsptpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmchrkbkvo
+ur:envelope/lftpsptpsblntpsptpcstaadethdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosptpsptpsolftpsptpsgaatpsptpcsksfxghisihcxgujyhsjyihcxjliycxfekshsjnjojzihcxjpihiajliojtinknihjkcxgegwfdglcxgugtgaghfdcxhsjkcxhscxgdihjpjnhsjtihjtjycxgmihjkinieihjtjydmtpsptpsolftpsptpsgadtpsptpcsimiajpihieihjtjyinhsjztpsptpsolftpsptpsgbatpsplktpsptpcstaadethdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguotpsptpsolftpsptpcsimiyhsjninjzkkglhsjnihtpsptpcsihgugtgaghfdtpsptpsolftpsptpsgadtpsptpcsiygdihjpjkjljttpsptpsolftpsptpcsinioinkoihjtglhsjnihtpsptpcsiegegwfdgltpsptpsolftpsptpcsjzidinjpjyisfxjlkpjtjyjpkktpsplftpsptpcsididjktpsptpsolftpsptpsgaatpsptpcsjeghisihcxfwhsishsjnhsjktpsptpsolftpsptpsgadtpsptpcsjpgdihjpjnhsjtihjtjycxgmihjkinieihjtjytpsptpsolftpsptpcsihinjnhsioihtpsplstpsptpcstpsfhdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessatpsptpsolftpsptpsgaatpsptpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmtpsptpsolftpsptpsgastpsptpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesestpsptpsolftpsptpcsjejzjojpfxhsjyihiojljpkktpsptpcsiafxdyestpsptpsolftpsptpcsinidinjpjyisfyhsjyihtpsptpcssecyatskiolatpsptpsolftpsptpcsinjzjojpglkpjnidihjptpsptpcsjeesesesdpesesesdpesesestpsptpsolftpsptpcsjnjpihjkinieihjtjyguinjtiaihtpsptpcssecyhtgyiaaetpsptpsolftpsptpcsiajkihkstpsptpcsiegtfpgsfetpsptpsolftpsptpsgbttpsplstpsptpcstaadethdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvstpsptpsolftpsptpsgaatpsptpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihtpsptpsolftpsptpsgastpsptpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihettpsptpsolftpsptpcsimiehsjyihgajkjkkpihietpsptpcssecyidisltlatpsptpsolftpsptpsgaxtpsplftpsptpcstaadfzhdfzdkvykkmnkpgtdlssnddysagevshegrrdehvopscehdmebkrppecszeaekpjsvtbbcxwzrfuokkzmaaisryeewtaspyoxcnonremkjzfsmwsbrlcpnllggedafgtacwwptpsptpsolftpsptpsgaatpsptpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmgaqdnlls
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8d8c8d8c982d8c8d8ca02d8c8d8186a63726564656e7469616cd8c8d8c982d8c8d8ca04d8c8d8187843546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742ed8c8d8c982d8c8d8ca0ed8c88cd8c8d818d90138582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadcd8c8d8c982d8c8d8186a66616d696c794e616d65d8c8d81865534d495448d8c8d8c982d8c8d8ca02d8c8d818725065726d616e656e74205265736964656e74d8c8d8c982d8c8d8ca02d8c8d81866506572736f6ed8c8d8c982d8c8d81869676976656e4e616d65d8c8d818644a4f484ed8c8d8c982d8c8d8186c6269727468436f756e747279d8c882d8c8d818626273d8c8d8c982d8c8d8ca04d8c8d8186b54686520426168616d6173d8c8d8c982d8c8d81865696d616765d8c883d8c8d818d8cc582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2d8c8d8c982d8c8d8ca04d8c8d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ed8c8d8c982d8c8d8ca09d8c8d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939d8c8d8c982d8c8d8186b6c707243617465676f7279d8c8d81863433039d8c8d8c982d8c8d81869626972746844617465d8c8d818c11a07c56780d8c8d8c982d8c8d818696c70724e756d626572d8c8d8186b3939392d3939392d393939d8c8d8c982d8c8d8186d7265736964656e7453696e6365d8c8d818c11a5a516300d8c8d8c982d8c8d81863736578d8c8d818644d414c45d8c8d8c982d8c8d8ca0dd8c883d8c8d818d90138582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8d8c8d8c982d8c8d8ca04d8c8d818781e49737375656420627920746865205374617465206f66204578616d706c65d8c8d8c982d8c8d8ca09d8c8d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538d8c8d8c982d8c8d8186a64617465497373756564d8c8d818c11a62688780d8c8d8c982d8c8d8ca03d8c882d8c8d818d901405840d32ae27fcd9b38b26d42b64636aa98200866ef89241b0a1f4d0729aaa53bdecbeecdb81036cdcf748943636a1b5aa82ac95b71dc9681651ad08f3016fc3e0fbad8c8d8c982d8c8d8ca04d8c8d818781d4d61646520627920746865205374617465206f66204578616d706c652e
+d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8d8c8d8c982d8c8d8ca04d8c8d8187843546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742ed8c8d8c982d8c8d8ca01d8c8d8186a63726564656e7469616cd8c8d8c982d8c8d8ca0ed8c88cd8c8d818d90138582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadcd8c8d8c982d8c8d8186a66616d696c794e616d65d8c8d81865534d495448d8c8d8c982d8c8d8ca01d8c8d81866506572736f6ed8c8d8c982d8c8d81869676976656e4e616d65d8c8d818644a4f484ed8c8d8c982d8c8d8186c6269727468436f756e747279d8c882d8c8d818626273d8c8d8c982d8c8d8ca04d8c8d8186b54686520426168616d6173d8c8d8c982d8c8d8ca01d8c8d818725065726d616e656e74205265736964656e74d8c8d8c982d8c8d81865696d616765d8c883d8c8d818d8cc582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2d8c8d8c982d8c8d8ca04d8c8d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ed8c8d8c982d8c8d8ca09d8c8d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939d8c8d8c982d8c8d8186b6c707243617465676f7279d8c8d81863433039d8c8d8c982d8c8d81869626972746844617465d8c8d818c11a07c56780d8c8d8c982d8c8d818696c70724e756d626572d8c8d8186b3939392d3939392d393939d8c8d8c982d8c8d8186d7265736964656e7453696e6365d8c8d818c11a5a516300d8c8d8c982d8c8d81863736578d8c8d818644d414c45d8c8d8c982d8c8d8ca0dd8c883d8c8d818d90138582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8d8c8d8c982d8c8d8ca04d8c8d818781e49737375656420627920746865205374617465206f66204578616d706c65d8c8d8c982d8c8d8ca09d8c8d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538d8c8d8c982d8c8d8186a64617465497373756564d8c8d818c11a62688780d8c8d8c982d8c8d8ca03d8c882d8c8d818d90140584024e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91becd8c8d8c982d8c8d8ca04d8c8d818781d4d61646520627920746865205374617465206f66204578616d706c652e
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -895,10 +895,12 @@ d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d6
                   201(   ; assertion
                      [
                         200(   ; envelope
-                           202(2)   ; known-value
+                           202(4)   ; known-value
                         ),
                         200(   ; envelope
-                           24("credential")   ; leaf
+                           24(   ; leaf
+                              "The State of Example recognizes JOHN SMITH as a Permanent Resident."
+                           )
                         )
                      ]
                   )
@@ -907,12 +909,10 @@ d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d6
                   201(   ; assertion
                      [
                         200(   ; envelope
-                           202(4)   ; known-value
+                           202(1)   ; known-value
                         ),
                         200(   ; envelope
-                           24(   ; leaf
-                              "The State of Example recognizes JOHN SMITH as a Permanent Resident."
-                           )
+                           24("credential")   ; leaf
                         )
                      ]
                   )
@@ -948,19 +948,7 @@ d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d6
                                  201(   ; assertion
                                     [
                                        200(   ; envelope
-                                          202(2)   ; known-value
-                                       ),
-                                       200(   ; envelope
-                                          24("Permanent Resident")   ; leaf
-                                       )
-                                    ]
-                                 )
-                              ),
-                              200(   ; envelope
-                                 201(   ; assertion
-                                    [
-                                       200(   ; envelope
-                                          202(2)   ; known-value
+                                          202(1)   ; known-value
                                        ),
                                        200(   ; envelope
                                           24("Person")   ; leaf
@@ -1004,6 +992,18 @@ d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d6
                                                 )
                                              )
                                           ]
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          202(1)   ; known-value
+                                       ),
+                                       200(   ; envelope
+                                          24("Permanent Resident")   ; leaf
                                        )
                                     ]
                                  )
@@ -1203,7 +1203,7 @@ d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d6
                      200(   ; envelope
                         24(   ; leaf
                            320(   ; signature
-                              h'd32ae27fcd9b38b26d42b64636aa98200866ef89241b0a1f4d0729aaa53bdecbeecdb81036cdcf748943636a1b5aa82ac95b71dc9681651ad08f3016fc3e0fba'
+                              h'24e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91bec'
                            )
                         )
                      ),
@@ -1248,21 +1248,21 @@ d8 c8                                    # tag(200)   ; envelope
                      82                  # array(2)
                         d8 c8            # tag(200)   ; envelope
                            d8 ca         # tag(202)   ; known-value
-                              02         # unsigned(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 18         # tag(24)   ; leaf
-                              6a         # text(10)
-                                 63726564656e7469616c # "credential"
-               d8 c8                     # tag(200)   ; envelope
-                  d8 c9                  # tag(201)   ; assertion
-                     82                  # array(2)
-                        d8 c8            # tag(200)   ; envelope
-                           d8 ca         # tag(202)   ; known-value
                               04         # unsigned(4)
                         d8 c8            # tag(200)   ; envelope
                            d8 18         # tag(24)   ; leaf
                               78 43      # text(67)
                                  546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742e # "The State of Example recognizes JOHN SMITH as a Permanent Resident."
+               d8 c8                     # tag(200)   ; envelope
+                  d8 c9                  # tag(201)   ; assertion
+                     82                  # array(2)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 ca         # tag(202)   ; known-value
+                              01         # unsigned(1)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 18         # tag(24)   ; leaf
+                              6a         # text(10)
+                                 63726564656e7469616c # "credential"
                d8 c8                     # tag(200)   ; envelope
                   d8 c9                  # tag(201)   ; assertion
                      82                  # array(2)
@@ -1292,17 +1292,7 @@ d8 c8                                    # tag(200)   ; envelope
                                     82   # array(2)
                                        d8 c8 # tag(200)   ; envelope
                                           d8 ca # tag(202)   ; known-value
-                                             02 # unsigned(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 18 # tag(24)   ; leaf
-                                             72 # text(18)
-                                                5065726d616e656e74205265736964656e74 # "Permanent Resident"
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 c9   # tag(201)   ; assertion
-                                    82   # array(2)
-                                       d8 c8 # tag(200)   ; envelope
-                                          d8 ca # tag(202)   ; known-value
-                                             02 # unsigned(2)
+                                             01 # unsigned(1)
                                        d8 c8 # tag(200)   ; envelope
                                           d8 18 # tag(24)   ; leaf
                                              66 # text(6)
@@ -1341,6 +1331,16 @@ d8 c8                                    # tag(200)   ; envelope
                                                          d8 18 # tag(24)   ; leaf
                                                             6b # text(11)
                                                                54686520426168616d6173 # "The Bahamas"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 ca # tag(202)   ; known-value
+                                             01 # unsigned(1)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             72 # text(18)
+                                                5065726d616e656e74205265736964656e74 # "Permanent Resident"
                               d8 c8      # tag(200)   ; envelope
                                  d8 c9   # tag(201)   ; assertion
                                     82   # array(2)
@@ -1487,7 +1487,7 @@ d8 c8                                    # tag(200)   ; envelope
                         d8 18            # tag(24)   ; leaf
                            d9 0140       # tag(320)   ; signature
                               5840       # bytes(64)
-                                 d32ae27fcd9b38b26d42b64636aa98200866ef89241b0a1f4d0729aaa53bdecbeecdb81036cdcf748943636a1b5aa82ac95b71dc9681651ad08f3016fc3e0fba
+                                 24e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91bec
                      d8 c8               # tag(200)   ; envelope
                         d8 c9            # tag(201)   ; assertion
                            82            # array(2)
@@ -1539,13 +1539,13 @@ John wishes to identify himself to a third party using his government-issued cre
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/lftpsptpsblntpsptpcstaadethdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosptpsptpsolftpsptpsgaotpsptpcsimiajpihieihjtjyinhsjztpsptpsfhdcxdiimfeiotigwwmlfckjlutltzoosfewpmuaycwfprhetrorfahmttlrncmzogahdtpsptpsolftpsptpsgbatpsplktpsptpcstaadethdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguotpsptpsolftpsptpcsimiyhsjninjzkkglhsjnihtpsptpcsihgugtgaghfdtpsptpsfhdcxdwpsahrplopmtkswylztpsiyamtybabsmwfxjowlmwgymuhhdswnmewtcegykilatpsptpsfhdcxfpqzyaflhnlofspefxkkhfkpfrwtdtbzbadnnthkkiflhdrllokprfbkmknyietbtpsptpsolftpsptpcsinioinkoihjtglhsjnihtpsptpcsiegegwfdgltpsptpsfhdcxkbptotpkuymotyludrsgfwaopthhvwftdsykgrjywzcwvyghpynlcnjpfeonbtmwtpsptpsolftpsptpcsihinjnhsioihtpsplstpsptpcstpsfhdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessatpsptpsolftpsptpsgaatpsptpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmtpsptpsolftpsptpsgastpsptpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesestpsptpsfhdcxnsmkylvtfseegsgotaammhcezebdgwhyhhyljkrhwfqzoskgeosodsgmpmhgzchhtpsptpsfhdcxosfmfplpfxvefzoybncfwzgtfewdcapsqdkkuolagdtdltvwfdttvorflocwzegatpsptpsfhdcxtbcffdrptpstzmmomdktssmegedwvdecgadtdsreaygtdifwmokimwaodwbyuozmtpsptpsfhdcxvyidloaagdetmopfrnbwleidmeioftfptavtlnptprvohnfpmtcegdseamceotwytpsptpsfhdcxzejocerptnaxchswvossceasnehkgefyptmhndretdghwtwepymwoyrocmnntdditpsptpsolftpsptpsgbttpsplstpsptpcstaadethdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvstpsptpsolftpsptpsgaatpsptpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihtpsptpsolftpsptpsgastpsptpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihettpsptpsfhdcxwmesosbwlupscfiopltaemchmdzmtllrgraxlnrhwnkbfmlrveadrtlobspspmmstpsptpsolftpsptpsgaxtpsplftpsptpcstaadfzhdfztedrvolbsnndetprjnfwrpfgenpkmkcxayiywslddkcwbkctgtatdtpkonfruesbwysnrobeensntkjyldfxiaimcwhtpddrsohpjsuomtlyihcytimydycmztfmbsrdtpsptpsolftpsptpsgaatpsptpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmlsmoeyiy
+ur:envelope/lftpsptpsblntpsptpcstaadethdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosptpsptpsfhdcxdiimfeiotigwwmlfckjlutltzoosfewpmuaycwfprhetrorfahmttlrncmzogahdtpsptpsolftpsptpsgadtpsptpcsimiajpihieihjtjyinhsjztpsptpsolftpsptpsgbatpsplktpsptpcstaadethdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguotpsptpsolftpsptpcsimiyhsjninjzkkglhsjnihtpsptpcsihgugtgaghfdtpsptpsfhdcxfxguetksnbmtemgsaamdenvykimeherfpehnfdbwnbrftlqzbahelggefdjzkesptpsptpsolftpsptpcsinioinkoihjtglhsjnihtpsptpcsiegegwfdgltpsptpsfhdcxkbptotpkuymotyludrsgfwaopthhvwftdsykgrjywzcwvyghpynlcnjpfeonbtmwtpsptpsfhdcxlkmunefxiyjelbjsemhponfshgwywpaatblentrkzednswryfnengmzclnrtktyntpsptpsolftpsptpcsihinjnhsioihtpsplstpsptpcstpsfhdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessatpsptpsolftpsptpsgaatpsptpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmtpsptpsolftpsptpsgastpsptpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesestpsptpsfhdcxnsmkylvtfseegsgotaammhcezebdgwhyhhyljkrhwfqzoskgeosodsgmpmhgzchhtpsptpsfhdcxosfmfplpfxvefzoybncfwzgtfewdcapsqdkkuolagdtdltvwfdttvorflocwzegatpsptpsfhdcxtbcffdrptpstzmmomdktssmegedwvdecgadtdsreaygtdifwmokimwaodwbyuozmtpsptpsfhdcxvyidloaagdetmopfrnbwleidmeioftfptavtlnptprvohnfpmtcegdseamceotwytpsptpsfhdcxzejocerptnaxchswvossceasnehkgefyptmhndretdghwtwepymwoyrocmnntdditpsptpsolftpsptpsgbttpsplstpsptpcstaadethdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvstpsptpsolftpsptpsgaatpsptpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihtpsptpsolftpsptpsgastpsptpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihettpsptpsfhdcxwmesosbwlupscfiopltaemchmdzmtllrgraxlnrhwnkbfmlrveadrtlobspspmmstpsptpsolftpsptpsgaxtpsplftpsptpcstaadfzhdfzdkvykkmnkpgtdlssnddysagevshegrrdehvopscehdmebkrppecszeaekpjsvtbbcxwzrfuokkzmaaisryeewtaspyoxcnonremkjzfsmwsbrlcpnllggedafgtacwwptpsptpsolftpsptpsgaatpsptpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmgsvllkhe
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8d8c8d8c982d8c8d8ca02d8c8d8186a63726564656e7469616cd8c8d8cc5820276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958d8c8d8c982d8c8d8ca0ed8c88cd8c8d818d90138582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadcd8c8d8c982d8c8d8186a66616d696c794e616d65d8c8d81865534d495448d8c8d8cc58202cac05b688adcfc6f7fcac6606d40e0f944370e99451935c26f191f01c517d80d8c8d8cc582041b4f84760883daf437956753bf029150e2b9d597d4758b78875bc0a989a64d6d8c8d8c982d8c8d81869676976656e4e616d65d8c8d818644a4f484ed8c8d8cc58207ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94d8c8d8c982d8c8d81865696d616765d8c883d8c8d818d8cc582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2d8c8d8c982d8c8d8ca04d8c8d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ed8c8d8c982d8c8d8ca09d8c8d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939d8c8d8cc58209c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5cd8c8d8cc5820a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe49d8c8d8cc5820d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcffd8c8d8cc5820e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3eed8c8d8cc5820fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227d8c8d8c982d8c8d8ca0dd8c883d8c8d818d90138582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8d8c8d8c982d8c8d8ca04d8c8d818781e49737375656420627920746865205374617465206f66204578616d706c65d8c8d8c982d8c8d8ca09d8c8d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538d8c8d8cc5820eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97d8c8d8c982d8c8d8ca03d8c882d8c8d818d901405840d32ae27fcd9b38b26d42b64636aa98200866ef89241b0a1f4d0729aaa53bdecbeecdb81036cdcf748943636a1b5aa82ac95b71dc9681651ad08f3016fc3e0fbad8c8d8c982d8c8d8ca04d8c8d818781d4d61646520627920746865205374617465206f66204578616d706c652e
+d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8d8c8d8cc5820276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958d8c8d8c982d8c8d8ca01d8c8d8186a63726564656e7469616cd8c8d8c982d8c8d8ca0ed8c88cd8c8d818d90138582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadcd8c8d8c982d8c8d8186a66616d696c794e616d65d8c8d81865534d495448d8c8d8cc582043533878a096374c049536e17d915fbcaf604813a0bcd5b40e5f8d4a486c7cc8d8c8d8c982d8c8d81869676976656e4e616d65d8c8d818644a4f484ed8c8d8cc58207ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94d8c8d8cc58208c939f43666b7f71375ba53d57eeec04d68a9dbbfe2bc6bd3c3652fd86c077f6d8c8d8c982d8c8d81865696d616765d8c883d8c8d818d8cc582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2d8c8d8c982d8c8d8ca04d8c8d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ed8c8d8c982d8c8d8ca09d8c8d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939d8c8d8cc58209c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5cd8c8d8cc5820a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe49d8c8d8cc5820d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcffd8c8d8cc5820e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3eed8c8d8cc5820fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227d8c8d8c982d8c8d8ca0dd8c883d8c8d818d90138582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8d8c8d8c982d8c8d8ca04d8c8d818781e49737375656420627920746865205374617465206f66204578616d706c65d8c8d8c982d8c8d8ca09d8c8d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538d8c8d8cc5820eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97d8c8d8c982d8c8d8ca03d8c882d8c8d818d90140584024e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91becd8c8d8c982d8c8d8ca04d8c8d818781d4d61646520627920746865205374617465206f66204578616d706c652e
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -1564,20 +1564,20 @@ d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d6
                   )
                ),
                200(   ; envelope
+                  204(   ; digest
+                     h'276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958'
+                  )
+               ),
+               200(   ; envelope
                   201(   ; assertion
                      [
                         200(   ; envelope
-                           202(2)   ; known-value
+                           202(1)   ; known-value
                         ),
                         200(   ; envelope
                            24("credential")   ; leaf
                         )
                      ]
-                  )
-               ),
-               200(   ; envelope
-                  204(   ; digest
-                     h'276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958'
                   )
                ),
                200(   ; envelope
@@ -1609,12 +1609,7 @@ d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d6
                               ),
                               200(   ; envelope
                                  204(   ; digest
-                                    h'2cac05b688adcfc6f7fcac6606d40e0f944370e99451935c26f191f01c517d80'
-                                 )
-                              ),
-                              200(   ; envelope
-                                 204(   ; digest
-                                    h'41b4f84760883daf437956753bf029150e2b9d597d4758b78875bc0a989a64d6'
+                                    h'43533878a096374c049536e17d915fbcaf604813a0bcd5b40e5f8d4a486c7cc8'
                                  )
                               ),
                               200(   ; envelope
@@ -1632,6 +1627,11 @@ d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d6
                               200(   ; envelope
                                  204(   ; digest
                                     h'7ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94'
+                                 )
+                              ),
+                              200(   ; envelope
+                                 204(   ; digest
+                                    h'8c939f43666b7f71375ba53d57eeec04d68a9dbbfe2bc6bd3c3652fd86c077f6'
                                  )
                               ),
                               200(   ; envelope
@@ -1781,7 +1781,7 @@ d8c882d8c8d8cb86d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d6
                      200(   ; envelope
                         24(   ; leaf
                            320(   ; signature
-                              h'd32ae27fcd9b38b26d42b64636aa98200866ef89241b0a1f4d0729aaa53bdecbeecdb81036cdcf748943636a1b5aa82ac95b71dc9681651ad08f3016fc3e0fba'
+                              h'24e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91bec'
                            )
                         )
                      ),
@@ -1822,19 +1822,19 @@ d8 c8                                    # tag(200)   ; envelope
                         5820             # bytes(32)
                            174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
                d8 c8                     # tag(200)   ; envelope
+                  d8 cc                  # tag(204)   ; digest
+                     5820                # bytes(32)
+                        276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958
+               d8 c8                     # tag(200)   ; envelope
                   d8 c9                  # tag(201)   ; assertion
                      82                  # array(2)
                         d8 c8            # tag(200)   ; envelope
                            d8 ca         # tag(202)   ; known-value
-                              02         # unsigned(2)
+                              01         # unsigned(1)
                         d8 c8            # tag(200)   ; envelope
                            d8 18         # tag(24)   ; leaf
                               6a         # text(10)
                                  63726564656e7469616c # "credential"
-               d8 c8                     # tag(200)   ; envelope
-                  d8 cc                  # tag(204)   ; digest
-                     5820                # bytes(32)
-                        276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958
                d8 c8                     # tag(200)   ; envelope
                   d8 c9                  # tag(201)   ; assertion
                      82                  # array(2)
@@ -1862,11 +1862,7 @@ d8 c8                                    # tag(200)   ; envelope
                               d8 c8      # tag(200)   ; envelope
                                  d8 cc   # tag(204)   ; digest
                                     5820 # bytes(32)
-                                       2cac05b688adcfc6f7fcac6606d40e0f944370e99451935c26f191f01c517d80
-                              d8 c8      # tag(200)   ; envelope
-                                 d8 cc   # tag(204)   ; digest
-                                    5820 # bytes(32)
-                                       41b4f84760883daf437956753bf029150e2b9d597d4758b78875bc0a989a64d6
+                                       43533878a096374c049536e17d915fbcaf604813a0bcd5b40e5f8d4a486c7cc8
                               d8 c8      # tag(200)   ; envelope
                                  d8 c9   # tag(201)   ; assertion
                                     82   # array(2)
@@ -1882,6 +1878,10 @@ d8 c8                                    # tag(200)   ; envelope
                                  d8 cc   # tag(204)   ; digest
                                     5820 # bytes(32)
                                        7ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 cc   # tag(204)   ; digest
+                                    5820 # bytes(32)
+                                       8c939f43666b7f71375ba53d57eeec04d68a9dbbfe2bc6bd3c3652fd86c077f6
                               d8 c8      # tag(200)   ; envelope
                                  d8 c9   # tag(201)   ; assertion
                                     82   # array(2)
@@ -1986,7 +1986,7 @@ d8 c8                                    # tag(200)   ; envelope
                         d8 18            # tag(24)   ; leaf
                            d9 0140       # tag(320)   ; signature
                               5840       # bytes(64)
-                                 d32ae27fcd9b38b26d42b64636aa98200866ef89241b0a1f4d0729aaa53bdecbeecdb81036cdcf748943636a1b5aa82ac95b71dc9681651ad08f3016fc3e0fba
+                                 24e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91bec
                      d8 c8               # tag(200)   ; envelope
                         d8 c9            # tag(201)   ; assertion
                            82            # array(2)

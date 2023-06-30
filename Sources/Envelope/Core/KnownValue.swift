@@ -67,3 +67,9 @@ extension KnownValue: CBORTaggedCodable {
         self = KnownValue(rawValue)
     }
 }
+
+extension KnownValue: EnvelopeEncodable {
+    public var envelope: Envelope {
+        Envelope(self)
+    }
+}
