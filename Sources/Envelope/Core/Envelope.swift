@@ -67,7 +67,7 @@ extension Envelope: CustomStringConvertible {
 public extension Envelope {
     /// Create an envelope with the given subject.
     ///
-    /// If the subject is another ``Envelope``, a wrapped envelope is created.
+    /// If the subject is another ``Envelope``, it is a programmer error. Create wrapped envelopes with `.wrap()`
     /// If the subject is a ``KnownValue``, a known value envelope is created.
     /// If the subject is an ``Assertion``, an assertion envelope is created.
     /// If the subject is an `EncryptedMessage`, with a properly declared `Digest`, then an encrypted Envelope is created.
@@ -86,7 +86,7 @@ public extension Envelope {
     /// - Parameter subject: The envelope's subject.
     init(_ subject: Any) {
         if let envelope = subject as? Envelope {
-            self.init(wrapped: envelope)
+            preconditionFailure("Create wrapped envelopes with the .wrap() function.")
         } else if let knownValue = subject as? KnownValue {
             self.init(knownValue: knownValue)
         } else if let assertion = subject as? Assertion {

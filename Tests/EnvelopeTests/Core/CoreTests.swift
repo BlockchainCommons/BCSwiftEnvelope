@@ -13,8 +13,8 @@ let globalFormatContext = FormatContext(
 class CoreTests: XCTestCase {
     static let basicEnvelope = Envelope("Hello.")
     static let knownValueEnvelope = Envelope(.note)
-    static let wrappedEnvelope = Envelope(basicEnvelope)
-    static let doubleWrappedEnvelope = Envelope(wrappedEnvelope)
+    static let wrappedEnvelope = basicEnvelope.wrap()
+    static let doubleWrappedEnvelope = wrappedEnvelope.wrap()
     static let assertionEnvelope = Envelope("knows", "Bob")
 
     static let singleAssertionEnvelope = Envelope("Alice")

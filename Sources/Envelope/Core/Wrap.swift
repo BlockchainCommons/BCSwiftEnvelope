@@ -7,7 +7,7 @@ extension EnvelopeError {
 public extension Envelope {
     /// Return a new envelope which wraps the current envelope.
     func wrap() -> Envelope {
-        Envelope(self)
+        Envelope(wrapped: self)
     }
 
     /// Unwraps and returns the inner envelope.

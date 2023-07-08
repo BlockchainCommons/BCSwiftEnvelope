@@ -253,7 +253,7 @@ func treeToEnvelope(_ root: EnvelopeTreeNode) throws -> Envelope {
             throw EnvelopeError.invalidDiff
         }
         let subject = try treeToEnvelope(children.removeFirst())
-        result = Envelope(subject)
+        result = subject.wrap()
     case .knownValue(let knownValue):
         result = Envelope(knownValue)
     case .assertion:

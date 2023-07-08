@@ -56,7 +56,7 @@ public extension Envelope {
         guard let value else {
             return nil
         }
-        return Envelope(param.cbor, Envelope(value))
+        return Envelope(param.cbor, value.envelope)
     }
     
     /// Creates a new envelope containing a `❰parameter❱: value` assertion.
@@ -216,6 +216,13 @@ public extension Envelope {
     func optionalObject<T>(_ type: T.Type, forParameter parameter: Parameter) throws -> T? where T: EnvelopeDecodable {
         try optionalObject(type, forPredicate: parameter)
     }
+    
+    /// Returns the argument for the given parameter, or `nil` if none.
+    ///
+    /// - Throws: Throws an exception if there is not exactly zero or one matching `parameter`s.
+    func optionalObject(forParameter parameter: Parameter) throws -> Envelope? {
+        try optionalObject(forPredicate: parameter)
+    }
 
     /// Returns the argument for the given parameter.
     ///
@@ -231,6 +238,13 @@ public extension Envelope {
     /// or if the parameter value is not the correct type.
     func object<T>(_ type: T.Type, forParameter parameter: Parameter) throws -> T where T: EnvelopeDecodable {
         try object(type, forPredicate: parameter)
+    }
+    
+    /// Returns the argument for the given parameter.
+    ///
+    /// - Throws: Throws an exception if there is not exactly one matching `parameter`.
+    func object(forParameter parameter: Parameter) throws -> Envelope {
+        try object(forPredicate: parameter)
     }
 
     /// Returns an array of arguments for the given parameter.
@@ -317,7 +331,7 @@ public extension Envelope {
     /// Returns the error value.
     ///
     /// - Throws: Throws an exception if there is no `error` predicate.
-    func rrror<T: EnvelopeDecodable>(_ type: T.Type) throws -> T {
+    func error<T: EnvelopeDecodable>(_ type: T.Type) throws -> T {
         try object(T.self, forPredicate: .error)
     }
 }
