@@ -85,7 +85,7 @@ public extension Envelope {
     /// ```
     /// - Parameter subject: The envelope's subject.
     init(_ subject: Any) {
-        if let envelope = subject as? Envelope {
+        if subject is Envelope {
             preconditionFailure("Create wrapped envelopes with the .wrap() function.")
         } else if let knownValue = subject as? KnownValue {
             self.init(knownValue: knownValue)
@@ -97,8 +97,8 @@ public extension Envelope {
             try! self.init(compressed: compressed)
         } else if let cborItem = subject as? CBOREncodable {
             self.init(leaf: cborItem.cbor)
-        } else if let envelopeItem = subject as? EnvelopeEncodable {
-            self = envelopeItem.envelope
+        } else if let envelopeItem = subject as? Envelope {
+            self = envelopeItem
         } else {
             preconditionFailure()
         }

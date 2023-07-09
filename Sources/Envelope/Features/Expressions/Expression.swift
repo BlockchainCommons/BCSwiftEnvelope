@@ -31,7 +31,7 @@ public extension Envelope {
     ///
     /// - Returns: The new envelope. If `value` is `nil`, returns the original envelope.
     func addParameter(_ param: Parameter, value: EnvelopeEncodable?) -> Envelope {
-        try! addAssertion(.parameter(param, value: value))
+        try! addAssertion(.parameter(param, value: value?.envelope))
     }
     
     /// Adds a `❰parameter❱: value` assertion to the envelope.
@@ -42,7 +42,7 @@ public extension Envelope {
     ///
     /// - Returns: The new envelope. If `value` is `nil`, returns the original envelope.
     func addParameter(_ name: String, value: EnvelopeEncodable?) -> Envelope {
-        try! addAssertion(.parameter(name, value: value))
+        try! addAssertion(.parameter(name, value: value?.envelope))
     }
     
     /// Creates a new envelope containing a `❰parameter❱: value` assertion.
@@ -70,7 +70,7 @@ public extension Envelope {
         guard let value else {
             return nil
         }
-        return parameter(Parameter(name), value: value)
+        return parameter(Parameter(name), value: value.envelope)
     }
 }
 
@@ -78,10 +78,11 @@ public extension Envelope {
 
 public extension Envelope {
     /// Creates an envelope with a `request(CID)` subject and a `body: «function»` assertion.
-    init(request id: CID, body: Envelope) {
-        precondition((try? body.extractSubject(Function.self)) != nil)
+    init(request id: CID, body: EnvelopeEncodable) {
+        let bodyEnvelope = body.envelope
+        precondition((try? bodyEnvelope.extractSubject(Function.self)) != nil)
         self = Envelope(CBOR.tagged(.request, id.cbor))
-            .addAssertion(.body, body)
+            .addAssertion(.body, bodyEnvelope)
     }
 }
 
@@ -128,16 +129,22 @@ public extension Envelope {
 
 public extension Envelope {
     /// Creates an envelope with a `response(CID)` subject and a `result: value` assertion.
-    init(response id: CID, result: EnvelopeEncodable? = KnownValue.ok) {
+    init(response id: CID, result: EnvelopeEncodable? = nil) {
+        let effectiveResult: Envelope
+        if let result {
+            effectiveResult = result.envelope
+        } else {
+            effectiveResult = KnownValue.ok.envelope
+        }
         self = Envelope(CBOR.tagged(.response, id.taggedCBOR))
-            .addAssertion(.result, result)
+            .addAssertion(.result, effectiveResult)
     }
     
     /// Creates an envelope with a `CID` subject and a `result: value` assertion for each provided result.
     init(response id: CID, results: [EnvelopeEncodable]) {
         var e = Envelope(CBOR.tagged(.response, id.taggedCBOR))
         for result in results {
-            e = e.addAssertion(.result, result)
+            e = e.addAssertion(.result, result.envelope)
         }
         self = e
     }
@@ -145,7 +152,7 @@ public extension Envelope {
     /// Creates an envelope with a `CID` subject and a `error: value` assertion.
     init(response id: CID, error: EnvelopeEncodable) {
         self = Envelope(CBOR.tagged(.response, id.taggedCBOR))
-            .addAssertion(.error, error)
+            .addAssertion(.error, error.envelope)
     }
     
     /// Creates an envelope with an `unknown` subject and a `error: value` assertion.
@@ -157,7 +164,7 @@ public extension Envelope {
     /// it impossible to extract the request ID.
     init(error: EnvelopeEncodable?) {
         self = Envelope(CBOR.tagged(.response, KnownValue.unknown.cbor))
-            .addAssertion(.error, error)
+            .addAssertion(.error, error?.envelope)
     }
 }
 

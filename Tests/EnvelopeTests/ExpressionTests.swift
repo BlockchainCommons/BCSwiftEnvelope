@@ -49,7 +49,7 @@ class ExpressionTests: XCTestCase {
     }
     
     func testOKResponse() throws {
-        let response = Envelope(response: cid, result: KnownValue.ok)
+        let response = Envelope(response: cid)
         XCTAssertEqual(response.format(context: globalFormatContext), """
         response(CID(be74063a)) [
             result: ok
