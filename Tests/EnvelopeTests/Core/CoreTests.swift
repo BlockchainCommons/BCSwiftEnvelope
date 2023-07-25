@@ -236,11 +236,14 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
-           203(   ; wrapped-envelope
-              24("Hello.")   ; leaf
-           )
+           [
+              200(   ; envelope
+                 24("Hello.")   ; leaf
+              )
+           ]
         )
-        """)
+        """
+        )
         
         XCTAssertEqual(e.digest†, "Digest(172a5e51431062e7b13525cbceb8ad8475977444cf28423e21c0d1dcbdfcaf47)")
         
@@ -256,15 +259,29 @@ class CoreTests: XCTestCase {
         let e = try Self.doubleWrappedEnvelope.checkEncoding()
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
+//        """
+//        200(   ; envelope
+//           203(   ; wrapped-envelope
+//              203(   ; wrapped-envelope
+//                 24("Hello.")   ; leaf
+//              )
+//           )
+//        )
+//        """
         """
         200(   ; envelope
-           203(   ; wrapped-envelope
-              203(   ; wrapped-envelope
-                 24("Hello.")   ; leaf
+           [
+              200(   ; envelope
+                 [
+                    200(   ; envelope
+                       24("Hello.")   ; leaf
+                    )
+                 ]
               )
-           )
+           ]
         )
-        """)
+        """
+        )
         
         XCTAssertEqual(e.digest†, "Digest(8b14f3bcd7c05aac8f2162e7047d7ef5d5eab7d82ee3f9dc4846c70bae4d200b)")
         

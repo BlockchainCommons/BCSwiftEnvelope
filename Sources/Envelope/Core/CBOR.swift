@@ -28,7 +28,7 @@ extension Envelope: CBORCodable {
         case .leaf(let cbor, _):
             return CBOR.tagged(.leaf, cbor)
         case .wrapped(let envelope, _):
-            return CBOR.tagged(.wrappedEnvelope, envelope.untaggedCBOR)
+            return CBOR.array([envelope.taggedCBOR])
         case .knownValue(let knownValue, _):
             return knownValue.taggedCBOR
         case .assertion(let assertion):
@@ -51,8 +51,6 @@ extension Envelope: CBORCodable {
                 result = Envelope(leaf: item)
             case .knownValue:
                 result = Envelope(knownValue: try KnownValue(untaggedCBOR: item))
-            case .wrappedEnvelope:
-                result = Envelope(wrapped: try Self(untaggedCBOR: item))
             case .assertion:
                 result = Envelope(assertion: try Assertion(untaggedCBOR: item))
             case .envelope:
@@ -63,9 +61,6 @@ extension Envelope: CBORCodable {
             case .compressed:
                 let compressed = try Compressed(untaggedCBOR: item)
                 result = try Envelope(compressed: compressed)
-//            case .digest:
-//                let digest = try Digest(untaggedCBOR: item)
-//                result = Envelope(elided: digest)
             default:
                 throw EnvelopeError.invalidFormat
             }
@@ -75,12 +70,16 @@ extension Envelope: CBORCodable {
             }
             result = Envelope(elided: digest)
         case CBOR.array(let elements):
-            guard elements.count >= 2 else {
-                throw CBORError.invalidFormat
+            if elements.count == 1 {
+                result = Envelope(wrapped: try Self(taggedCBOR: elements[0]))
+            } else {
+                guard elements.count >= 2 else {
+                    throw CBORError.invalidFormat
+                }
+                let subject = try Envelope(taggedCBOR: elements[0])
+                let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0) }
+                result = try Envelope(subject: subject, assertions: assertions)
             }
-            let subject = try Envelope(taggedCBOR: elements[0])
-            let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0) }
-            result = try Envelope(subject: subject, assertions: assertions)
         default:
             throw EnvelopeError.invalidFormat
         }
