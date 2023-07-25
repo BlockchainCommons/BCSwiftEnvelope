@@ -28,9 +28,7 @@ class ElisionTests: XCTestCase {
         XCTAssertEqual(e2.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
-           204(   ; digest
-              h'8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
-           )
+           h'8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
         )
         """
         )
