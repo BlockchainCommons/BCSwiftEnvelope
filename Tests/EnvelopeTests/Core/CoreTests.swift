@@ -231,28 +231,26 @@ class CoreTests: XCTestCase {
     }
     
     func testWrapped() throws {
-        let e = try Self.wrappedEnvelope.checkEncoding()
-        
-        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
+        XCTAssertEqual(Self.wrappedEnvelope.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
-           [
-              200(   ; envelope
-                 24("Hello.")   ; leaf
-              )
-           ]
+           200(   ; envelope
+              24("Hello.")   ; leaf
+           )
         )
         """
         )
         
-        XCTAssertEqual(e.digest†, "Digest(172a5e51431062e7b13525cbceb8ad8475977444cf28423e21c0d1dcbdfcaf47)")
+        XCTAssertEqual(Self.wrappedEnvelope.digest†, "Digest(172a5e51431062e7b13525cbceb8ad8475977444cf28423e21c0d1dcbdfcaf47)")
         
-        XCTAssertEqual(e.format(),
+        XCTAssertEqual(Self.wrappedEnvelope.format(),
         """
         {
             "Hello."
         }
         """)
+        
+        try Self.wrappedEnvelope.checkEncoding()
     }
     
     func testDoubleWrapped() throws {
@@ -270,15 +268,11 @@ class CoreTests: XCTestCase {
 //        """
         """
         200(   ; envelope
-           [
+           200(   ; envelope
               200(   ; envelope
-                 [
-                    200(   ; envelope
-                       24("Hello.")   ; leaf
-                    )
-                 ]
+                 24("Hello.")   ; leaf
               )
-           ]
+           )
         )
         """
         )

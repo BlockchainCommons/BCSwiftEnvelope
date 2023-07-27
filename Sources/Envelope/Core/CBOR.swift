@@ -28,7 +28,7 @@ extension Envelope: CBORCodable {
         case .leaf(let cbor, _):
             return CBOR.tagged(.leaf, cbor)
         case .wrapped(let envelope, _):
-            return CBOR.array([envelope.taggedCBOR])
+            return envelope.taggedCBOR
         case .knownValue(let knownValue, _):
             return knownValue.taggedCBOR
         case .assertion(let assertion):
@@ -54,7 +54,7 @@ extension Envelope: CBORCodable {
             case .assertion:
                 result = Envelope(assertion: try Assertion(untaggedCBOR: item))
             case .envelope:
-                result = try Envelope(untaggedCBOR: item)
+                result = Envelope(wrapped: try Self(taggedCBOR: untaggedCBOR))
             case .encrypted:
                 let message = try EncryptedMessage(untaggedCBOR: item)
                 result = try Envelope(encryptedMessage: message)
@@ -70,16 +70,12 @@ extension Envelope: CBORCodable {
             }
             result = Envelope(elided: digest)
         case CBOR.array(let elements):
-            if elements.count == 1 {
-                result = Envelope(wrapped: try Self(taggedCBOR: elements[0]))
-            } else {
-                guard elements.count >= 2 else {
-                    throw CBORError.invalidFormat
-                }
-                let subject = try Envelope(taggedCBOR: elements[0])
-                let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0) }
-                result = try Envelope(subject: subject, assertions: assertions)
+            guard elements.count >= 2 else {
+                throw CBORError.invalidFormat
             }
+            let subject = try Envelope(taggedCBOR: elements[0])
+            let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0) }
+            result = try Envelope(subject: subject, assertions: assertions)
         default:
             throw EnvelopeError.invalidFormat
         }

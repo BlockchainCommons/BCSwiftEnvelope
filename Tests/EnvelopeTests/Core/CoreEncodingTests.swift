@@ -34,9 +34,9 @@ class CoreEncodingTests: XCTestCase {
     }
     
     func test3() throws {
-        let e1 = Envelope("A", "B")
-        let e2 = Envelope("C", "D")
-        let e3 = Envelope("E", "F")
+        let e1 = try Envelope("A", "B").checkEncoding()
+        let e2 = try Envelope("C", "D").checkEncoding()
+        let e3 = try Envelope("E", "F").checkEncoding()
         
         let e4 = try e2.addAssertion(e3)
         XCTAssertEqual(e4.format(),
@@ -81,6 +81,8 @@ class CoreEncodingTests: XCTestCase {
         )
         """)
         
+        try e4.checkEncoding()
+
         let e5 = try e1.addAssertion(e4)
         
         XCTAssertEqual(e5.format(),

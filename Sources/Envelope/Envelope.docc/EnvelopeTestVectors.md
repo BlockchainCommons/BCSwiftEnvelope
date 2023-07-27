@@ -277,13 +277,13 @@ ENCRYPTED
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/tpsnlrgaashhpmtdnshpvssocmgsgtkshfhdwfjzcpzohtweftrtgdimmtlygscxtifnsasaqzrknddtmkgwwnhddktpsfhdcxlksojzuyktbykovsecbygebsldeninbdfptkwebtwzdpadglwetbgltnwdmwhlhkfzzeotlu
+ur:envelope/tpsnlrgraslkbwlfnelbvysgghkpaegsgtkshfhdwfjzcpzohtweftrtgdnebbfphkrkeskksswmiotkytasgrsauthddktpsfhdcxlksojzuyktbykovsecbygebsldeninbdfptkwebtwzdpadglwetbgltnwdmwhlhkehdmfrck
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c8d8cd8449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac0506a96814c20d03cc2c2b4bb9b29984ff15824d8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59
+d8c8d8cd844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac0509f144159bb3979c4eb67cff9094bc2dd5824d8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -292,9 +292,9 @@ d8c8d8cd8449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac0506a96814c20d03cc2c2b4bb
 200(   ; envelope
    205(   ; encrypted
       [
-         h'095cadd29c5be8c916',
+         h'098c13829f7fe1ca547500',
          h'4d785658f36c22fb5aed3ac0',
-         h'6a96814c20d03cc2c2b4bb9b29984ff1',
+         h'9f144159bb3979c4eb67cff9094bc2dd',
          h'd8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
       ]
    )
@@ -307,12 +307,12 @@ d8c8d8cd8449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac0506a96814c20d03cc2c2b4bb
 d8 c8                                    # tag(200)   ; envelope
    d8 cd                                 # tag(205)   ; encrypted
       84                                 # array(4)
-         49                              # bytes(9)
-            095cadd29c5be8c916
+         4b                              # bytes(11)
+            098c13829f7fe1ca547500
          4c                              # bytes(12)
             4d785658f36c22fb5aed3ac0
          50                              # bytes(16)
-            6a96814c20d03cc2c2b4bb9b29984ff1
+            9f144159bb3979c4eb67cff9094bc2dd
          5824                            # bytes(36)
             d8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59
 ```
@@ -334,13 +334,13 @@ ENCRYPTED
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/tpsnlrhdidgdnsaxcsclzmhhrnhygmgrmomyjooyihfywprywktpeykgdndpisrlssneestnfpvlmetlcpaebkwttkihherfmkiedimhlbwmwktopswklemutbsefngrrfptzslatkhhlamhnbamplmwjlhnvolostveksvofpluttlftlktvdeyfmrtluflhhbazmbszmehfmgsgtkshfhdwfjzcpzohtweftrtgdwdotgronkecytkmnrhclbnidutkkpmwthddktpsfhdcxtbsptaltmygaaxdtonfmuebebbksesyldmcwemwkplkpsegomnvsvybyfgkgkbsahypywfrk
+ur:envelope/tpsnlrhdiaaslkbwgmkgwsgskbcxkeiyndmyjkvtmughztpsrslfcpjeesveqdostyheyaaoaezoldvdghbzrdvygrgdcypezoyafndscptpaxetotestlnsplqzfyhegumweotbwkfzayjlyapaktyadkvyaaghpssaeyinqzfnlngyuylrbydtrottkkdkbgtlgudpbtgsecotgsgtkshfhdwfjzcpzohtweftrtgdkkhpdivystoncapmztadhhecnyrktidkhddktpsfhdcxtbsptaltmygaaxdtonfmuebebbksesyldmcwemwkplkpsegomnvsvybyfgkgkbsarodylbft
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c8d8cd845862509c031821ff5cbe5e524b928f70a16544ecbdf4d8327b2b2d68b7c49f39da41e391d522000af0cf655fbc986427907febf4ceacf48a93d6c13c4bbca9fa80cf5c8090a006ae946f60e288c7e478e2418bd182d577e7323ec08b475c0eff0fff313e4c4d785658f36c22fb5aed3ac050eaa34ba57c1acf8eb9210c62dd79adf05824d8cc5820d6c8d9878f490329a53ede10147839f72e1b37f4ae75c1558ee8e111467b7ec2
+d8c8d8cd845863098c13527bef4c7e207c669b8f73e09354fcacbf82226b39e4b3a7d45ff80200fb89e75415bae14b501aaffbf83c2622d80338a339d59caeb4445f539433d6f440086ff8b177f824e10454acc23269b43c8651db841129b8d1792412d5532d0d4c35a34c4d785658f36c22fb5aed3ac050795b27e1c7a51dadfc015c359abbd0245824d8cc5820d6c8d9878f490329a53ede10147839f72e1b37f4ae75c1558ee8e111467b7ec2
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -349,9 +349,9 @@ d8c8d8cd845862509c031821ff5cbe5e524b928f70a16544ecbdf4d8327b2b2d68b7c49f39da41e3
 200(   ; envelope
    205(   ; encrypted
       [
-         h'509c031821ff5cbe5e524b928f70a16544ecbdf4d8327b2b2d68b7c49f39da41e391d522000af0cf655fbc986427907febf4ceacf48a93d6c13c4bbca9fa80cf5c8090a006ae946f60e288c7e478e2418bd182d577e7323ec08b475c0eff0fff313e',
+         h'098c13527bef4c7e207c669b8f73e09354fcacbf82226b39e4b3a7d45ff80200fb89e75415bae14b501aaffbf83c2622d80338a339d59caeb4445f539433d6f440086ff8b177f824e10454acc23269b43c8651db841129b8d1792412d5532d0d4c35a3',
          h'4d785658f36c22fb5aed3ac0',
-         h'eaa34ba57c1acf8eb9210c62dd79adf0',
+         h'795b27e1c7a51dadfc015c359abbd024',
          h'd8cc5820d6c8d9878f490329a53ede10147839f72e1b37f4ae75c1558ee8e111467b7ec2'
       ]
    )
@@ -364,12 +364,12 @@ d8c8d8cd845862509c031821ff5cbe5e524b928f70a16544ecbdf4d8327b2b2d68b7c49f39da41e3
 d8 c8                                    # tag(200)   ; envelope
    d8 cd                                 # tag(205)   ; encrypted
       84                                 # array(4)
-         5862                            # bytes(98)
-            509c031821ff5cbe5e524b928f70a16544ecbdf4d8327b2b2d68b7c49f39da41e391d522000af0cf655fbc986427907febf4ceacf48a93d6c13c4bbca9fa80cf5c8090a006ae946f60e288c7e478e2418bd182d577e7323ec08b475c0eff0fff313e
+         5863                            # bytes(99)
+            098c13527bef4c7e207c669b8f73e09354fcacbf82226b39e4b3a7d45ff80200fb89e75415bae14b501aaffbf83c2622d80338a339d59caeb4445f539433d6f440086ff8b177f824e10454acc23269b43c8651db841129b8d1792412d5532d0d4c35a3
          4c                              # bytes(12)
             4d785658f36c22fb5aed3ac0
          50                              # bytes(16)
-            eaa34ba57c1acf8eb9210c62dd79adf0
+            795b27e1c7a51dadfc015c359abbd024
          5824                            # bytes(36)
             d8cc5820d6c8d9878f490329a53ede10147839f72e1b37f4ae75c1558ee8e111467b7ec2
 ```
@@ -393,13 +393,13 @@ ENCRYPTED [
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/lftpsptpsnlrgaashhpmtdnshpvssocmgsgtkshfhdwfjzcpzohtweftrtgdimmtlygscxtifnsasaqzrknddtmkgwwnhddktpsfhdcxlksojzuyktbykovsecbygebsldeninbdfptkwebtwzdpadglwetbgltnwdmwhlhktpsptpsolftpsptpsgaxtpsptpcstaadfzhdfzjpaabyoypfeeadfyhgeepdqdahhdjensimihpdylyalayklgnlkogrlftywswfkglruojepruemdbbwzdmfeiadtoehgvtrlieimnljljywzvlbyjpfnvdgrinndvawelawtcljo
+ur:envelope/lftpsptpsnlrgraslkbwlfnelbvysgghkpaegsgtkshfhdwfjzcpzohtweftrtgdnebbfphkrkeskksswmiotkytasgrsauthddktpsfhdcxlksojzuyktbykovsecbygebsldeninbdfptkwebtwzdpadglwetbgltnwdmwhlhktpsptpsolftpsptpsgaxtpsptpcstaadfzhdfzjpaabyoypfeeadfyhgeepdqdahhdjensimihpdylyalayklgnlkogrlftywswfkglruojepruemdbbwzdmfeiadtoehgvtrlieimnljljywzvlbyjpfnvdgrinndvaweflwpsfkk
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c882d8c8d8cd8449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac0506a96814c20d03cc2c2b4bb9b29984ff15824d8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59d8c8d8c982d8c8d8ca03d8c8d818d901405840720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed
+d8c882d8c8d8cd844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac0509f144159bb3979c4eb67cff9094bc2dd5824d8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59d8c8d8c982d8c8d8ca03d8c8d818d901405840720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -410,9 +410,9 @@ d8c882d8c8d8cd8449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac0506a96814c20d03cc2
       200(   ; envelope
          205(   ; encrypted
             [
-               h'095cadd29c5be8c916',
+               h'098c13829f7fe1ca547500',
                h'4d785658f36c22fb5aed3ac0',
-               h'6a96814c20d03cc2c2b4bb9b29984ff1',
+               h'9f144159bb3979c4eb67cff9094bc2dd',
                h'd8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
             ]
          )
@@ -445,12 +445,12 @@ d8 c8                                    # tag(200)   ; envelope
       d8 c8                              # tag(200)   ; envelope
          d8 cd                           # tag(205)   ; encrypted
             84                           # array(4)
-               49                        # bytes(9)
-                  095cadd29c5be8c916
+               4b                        # bytes(11)
+                  098c13829f7fe1ca547500
                4c                        # bytes(12)
                   4d785658f36c22fb5aed3ac0
                50                        # bytes(16)
-                  6a96814c20d03cc2c2b4bb9b29984ff1
+                  9f144159bb3979c4eb67cff9094bc2dd
                5824                      # bytes(36)
                   d8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59
       d8 c8                              # tag(200)   ; envelope
@@ -486,13 +486,13 @@ ENCRYPTED [
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/lstpsptpsnlrgaashhpmtdnshpvssocmgsgtkshfhdwfjzcpzohtweftrtgdimmtlygscxtifnsasaqzrknddtmkgwwnhddktpsfhdcxlksojzuyktbykovsecbygebsldeninbdfptkwebtwzdpadglwetbgltnwdmwhlhktpsptpsolftpsptpsgahtpsptpcstaadfhlftpsnlshddatyoxesuyttvlolfyrtpslthswpdasazoaedtqzlghfdlasgsfsfdbwfysnaasrtooxahaxylmugsgtkshfhdwfjzcpzohtweftrtgdntspiatntnglwywedihtbbhfreplpfvttaaddmhdcxwfvllybtethybasnvtfemerfrftscaoytymskbdncewyrnhlwtkorteyyaoltdcttpsptpsolftpsptpsgahtpsptpcstaadfhlftpsnlshddadenbspdidkrhbzbysaaycwgujprhcthhjtgrcmolgrjpdepmesylwllrpfdszosggetadwfejzgsgtkshfhdwfjzcpzohtweftrtgdaackbaaotncegsknprtelgehlouyttcstaaddmhdcxwfvllybtethybasnvtfemerfrftscaoytymskbdncewyrnhlwtkorteyyaoltdctgywpztce
+ur:envelope/lstpsptpsnlrgraslkbwlfnelbvysgghkpaegsgtkshfhdwfjzcpzohtweftrtgdnebbfphkrkeskksswmiotkytasgrsauthddktpsfhdcxlksojzuyktbykovsecbygebsldeninbdfptkwebtwzdpadglwetbgltnwdmwhlhktpsptpsolftpsptpsgahtpsptpcstaadfhlftpsnlshddatyoxesuyttvlolfyrtpslthswpdasazoaedtqzlghfdlasgsfsfdbwfysnaasrtooxahaxylmugsgtkshfhdwfjzcpzohtweftrtgdntspiatntnglwywedihtbbhfreplpfvttaaddmhdcxwfvllybtethybasnvtfemerfrftscaoytymskbdncewyrnhlwtkorteyyaoltdcttpsptpsolftpsptpsgahtpsptpcstaadfhlftpsnlshddadenbspdidkrhbzbysaaycwgujprhcthhjtgrcmolgrjpdepmesylwllrpfdszosggetadwfejzgsgtkshfhdwfjzcpzohtweftrtgdaackbaaotncegsknprtelgehlouyttcstaaddmhdcxwfvllybtethybasnvtfemerfrftscaoytymskbdncewyrnhlwtkorteyyaoltdcthhvyveih
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c883d8c8d8cd8449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac0506a96814c20d03cc2c2b4bb9b29984ff15824d8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59d8c8d8c982d8c8d8ca05d8c8d818d9013f82d8cd835825d4a439dbd1e3a644c0ac8761ec25c2fb0029b48d562f094c3d481344cd04c3cea40503f7934c4d785658f36c22fb5aed3ac0509dc863dada4eeeed275a1456b5aeb0e0d9012e5820f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21fd8c8d8c982d8c8d8ca05d8c8d818d9013f82d8cd83582528a0c82724b91511c2081b5372b91f5c6e4b16a64b7228ad39f7e984b026fbca4ad92c456c4c4d785658f36c22fb5aed3ac050041e0e02da1c4c7ab2d38d3188dbd118d9012e5820f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f
+d8c883d8c8d8cd844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac0509f144159bb3979c4eb67cff9094bc2dd5824d8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59d8c8d8c982d8c8d8ca05d8c8d818d9013f82d8cd835825d4a439dbd1e3a644c0ac8761ec25c2fb0029b48d562f094c3d481344cd04c3cea40503f7934c4d785658f36c22fb5aed3ac0509dc863dada4eeeed275a1456b5aeb0e0d9012e5820f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21fd8c8d8c982d8c8d8ca05d8c8d818d9013f82d8cd83582528a0c82724b91511c2081b5372b91f5c6e4b16a64b7228ad39f7e984b026fbca4ad92c456c4c4d785658f36c22fb5aed3ac050041e0e02da1c4c7ab2d38d3188dbd118d9012e5820f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -503,9 +503,9 @@ d8c883d8c8d8cd8449095cadd29c5be8c9164c4d785658f36c22fb5aed3ac0506a96814c20d03cc2
       200(   ; envelope
          205(   ; encrypted
             [
-               h'095cadd29c5be8c916',
+               h'098c13829f7fe1ca547500',
                h'4d785658f36c22fb5aed3ac0',
-               h'6a96814c20d03cc2c2b4bb9b29984ff1',
+               h'9f144159bb3979c4eb67cff9094bc2dd',
                h'd8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
             ]
          )
@@ -576,12 +576,12 @@ d8 c8                                    # tag(200)   ; envelope
       d8 c8                              # tag(200)   ; envelope
          d8 cd                           # tag(205)   ; encrypted
             84                           # array(4)
-               49                        # bytes(9)
-                  095cadd29c5be8c916
+               4b                        # bytes(11)
+                  098c13829f7fe1ca547500
                4c                        # bytes(12)
                   4d785658f36c22fb5aed3ac0
                50                        # bytes(16)
-                  6a96814c20d03cc2c2b4bb9b29984ff1
+                  9f144159bb3979c4eb67cff9094bc2dd
                5824                      # bytes(36)
                   d8cc58208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59
       d8 c8                              # tag(200)   ; envelope
@@ -867,13 +867,13 @@ John Smith is issued a Permanent Resident Card signed by the State of Example
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/lftpsplytpsplntpsptpcstaadethdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosptpsptpsolftpsptpsgaatpsptpcsksfxghisihcxgujyhsjyihcxjliycxfekshsjnjojzihcxjpihiajliojtinknihjkcxgegwfdglcxgugtgaghfdcxhsjkcxhscxgdihjpjnhsjtihjtjycxgmihjkinieihjtjydmtpsptpsolftpsptpsgadtpsptpcsimiajpihieihjtjyinhsjztpsptpsolftpsptpsgbatpsplktpsptpcstaadethdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguotpsptpsolftpsptpcsimiyhsjninjzkkglhsjnihtpsptpcsihgugtgaghfdtpsptpsolftpsptpsgadtpsptpcsiygdihjpjkjljttpsptpsolftpsptpcsinioinkoihjtglhsjnihtpsptpcsiegegwfdgltpsptpsolftpsptpcsjzidinjpjyisfxjlkpjtjyjpkktpsplftpsptpcsididjktpsptpsolftpsptpsgaatpsptpcsjeghisihcxfwhsishsjnhsjktpsptpsolftpsptpsgadtpsptpcsjpgdihjpjnhsjtihjtjycxgmihjkinieihjtjytpsptpsolftpsptpcsihinjnhsioihtpsplstpsptpcstpsfhdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessatpsptpsolftpsptpsgaatpsptpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmtpsptpsolftpsptpsgastpsptpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesestpsptpsolftpsptpcsjejzjojpfxhsjyihiojljpkktpsptpcsiafxdyestpsptpsolftpsptpcsinidinjpjyisfyhsjyihtpsptpcssecyatskiolatpsptpsolftpsptpcsinjzjojpglkpjnidihjptpsptpcsjeesesesdpesesesdpesesestpsptpsolftpsptpcsjnjpihjkinieihjtjyguinjtiaihtpsptpcssecyhtgyiaaetpsptpsolftpsptpcsiajkihkstpsptpcsiegtfpgsfetpsptpsolftpsptpsgbttpsplstpsptpcstaadethdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvstpsptpsolftpsptpsgaatpsptpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihtpsptpsolftpsptpsgastpsptpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihettpsptpsolftpsptpcsimiehsjyihgajkjkkpihietpsptpcssecyidisltlatpsptpsolftpsptpsgaxtpsplftpsptpcstaadfzhdfzdkvykkmnkpgtdlssnddysagevshegrrdehvopscehdmebkrppecszeaekpjsvtbbcxwzrfuokkzmaaisryeewtaspyoxcnonremkjzfsmwsbrlcpnllggedafgtacwwptpsptpsolftpsptpsgaatpsptpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmptmtpmwf
+ur:envelope/lftpsptpsplntpsptpcstaadethdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosptpsptpsolftpsptpsgaatpsptpcsksfxghisihcxgujyhsjyihcxjliycxfekshsjnjojzihcxjpihiajliojtinknihjkcxgegwfdglcxgugtgaghfdcxhsjkcxhscxgdihjpjnhsjtihjtjycxgmihjkinieihjtjydmtpsptpsolftpsptpsgadtpsptpcsimiajpihieihjtjyinhsjztpsptpsolftpsptpsgbatpsplktpsptpcstaadethdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguotpsptpsolftpsptpcsimiyhsjninjzkkglhsjnihtpsptpcsihgugtgaghfdtpsptpsolftpsptpsgadtpsptpcsiygdihjpjkjljttpsptpsolftpsptpcsinioinkoihjtglhsjnihtpsptpcsiegegwfdgltpsptpsolftpsptpcsjzidinjpjyisfxjlkpjtjyjpkktpsplftpsptpcsididjktpsptpsolftpsptpsgaatpsptpcsjeghisihcxfwhsishsjnhsjktpsptpsolftpsptpsgadtpsptpcsjpgdihjpjnhsjtihjtjycxgmihjkinieihjtjytpsptpsolftpsptpcsihinjnhsioihtpsplstpsptpcstpsfhdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessatpsptpsolftpsptpsgaatpsptpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmtpsptpsolftpsptpsgastpsptpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesestpsptpsolftpsptpcsjejzjojpfxhsjyihiojljpkktpsptpcsiafxdyestpsptpsolftpsptpcsinidinjpjyisfyhsjyihtpsptpcssecyatskiolatpsptpsolftpsptpcsinjzjojpglkpjnidihjptpsptpcsjeesesesdpesesesdpesesestpsptpsolftpsptpcsjnjpihjkinieihjtjyguinjtiaihtpsptpcssecyhtgyiaaetpsptpsolftpsptpcsiajkihkstpsptpcsiegtfpgsfetpsptpsolftpsptpsgbttpsplstpsptpcstaadethdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvstpsptpsolftpsptpsgaatpsptpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihtpsptpsolftpsptpsgastpsptpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihettpsptpsolftpsptpcsimiehsjyihgajkjkkpihietpsptpcssecyidisltlatpsptpsolftpsptpsgaxtpsplftpsptpcstaadfzhdfzdkvykkmnkpgtdlssnddysagevshegrrdehvopscehdmebkrppecszeaekpjsvtbbcxwzrfuokkzmaaisryeewtaspyoxcnonremkjzfsmwsbrlcpnllggedafgtacwwptpsptpsolftpsptpsgaatpsptpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmaxiyioox
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c882d8c881d8c886d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8d8c8d8c982d8c8d8ca04d8c8d8187843546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742ed8c8d8c982d8c8d8ca01d8c8d8186a63726564656e7469616cd8c8d8c982d8c8d8ca0ed8c88cd8c8d818d90138582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadcd8c8d8c982d8c8d8186a66616d696c794e616d65d8c8d81865534d495448d8c8d8c982d8c8d8ca01d8c8d81866506572736f6ed8c8d8c982d8c8d81869676976656e4e616d65d8c8d818644a4f484ed8c8d8c982d8c8d8186c6269727468436f756e747279d8c882d8c8d818626273d8c8d8c982d8c8d8ca04d8c8d8186b54686520426168616d6173d8c8d8c982d8c8d8ca01d8c8d818725065726d616e656e74205265736964656e74d8c8d8c982d8c8d81865696d616765d8c883d8c8d818d8cc582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2d8c8d8c982d8c8d8ca04d8c8d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ed8c8d8c982d8c8d8ca09d8c8d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939d8c8d8c982d8c8d8186b6c707243617465676f7279d8c8d81863433039d8c8d8c982d8c8d81869626972746844617465d8c8d818c11a07c56780d8c8d8c982d8c8d818696c70724e756d626572d8c8d8186b3939392d3939392d393939d8c8d8c982d8c8d8186d7265736964656e7453696e6365d8c8d818c11a5a516300d8c8d8c982d8c8d81863736578d8c8d818644d414c45d8c8d8c982d8c8d8ca0dd8c883d8c8d818d90138582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8d8c8d8c982d8c8d8ca04d8c8d818781e49737375656420627920746865205374617465206f66204578616d706c65d8c8d8c982d8c8d8ca09d8c8d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538d8c8d8c982d8c8d8186a64617465497373756564d8c8d818c11a62688780d8c8d8c982d8c8d8ca03d8c882d8c8d818d90140584024e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91becd8c8d8c982d8c8d8ca04d8c8d818781d4d61646520627920746865205374617465206f66204578616d706c652e
+d8c882d8c8d8c886d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8d8c8d8c982d8c8d8ca04d8c8d8187843546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742ed8c8d8c982d8c8d8ca01d8c8d8186a63726564656e7469616cd8c8d8c982d8c8d8ca0ed8c88cd8c8d818d90138582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadcd8c8d8c982d8c8d8186a66616d696c794e616d65d8c8d81865534d495448d8c8d8c982d8c8d8ca01d8c8d81866506572736f6ed8c8d8c982d8c8d81869676976656e4e616d65d8c8d818644a4f484ed8c8d8c982d8c8d8186c6269727468436f756e747279d8c882d8c8d818626273d8c8d8c982d8c8d8ca04d8c8d8186b54686520426168616d6173d8c8d8c982d8c8d8ca01d8c8d818725065726d616e656e74205265736964656e74d8c8d8c982d8c8d81865696d616765d8c883d8c8d818d8cc582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2d8c8d8c982d8c8d8ca04d8c8d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ed8c8d8c982d8c8d8ca09d8c8d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939d8c8d8c982d8c8d8186b6c707243617465676f7279d8c8d81863433039d8c8d8c982d8c8d81869626972746844617465d8c8d818c11a07c56780d8c8d8c982d8c8d818696c70724e756d626572d8c8d8186b3939392d3939392d393939d8c8d8c982d8c8d8186d7265736964656e7453696e6365d8c8d818c11a5a516300d8c8d8c982d8c8d81863736578d8c8d818644d414c45d8c8d8c982d8c8d8ca0dd8c883d8c8d818d90138582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8d8c8d8c982d8c8d8ca04d8c8d818781e49737375656420627920746865205374617465206f66204578616d706c65d8c8d8c982d8c8d8ca09d8c8d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538d8c8d8c982d8c8d8186a64617465497373756564d8c8d818c11a62688780d8c8d8c982d8c8d8ca03d8c882d8c8d818d90140584024e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91becd8c8d8c982d8c8d8ca04d8c8d818781d4d61646520627920746865205374617465206f66204578616d706c652e
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -882,317 +882,315 @@ d8c882d8c881d8c886d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6
 200(   ; envelope
    [
       200(   ; envelope
-         [
-            200(   ; envelope
-               [
-                  200(   ; envelope
-                     24(   ; leaf
-                        312(   ; cid
-                           h'174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8'
-                        )
-                     )
-                  ),
-                  200(   ; envelope
-                     201(   ; assertion
-                        [
-                           200(   ; envelope
-                              202(4)   ; known-value
-                           ),
-                           200(   ; envelope
-                              24(   ; leaf
-                                 "The State of Example recognizes JOHN SMITH as a Permanent Resident."
-                              )
-                           )
-                        ]
-                     )
-                  ),
-                  200(   ; envelope
-                     201(   ; assertion
-                        [
-                           200(   ; envelope
-                              202(1)   ; known-value
-                           ),
-                           200(   ; envelope
-                              24("credential")   ; leaf
-                           )
-                        ]
-                     )
-                  ),
-                  200(   ; envelope
-                     201(   ; assertion
-                        [
-                           200(   ; envelope
-                              202(14)   ; known-value
-                           ),
-                           200(   ; envelope
-                              [
-                                 200(   ; envelope
-                                    24(   ; leaf
-                                       312(   ; cid
-                                          h'78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc'
-                                       )
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("familyName")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             24("SMITH")   ; leaf
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             202(1)   ; known-value
-                                          ),
-                                          200(   ; envelope
-                                             24("Person")   ; leaf
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("givenName")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             24("JOHN")   ; leaf
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("birthCountry")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             [
-                                                200(   ; envelope
-                                                   24("bs")   ; leaf
-                                                ),
-                                                200(   ; envelope
-                                                   201(   ; assertion
-                                                      [
-                                                         200(   ; envelope
-                                                            202(4)   ; known-value
-                                                         ),
-                                                         200(   ; envelope
-                                                            24("The Bahamas")   ; leaf
-                                                         )
-                                                      ]
-                                                   )
-                                                )
-                                             ]
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             202(1)   ; known-value
-                                          ),
-                                          200(   ; envelope
-                                             24("Permanent Resident")   ; leaf
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("image")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             [
-                                                200(   ; envelope
-                                                   24(   ; leaf
-                                                      204(   ; digest
-                                                         h'03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2'
-                                                      )
-                                                   )
-                                                ),
-                                                200(   ; envelope
-                                                   201(   ; assertion
-                                                      [
-                                                         200(   ; envelope
-                                                            202(4)   ; known-value
-                                                         ),
-                                                         200(   ; envelope
-                                                            24(   ; leaf
-                                                               "This is an image of John Smith."
-                                                            )
-                                                         )
-                                                      ]
-                                                   )
-                                                ),
-                                                200(   ; envelope
-                                                   201(   ; assertion
-                                                      [
-                                                         200(   ; envelope
-                                                            202(9)   ; known-value
-                                                         ),
-                                                         200(   ; envelope
-                                                            24(   ; leaf
-                                                               "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-                                                            )
-                                                         )
-                                                      ]
-                                                   )
-                                                )
-                                             ]
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("lprCategory")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             24("C09")   ; leaf
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("birthDate")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             24(   ; leaf
-                                                1(1974-02-18T00:00:00Z)
-                                             )
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("lprNumber")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             24("999-999-999")   ; leaf
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("residentSince")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             24(   ; leaf
-                                                1(2018-01-07T00:00:00Z)
-                                             )
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("sex")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             24("MALE")   ; leaf
-                                          )
-                                       ]
-                                    )
-                                 )
-                              ]
-                           )
-                        ]
-                     )
-                  ),
-                  200(   ; envelope
-                     201(   ; assertion
-                        [
-                           200(   ; envelope
-                              202(13)   ; known-value
-                           ),
-                           200(   ; envelope
-                              [
-                                 200(   ; envelope
-                                    24(   ; leaf
-                                       312(   ; cid
-                                          h'04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8'
-                                       )
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             202(4)   ; known-value
-                                          ),
-                                          200(   ; envelope
-                                             24(   ; leaf
-                                                "Issued by the State of Example"
-                                             )
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             202(9)   ; known-value
-                                          ),
-                                          200(   ; envelope
-                                             24(   ; leaf
-                                                32(
-                                                   "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
-                                                )
-                                             )
-                                          )
-                                       ]
-                                    )
-                                 )
-                              ]
-                           )
-                        ]
-                     )
-                  ),
-                  200(   ; envelope
-                     201(   ; assertion
-                        [
-                           200(   ; envelope
-                              24("dateIssued")   ; leaf
-                           ),
-                           200(   ; envelope
-                              24(   ; leaf
-                                 1(2022-04-27T00:00:00Z)
-                              )
-                           )
-                        ]
+         200(   ; envelope
+            [
+               200(   ; envelope
+                  24(   ; leaf
+                     312(   ; cid
+                        h'174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8'
                      )
                   )
-               ]
-            )
-         ]
+               ),
+               200(   ; envelope
+                  201(   ; assertion
+                     [
+                        200(   ; envelope
+                           202(4)   ; known-value
+                        ),
+                        200(   ; envelope
+                           24(   ; leaf
+                              "The State of Example recognizes JOHN SMITH as a Permanent Resident."
+                           )
+                        )
+                     ]
+                  )
+               ),
+               200(   ; envelope
+                  201(   ; assertion
+                     [
+                        200(   ; envelope
+                           202(1)   ; known-value
+                        ),
+                        200(   ; envelope
+                           24("credential")   ; leaf
+                        )
+                     ]
+                  )
+               ),
+               200(   ; envelope
+                  201(   ; assertion
+                     [
+                        200(   ; envelope
+                           202(14)   ; known-value
+                        ),
+                        200(   ; envelope
+                           [
+                              200(   ; envelope
+                                 24(   ; leaf
+                                    312(   ; cid
+                                       h'78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc'
+                                    )
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("familyName")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          24("SMITH")   ; leaf
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          202(1)   ; known-value
+                                       ),
+                                       200(   ; envelope
+                                          24("Person")   ; leaf
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("givenName")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          24("JOHN")   ; leaf
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("birthCountry")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          [
+                                             200(   ; envelope
+                                                24("bs")   ; leaf
+                                             ),
+                                             200(   ; envelope
+                                                201(   ; assertion
+                                                   [
+                                                      200(   ; envelope
+                                                         202(4)   ; known-value
+                                                      ),
+                                                      200(   ; envelope
+                                                         24("The Bahamas")   ; leaf
+                                                      )
+                                                   ]
+                                                )
+                                             )
+                                          ]
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          202(1)   ; known-value
+                                       ),
+                                       200(   ; envelope
+                                          24("Permanent Resident")   ; leaf
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("image")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          [
+                                             200(   ; envelope
+                                                24(   ; leaf
+                                                   204(   ; digest
+                                                      h'03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2'
+                                                   )
+                                                )
+                                             ),
+                                             200(   ; envelope
+                                                201(   ; assertion
+                                                   [
+                                                      200(   ; envelope
+                                                         202(4)   ; known-value
+                                                      ),
+                                                      200(   ; envelope
+                                                         24(   ; leaf
+                                                            "This is an image of John Smith."
+                                                         )
+                                                      )
+                                                   ]
+                                                )
+                                             ),
+                                             200(   ; envelope
+                                                201(   ; assertion
+                                                   [
+                                                      200(   ; envelope
+                                                         202(9)   ; known-value
+                                                      ),
+                                                      200(   ; envelope
+                                                         24(   ; leaf
+                                                            "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
+                                                         )
+                                                      )
+                                                   ]
+                                                )
+                                             )
+                                          ]
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("lprCategory")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          24("C09")   ; leaf
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("birthDate")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          24(   ; leaf
+                                             1(1974-02-18T00:00:00Z)
+                                          )
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("lprNumber")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          24("999-999-999")   ; leaf
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("residentSince")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          24(   ; leaf
+                                             1(2018-01-07T00:00:00Z)
+                                          )
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("sex")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          24("MALE")   ; leaf
+                                       )
+                                    ]
+                                 )
+                              )
+                           ]
+                        )
+                     ]
+                  )
+               ),
+               200(   ; envelope
+                  201(   ; assertion
+                     [
+                        200(   ; envelope
+                           202(13)   ; known-value
+                        ),
+                        200(   ; envelope
+                           [
+                              200(   ; envelope
+                                 24(   ; leaf
+                                    312(   ; cid
+                                       h'04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8'
+                                    )
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          202(4)   ; known-value
+                                       ),
+                                       200(   ; envelope
+                                          24(   ; leaf
+                                             "Issued by the State of Example"
+                                          )
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          202(9)   ; known-value
+                                       ),
+                                       200(   ; envelope
+                                          24(   ; leaf
+                                             32(
+                                                "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
+                                             )
+                                          )
+                                       )
+                                    ]
+                                 )
+                              )
+                           ]
+                        )
+                     ]
+                  )
+               ),
+               200(   ; envelope
+                  201(   ; assertion
+                     [
+                        200(   ; envelope
+                           24("dateIssued")   ; leaf
+                        ),
+                        200(   ; envelope
+                           24(   ; leaf
+                              1(2022-04-27T00:00:00Z)
+                           )
+                        )
+                     ]
+                  )
+               )
+            ]
+         )
       ),
       200(   ; envelope
          201(   ; assertion
@@ -1238,246 +1236,245 @@ d8c882d8c881d8c886d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6
 d8 c8                                    # tag(200)   ; envelope
    82                                    # array(2)
       d8 c8                              # tag(200)   ; envelope
-         81                              # array(1)
-            d8 c8                        # tag(200)   ; envelope
-               86                        # array(6)
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 18               # tag(24)   ; leaf
-                        d9 0138          # tag(312)   ; cid
-                           5820          # bytes(32)
-                              174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 c9               # tag(201)   ; assertion
-                        82               # array(2)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 ca      # tag(202)   ; known-value
-                                 04      # unsigned(4)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 18      # tag(24)   ; leaf
-                                 78 43   # text(67)
-                                    546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742e # "The State of Example recognizes JOHN SMITH as a Permanent Resident."
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 c9               # tag(201)   ; assertion
-                        82               # array(2)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 ca      # tag(202)   ; known-value
-                                 01      # unsigned(1)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 18      # tag(24)   ; leaf
-                                 6a      # text(10)
-                                    63726564656e7469616c # "credential"
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 c9               # tag(201)   ; assertion
-                        82               # array(2)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 ca      # tag(202)   ; known-value
-                                 0e      # unsigned(14)
-                           d8 c8         # tag(200)   ; envelope
-                              8c         # array(12)
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 18 # tag(24)   ; leaf
-                                       d9 0138 # tag(312)   ; cid
-                                          5820 # bytes(32)
-                                             78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                6a # text(10)
-                                                   66616d696c794e616d65 # "familyName"
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                65 # text(5)
-                                                   534d495448 # "SMITH"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 ca # tag(202)   ; known-value
-                                                01 # unsigned(1)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                66 # text(6)
-                                                   506572736f6e # "Person"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                69 # text(9)
-                                                   676976656e4e616d65 # "givenName"
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                64 # text(4)
-                                                   4a4f484e # "JOHN"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                6c # text(12)
-                                                   6269727468436f756e747279 # "birthCountry"
-                                          d8 c8 # tag(200)   ; envelope
-                                             82 # array(2)
-                                                d8 c8 # tag(200)   ; envelope
-                                                   d8 18 # tag(24)   ; leaf
-                                                      62 # text(2)
-                                                         6273 # "bs"
-                                                d8 c8 # tag(200)   ; envelope
-                                                   d8 c9 # tag(201)   ; assertion
-                                                      82 # array(2)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 ca # tag(202)   ; known-value
-                                                               04 # unsigned(4)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 18 # tag(24)   ; leaf
-                                                               6b # text(11)
-                                                                  54686520426168616d6173 # "The Bahamas"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 ca # tag(202)   ; known-value
-                                                01 # unsigned(1)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                72 # text(18)
-                                                   5065726d616e656e74205265736964656e74 # "Permanent Resident"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                65 # text(5)
-                                                   696d616765 # "image"
-                                          d8 c8 # tag(200)   ; envelope
-                                             83 # array(3)
-                                                d8 c8 # tag(200)   ; envelope
-                                                   d8 18 # tag(24)   ; leaf
-                                                      d8 cc # tag(204)   ; digest
-                                                         5820 # bytes(32)
-                                                            03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2
-                                                d8 c8 # tag(200)   ; envelope
-                                                   d8 c9 # tag(201)   ; assertion
-                                                      82 # array(2)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 ca # tag(202)   ; known-value
-                                                               04 # unsigned(4)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 18 # tag(24)   ; leaf
-                                                               78 1f # text(31)
-                                                                  5468697320697320616e20696d616765206f66204a6f686e20536d6974682e # "This is an image of John Smith."
-                                                d8 c8 # tag(200)   ; envelope
-                                                   d8 c9 # tag(201)   ; assertion
-                                                      82 # array(2)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 ca # tag(202)   ; known-value
-                                                               09 # unsigned(9)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 18 # tag(24)   ; leaf
-                                                               78 61 # text(97)
-                                                                  68747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939 # "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                6b # text(11)
-                                                   6c707243617465676f7279 # "lprCategory"
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                63 # text(3)
-                                                   433039 # "C09"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                69 # text(9)
-                                                   626972746844617465 # "birthDate"
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                c1 # tag(1)
-                                                   1a07c56780 # unsigned(130377600)
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                69 # text(9)
-                                                   6c70724e756d626572 # "lprNumber"
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                6b # text(11)
-                                                   3939392d3939392d393939 # "999-999-999"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                6d # text(13)
-                                                   7265736964656e7453696e6365 # "residentSince"
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                c1 # tag(1)
-                                                   1a5a516300 # unsigned(1515283200)
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                63 # text(3)
-                                                   736578 # "sex"
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                64 # text(4)
-                                                   4d414c45 # "MALE"
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 c9               # tag(201)   ; assertion
-                        82               # array(2)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 ca      # tag(202)   ; known-value
-                                 0d      # unsigned(13)
-                           d8 c8         # tag(200)   ; envelope
-                              83         # array(3)
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 18 # tag(24)   ; leaf
-                                       d9 0138 # tag(312)   ; cid
-                                          5820 # bytes(32)
-                                             04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 ca # tag(202)   ; known-value
-                                                04 # unsigned(4)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                78 1e # text(30)
-                                                   49737375656420627920746865205374617465206f66204578616d706c65 # "Issued by the State of Example"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 ca # tag(202)   ; known-value
-                                                09 # unsigned(9)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                d8 20 # tag(32)
-                                                   78 5e # text(94)
-                                                      68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 c9               # tag(201)   ; assertion
-                        82               # array(2)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 18      # tag(24)   ; leaf
-                                 6a      # text(10)
-                                    64617465497373756564 # "dateIssued"
-                           d8 c8         # tag(200)   ; envelope
-                              d8 18      # tag(24)   ; leaf
-                                 c1      # tag(1)
-                                    1a62688780 # unsigned(1651017600)
+         d8 c8                           # tag(200)   ; envelope
+            86                           # array(6)
+               d8 c8                     # tag(200)   ; envelope
+                  d8 18                  # tag(24)   ; leaf
+                     d9 0138             # tag(312)   ; cid
+                        5820             # bytes(32)
+                           174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
+               d8 c8                     # tag(200)   ; envelope
+                  d8 c9                  # tag(201)   ; assertion
+                     82                  # array(2)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 ca         # tag(202)   ; known-value
+                              04         # unsigned(4)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 18         # tag(24)   ; leaf
+                              78 43      # text(67)
+                                 546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742e # "The State of Example recognizes JOHN SMITH as a Permanent Resident."
+               d8 c8                     # tag(200)   ; envelope
+                  d8 c9                  # tag(201)   ; assertion
+                     82                  # array(2)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 ca         # tag(202)   ; known-value
+                              01         # unsigned(1)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 18         # tag(24)   ; leaf
+                              6a         # text(10)
+                                 63726564656e7469616c # "credential"
+               d8 c8                     # tag(200)   ; envelope
+                  d8 c9                  # tag(201)   ; assertion
+                     82                  # array(2)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 ca         # tag(202)   ; known-value
+                              0e         # unsigned(14)
+                        d8 c8            # tag(200)   ; envelope
+                           8c            # array(12)
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 18   # tag(24)   ; leaf
+                                    d9 0138 # tag(312)   ; cid
+                                       5820 # bytes(32)
+                                          78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             6a # text(10)
+                                                66616d696c794e616d65 # "familyName"
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             65 # text(5)
+                                                534d495448 # "SMITH"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 ca # tag(202)   ; known-value
+                                             01 # unsigned(1)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             66 # text(6)
+                                                506572736f6e # "Person"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             69 # text(9)
+                                                676976656e4e616d65 # "givenName"
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             64 # text(4)
+                                                4a4f484e # "JOHN"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             6c # text(12)
+                                                6269727468436f756e747279 # "birthCountry"
+                                       d8 c8 # tag(200)   ; envelope
+                                          82 # array(2)
+                                             d8 c8 # tag(200)   ; envelope
+                                                d8 18 # tag(24)   ; leaf
+                                                   62 # text(2)
+                                                      6273 # "bs"
+                                             d8 c8 # tag(200)   ; envelope
+                                                d8 c9 # tag(201)   ; assertion
+                                                   82 # array(2)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 ca # tag(202)   ; known-value
+                                                            04 # unsigned(4)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 18 # tag(24)   ; leaf
+                                                            6b # text(11)
+                                                               54686520426168616d6173 # "The Bahamas"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 ca # tag(202)   ; known-value
+                                             01 # unsigned(1)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             72 # text(18)
+                                                5065726d616e656e74205265736964656e74 # "Permanent Resident"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             65 # text(5)
+                                                696d616765 # "image"
+                                       d8 c8 # tag(200)   ; envelope
+                                          83 # array(3)
+                                             d8 c8 # tag(200)   ; envelope
+                                                d8 18 # tag(24)   ; leaf
+                                                   d8 cc # tag(204)   ; digest
+                                                      5820 # bytes(32)
+                                                         03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2
+                                             d8 c8 # tag(200)   ; envelope
+                                                d8 c9 # tag(201)   ; assertion
+                                                   82 # array(2)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 ca # tag(202)   ; known-value
+                                                            04 # unsigned(4)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 18 # tag(24)   ; leaf
+                                                            78 1f # text(31)
+                                                               5468697320697320616e20696d616765206f66204a6f686e20536d6974682e # "This is an image of John Smith."
+                                             d8 c8 # tag(200)   ; envelope
+                                                d8 c9 # tag(201)   ; assertion
+                                                   82 # array(2)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 ca # tag(202)   ; known-value
+                                                            09 # unsigned(9)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 18 # tag(24)   ; leaf
+                                                            78 61 # text(97)
+                                                               68747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939 # "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             6b # text(11)
+                                                6c707243617465676f7279 # "lprCategory"
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             63 # text(3)
+                                                433039 # "C09"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             69 # text(9)
+                                                626972746844617465 # "birthDate"
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             c1 # tag(1)
+                                                1a07c56780 # unsigned(130377600)
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             69 # text(9)
+                                                6c70724e756d626572 # "lprNumber"
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             6b # text(11)
+                                                3939392d3939392d393939 # "999-999-999"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             6d # text(13)
+                                                7265736964656e7453696e6365 # "residentSince"
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             c1 # tag(1)
+                                                1a5a516300 # unsigned(1515283200)
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             63 # text(3)
+                                                736578 # "sex"
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             64 # text(4)
+                                                4d414c45 # "MALE"
+               d8 c8                     # tag(200)   ; envelope
+                  d8 c9                  # tag(201)   ; assertion
+                     82                  # array(2)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 ca         # tag(202)   ; known-value
+                              0d         # unsigned(13)
+                        d8 c8            # tag(200)   ; envelope
+                           83            # array(3)
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 18   # tag(24)   ; leaf
+                                    d9 0138 # tag(312)   ; cid
+                                       5820 # bytes(32)
+                                          04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 ca # tag(202)   ; known-value
+                                             04 # unsigned(4)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             78 1e # text(30)
+                                                49737375656420627920746865205374617465206f66204578616d706c65 # "Issued by the State of Example"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 ca # tag(202)   ; known-value
+                                             09 # unsigned(9)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             d8 20 # tag(32)
+                                                78 5e # text(94)
+                                                   68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
+               d8 c8                     # tag(200)   ; envelope
+                  d8 c9                  # tag(201)   ; assertion
+                     82                  # array(2)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 18         # tag(24)   ; leaf
+                              6a         # text(10)
+                                 64617465497373756564 # "dateIssued"
+                        d8 c8            # tag(200)   ; envelope
+                           d8 18         # tag(24)   ; leaf
+                              c1         # tag(1)
+                                 1a62688780 # unsigned(1651017600)
       d8 c8                              # tag(200)   ; envelope
          d8 c9                           # tag(201)   ; assertion
             82                           # array(2)
@@ -1542,13 +1539,13 @@ John wishes to identify himself to a third party using his government-issued cre
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/lftpsplytpsplntpsptpcstaadethdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosptpsphdcxdiimfeiotigwwmlfckjlutltzoosfewpmuaycwfprhetrorfahmttlrncmzogahdtpsptpsolftpsptpsgadtpsptpcsimiajpihieihjtjyinhsjztpsptpsolftpsptpsgbatpsplktpsptpcstaadethdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguotpsptpsolftpsptpcsimiyhsjninjzkkglhsjnihtpsptpcsihgugtgaghfdtpsphdcxfxguetksnbmtemgsaamdenvykimeherfpehnfdbwnbrftlqzbahelggefdjzkesptpsptpsolftpsptpcsinioinkoihjtglhsjnihtpsptpcsiegegwfdgltpsphdcxkbptotpkuymotyludrsgfwaopthhvwftdsykgrjywzcwvyghpynlcnjpfeonbtmwtpsphdcxlkmunefxiyjelbjsemhponfshgwywpaatblentrkzednswryfnengmzclnrtktyntpsptpsolftpsptpcsihinjnhsioihtpsplstpsptpcstpsfhdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessatpsptpsolftpsptpsgaatpsptpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmtpsptpsolftpsptpsgastpsptpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesestpsphdcxnsmkylvtfseegsgotaammhcezebdgwhyhhyljkrhwfqzoskgeosodsgmpmhgzchhtpsphdcxosfmfplpfxvefzoybncfwzgtfewdcapsqdkkuolagdtdltvwfdttvorflocwzegatpsphdcxtbcffdrptpstzmmomdktssmegedwvdecgadtdsreaygtdifwmokimwaodwbyuozmtpsphdcxvyidloaagdetmopfrnbwleidmeioftfptavtlnptprvohnfpmtcegdseamceotwytpsphdcxzejocerptnaxchswvossceasnehkgefyptmhndretdghwtwepymwoyrocmnntdditpsptpsolftpsptpsgbttpsplstpsptpcstaadethdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvstpsptpsolftpsptpsgaatpsptpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihtpsptpsolftpsptpsgastpsptpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihettpsphdcxwmesosbwlupscfiopltaemchmdzmtllrgraxlnrhwnkbfmlrveadrtlobspspmmstpsptpsolftpsptpsgaxtpsplftpsptpcstaadfzhdfzdkvykkmnkpgtdlssnddysagevshegrrdehvopscehdmebkrppecszeaekpjsvtbbcxwzrfuokkzmaaisryeewtaspyoxcnonremkjzfsmwsbrlcpnllggedafgtacwwptpsptpsolftpsptpsgaatpsptpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmknbddyvt
+ur:envelope/lftpsptpsplntpsptpcstaadethdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosptpsphdcxdiimfeiotigwwmlfckjlutltzoosfewpmuaycwfprhetrorfahmttlrncmzogahdtpsptpsolftpsptpsgadtpsptpcsimiajpihieihjtjyinhsjztpsptpsolftpsptpsgbatpsplktpsptpcstaadethdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguotpsptpsolftpsptpcsimiyhsjninjzkkglhsjnihtpsptpcsihgugtgaghfdtpsphdcxfxguetksnbmtemgsaamdenvykimeherfpehnfdbwnbrftlqzbahelggefdjzkesptpsptpsolftpsptpcsinioinkoihjtglhsjnihtpsptpcsiegegwfdgltpsphdcxkbptotpkuymotyludrsgfwaopthhvwftdsykgrjywzcwvyghpynlcnjpfeonbtmwtpsphdcxlkmunefxiyjelbjsemhponfshgwywpaatblentrkzednswryfnengmzclnrtktyntpsptpsolftpsptpcsihinjnhsioihtpsplstpsptpcstpsfhdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessatpsptpsolftpsptpsgaatpsptpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmtpsptpsolftpsptpsgastpsptpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesestpsphdcxnsmkylvtfseegsgotaammhcezebdgwhyhhyljkrhwfqzoskgeosodsgmpmhgzchhtpsphdcxosfmfplpfxvefzoybncfwzgtfewdcapsqdkkuolagdtdltvwfdttvorflocwzegatpsphdcxtbcffdrptpstzmmomdktssmegedwvdecgadtdsreaygtdifwmokimwaodwbyuozmtpsphdcxvyidloaagdetmopfrnbwleidmeioftfptavtlnptprvohnfpmtcegdseamceotwytpsphdcxzejocerptnaxchswvossceasnehkgefyptmhndretdghwtwepymwoyrocmnntdditpsptpsolftpsptpsgbttpsplstpsptpcstaadethdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvstpsptpsolftpsptpsgaatpsptpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihtpsptpsolftpsptpsgastpsptpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihettpsphdcxwmesosbwlupscfiopltaemchmdzmtllrgraxlnrhwnkbfmlrveadrtlobspspmmstpsptpsolftpsptpsgaxtpsplftpsptpcstaadfzhdfzdkvykkmnkpgtdlssnddysagevshegrrdehvopscehdmebkrppecszeaekpjsvtbbcxwzrfuokkzmaaisryeewtaspyoxcnonremkjzfsmwsbrlcpnllggedafgtacwwptpsptpsolftpsptpsgaatpsptpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmqzcpreqz
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c882d8c881d8c886d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8d8c85820276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958d8c8d8c982d8c8d8ca01d8c8d8186a63726564656e7469616cd8c8d8c982d8c8d8ca0ed8c88cd8c8d818d90138582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadcd8c8d8c982d8c8d8186a66616d696c794e616d65d8c8d81865534d495448d8c8582043533878a096374c049536e17d915fbcaf604813a0bcd5b40e5f8d4a486c7cc8d8c8d8c982d8c8d81869676976656e4e616d65d8c8d818644a4f484ed8c858207ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94d8c858208c939f43666b7f71375ba53d57eeec04d68a9dbbfe2bc6bd3c3652fd86c077f6d8c8d8c982d8c8d81865696d616765d8c883d8c8d818d8cc582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2d8c8d8c982d8c8d8ca04d8c8d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ed8c8d8c982d8c8d8ca09d8c8d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939d8c858209c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5cd8c85820a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe49d8c85820d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcffd8c85820e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3eed8c85820fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227d8c8d8c982d8c8d8ca0dd8c883d8c8d818d90138582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8d8c8d8c982d8c8d8ca04d8c8d818781e49737375656420627920746865205374617465206f66204578616d706c65d8c8d8c982d8c8d8ca09d8c8d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538d8c85820eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97d8c8d8c982d8c8d8ca03d8c882d8c8d818d90140584024e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91becd8c8d8c982d8c8d8ca04d8c8d818781d4d61646520627920746865205374617465206f66204578616d706c652e
+d8c882d8c8d8c886d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8d8c85820276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958d8c8d8c982d8c8d8ca01d8c8d8186a63726564656e7469616cd8c8d8c982d8c8d8ca0ed8c88cd8c8d818d90138582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadcd8c8d8c982d8c8d8186a66616d696c794e616d65d8c8d81865534d495448d8c8582043533878a096374c049536e17d915fbcaf604813a0bcd5b40e5f8d4a486c7cc8d8c8d8c982d8c8d81869676976656e4e616d65d8c8d818644a4f484ed8c858207ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94d8c858208c939f43666b7f71375ba53d57eeec04d68a9dbbfe2bc6bd3c3652fd86c077f6d8c8d8c982d8c8d81865696d616765d8c883d8c8d818d8cc582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2d8c8d8c982d8c8d8ca04d8c8d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ed8c8d8c982d8c8d8ca09d8c8d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939d8c858209c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5cd8c85820a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe49d8c85820d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcffd8c85820e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3eed8c85820fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227d8c8d8c982d8c8d8ca0dd8c883d8c8d818d90138582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8d8c8d8c982d8c8d8ca04d8c8d818781e49737375656420627920746865205374617465206f66204578616d706c65d8c8d8c982d8c8d8ca09d8c8d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538d8c85820eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97d8c8d8c982d8c8d8ca03d8c882d8c8d818d90140584024e1798e754d2fc49b30c24ae85f4bba31e2ac1c58910ab6af18fe007571e01420f2bcdc79ff0468bd34f009aba423a5b5986c3d94cbb722998d4a2546d91becd8c8d8c982d8c8d8ca04d8c8d818781d4d61646520627920746865205374617465206f66204578616d706c652e
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -1557,203 +1554,201 @@ d8c882d8c881d8c886d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6
 200(   ; envelope
    [
       200(   ; envelope
-         [
-            200(   ; envelope
-               [
-                  200(   ; envelope
-                     24(   ; leaf
-                        312(   ; cid
-                           h'174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8'
-                        )
+         200(   ; envelope
+            [
+               200(   ; envelope
+                  24(   ; leaf
+                     312(   ; cid
+                        h'174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8'
                      )
-                  ),
-                  200(   ; envelope
-                     h'276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958'
-                  ),
-                  200(   ; envelope
-                     201(   ; assertion
-                        [
-                           200(   ; envelope
-                              202(1)   ; known-value
-                           ),
-                           200(   ; envelope
-                              24("credential")   ; leaf
-                           )
-                        ]
-                     )
-                  ),
-                  200(   ; envelope
-                     201(   ; assertion
-                        [
-                           200(   ; envelope
-                              202(14)   ; known-value
-                           ),
-                           200(   ; envelope
-                              [
-                                 200(   ; envelope
-                                    24(   ; leaf
-                                       312(   ; cid
-                                          h'78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc'
-                                       )
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("familyName")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             24("SMITH")   ; leaf
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    h'43533878a096374c049536e17d915fbcaf604813a0bcd5b40e5f8d4a486c7cc8'
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("givenName")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             24("JOHN")   ; leaf
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    h'7ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94'
-                                 ),
-                                 200(   ; envelope
-                                    h'8c939f43666b7f71375ba53d57eeec04d68a9dbbfe2bc6bd3c3652fd86c077f6'
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             24("image")   ; leaf
-                                          ),
-                                          200(   ; envelope
-                                             [
-                                                200(   ; envelope
-                                                   24(   ; leaf
-                                                      204(   ; digest
-                                                         h'03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2'
-                                                      )
-                                                   )
-                                                ),
-                                                200(   ; envelope
-                                                   201(   ; assertion
-                                                      [
-                                                         200(   ; envelope
-                                                            202(4)   ; known-value
-                                                         ),
-                                                         200(   ; envelope
-                                                            24(   ; leaf
-                                                               "This is an image of John Smith."
-                                                            )
-                                                         )
-                                                      ]
-                                                   )
-                                                ),
-                                                200(   ; envelope
-                                                   201(   ; assertion
-                                                      [
-                                                         200(   ; envelope
-                                                            202(9)   ; known-value
-                                                         ),
-                                                         200(   ; envelope
-                                                            24(   ; leaf
-                                                               "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-                                                            )
-                                                         )
-                                                      ]
-                                                   )
-                                                )
-                                             ]
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    h'9c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5c'
-                                 ),
-                                 200(   ; envelope
-                                    h'a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe49'
-                                 ),
-                                 200(   ; envelope
-                                    h'd61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcff'
-                                 ),
-                                 200(   ; envelope
-                                    h'e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3ee'
-                                 ),
-                                 200(   ; envelope
-                                    h'fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227'
-                                 )
-                              ]
-                           )
-                        ]
-                     )
-                  ),
-                  200(   ; envelope
-                     201(   ; assertion
-                        [
-                           200(   ; envelope
-                              202(13)   ; known-value
-                           ),
-                           200(   ; envelope
-                              [
-                                 200(   ; envelope
-                                    24(   ; leaf
-                                       312(   ; cid
-                                          h'04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8'
-                                       )
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             202(4)   ; known-value
-                                          ),
-                                          200(   ; envelope
-                                             24(   ; leaf
-                                                "Issued by the State of Example"
-                                             )
-                                          )
-                                       ]
-                                    )
-                                 ),
-                                 200(   ; envelope
-                                    201(   ; assertion
-                                       [
-                                          200(   ; envelope
-                                             202(9)   ; known-value
-                                          ),
-                                          200(   ; envelope
-                                             24(   ; leaf
-                                                32(
-                                                   "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
-                                                )
-                                             )
-                                          )
-                                       ]
-                                    )
-                                 )
-                              ]
-                           )
-                        ]
-                     )
-                  ),
-                  200(   ; envelope
-                     h'eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97'
                   )
-               ]
-            )
-         ]
+               ),
+               200(   ; envelope
+                  h'276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958'
+               ),
+               200(   ; envelope
+                  201(   ; assertion
+                     [
+                        200(   ; envelope
+                           202(1)   ; known-value
+                        ),
+                        200(   ; envelope
+                           24("credential")   ; leaf
+                        )
+                     ]
+                  )
+               ),
+               200(   ; envelope
+                  201(   ; assertion
+                     [
+                        200(   ; envelope
+                           202(14)   ; known-value
+                        ),
+                        200(   ; envelope
+                           [
+                              200(   ; envelope
+                                 24(   ; leaf
+                                    312(   ; cid
+                                       h'78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc'
+                                    )
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("familyName")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          24("SMITH")   ; leaf
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 h'43533878a096374c049536e17d915fbcaf604813a0bcd5b40e5f8d4a486c7cc8'
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("givenName")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          24("JOHN")   ; leaf
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 h'7ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94'
+                              ),
+                              200(   ; envelope
+                                 h'8c939f43666b7f71375ba53d57eeec04d68a9dbbfe2bc6bd3c3652fd86c077f6'
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          24("image")   ; leaf
+                                       ),
+                                       200(   ; envelope
+                                          [
+                                             200(   ; envelope
+                                                24(   ; leaf
+                                                   204(   ; digest
+                                                      h'03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2'
+                                                   )
+                                                )
+                                             ),
+                                             200(   ; envelope
+                                                201(   ; assertion
+                                                   [
+                                                      200(   ; envelope
+                                                         202(4)   ; known-value
+                                                      ),
+                                                      200(   ; envelope
+                                                         24(   ; leaf
+                                                            "This is an image of John Smith."
+                                                         )
+                                                      )
+                                                   ]
+                                                )
+                                             ),
+                                             200(   ; envelope
+                                                201(   ; assertion
+                                                   [
+                                                      200(   ; envelope
+                                                         202(9)   ; known-value
+                                                      ),
+                                                      200(   ; envelope
+                                                         24(   ; leaf
+                                                            "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
+                                                         )
+                                                      )
+                                                   ]
+                                                )
+                                             )
+                                          ]
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 h'9c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5c'
+                              ),
+                              200(   ; envelope
+                                 h'a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe49'
+                              ),
+                              200(   ; envelope
+                                 h'd61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcff'
+                              ),
+                              200(   ; envelope
+                                 h'e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3ee'
+                              ),
+                              200(   ; envelope
+                                 h'fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227'
+                              )
+                           ]
+                        )
+                     ]
+                  )
+               ),
+               200(   ; envelope
+                  201(   ; assertion
+                     [
+                        200(   ; envelope
+                           202(13)   ; known-value
+                        ),
+                        200(   ; envelope
+                           [
+                              200(   ; envelope
+                                 24(   ; leaf
+                                    312(   ; cid
+                                       h'04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8'
+                                    )
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          202(4)   ; known-value
+                                       ),
+                                       200(   ; envelope
+                                          24(   ; leaf
+                                             "Issued by the State of Example"
+                                          )
+                                       )
+                                    ]
+                                 )
+                              ),
+                              200(   ; envelope
+                                 201(   ; assertion
+                                    [
+                                       200(   ; envelope
+                                          202(9)   ; known-value
+                                       ),
+                                       200(   ; envelope
+                                          24(   ; leaf
+                                             32(
+                                                "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
+                                             )
+                                          )
+                                       )
+                                    ]
+                                 )
+                              )
+                           ]
+                        )
+                     ]
+                  )
+               ),
+               200(   ; envelope
+                  h'eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97'
+               )
+            ]
+         )
       ),
       200(   ; envelope
          201(   ; assertion
@@ -1799,157 +1794,156 @@ d8c882d8c881d8c886d8c8d818d901385820174842eac3fb44d7f626e4d79b7e107fd293c55629f6
 d8 c8                                    # tag(200)   ; envelope
    82                                    # array(2)
       d8 c8                              # tag(200)   ; envelope
-         81                              # array(1)
-            d8 c8                        # tag(200)   ; envelope
-               86                        # array(6)
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 18               # tag(24)   ; leaf
-                        d9 0138          # tag(312)   ; cid
-                           5820          # bytes(32)
-                              174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
-                  d8 c8                  # tag(200)   ; envelope
-                     5820                # bytes(32)
-                        276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 c9               # tag(201)   ; assertion
-                        82               # array(2)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 ca      # tag(202)   ; known-value
-                                 01      # unsigned(1)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 18      # tag(24)   ; leaf
-                                 6a      # text(10)
-                                    63726564656e7469616c # "credential"
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 c9               # tag(201)   ; assertion
-                        82               # array(2)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 ca      # tag(202)   ; known-value
-                                 0e      # unsigned(14)
-                           d8 c8         # tag(200)   ; envelope
-                              8c         # array(12)
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 18 # tag(24)   ; leaf
-                                       d9 0138 # tag(312)   ; cid
-                                          5820 # bytes(32)
-                                             78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                6a # text(10)
-                                                   66616d696c794e616d65 # "familyName"
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                65 # text(5)
-                                                   534d495448 # "SMITH"
-                                 d8 c8   # tag(200)   ; envelope
-                                    5820 # bytes(32)
-                                       43533878a096374c049536e17d915fbcaf604813a0bcd5b40e5f8d4a486c7cc8
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                69 # text(9)
-                                                   676976656e4e616d65 # "givenName"
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                64 # text(4)
-                                                   4a4f484e # "JOHN"
-                                 d8 c8   # tag(200)   ; envelope
-                                    5820 # bytes(32)
-                                       7ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94
-                                 d8 c8   # tag(200)   ; envelope
-                                    5820 # bytes(32)
-                                       8c939f43666b7f71375ba53d57eeec04d68a9dbbfe2bc6bd3c3652fd86c077f6
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                65 # text(5)
-                                                   696d616765 # "image"
-                                          d8 c8 # tag(200)   ; envelope
-                                             83 # array(3)
-                                                d8 c8 # tag(200)   ; envelope
-                                                   d8 18 # tag(24)   ; leaf
-                                                      d8 cc # tag(204)   ; digest
-                                                         5820 # bytes(32)
-                                                            03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2
-                                                d8 c8 # tag(200)   ; envelope
-                                                   d8 c9 # tag(201)   ; assertion
-                                                      82 # array(2)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 ca # tag(202)   ; known-value
-                                                               04 # unsigned(4)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 18 # tag(24)   ; leaf
-                                                               78 1f # text(31)
-                                                                  5468697320697320616e20696d616765206f66204a6f686e20536d6974682e # "This is an image of John Smith."
-                                                d8 c8 # tag(200)   ; envelope
-                                                   d8 c9 # tag(201)   ; assertion
-                                                      82 # array(2)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 ca # tag(202)   ; known-value
-                                                               09 # unsigned(9)
-                                                         d8 c8 # tag(200)   ; envelope
-                                                            d8 18 # tag(24)   ; leaf
-                                                               78 61 # text(97)
-                                                                  68747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939 # "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-                                 d8 c8   # tag(200)   ; envelope
-                                    5820 # bytes(32)
-                                       9c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5c
-                                 d8 c8   # tag(200)   ; envelope
-                                    5820 # bytes(32)
-                                       a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe49
-                                 d8 c8   # tag(200)   ; envelope
-                                    5820 # bytes(32)
-                                       d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcff
-                                 d8 c8   # tag(200)   ; envelope
-                                    5820 # bytes(32)
-                                       e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3ee
-                                 d8 c8   # tag(200)   ; envelope
-                                    5820 # bytes(32)
-                                       fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227
-                  d8 c8                  # tag(200)   ; envelope
-                     d8 c9               # tag(201)   ; assertion
-                        82               # array(2)
-                           d8 c8         # tag(200)   ; envelope
-                              d8 ca      # tag(202)   ; known-value
-                                 0d      # unsigned(13)
-                           d8 c8         # tag(200)   ; envelope
-                              83         # array(3)
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 18 # tag(24)   ; leaf
-                                       d9 0138 # tag(312)   ; cid
-                                          5820 # bytes(32)
-                                             04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 ca # tag(202)   ; known-value
-                                                04 # unsigned(4)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                78 1e # text(30)
-                                                   49737375656420627920746865205374617465206f66204578616d706c65 # "Issued by the State of Example"
-                                 d8 c8   # tag(200)   ; envelope
-                                    d8 c9 # tag(201)   ; assertion
-                                       82 # array(2)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 ca # tag(202)   ; known-value
-                                                09 # unsigned(9)
-                                          d8 c8 # tag(200)   ; envelope
-                                             d8 18 # tag(24)   ; leaf
-                                                d8 20 # tag(32)
-                                                   78 5e # text(94)
-                                                      68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
-                  d8 c8                  # tag(200)   ; envelope
-                     5820                # bytes(32)
-                        eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97
+         d8 c8                           # tag(200)   ; envelope
+            86                           # array(6)
+               d8 c8                     # tag(200)   ; envelope
+                  d8 18                  # tag(24)   ; leaf
+                     d9 0138             # tag(312)   ; cid
+                        5820             # bytes(32)
+                           174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
+               d8 c8                     # tag(200)   ; envelope
+                  5820                   # bytes(32)
+                     276a4567d04feb821e6fdd87fba745ec93081b41b938b8bc0596d5be16fb4958
+               d8 c8                     # tag(200)   ; envelope
+                  d8 c9                  # tag(201)   ; assertion
+                     82                  # array(2)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 ca         # tag(202)   ; known-value
+                              01         # unsigned(1)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 18         # tag(24)   ; leaf
+                              6a         # text(10)
+                                 63726564656e7469616c # "credential"
+               d8 c8                     # tag(200)   ; envelope
+                  d8 c9                  # tag(201)   ; assertion
+                     82                  # array(2)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 ca         # tag(202)   ; known-value
+                              0e         # unsigned(14)
+                        d8 c8            # tag(200)   ; envelope
+                           8c            # array(12)
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 18   # tag(24)   ; leaf
+                                    d9 0138 # tag(312)   ; cid
+                                       5820 # bytes(32)
+                                          78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             6a # text(10)
+                                                66616d696c794e616d65 # "familyName"
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             65 # text(5)
+                                                534d495448 # "SMITH"
+                              d8 c8      # tag(200)   ; envelope
+                                 5820    # bytes(32)
+                                    43533878a096374c049536e17d915fbcaf604813a0bcd5b40e5f8d4a486c7cc8
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             69 # text(9)
+                                                676976656e4e616d65 # "givenName"
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             64 # text(4)
+                                                4a4f484e # "JOHN"
+                              d8 c8      # tag(200)   ; envelope
+                                 5820    # bytes(32)
+                                    7ea9a3aadb92d48b2aca4202a95ce53a26f54b74f21be154ab99237245a50d94
+                              d8 c8      # tag(200)   ; envelope
+                                 5820    # bytes(32)
+                                    8c939f43666b7f71375ba53d57eeec04d68a9dbbfe2bc6bd3c3652fd86c077f6
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             65 # text(5)
+                                                696d616765 # "image"
+                                       d8 c8 # tag(200)   ; envelope
+                                          83 # array(3)
+                                             d8 c8 # tag(200)   ; envelope
+                                                d8 18 # tag(24)   ; leaf
+                                                   d8 cc # tag(204)   ; digest
+                                                      5820 # bytes(32)
+                                                         03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2
+                                             d8 c8 # tag(200)   ; envelope
+                                                d8 c9 # tag(201)   ; assertion
+                                                   82 # array(2)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 ca # tag(202)   ; known-value
+                                                            04 # unsigned(4)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 18 # tag(24)   ; leaf
+                                                            78 1f # text(31)
+                                                               5468697320697320616e20696d616765206f66204a6f686e20536d6974682e # "This is an image of John Smith."
+                                             d8 c8 # tag(200)   ; envelope
+                                                d8 c9 # tag(201)   ; assertion
+                                                   82 # array(2)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 ca # tag(202)   ; known-value
+                                                            09 # unsigned(9)
+                                                      d8 c8 # tag(200)   ; envelope
+                                                         d8 18 # tag(24)   ; leaf
+                                                            78 61 # text(97)
+                                                               68747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939 # "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
+                              d8 c8      # tag(200)   ; envelope
+                                 5820    # bytes(32)
+                                    9c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5c
+                              d8 c8      # tag(200)   ; envelope
+                                 5820    # bytes(32)
+                                    a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe49
+                              d8 c8      # tag(200)   ; envelope
+                                 5820    # bytes(32)
+                                    d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcff
+                              d8 c8      # tag(200)   ; envelope
+                                 5820    # bytes(32)
+                                    e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3ee
+                              d8 c8      # tag(200)   ; envelope
+                                 5820    # bytes(32)
+                                    fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227
+               d8 c8                     # tag(200)   ; envelope
+                  d8 c9                  # tag(201)   ; assertion
+                     82                  # array(2)
+                        d8 c8            # tag(200)   ; envelope
+                           d8 ca         # tag(202)   ; known-value
+                              0d         # unsigned(13)
+                        d8 c8            # tag(200)   ; envelope
+                           83            # array(3)
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 18   # tag(24)   ; leaf
+                                    d9 0138 # tag(312)   ; cid
+                                       5820 # bytes(32)
+                                          04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 ca # tag(202)   ; known-value
+                                             04 # unsigned(4)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             78 1e # text(30)
+                                                49737375656420627920746865205374617465206f66204578616d706c65 # "Issued by the State of Example"
+                              d8 c8      # tag(200)   ; envelope
+                                 d8 c9   # tag(201)   ; assertion
+                                    82   # array(2)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 ca # tag(202)   ; known-value
+                                             09 # unsigned(9)
+                                       d8 c8 # tag(200)   ; envelope
+                                          d8 18 # tag(24)   ; leaf
+                                             d8 20 # tag(32)
+                                                78 5e # text(94)
+                                                   68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
+               d8 c8                     # tag(200)   ; envelope
+                  5820                   # bytes(32)
+                     eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97
       d8 c8                              # tag(200)   ; envelope
          d8 c9                           # tag(201)   ; assertion
             82                           # array(2)

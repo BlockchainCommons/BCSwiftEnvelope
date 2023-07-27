@@ -135,17 +135,43 @@ class CryptoTests: XCTestCase {
         // Can't read with incorrect key.
         try XCTAssertThrowsError(receivedEnvelope.decryptSubject(with: SymmetricKey()))
     }
+    
+    func roundTripTest(_ envelope: Envelope) throws {
+        let key = SymmetricKey()
+        let plaintextSubject = try envelope.checkEncoding()
+        let encryptedSubject = try plaintextSubject.encryptSubject(with: key).checkEncoding()
+        XCTAssert(plaintextSubject.isEquivalent(to: encryptedSubject))
+        let plaintextSubject2 = try encryptedSubject.decryptSubject(with: key).checkEncoding()
+        XCTAssert(encryptedSubject.isEquivalent(to: plaintextSubject2))
+        XCTAssert(plaintextSubject.isIdentical(to: plaintextSubject2))
+    }
 
     func testEncryptDecrypt() throws {
-        let key = SymmetricKey()
-        let plaintextEnvelope = try Envelope(plaintextHello).checkEncoding()
-//        print(plaintextEnvelope.format())
-        let encryptedEnvelope = try plaintextEnvelope.encryptSubject(with: key).checkEncoding()
-//        print(encryptedEnvelope.format())
-        XCTAssert(plaintextEnvelope.isEquivalent(to: encryptedEnvelope))
-        let plaintextEnvelope2 = try encryptedEnvelope.decryptSubject(with: key).checkEncoding()
-//        print(plaintextEnvelope2.format())
-        XCTAssert(encryptedEnvelope.isEquivalent(to: plaintextEnvelope2))
+        // leaf
+        let e1 = Envelope(plaintextHello)
+        try roundTripTest(e1)
+        
+        // node
+        let e2 = Envelope("Alice")
+            .addAssertion("knows", "Bob")
+        try roundTripTest(e2)
+        
+        // wrapped
+        let e3 = Envelope("Alice")
+            .wrap()
+        try roundTripTest(e3)
+        
+        // known value
+        let e4 = Envelope(.isA)
+        try roundTripTest(e4)
+        
+        // assertion
+        let e5 = Envelope("knows", "Bob")
+        try roundTripTest(e5)
+        
+        // compressed
+        let e6 = try Envelope(plaintextHello).compress()
+        try roundTripTest(e6)
     }
 
     func testSignThenEncrypt() throws {

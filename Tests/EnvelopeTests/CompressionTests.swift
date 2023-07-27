@@ -24,7 +24,7 @@ class CompressionTests: XCTestCase {
             .addAssertion(.note, source)
             .wrap()
             .sign(with: alicePrivateKeys, using: &rng)
-        XCTAssertEqual(original.cborData.count, 483)
+        XCTAssertEqual(original.cborData.count, 482)
         XCTAssertEqual(original.treeFormat(context: globalFormatContext), """
         1f87e614 NODE
             9065b9d5 subj WRAPPED
@@ -38,7 +38,7 @@ class CompressionTests: XCTestCase {
                 051e3ce1 obj Signature
         """)
         let compressed = try original.compressSubject().checkEncoding(tags: globalTags)
-        XCTAssertEqual(compressed.cborData.count, 392)
+        XCTAssertEqual(compressed.cborData.count, 390)
         XCTAssertEqual(compressed.treeFormat(context: globalFormatContext), """
         1f87e614 NODE
             9065b9d5 subj COMPRESSED

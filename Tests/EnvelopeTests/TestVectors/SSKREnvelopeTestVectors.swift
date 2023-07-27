@@ -34,7 +34,7 @@ final class SSKREnvelopeTestVectors: XCTestCase {
             groupThreshold: 1,
             groups: [(2, 3)],
             recoveredShareIndexes: [0, 2],
-            expectedFirstShare: "ur:envelope/lftpsptpsnlrhdqzashhbgndtlmulpynhsvsatssrottwzwtinpkahsacxlaiyeodwjsihkeprktuyaotomdswghknlubemncmjeltsowptlvegmvyfdvsoldrcsjldmgwzcryroltbzjygaurlohsbygtksdamtcwidlnwnwydahnktamaxmomutowmdtoegdzmhfbblkrtbwcmylprdruyhhmyvwnyyawntecefpjomogoglfdbkrthstdbtlejeahylmwykglihvalrmufeuevsftsfytbnnlpaiemurhemsbesldltemtsuebeaewpkisfdetibetobzcngorepfjslycmsgldtdfzdyzchsztctbkwdeottgsgtkshfhdwfjzcpzohtweftrtgdvleyjtztbwdyrtvocahevazogrssbgnyhddktpsfhdcxkiuyytkszefpbtrhqdmhcngehgsprllfonbahyvljkrpmklyjtgrryfprngtrftstpsptpsolftpsptpsgamtpsptpcstaadechddarekbaeadaeseambbvacfisghnygsuetdadsbkgihldesjymkpksbatzstefslnhnskzeswkbzorfnnfzmh"
+            expectedFirstShare: "ur:envelope/lftpsptpsnlrhdrpaslkbwlfcxenpdaoesgektbnsgdatyjkwnkkmevsjsgllsndwmidkiutntlawymtrktdtdidjotadnuyeejtnluonbwnreiywncaskwlbebgcaeodysoptlnlgbkehgtmymoiebscsjsimnncwkesowtoscpdtidgratlutnnyoxiypegswkfgahlertaxbeoeoyjttefdmyvamhvoztutgmfxfnnngtbdcegolpkomsbtskdlbsrnlrwshfkkwssblsaestzcettorpchtsrkiamwrhemtseolosoenlsluayfpvojkuocplfbenygdeocyrypfjllufysasptpgwenqdhspfchchyncnlemnssgsgtkshfhdwfjzcpzohtweftrtgdpehfvaykbdpfnbdssgmwtslkhgfdfpbwhddktpsfhdcxkiuyytkszefpbtrhqdmhcngehgsprllfonbahyvljkrpmklyjtgrryfprngtrftstpsptpsolftpsptpsgamtpsptpcstaadechddarekbaeadaeseambbvacfisghnygsuetdadsbkgihldesjymkpksbatzstefslnhnskzeswkbzohnhfmudn"
         )
         
         let testCase2 = try TestCase(
@@ -53,7 +53,7 @@ final class SSKREnvelopeTestVectors: XCTestCase {
             groupThreshold: 2,
             groups: [(2, 3), (2, 3), (2, 3)],
             recoveredShareIndexes: [0, 1, 6, 7],
-            expectedFirstShare: "ur:envelope/lftpsptpsnlrhdqzashhbgndtlmulpynhsvsatssrottwzwtinpkahsacxlaiyeodwjsihkeprktuyaotomdswghknlubemncmjeltsowptlvegmvyfdvsoldrcsjldmgwzcryroltbzjygaurlohsbygtksdamtcwidlnwnwydahnktamaxmomutowmdtoegdzmhfbblkrtbwcmylprdruyhhmyvwnyyawntecefpjomogoglfdbkrthstdbtlejeahylmwykglihvalrmufeuevsftsfytbnnlpaiemurhemsbesldltemtsuebeaewpkisfdetibetobzcngorepfjslycmsgldtdfzdyzchsztctbkwdeottgsgtkshfhdwfjzcpzohtweftrtgdvleyjtztbwdyrtvocahevazogrssbgnyhddktpsfhdcxkiuyytkszefpbtrhqdmhcngehgsprllfonbahyvljkrpmklyjtgrryfprngtrftstpsptpsolftpsptpsgamtpsptpcstaadechddarekbbgadaebzykrnmemtcnknnddlbbiylehnihonvsnybdsrsefmrhbyaxwtiycxdmesceiddmrtckwemn"
+            expectedFirstShare: "ur:envelope/lftpsptpsnlrhdrpaslkbwlfcxenpdaoesgektbnsgdatyjkwnkkmevsjsgllsndwmidkiutntlawymtrktdtdidjotadnuyeejtnluonbwnreiywncaskwlbebgcaeodysoptlnlgbkehgtmymoiebscsjsimnncwkesowtoscpdtidgratlutnnyoxiypegswkfgahlertaxbeoeoyjttefdmyvamhvoztutgmfxfnnngtbdcegolpkomsbtskdlbsrnlrwshfkkwssblsaestzcettorpchtsrkiamwrhemtseolosoenlsluayfpvojkuocplfbenygdeocyrypfjllufysasptpgwenqdhspfchchyncnlemnssgsgtkshfhdwfjzcpzohtweftrtgdpehfvaykbdpfnbdssgmwtslkhgfdfpbwhddktpsfhdcxkiuyytkszefpbtrhqdmhcngehgsprllfonbahyvljkrpmklyjtgrryfprngtrftstpsptpsolftpsptpsgamtpsptpcstaadechddarekbbgadaebzykrnmemtcnknnddlbbiylehnihonvsnybdsrsefmrhbyaxwtiycxdmesceiddmcetbfmec"
         )
         
         let testCases: [AnyTestCase] = [testCase1 as AnyTestCase, testCase2, testCase3]
