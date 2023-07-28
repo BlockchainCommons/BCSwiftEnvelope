@@ -54,28 +54,24 @@ class CoreEncodingTests: XCTestCase {
         200(   ; envelope
            [
               200(   ; envelope
-                 201(   ; assertion
-                    [
-                       200(   ; envelope
-                          24("C")   ; leaf
-                       ),
-                       200(   ; envelope
-                          24("D")   ; leaf
-                       )
-                    ]
-                 )
+                 {
+                    200(   ; envelope
+                       24("C")   ; leaf
+                    ):
+                    200(   ; envelope
+                       24("D")   ; leaf
+                    )
+                 }
               ),
               200(   ; envelope
-                 201(   ; assertion
-                    [
-                       200(   ; envelope
-                          24("E")   ; leaf
-                       ),
-                       200(   ; envelope
-                          24("F")   ; leaf
-                       )
-                    ]
-                 )
+                 {
+                    200(   ; envelope
+                       24("E")   ; leaf
+                    ):
+                    200(   ; envelope
+                       24("F")   ; leaf
+                    )
+                 }
               )
            ]
         )
@@ -104,42 +100,36 @@ class CoreEncodingTests: XCTestCase {
             200(   ; envelope
                [
                   200(   ; envelope
-                     201(   ; assertion
-                        [
-                           200(   ; envelope
-                              24("A")   ; leaf
-                           ),
-                           200(   ; envelope
-                              24("B")   ; leaf
-                           )
-                        ]
-                     )
+                     {
+                        200(   ; envelope
+                           24("A")   ; leaf
+                        ):
+                        200(   ; envelope
+                           24("B")   ; leaf
+                        )
+                     }
                   ),
                   200(   ; envelope
                      [
                         200(   ; envelope
-                           201(   ; assertion
-                              [
-                                 200(   ; envelope
-                                    24("C")   ; leaf
-                                 ),
-                                 200(   ; envelope
-                                    24("D")   ; leaf
-                                 )
-                              ]
-                           )
+                           {
+                              200(   ; envelope
+                                 24("C")   ; leaf
+                              ):
+                              200(   ; envelope
+                                 24("D")   ; leaf
+                              )
+                           }
                         ),
                         200(   ; envelope
-                           201(   ; assertion
-                              [
-                                 200(   ; envelope
-                                    24("E")   ; leaf
-                                 ),
-                                 200(   ; envelope
-                                    24("F")   ; leaf
-                                 )
-                              ]
-                           )
+                           {
+                              200(   ; envelope
+                                 24("E")   ; leaf
+                              ):
+                              200(   ; envelope
+                                 24("F")   ; leaf
+                              )
+                           }
                         )
                      ]
                   )

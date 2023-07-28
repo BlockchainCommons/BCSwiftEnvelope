@@ -55,7 +55,7 @@ public extension Envelope {
             originalDigest = envelopeDigest
         case .assertion(let assertion):
             let assertionDigest = assertion.digest
-            let encodedCBOR = CBOR.tagged(.envelope, assertion.taggedCBOR).cborData
+            let encodedCBOR = CBOR.tagged(.envelope, assertion.cbor).cborData
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: assertionDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = assertionDigest

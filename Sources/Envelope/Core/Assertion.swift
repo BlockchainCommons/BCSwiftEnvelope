@@ -29,23 +29,23 @@ public struct Assertion {
     }
 }
 
-extension Assertion: CBORTaggedCodable {
-    public static var cborTag = Tag.assertion
-    
-    public var untaggedCBOR: CBOR {
-        [predicate.cbor, object.cbor]
+extension Assertion: CBORCodable {
+    public init(cbor: CBOR) throws {
+        guard
+            case CBOR.map(let map) = cbor,
+            map.count == 1
+        else {
+            throw EnvelopeError.invalidFormat
+        }
+        let elem = map.entries.first!
+        let predicate = try Envelope(cbor: elem.key)
+        let object = try Envelope(cbor: elem.value)
+        self = Self(predicate: predicate, object: object)
     }
     
-    public init(untaggedCBOR: CBOR) throws {
-        guard
-            case CBOR.array(let array) = untaggedCBOR,
-            array.count == 2
-        else {
-            throw CBORError.invalidFormat
-        }
-        let predicate = try Envelope(cbor: array[0])
-        let object = try Envelope(cbor: array[1])
-        self = Self(predicate: predicate, object: object)
+    public var cbor: CBOR {
+        let map: DCBOR.Map = [predicate: object]
+        return map.cbor
     }
 }
 

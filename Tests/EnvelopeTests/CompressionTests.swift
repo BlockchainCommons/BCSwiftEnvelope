@@ -24,7 +24,7 @@ class CompressionTests: XCTestCase {
             .addAssertion(.note, source)
             .wrap()
             .sign(with: alicePrivateKeys, using: &rng)
-        XCTAssertEqual(original.cborData.count, 482)
+        XCTAssertEqual(original.cborData.count, 478)
         XCTAssertEqual(original.treeFormat(context: globalFormatContext), """
         1f87e614 NODE
             9065b9d5 subj WRAPPED

@@ -9,9 +9,10 @@ import SecureComponents
 /// * `.node` contains a CBOR array, the first element of which is the subject,
 /// followed by one or more assertions.
 /// * `.leaf` is tagged #6.24, which is the IANA tag for embedded CBOR.
-/// * `.wrapped` is tagged with the `wrapped-envelope` tag.
-/// * `.knownValue` is tagged with the `known-value` tag.
-/// * `.assertion` is tagged with the `assertion` tag.
+/// * `.wrapped` is tagged with the `envelope` tag.
+/// * `.assertion` is a single-element map `{predicate: object}`.
+
+/// * `.knownValue` is a 64-bit signed numeric value.
 /// * `.encrypted` is tagged with the `crypto-msg` tag.
 /// * `.elided` is tagged with the `crypto-digest` tag.
 
@@ -32,7 +33,7 @@ extension Envelope: CBORCodable {
         case .knownValue(let knownValue, _):
             return knownValue.taggedCBOR
         case .assertion(let assertion):
-            return assertion.taggedCBOR
+            return assertion.cbor
         case .encrypted(let encryptedMessage):
             return encryptedMessage.taggedCBOR
         case .compressed(let compressed):
@@ -51,8 +52,6 @@ extension Envelope: CBORCodable {
                 result = Envelope(leaf: item)
             case .knownValue:
                 result = Envelope(knownValue: try KnownValue(untaggedCBOR: item))
-            case .assertion:
-                result = Envelope(assertion: try Assertion(untaggedCBOR: item))
             case .envelope:
                 result = Envelope(wrapped: try Self(taggedCBOR: untaggedCBOR))
             case .encrypted:
@@ -76,6 +75,9 @@ extension Envelope: CBORCodable {
             let subject = try Envelope(taggedCBOR: elements[0])
             let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0) }
             result = try Envelope(subject: subject, assertions: assertions)
+        case CBOR.map(_):
+            let assertion = try Assertion(cbor: untaggedCBOR)
+            result = Envelope(assertion: assertion)
         default:
             throw EnvelopeError.invalidFormat
         }

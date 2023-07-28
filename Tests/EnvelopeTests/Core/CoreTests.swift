@@ -118,16 +118,14 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
         200(   ; envelope
-           201(   ; assertion
-              [
-                 200(   ; envelope
-                    24("knows")   ; leaf
-                 ),
-                 200(   ; envelope
-                    24("Bob")   ; leaf
-                 )
-              ]
-           )
+           {
+              200(   ; envelope
+                 24("knows")   ; leaf
+              ):
+              200(   ; envelope
+                 24("Bob")   ; leaf
+              )
+           }
         )
         """)
         
@@ -152,16 +150,14 @@ class CoreTests: XCTestCase {
                  24("Alice")   ; leaf
               ),
               200(   ; envelope
-                 201(   ; assertion
-                    [
-                       200(   ; envelope
-                          24("knows")   ; leaf
-                       ),
-                       200(   ; envelope
-                          24("Bob")   ; leaf
-                       )
-                    ]
-                 )
+                 {
+                    200(   ; envelope
+                       24("knows")   ; leaf
+                    ):
+                    200(   ; envelope
+                       24("Bob")   ; leaf
+                    )
+                 }
               )
            ]
         )
@@ -190,28 +186,24 @@ class CoreTests: XCTestCase {
                  24("Alice")   ; leaf
               ),
               200(   ; envelope
-                 201(   ; assertion
-                    [
-                       200(   ; envelope
-                          24("knows")   ; leaf
-                       ),
-                       200(   ; envelope
-                          24("Carol")   ; leaf
-                       )
-                    ]
-                 )
+                 {
+                    200(   ; envelope
+                       24("knows")   ; leaf
+                    ):
+                    200(   ; envelope
+                       24("Carol")   ; leaf
+                    )
+                 }
               ),
               200(   ; envelope
-                 201(   ; assertion
-                    [
-                       200(   ; envelope
-                          24("knows")   ; leaf
-                       ),
-                       200(   ; envelope
-                          24("Bob")   ; leaf
-                       )
-                    ]
-                 )
+                 {
+                    200(   ; envelope
+                       24("knows")   ; leaf
+                    ):
+                    200(   ; envelope
+                       24("Bob")   ; leaf
+                    )
+                 }
               )
            ]
         )
