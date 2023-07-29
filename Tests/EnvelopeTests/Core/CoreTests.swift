@@ -90,9 +90,7 @@ class CoreTests: XCTestCase {
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
-           202(4)   ; known-value
-        )
+        200(4)   ; envelope
         """)
         
         try e.checkEncoding()

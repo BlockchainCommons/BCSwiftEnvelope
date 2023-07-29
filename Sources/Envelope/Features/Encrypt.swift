@@ -49,7 +49,7 @@ public extension Envelope {
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = wrappedDigest
         case .knownValue(let knownValue, let envelopeDigest):
-            let encodedCBOR = CBOR.tagged(.envelope, knownValue.taggedCBOR).cborData
+            let encodedCBOR = CBOR.tagged(.envelope, knownValue.untaggedCBOR).cborData
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: envelopeDigest, nonce: testNonce)
             result = try Envelope(encryptedMessage: encryptedMessage)
             originalDigest = envelopeDigest

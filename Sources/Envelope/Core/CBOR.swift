@@ -31,7 +31,7 @@ extension Envelope: CBORCodable {
         case .wrapped(let envelope, _):
             return envelope.taggedCBOR
         case .knownValue(let knownValue, _):
-            return knownValue.taggedCBOR
+            return knownValue.untaggedCBOR
         case .assertion(let assertion):
             return assertion.cbor
         case .encrypted(let encryptedMessage):
@@ -50,8 +50,6 @@ extension Envelope: CBORCodable {
             switch tag {
             case .leaf:
                 result = Envelope(leaf: item)
-            case .knownValue:
-                result = Envelope(knownValue: try KnownValue(untaggedCBOR: item))
             case .envelope:
                 result = Envelope(wrapped: try Self(taggedCBOR: untaggedCBOR))
             case .encrypted:
@@ -78,6 +76,8 @@ extension Envelope: CBORCodable {
         case CBOR.map(_):
             let assertion = try Assertion(cbor: untaggedCBOR)
             result = Envelope(assertion: assertion)
+        case CBOR.unsigned(let value):
+            result = Envelope(knownValue: KnownValue(value))
         default:
             throw EnvelopeError.invalidFormat
         }
