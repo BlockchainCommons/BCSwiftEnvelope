@@ -7,7 +7,7 @@ class TypeTests: XCTestCase {
     func testKnownValue() throws {
         let envelope = try Envelope(.verifiedBy).checkEncoding()
         XCTAssertEqual(envelope.description, ".knownValue(verifiedBy)")
-        XCTAssertEqual(envelope.digest†, "Digest(9d7ba9eb8986332bf3e6f3f96b36d937176d95b556441b18612b9c06edc9b7e1)")
+        XCTAssertEqual(envelope.digest†, "Digest(d0e39e788c0d8f0343af4588db21d3d51381db454bdf710a9a1891aaa537693c)")
         XCTAssertEqual(envelope.format(), "verifiedBy")
         XCTAssertEqual(envelope.urString, "ur:envelope/axgrbdrnem")
     }

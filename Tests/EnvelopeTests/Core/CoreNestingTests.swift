@@ -188,18 +188,34 @@ class CoreNestingTests: XCTestCase {
     }
     
     func testNestingOnce() throws {
-        let envelope = try Envelope(plaintextHello)
+        let e1 = Envelope(plaintextHello)
+        XCTAssertEqual(e1.format(),
+        """
+        "Hello."
+        """)
+        
+        XCTAssertEqual(e1.treeFormat(context: globalFormatContext),
+        """
+        8cc96cdb "Hello."
+        """)
+
+        let envelope = try e1
             .wrap()
             .checkEncoding()
         
-        let expectedFormat =
+        XCTAssertEqual(envelope.format(),
         """
         {
             "Hello."
         }
+        """)
+
+        XCTAssertEqual(envelope.treeFormat(context: globalFormatContext),
         """
-        XCTAssertEqual(envelope.format(), expectedFormat)
-        
+        172a5e51 WRAPPED
+            8cc96cdb subj "Hello."
+        """)
+
         let elidedEnvelope = try Envelope(plaintextHello)
             .elide()
             .wrap()
@@ -207,13 +223,18 @@ class CoreNestingTests: XCTestCase {
         
         XCTAssert(elidedEnvelope.isEquivalent(to: envelope))
         
-        let expectedElidedFormat =
+        XCTAssertEqual(elidedEnvelope.format(),
         """
         {
             ELIDED
         }
+        """)
+
+        XCTAssertEqual(elidedEnvelope.treeFormat(context: globalFormatContext),
         """
-        XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
+        172a5e51 WRAPPED
+            8cc96cdb subj ELIDED
+        """)
     }
     
     func testNestingTwice() throws {
@@ -222,32 +243,44 @@ class CoreNestingTests: XCTestCase {
             .wrap()
             .checkEncoding()
         
-        let expectedFormat =
+        XCTAssertEqual(envelope.format(),
         """
         {
             {
                 "Hello."
             }
         }
-        """
-        XCTAssertEqual(envelope.format(), expectedFormat)
+        """)
         
+        XCTAssertEqual(envelope.treeFormat(context: globalFormatContext),
+        """
+        8b14f3bc WRAPPED
+            172a5e51 subj WRAPPED
+                8cc96cdb subj "Hello."
+        """)
+
         let target = try envelope
             .unwrap()
             .unwrap()
         let elidedEnvelope = envelope.elideRemoving(target)
         
-        let expectedElidedFormat =
+        XCTAssertEqual(elidedEnvelope.format(),
         """
         {
             {
                 ELIDED
             }
         }
+        """)
+        XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
+        XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
+
+        XCTAssertEqual(elidedEnvelope.treeFormat(context: globalFormatContext),
         """
-        XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
-        XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
-        XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
+        8b14f3bc WRAPPED
+            172a5e51 subj WRAPPED
+                8cc96cdb subj ELIDED
+        """)
     }
 
     func testAssertionsOnAllPartsOfEnvelope() throws {

@@ -20,12 +20,32 @@ class NonCorrelationTests: XCTestCase {
         ]
         """)
 
+        XCTAssertEqual(e2.diagnostic(annotate: true, context: globalFormatContext), """
+        200(   ; envelope
+           [
+              200(   ; envelope
+                 24("Hello.")   ; leaf
+              ),
+              200(   ; envelope
+                 {
+                    200(15):   ; envelope
+                    200(   ; envelope
+                       24(   ; leaf
+                          40018(h'b559bbbf6cce2632')   ; salt
+                       )
+                    )
+                 }
+              )
+           ]
+        )
+        """)
+
         XCTAssertEqual(e2.treeFormat(), """
-        7b7212f5 NODE
+        4f0f2d55 NODE
             8cc96cdb subj "Hello."
-            425f48a1 ASSERTION
-                aa14a6e0 pred salt
-                ba8199d2 obj Salt
+            dd412f1d ASSERTION
+                618975ce pred salt
+                7915f200 obj Salt
         """)
 
         // So even though its content is the same, it doesn't correlate.

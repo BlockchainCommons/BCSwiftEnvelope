@@ -34,7 +34,7 @@ final class SSKREnvelopeTestVectors: XCTestCase {
             groupThreshold: 1,
             groups: [(2, 3)],
             recoveredShareIndexes: [0, 2],
-            expectedFirstShare: "ur:envelope/lftpsptpsnlrhdrpaslkbwlfcxenpdaoesgektbnsgdatyjkwnkkmevsjsgllsndwmidkiutntlawymtrktdtdidjotadnuyeejtnluonbwnreiywncaskwlbebgcaeodysoptlnlgbkehgtmymoiebscsjsimnncwkesowtoscpdtidgratlutnnyoxiypegswkfgahlertaxbeoeoyjttefdmyvamhvoztutgmfxfnnngtbdcegolpkomsbtskdlbsrnlrwshfkkwssblsaestzcettorpchtsrkiamwrhemtseolosoenlsluayfpvojkuocplfbenygdeocyrypfjllufysasptpgwenqdhspfchchyncnlemnssgsgtkshfhdwfjzcpzohtweftrtgdpehfvaykbdpfnbdssgmwtslkhgfdfpbwhddktpsfhdcxkiuyytkszefpbtrhqdmhcngehgsprllfonbahyvljkrpmklyjtgrryfprngtrftstpspoytpspamtpsptpcstaadechddarekbaeadaeseambbvacfisghnygsuetdadsbkgihldesjymkpksbatzstefslnhnskzeswkbzourytaeih"
+            expectedFirstShare: "ur:envelope/lftpsptansfwlrhdrpaslkbwlfcxenpdaoesgektbnsgdatyjkwnkkmevsjsgllsndwmidkiutntlawymtrktdtdidjotadnuyeejtnluonbwnreiywncaskwlbebgcaeodysoptlnlgbkehgtmymoiebscsjsimnncwkesowtoscpdtidgratlutnnyoxiypegswkfgahlertaxbeoeoyjttefdmyvamhvoztutgmfxfnnngtbdcegolpkomsbtskdlbsrnlrwshfkkwssblsaestzcettorpchtsrkiamwrhemtseolosoenlsluayfpvojkuocplfbenygdeocyrypfjllufysasptpgwenqdhspfchchyncnlemnssgsgtkshfhdwfjzcpzohtweftrtgdzcplhplypegrhykitemsbaihghfnhkwyhddatansfphdcxkiuyytkszefpbtrhqdmhcngehgsprllfonbahyvljkrpmklyjtgrryfprngtrftstpspoytpspamtpsptpcstaadechddarekbaeadaeseambbvacfisghnygsuetdadsbkgihldesjymkpksbatzstefslnhnskzeswkbzobtqzmdwd"
         )
         
         let testCase2 = try TestCase(
@@ -44,7 +44,7 @@ final class SSKREnvelopeTestVectors: XCTestCase {
             groups: [(3, 5)],
             recoveredShareIndexes: [0, 2, 4],
             vendorNote: "This could be vendor-specific data attached to the envelope.",
-            expectedFirstShare: "ur:envelope/lstpsptpsnlrhdheaslkbwlflyjtsntdcsjkhluemsktwdntythtatamjlmeswmybatlbdjywylszojtutwnswgekiludpnyaxjploskpmzsvaatwkatlroseoasgrdkgystrlpymnhdcxfdsguyiocfbajtdlmnatfmlnpepkjsaaktcabslfnepmvdenrffgvsguaslktpaogsgtkshfhdwfjzcpzohtweftrtgdpyhkdmkenbqzidkkgrpyjlgykekerecmhddktpsfhdcxbwecaocfswdalfgmlrvdrewltllttihfsblyhtwkoyisftlbcyaohprdbddnrsketpspoytpspaatpsptpcsksfnghisinjkcxiajlkpjziecxidihcxkoihjtiejljpdpjkjoihiainiyiniacxiehsjyhscxhsjyjyhsiaisihiecxjyjlcxjyisihcxihjtkoihjzjljoihdmtpspoytpspamtpsptpcstaadechddarekbaeaoaehkrkrsjztodseytknecfgewmgdmwfsvdvysbpmghuozsprknfwkpnehydlwegylngtmnwyyl"
+            expectedFirstShare: "ur:envelope/lstpsptansfwlrhdheaslkbwlflyjtsntdcsjkhluemsktwdntythtatamjlmeswmybatlbdjywylszojtutwnswgekiludpnyaxjploskpmzsvaatwkatlroseoasgrdkgystrlpymnhdcxfdsguyiocfbajtdlmnatfmlnpepkjsaaktcabslfnepmvdenrffgvsguaslktpaogsgtkshfhdwfjzcpzohtweftrtgdcmhfjpisoteczsaodrfhdadmnnskvsgyhddatansfphdcxbwecaocfswdalfgmlrvdrewltllttihfsblyhtwkoyisftlbcyaohprdbddnrsketpspoytpspamtpsptpcstaadechddarekbaeaoaehkrkrsjztodseytknecfgewmgdmwfsvdvysbpmghuozsprknfwkpnehydlwegylntpspoytpspaatpsptpcsksfnghisinjkcxiajlkpjziecxidihcxkoihjtiejljpdpjkjoihiainiyiniacxiehsjyhscxhsjyjyhsiaisihiecxjyjlcxjyisihcxihjtkoihjzjljoihdmtyylvacl"
         )
         
         let testCase3 = try TestCase(
@@ -53,7 +53,7 @@ final class SSKREnvelopeTestVectors: XCTestCase {
             groupThreshold: 2,
             groups: [(2, 3), (2, 3), (2, 3)],
             recoveredShareIndexes: [0, 1, 6, 7],
-            expectedFirstShare: "ur:envelope/lftpsptpsnlrhdrpaslkbwlfcxenpdaoesgektbnsgdatyjkwnkkmevsjsgllsndwmidkiutntlawymtrktdtdidjotadnuyeejtnluonbwnreiywncaskwlbebgcaeodysoptlnlgbkehgtmymoiebscsjsimnncwkesowtoscpdtidgratlutnnyoxiypegswkfgahlertaxbeoeoyjttefdmyvamhvoztutgmfxfnnngtbdcegolpkomsbtskdlbsrnlrwshfkkwssblsaestzcettorpchtsrkiamwrhemtseolosoenlsluayfpvojkuocplfbenygdeocyrypfjllufysasptpgwenqdhspfchchyncnlemnssgsgtkshfhdwfjzcpzohtweftrtgdpehfvaykbdpfnbdssgmwtslkhgfdfpbwhddktpsfhdcxkiuyytkszefpbtrhqdmhcngehgsprllfonbahyvljkrpmklyjtgrryfprngtrftstpspoytpspamtpsptpcstaadechddarekbbgadaebzykrnmemtcnknnddlbbiylehnihonvsnybdsrsefmrhbyaxwtiycxdmesceiddmotkkpmkg"
+            expectedFirstShare: "ur:envelope/lftpsptansfwlrhdrpaslkbwlfcxenpdaoesgektbnsgdatyjkwnkkmevsjsgllsndwmidkiutntlawymtrktdtdidjotadnuyeejtnluonbwnreiywncaskwlbebgcaeodysoptlnlgbkehgtmymoiebscsjsimnncwkesowtoscpdtidgratlutnnyoxiypegswkfgahlertaxbeoeoyjttefdmyvamhvoztutgmfxfnnngtbdcegolpkomsbtskdlbsrnlrwshfkkwssblsaestzcettorpchtsrkiamwrhemtseolosoenlsluayfpvojkuocplfbenygdeocyrypfjllufysasptpgwenqdhspfchchyncnlemnssgsgtkshfhdwfjzcpzohtweftrtgdzcplhplypegrhykitemsbaihghfnhkwyhddatansfphdcxkiuyytkszefpbtrhqdmhcngehgsprllfonbahyvljkrpmklyjtgrryfprngtrftstpspoytpspamtpsptpcstaadechddarekbbgadaebzykrnmemtcnknnddlbbiylehnihonvsnybdsrsefmrhbyaxwtiycxdmesceiddmjseeetwk"
         )
         
         let testCases: [AnyTestCase] = [testCase1 as AnyTestCase, testCase2, testCase3]

@@ -10,7 +10,7 @@ class CompressionTests: XCTestCase {
         let original = Envelope(source)
         XCTAssertEqual(original.cborData.count, 371)
         let compressed = try original.compress().checkEncoding(tags: globalTags)
-        XCTAssertEqual(compressed.cborData.count, 282)
+        XCTAssertEqual(compressed.cborData.count, 284)
 
         XCTAssertEqual(original.digest, compressed.digest)
         let uncompressed = try compressed.uncompress().checkEncoding(tags: globalTags)
@@ -26,25 +26,25 @@ class CompressionTests: XCTestCase {
             .sign(with: alicePrivateKeys, using: &rng)
         XCTAssertEqual(original.cborData.count, 474)
         XCTAssertEqual(original.treeFormat(context: globalFormatContext), """
-        1f87e614 NODE
-            9065b9d5 subj WRAPPED
-                4aa501b7 subj NODE
+        9ed291b0 NODE
+            d7183f04 subj WRAPPED
+                7f35e345 subj NODE
                     13941b48 subj "Alice"
-                    cb07a196 ASSERTION
-                        49a5f41b pred note
+                    9fb69539 ASSERTION
+                        0fcd6a39 pred note
                         e343c9b4 obj "Lorem ipsum dolor sit amet consectetur a…"
-            a689e27d ASSERTION
-                9d7ba9eb pred verifiedBy
-                051e3ce1 obj Signature
+            2f87ba42 ASSERTION
+                d0e39e78 pred verifiedBy
+                dd386db5 obj Signature
         """)
         let compressed = try original.compressSubject().checkEncoding(tags: globalTags)
-        XCTAssertEqual(compressed.cborData.count, 385)
+        XCTAssertEqual(compressed.cborData.count, 387)
         XCTAssertEqual(compressed.treeFormat(context: globalFormatContext), """
-        1f87e614 NODE
-            9065b9d5 subj COMPRESSED
-            a689e27d ASSERTION
-                9d7ba9eb pred verifiedBy
-                051e3ce1 obj Signature
+        9ed291b0 NODE
+            d7183f04 subj COMPRESSED
+            2f87ba42 ASSERTION
+                d0e39e78 pred verifiedBy
+                dd386db5 obj Signature
         """)
         let uncompressed = try compressed.uncompressSubject().checkEncoding(tags: globalTags)
         XCTAssertEqual(uncompressed.digest, original.digest)
