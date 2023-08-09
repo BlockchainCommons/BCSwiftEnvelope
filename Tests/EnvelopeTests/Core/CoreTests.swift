@@ -247,15 +247,6 @@ class CoreTests: XCTestCase {
         let e = try Self.doubleWrappedEnvelope.checkEncoding()
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
-//        """
-//        200(   ; envelope
-//           203(   ; wrapped-envelope
-//              203(   ; wrapped-envelope
-//                 24("Hello.")   ; leaf
-//              )
-//           )
-//        )
-//        """
         """
         200(   ; envelope
            200(   ; envelope
