@@ -17,7 +17,7 @@ public extension Envelope {
     /// See [RFC-8949 §8](https://www.rfc-editor.org/rfc/rfc8949.html#name-diagnostic-notation)
     /// for information on CBOR diagnostic notation.
     func diagnostic(annotate: Bool = false, context: FormatContext? = nil) -> String {
-        cbor.diagnostic(annotate: annotate, tags: context)
+        taggedCBOR.diagnostic(annotate: annotate, tags: context)
     }
 
     /// Returns the CBOR hex dump of this envelope.

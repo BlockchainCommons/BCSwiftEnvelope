@@ -117,12 +117,8 @@ class CoreTests: XCTestCase {
         """
         200(   ; envelope
            {
-              200(   ; envelope
-                 24("knows")   ; leaf
-              ):
-              200(   ; envelope
-                 24("Bob")   ; leaf
-              )
+              24("knows"):   ; leaf
+              24("Bob")   ; leaf
            }
         )
         """)
@@ -144,19 +140,11 @@ class CoreTests: XCTestCase {
         """
         200(   ; envelope
            [
-              200(   ; envelope
-                 24("Alice")   ; leaf
-              ),
-              200(   ; envelope
-                 {
-                    200(   ; envelope
-                       24("knows")   ; leaf
-                    ):
-                    200(   ; envelope
-                       24("Bob")   ; leaf
-                    )
-                 }
-              )
+              24("Alice"),   ; leaf
+              {
+                 24("knows"):   ; leaf
+                 24("Bob")   ; leaf
+              }
            ]
         )
         """)
@@ -180,29 +168,15 @@ class CoreTests: XCTestCase {
         """
         200(   ; envelope
            [
-              200(   ; envelope
-                 24("Alice")   ; leaf
-              ),
-              200(   ; envelope
-                 {
-                    200(   ; envelope
-                       24("knows")   ; leaf
-                    ):
-                    200(   ; envelope
-                       24("Carol")   ; leaf
-                    )
-                 }
-              ),
-              200(   ; envelope
-                 {
-                    200(   ; envelope
-                       24("knows")   ; leaf
-                    ):
-                    200(   ; envelope
-                       24("Bob")   ; leaf
-                    )
-                 }
-              )
+              24("Alice"),   ; leaf
+              {
+                 24("knows"):   ; leaf
+                 24("Carol")   ; leaf
+              },
+              {
+                 24("knows"):   ; leaf
+                 24("Bob")   ; leaf
+              }
            ]
         )
         """)

@@ -8,9 +8,9 @@ class CompressionTests: XCTestCase {
     func testCompress() throws {
         print(source)
         let original = Envelope(source)
-        XCTAssertEqual(original.cborData.count, 371)
+        XCTAssertEqual(original.cborData.count, 369)
         let compressed = try original.compress().checkEncoding(tags: globalTags)
-        XCTAssertEqual(compressed.cborData.count, 284)
+        XCTAssertEqual(compressed.cborData.count, 282)
 
         XCTAssertEqual(original.digest, compressed.digest)
         let uncompressed = try compressed.uncompress().checkEncoding(tags: globalTags)
@@ -24,7 +24,7 @@ class CompressionTests: XCTestCase {
             .addAssertion(.note, source)
             .wrap()
             .sign(with: alicePrivateKeys, using: &rng)
-        XCTAssertEqual(original.cborData.count, 474)
+        XCTAssertEqual(original.cborData.count, 456)
         XCTAssertEqual(original.treeFormat(context: globalFormatContext), """
         9ed291b0 NODE
             d7183f04 subj WRAPPED
@@ -38,7 +38,7 @@ class CompressionTests: XCTestCase {
                 dd386db5 obj Signature
         """)
         let compressed = try original.compressSubject().checkEncoding(tags: globalTags)
-        XCTAssertEqual(compressed.cborData.count, 387)
+        XCTAssertEqual(compressed.cborData.count, 373)
         XCTAssertEqual(compressed.treeFormat(context: globalFormatContext), """
         9ed291b0 NODE
             d7183f04 subj COMPRESSED

@@ -14,7 +14,7 @@ public extension Envelope {
         case .elided:
             throw EnvelopeError.alreadyElided
         default:
-            return try Envelope(compressed: Compressed(uncompressedData: cborData, digest: digest))
+            return try Envelope(compressed: Compressed(uncompressedData: taggedCBOR.cborData, digest: digest))
         }
     }
     
@@ -24,7 +24,7 @@ public extension Envelope {
     func uncompress() throws -> Envelope {
         switch self {
         case .compressed(let compressed):
-            let envelope = try Envelope(cborData: compressed.uncompress())
+            let envelope = try Envelope(taggedCBORData: compressed.uncompress())
             guard let digest = compressed.digest else {
                 throw EnvelopeError.missingDigest
             }

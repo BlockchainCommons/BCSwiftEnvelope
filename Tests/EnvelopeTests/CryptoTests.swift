@@ -150,25 +150,25 @@ class CryptoTests: XCTestCase {
         // leaf
         let e1 = Envelope(plaintextHello)
         try roundTripTest(e1)
-        
+
         // node
         let e2 = Envelope("Alice")
             .addAssertion("knows", "Bob")
         try roundTripTest(e2)
-        
+
         // wrapped
         let e3 = Envelope("Alice")
             .wrap()
         try roundTripTest(e3)
-        
+
         // known value
         let e4 = Envelope(.isA)
         try roundTripTest(e4)
-        
+
         // assertion
         let e5 = Envelope("knows", "Bob")
         try roundTripTest(e5)
-        
+
         // compressed
         let e6 = try Envelope(plaintextHello).compress()
         try roundTripTest(e6)

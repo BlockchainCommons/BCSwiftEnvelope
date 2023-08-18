@@ -32,7 +32,7 @@ public extension Envelope {
             guard !subject.isEncrypted else {
                 throw EnvelopeError.alreadyEncrypted
             }
-            let encodedCBOR = subject.cborData
+            let encodedCBOR = subject.taggedCBOR.cborData
             let subjectDigest = subject.digest
             let encryptedMessage = key.encrypt(plaintext: encodedCBOR, digest: subjectDigest, nonce: testNonce)
             let encryptedSubject = try Envelope(encryptedMessage: encryptedMessage)

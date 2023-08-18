@@ -20,9 +20,9 @@ extension Envelope: CBORCodable {
         switch self {
         case .node(let subject, let assertions, _):
             precondition(!assertions.isEmpty)
-            var result = [subject.taggedCBOR]
+            var result = [subject.untaggedCBOR]
             for assertion in assertions {
-                result.append(assertion.taggedCBOR)
+                result.append(assertion.untaggedCBOR)
             }
             return CBOR.array(result)
         case .leaf(let cbor, _):
@@ -69,8 +69,8 @@ extension Envelope: CBORCodable {
             guard elements.count >= 2 else {
                 throw CBORError.invalidFormat
             }
-            let subject = try Envelope(taggedCBOR: elements[0])
-            let assertions = try elements.dropFirst().map { try Envelope(taggedCBOR: $0) }
+            let subject = try Envelope(untaggedCBOR: elements[0])
+            let assertions = try elements.dropFirst().map { try Envelope(untaggedCBOR: $0) }
             result = try Envelope(subject: subject, assertions: assertions)
         case CBOR.map(_):
             let assertion = try Assertion(cbor: untaggedCBOR)
@@ -115,4 +115,16 @@ public extension Envelope {
 
 extension Envelope: CBORTaggedCodable {
     public static var cborTag = Tag.envelope
+    
+    public var cbor: CBOR {
+        untaggedCBOR
+    }
+    
+    public var cborData: Data {
+        untaggedCBOR.cborData
+    }
+
+    public init(cbor: CBOR) throws {
+        self = try Self(untaggedCBOR: cbor)
+    }
 }
