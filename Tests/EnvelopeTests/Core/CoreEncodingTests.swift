@@ -12,8 +12,8 @@ class CoreEncodingTests: XCTestCase {
         let e = try Envelope(plaintextHello).checkEncoding()
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
             """
-            200(   ; envelope
-               24("Hello.")   ; leaf
+            200(   / envelope /
+               24("Hello.")   / leaf /
             )
             """
         )
@@ -24,8 +24,8 @@ class CoreEncodingTests: XCTestCase {
         let e = try Envelope(array).checkEncoding()
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
             """
-            200(   ; envelope
-               24(   ; leaf
+            200(   / envelope /
+               24(   / leaf /
                   [1, 2, 3]
                )
             )
@@ -51,15 +51,15 @@ class CoreEncodingTests: XCTestCase {
         
         XCTAssertEqual(e4.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
+        200(   / envelope /
            [
               {
-                 24("C"):   ; leaf
-                 24("D")   ; leaf
+                 24("C"):   / leaf /
+                 24("D")   / leaf /
               },
               {
-                 24("E"):   ; leaf
-                 24("F")   ; leaf
+                 24("E"):   / leaf /
+                 24("F")   / leaf /
               }
            ]
         )
@@ -85,20 +85,20 @@ class CoreEncodingTests: XCTestCase {
 
         XCTAssertEqual(e5.diagnostic(annotate: true, context: globalFormatContext),
             """
-            200(   ; envelope
+            200(   / envelope /
                [
                   {
-                     24("A"):   ; leaf
-                     24("B")   ; leaf
+                     24("A"):   / leaf /
+                     24("B")   / leaf /
                   },
                   [
                      {
-                        24("C"):   ; leaf
-                        24("D")   ; leaf
+                        24("C"):   / leaf /
+                        24("D")   / leaf /
                      },
                      {
-                        24("E"):   ; leaf
-                        24("F")   ; leaf
+                        24("E"):   / leaf /
+                        24("F")   / leaf /
                      }
                   ]
                ]

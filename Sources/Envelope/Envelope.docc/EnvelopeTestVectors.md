@@ -62,15 +62,15 @@ d8c8d8186648656c6c6f2e
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
-   24("Hello.")   ; leaf
+200(   / envelope /
+   24("Hello.")   / leaf /
 )
 ```
 
 ### Tagged CBOR Annotated Binary
 
 ```
-d8 18              # tag(24)   ; leaf
+d8 18              # tag(24) leaf
    66              # text(6)
       48656c6c6f2e # "Hello."
 ```
@@ -106,13 +106,13 @@ d8c882d8186648656c6c6f2ea103d818d99c545840720411a1b03401445734a8b305586b9c6a65a8
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
+200(   / envelope /
    [
-      24("Hello."),   ; leaf
+      24("Hello."),   / leaf /
       {
          3:
-         24(   ; leaf
-            40020(   ; signature
+         24(   / leaf /
+            40020(   / signature /
                h'720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed'
             )
          )
@@ -125,13 +125,13 @@ d8c882d8186648656c6c6f2ea103d818d99c545840720411a1b03401445734a8b305586b9c6a65a8
 
 ```
 82                                       # array(2)
-   d8 18                                 # tag(24)   ; leaf
+   d8 18                                 # tag(24) leaf
       66                                 # text(6)
          48656c6c6f2e                    # "Hello."
    a1                                    # map(1)
       03                                 # unsigned(3)
-      d8 18                              # tag(24)   ; leaf
-         d9 9c54                         # tag(40020)   ; signature
+      d8 18                              # tag(24) leaf
+         d9 9c54                         # tag(40020) signature
             5840                         # bytes(64)
                720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed
 ```
@@ -168,21 +168,21 @@ d8c883d8186648656c6c6f2ea103d818d99c545840fd533d027f9262dfb0b8b83b61279ea0f60338
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
+200(   / envelope /
    [
-      24("Hello."),   ; leaf
+      24("Hello."),   / leaf /
       {
          3:
-         24(   ; leaf
-            40020(   ; signature
+         24(   / leaf /
+            40020(   / signature /
                h'fd533d027f9262dfb0b8b83b61279ea0f60338936af4d99d36f0051f95e8ad5f2ac068e08ebee040cd888905450627574bd5ea639c8f38a0b43496309c5c356b'
             )
          )
       },
       {
          3:
-         24(   ; leaf
-            40020(   ; signature
+         24(   / leaf /
+            40020(   / signature /
                h'720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed'
             )
          )
@@ -195,19 +195,19 @@ d8c883d8186648656c6c6f2ea103d818d99c545840fd533d027f9262dfb0b8b83b61279ea0f60338
 
 ```
 83                                       # array(3)
-   d8 18                                 # tag(24)   ; leaf
+   d8 18                                 # tag(24) leaf
       66                                 # text(6)
          48656c6c6f2e                    # "Hello."
    a1                                    # map(1)
       03                                 # unsigned(3)
-      d8 18                              # tag(24)   ; leaf
-         d9 9c54                         # tag(40020)   ; signature
+      d8 18                              # tag(24) leaf
+         d9 9c54                         # tag(40020) signature
             5840                         # bytes(64)
                fd533d027f9262dfb0b8b83b61279ea0f60338936af4d99d36f0051f95e8ad5f2ac068e08ebee040cd888905450627574bd5ea639c8f38a0b43496309c5c356b
    a1                                    # map(1)
       03                                 # unsigned(3)
-      d8 18                              # tag(24)   ; leaf
-         d9 9c54                         # tag(40020)   ; signature
+      d8 18                              # tag(24) leaf
+         d9 9c54                         # tag(40020) signature
             5840                         # bytes(64)
                720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed
 ```
@@ -241,8 +241,8 @@ d8c8d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa668
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
-   40002(   ; encrypted
+200(   / envelope /
+   40002(   / encrypted /
       [
          h'098c13829f7fe1ca547500',
          h'4d785658f36c22fb5aed3ac0',
@@ -256,7 +256,7 @@ d8c8d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa668
 ### Tagged CBOR Annotated Binary
 
 ```
-d9 9c42                                  # tag(40002)   ; encrypted
+d9 9c42                                  # tag(40002) encrypted
    84                                    # array(4)
       4b                                 # bytes(11)
          098c13829f7fe1ca547500
@@ -297,8 +297,8 @@ d8c8d99c42845857098c13527bef9cc0707f42928c312ebe542cadea54a2e3932aa1deacb3e19f56
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
-   40002(   ; encrypted
+200(   / envelope /
+   40002(   / encrypted /
       [
          h'098c13527bef9cc0707f42928c312ebe542cadea54a2e3932aa1deacb3e19f568f79142349c0dc9101b31c544c6118bef623261db38e10d2e8da6014776ca60eea983dde3afcfd9e1e89c9f675b251645781add6756eab',
          h'4d785658f36c22fb5aed3ac0',
@@ -312,7 +312,7 @@ d8c8d99c42845857098c13527bef9cc0707f42928c312ebe542cadea54a2e3932aa1deacb3e19f56
 ### Tagged CBOR Annotated Binary
 
 ```
-d9 9c42                                  # tag(40002)   ; encrypted
+d9 9c42                                  # tag(40002) encrypted
    84                                    # array(4)
       5857                               # bytes(87)
          098c13527bef9cc0707f42928c312ebe542cadea54a2e3932aa1deacb3e19f568f79142349c0dc9101b31c544c6118bef623261db38e10d2e8da6014776ca60eea983dde3afcfd9e1e89c9f675b251645781add6756eab
@@ -355,9 +355,9 @@ d8c882d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
+200(   / envelope /
    [
-      40002(   ; encrypted
+      40002(   / encrypted /
          [
             h'098c13829f7fe1ca547500',
             h'4d785658f36c22fb5aed3ac0',
@@ -367,8 +367,8 @@ d8c882d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
       ),
       {
          3:
-         24(   ; leaf
-            40020(   ; signature
+         24(   / leaf /
+            40020(   / signature /
                h'720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed'
             )
          )
@@ -381,7 +381,7 @@ d8c882d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
 
 ```
 82                                       # array(2)
-   d9 9c42                               # tag(40002)   ; encrypted
+   d9 9c42                               # tag(40002) encrypted
       84                                 # array(4)
          4b                              # bytes(11)
             098c13829f7fe1ca547500
@@ -393,8 +393,8 @@ d8c882d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
             d99c4158208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59
    a1                                    # map(1)
       03                                 # unsigned(3)
-      d8 18                              # tag(24)   ; leaf
-         d9 9c54                         # tag(40020)   ; signature
+      d8 18                              # tag(24) leaf
+         d9 9c54                         # tag(40020) signature
             5840                         # bytes(64)
                720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed
 ```
@@ -431,9 +431,9 @@ d8c883d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
+200(   / envelope /
    [
-      40002(   ; encrypted
+      40002(   / encrypted /
          [
             h'098c13829f7fe1ca547500',
             h'4d785658f36c22fb5aed3ac0',
@@ -443,17 +443,17 @@ d8c883d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
       ),
       {
          5:
-         24(   ; leaf
-            40019(   ; crypto-sealed
+         24(   / leaf /
+            40019(   / crypto-sealed /
                [
-                  40002(   ; encrypted
+                  40002(   / encrypted /
                      [
                         h'283ddc2724b91511c2081b5372b91f5c6e4b16a64b7228ad39f7e984b026fbca4ad92c456c',
                         h'4d785658f36c22fb5aed3ac0',
                         h'bafe26bb998122214445335af5de9245'
                      ]
                   ),
-                  40011(   ; agreement-public-key
+                  40011(   / agreement-public-key /
                      h'f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f'
                   )
                ]
@@ -462,17 +462,17 @@ d8c883d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
       },
       {
          5:
-         24(   ; leaf
-            40019(   ; crypto-sealed
+         24(   / leaf /
+            40019(   / crypto-sealed /
                [
-                  40002(   ; encrypted
+                  40002(   / encrypted /
                      [
                         h'd4392ddbd1e3a644c0ac8761ec25c2fb0029b48d562f094c3d481344cd04c3cea40503f793',
                         h'4d785658f36c22fb5aed3ac0',
                         h'52c9acbc1d28f0396e7c4dacebf80c32'
                      ]
                   ),
-                  40011(   ; agreement-public-key
+                  40011(   / agreement-public-key /
                      h'f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f'
                   )
                ]
@@ -487,7 +487,7 @@ d8c883d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
 
 ```
 83                                       # array(3)
-   d9 9c42                               # tag(40002)   ; encrypted
+   d9 9c42                               # tag(40002) encrypted
       84                                 # array(4)
          4b                              # bytes(11)
             098c13829f7fe1ca547500
@@ -499,10 +499,10 @@ d8c883d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
             d99c4158208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59
    a1                                    # map(1)
       05                                 # unsigned(5)
-      d8 18                              # tag(24)   ; leaf
-         d9 9c53                         # tag(40019)   ; crypto-sealed
+      d8 18                              # tag(24) leaf
+         d9 9c53                         # tag(40019) crypto-sealed
             82                           # array(2)
-               d9 9c42                   # tag(40002)   ; encrypted
+               d9 9c42                   # tag(40002) encrypted
                   83                     # array(3)
                      5825                # bytes(37)
                         283ddc2724b91511c2081b5372b91f5c6e4b16a64b7228ad39f7e984b026fbca4ad92c456c
@@ -510,15 +510,15 @@ d8c883d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
                         4d785658f36c22fb5aed3ac0
                      50                  # bytes(16)
                         bafe26bb998122214445335af5de9245
-               d9 9c4b                   # tag(40011)   ; agreement-public-key
+               d9 9c4b                   # tag(40011) agreement-public-key
                   5820                   # bytes(32)
                      f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f
    a1                                    # map(1)
       05                                 # unsigned(5)
-      d8 18                              # tag(24)   ; leaf
-         d9 9c53                         # tag(40019)   ; crypto-sealed
+      d8 18                              # tag(24) leaf
+         d9 9c53                         # tag(40019) crypto-sealed
             82                           # array(2)
-               d9 9c42                   # tag(40002)   ; encrypted
+               d9 9c42                   # tag(40002) encrypted
                   83                     # array(3)
                      5825                # bytes(37)
                         d4392ddbd1e3a644c0ac8761ec25c2fb0029b48d562f094c3d481344cd04c3cea40503f793
@@ -526,7 +526,7 @@ d8c883d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
                         4d785658f36c22fb5aed3ac0
                      50                  # bytes(16)
                         52c9acbc1d28f0396e7c4dacebf80c32
-               d9 9c4b                   # tag(40011)   ; agreement-public-key
+               d9 9c4b                   # tag(40011) agreement-public-key
                   5820                   # bytes(32)
                      f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f
 ```
@@ -564,9 +564,9 @@ d8c884d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
+200(   / envelope /
    [
-      40002(   ; encrypted
+      40002(   / encrypted /
          [
             h'098c13829f7fe1ca547500',
             h'4d785658f36c22fb5aed3ac0',
@@ -576,17 +576,17 @@ d8c884d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
       ),
       {
          5:
-         24(   ; leaf
-            40019(   ; crypto-sealed
+         24(   / leaf /
+            40019(   / crypto-sealed /
                [
-                  40002(   ; encrypted
+                  40002(   / encrypted /
                      [
                         h'283ddc2724b91511c2081b5372b91f5c6e4b16a64b7228ad39f7e984b026fbca4ad92c456c',
                         h'4d785658f36c22fb5aed3ac0',
                         h'bafe26bb998122214445335af5de9245'
                      ]
                   ),
-                  40011(   ; agreement-public-key
+                  40011(   / agreement-public-key /
                      h'f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f'
                   )
                ]
@@ -595,17 +595,17 @@ d8c884d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
       },
       {
          5:
-         24(   ; leaf
-            40019(   ; crypto-sealed
+         24(   / leaf /
+            40019(   / crypto-sealed /
                [
-                  40002(   ; encrypted
+                  40002(   / encrypted /
                      [
                         h'd4392ddbd1e3a644c0ac8761ec25c2fb0029b48d562f094c3d481344cd04c3cea40503f793',
                         h'4d785658f36c22fb5aed3ac0',
                         h'52c9acbc1d28f0396e7c4dacebf80c32'
                      ]
                   ),
-                  40011(   ; agreement-public-key
+                  40011(   / agreement-public-key /
                      h'f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f'
                   )
                ]
@@ -614,8 +614,8 @@ d8c884d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
       },
       {
          3:
-         24(   ; leaf
-            40020(   ; signature
+         24(   / leaf /
+            40020(   / signature /
                h'720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed'
             )
          )
@@ -628,7 +628,7 @@ d8c884d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
 
 ```
 84                                       # array(4)
-   d9 9c42                               # tag(40002)   ; encrypted
+   d9 9c42                               # tag(40002) encrypted
       84                                 # array(4)
          4b                              # bytes(11)
             098c13829f7fe1ca547500
@@ -640,10 +640,10 @@ d8c884d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
             d99c4158208cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59
    a1                                    # map(1)
       05                                 # unsigned(5)
-      d8 18                              # tag(24)   ; leaf
-         d9 9c53                         # tag(40019)   ; crypto-sealed
+      d8 18                              # tag(24) leaf
+         d9 9c53                         # tag(40019) crypto-sealed
             82                           # array(2)
-               d9 9c42                   # tag(40002)   ; encrypted
+               d9 9c42                   # tag(40002) encrypted
                   83                     # array(3)
                      5825                # bytes(37)
                         283ddc2724b91511c2081b5372b91f5c6e4b16a64b7228ad39f7e984b026fbca4ad92c456c
@@ -651,15 +651,15 @@ d8c884d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
                         4d785658f36c22fb5aed3ac0
                      50                  # bytes(16)
                         bafe26bb998122214445335af5de9245
-               d9 9c4b                   # tag(40011)   ; agreement-public-key
+               d9 9c4b                   # tag(40011) agreement-public-key
                   5820                   # bytes(32)
                      f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f
    a1                                    # map(1)
       05                                 # unsigned(5)
-      d8 18                              # tag(24)   ; leaf
-         d9 9c53                         # tag(40019)   ; crypto-sealed
+      d8 18                              # tag(24) leaf
+         d9 9c53                         # tag(40019) crypto-sealed
             82                           # array(2)
-               d9 9c42                   # tag(40002)   ; encrypted
+               d9 9c42                   # tag(40002) encrypted
                   83                     # array(3)
                      5825                # bytes(37)
                         d4392ddbd1e3a644c0ac8761ec25c2fb0029b48d562f094c3d481344cd04c3cea40503f793
@@ -667,13 +667,13 @@ d8c884d99c42844b098c13829f7fe1ca5475004c4d785658f36c22fb5aed3ac050f6141e82a69fa6
                         4d785658f36c22fb5aed3ac0
                      50                  # bytes(16)
                         52c9acbc1d28f0396e7c4dacebf80c32
-               d9 9c4b                   # tag(40011)   ; agreement-public-key
+               d9 9c4b                   # tag(40011) agreement-public-key
                   5820                   # bytes(32)
                      f3e3810d385e0ecde04591bcbcd71da1d4977e2b1ceebe5df076c032f8a6d21f
    a1                                    # map(1)
       03                                 # unsigned(3)
-      d8 18                              # tag(24)   ; leaf
-         d9 9c54                         # tag(40020)   ; signature
+      d8 18                              # tag(24) leaf
+         d9 9c54                         # tag(40020) signature
             5840                         # bytes(64)
                720411a1b03401445734a8b305586b9c6a65a8f7f880f58d99764b82d4eff37b84dc6bb2de9514f22e456329a257e0b7646a996f74f2e311723ce74b699be6ed
 ```
@@ -739,38 +739,38 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
+200(   / envelope /
    [
-      200(   ; envelope
+      200(   / envelope /
          [
-            24(   ; leaf
-               40012(   ; cid
+            24(   / leaf /
+               40012(   / cid /
                   h'174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8'
                )
             ),
             {
                4:
-               24(   ; leaf
+               24(   / leaf /
                   "The State of Example recognizes JOHN SMITH as a Permanent Resident."
                )
             },
             {
                13:
                [
-                  24(   ; leaf
-                     40012(   ; cid
+                  24(   / leaf /
+                     40012(   / cid /
                         h'04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8'
                      )
                   ),
                   {
                      4:
-                     24(   ; leaf
+                     24(   / leaf /
                         "Issued by the State of Example"
                      )
                   },
                   {
                      9:
-                     24(   ; leaf
+                     24(   / leaf /
                         32(
                            "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
                         )
@@ -780,93 +780,93 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
             },
             {
                1:
-               24("credential")   ; leaf
+               24("credential")   / leaf /
             },
             {
                14:
                [
-                  24(   ; leaf
-                     40012(   ; cid
+                  24(   / leaf /
+                     40012(   / cid /
                         h'78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc'
                      )
                   ),
                   {
-                     24("birthCountry"):   ; leaf
+                     24("birthCountry"):   / leaf /
                      [
-                        24("bs"),   ; leaf
+                        24("bs"),   / leaf /
                         {
                            4:
-                           24("The Bahamas")   ; leaf
+                           24("The Bahamas")   / leaf /
                         }
                      ]
                   },
                   {
-                     24("familyName"):   ; leaf
-                     24("SMITH")   ; leaf
+                     24("familyName"):   / leaf /
+                     24("SMITH")   / leaf /
                   },
                   {
-                     24("givenName"):   ; leaf
-                     24("JOHN")   ; leaf
-                  },
-                  {
-                     1:
-                     24("Person")   ; leaf
+                     24("givenName"):   / leaf /
+                     24("JOHN")   / leaf /
                   },
                   {
                      1:
-                     24("Permanent Resident")   ; leaf
+                     24("Person")   / leaf /
                   },
                   {
-                     24("lprCategory"):   ; leaf
-                     24("C09")   ; leaf
+                     1:
+                     24("Permanent Resident")   / leaf /
                   },
                   {
-                     24("birthDate"):   ; leaf
-                     24(   ; leaf
+                     24("lprCategory"):   / leaf /
+                     24("C09")   / leaf /
+                  },
+                  {
+                     24("birthDate"):   / leaf /
+                     24(   / leaf /
                         1(1974-02-18T00:00:00Z)
                      )
                   },
                   {
-                     24("lprNumber"):   ; leaf
-                     24("999-999-999")   ; leaf
+                     24("lprNumber"):   / leaf /
+                     24("999-999-999")   / leaf /
                   },
                   {
-                     24("residentSince"):   ; leaf
-                     24(   ; leaf
+                     24("residentSince"):   / leaf /
+                     24(   / leaf /
                         1(2018-01-07T00:00:00Z)
                      )
                   },
                   {
-                     24("image"):   ; leaf
+                     24("image"):   / leaf /
                      [
-                        24(   ; leaf
-                           40001(   ; digest
+                        24(   / leaf /
+                           40001(   / digest /
                               h'03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2'
                            )
                         ),
                         {
                            9:
-                           24(   ; leaf
+                           24(   / leaf /
                               "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
                            )
                         },
                         {
                            4:
-                           24(   ; leaf
+                           24(   / leaf /
                               "This is an image of John Smith."
                            )
                         }
                      ]
                   },
                   {
-                     24("sex"):   ; leaf
-                     24("MALE")   ; leaf
+                     24("sex"):   / leaf /
+                     24("MALE")   / leaf /
                   }
                ]
             },
             {
-               24("dateIssued"):   ; leaf
-               24(   ; leaf
+               24("dateIssued"):   / leaf /
+               24(   / leaf /
                   1(2022-04-27T00:00:00Z)
                )
             }
@@ -875,14 +875,14 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
       {
          3:
          [
-            24(   ; leaf
-               40020(   ; signature
+            24(   / leaf /
+               40020(   / signature /
                   h'e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6'
                )
             ),
             {
                4:
-               24(   ; leaf
+               24(   / leaf /
                   "Made by the State of Example."
                )
             }
@@ -896,155 +896,155 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
 
 ```
 82                                       # array(2)
-   d8 c8                                 # tag(200)   ; envelope
+   d8 c8                                 # tag(200) envelope
       86                                 # array(6)
-         d8 18                           # tag(24)   ; leaf
-            d9 9c4c                      # tag(40012)   ; cid
+         d8 18                           # tag(24) leaf
+            d9 9c4c                      # tag(40012) cid
                5820                      # bytes(32)
                   174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
          a1                              # map(1)
             04                           # unsigned(4)
-            d8 18                        # tag(24)   ; leaf
+            d8 18                        # tag(24) leaf
                78 43                     # text(67)
                   546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742e # "The State of Example recognizes JOHN SMITH as a Permanent Resident."
          a1                              # map(1)
             0d                           # unsigned(13)
             83                           # array(3)
-               d8 18                     # tag(24)   ; leaf
-                  d9 9c4c                # tag(40012)   ; cid
+               d8 18                     # tag(24) leaf
+                  d9 9c4c                # tag(40012) cid
                      5820                # bytes(32)
                         04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
                a1                        # map(1)
                   04                     # unsigned(4)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      78 1e               # text(30)
                         49737375656420627920746865205374617465206f66204578616d706c65 # "Issued by the State of Example"
                a1                        # map(1)
                   09                     # unsigned(9)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      d8 20               # tag(32)
                         78 5e            # text(94)
                            68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
          a1                              # map(1)
             01                           # unsigned(1)
-            d8 18                        # tag(24)   ; leaf
+            d8 18                        # tag(24) leaf
                6a                        # text(10)
                   63726564656e7469616c   # "credential"
          a1                              # map(1)
             0e                           # unsigned(14)
             8c                           # array(12)
-               d8 18                     # tag(24)   ; leaf
-                  d9 9c4c                # tag(40012)   ; cid
+               d8 18                     # tag(24) leaf
+                  d9 9c4c                # tag(40012) cid
                      5820                # bytes(32)
                         78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      6c                  # text(12)
                         6269727468436f756e747279 # "birthCountry"
                   82                     # array(2)
-                     d8 18               # tag(24)   ; leaf
+                     d8 18               # tag(24) leaf
                         62               # text(2)
                            6273          # "bs"
                      a1                  # map(1)
                         04               # unsigned(4)
-                        d8 18            # tag(24)   ; leaf
+                        d8 18            # tag(24) leaf
                            6b            # text(11)
                               54686520426168616d6173 # "The Bahamas"
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      6a                  # text(10)
                         66616d696c794e616d65 # "familyName"
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      65                  # text(5)
                         534d495448       # "SMITH"
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      69                  # text(9)
                         676976656e4e616d65 # "givenName"
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      64                  # text(4)
                         4a4f484e         # "JOHN"
                a1                        # map(1)
                   01                     # unsigned(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      66                  # text(6)
                         506572736f6e     # "Person"
                a1                        # map(1)
                   01                     # unsigned(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      72                  # text(18)
                         5065726d616e656e74205265736964656e74 # "Permanent Resident"
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      6b                  # text(11)
                         6c707243617465676f7279 # "lprCategory"
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      63                  # text(3)
                         433039           # "C09"
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      69                  # text(9)
                         626972746844617465 # "birthDate"
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      c1                  # tag(1)
                         1a07c56780       # unsigned(130377600)
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      69                  # text(9)
                         6c70724e756d626572 # "lprNumber"
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      6b                  # text(11)
                         3939392d3939392d393939 # "999-999-999"
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      6d                  # text(13)
                         7265736964656e7453696e6365 # "residentSince"
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      c1                  # tag(1)
                         1a5a516300       # unsigned(1515283200)
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      65                  # text(5)
                         696d616765       # "image"
                   83                     # array(3)
-                     d8 18               # tag(24)   ; leaf
-                        d9 9c41          # tag(40001)   ; digest
+                     d8 18               # tag(24) leaf
+                        d9 9c41          # tag(40001) digest
                            5820          # bytes(32)
                               03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2
                      a1                  # map(1)
                         09               # unsigned(9)
-                        d8 18            # tag(24)   ; leaf
+                        d8 18            # tag(24) leaf
                            78 61         # text(97)
                               68747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939 # "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
                      a1                  # map(1)
                         04               # unsigned(4)
-                        d8 18            # tag(24)   ; leaf
+                        d8 18            # tag(24) leaf
                            78 1f         # text(31)
                               5468697320697320616e20696d616765206f66204a6f686e20536d6974682e # "This is an image of John Smith."
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      63                  # text(3)
                         736578           # "sex"
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      64                  # text(4)
                         4d414c45         # "MALE"
          a1                              # map(1)
-            d8 18                        # tag(24)   ; leaf
+            d8 18                        # tag(24) leaf
                6a                        # text(10)
                   64617465497373756564   # "dateIssued"
-            d8 18                        # tag(24)   ; leaf
+            d8 18                        # tag(24) leaf
                c1                        # tag(1)
                   1a62688780             # unsigned(1651017600)
    a1                                    # map(1)
       03                                 # unsigned(3)
       82                                 # array(2)
-         d8 18                           # tag(24)   ; leaf
-            d9 9c54                      # tag(40020)   ; signature
+         d8 18                           # tag(24) leaf
+            d9 9c54                      # tag(40020) signature
                5840                      # bytes(64)
                   e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6
          a1                              # map(1)
             04                           # unsigned(4)
-            d8 18                        # tag(24)   ; leaf
+            d8 18                        # tag(24) leaf
                78 1d                     # text(29)
                   4d61646520627920746865205374617465206f66204578616d706c652e # "Made by the State of Example."
 ```
@@ -1100,12 +1100,12 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
 ### Tagged CBOR Diagnostic Notation
 
 ```
-200(   ; envelope
+200(   / envelope /
    [
-      200(   ; envelope
+      200(   / envelope /
          [
-            24(   ; leaf
-               40012(   ; cid
+            24(   / leaf /
+               40012(   / cid /
                   h'174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8'
                )
             ),
@@ -1113,20 +1113,20 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
             {
                13:
                [
-                  24(   ; leaf
-                     40012(   ; cid
+                  24(   / leaf /
+                     40012(   / cid /
                         h'04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8'
                      )
                   ),
                   {
                      4:
-                     24(   ; leaf
+                     24(   / leaf /
                         "Issued by the State of Example"
                      )
                   },
                   {
                      9:
-                     24(   ; leaf
+                     24(   / leaf /
                         32(
                            "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
                         )
@@ -1136,24 +1136,24 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
             },
             {
                1:
-               24("credential")   ; leaf
+               24("credential")   / leaf /
             },
             {
                14:
                [
-                  24(   ; leaf
-                     40012(   ; cid
+                  24(   / leaf /
+                     40012(   / cid /
                         h'78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc'
                      )
                   ),
                   h'137169f416059f4897484d87752da80bf1485cf374a9e727931bbd1de69138c4',
                   {
-                     24("familyName"):   ; leaf
-                     24("SMITH")   ; leaf
+                     24("familyName"):   / leaf /
+                     24("SMITH")   / leaf /
                   },
                   {
-                     24("givenName"):   ; leaf
-                     24("JOHN")   ; leaf
+                     24("givenName"):   / leaf /
+                     24("JOHN")   / leaf /
                   },
                   h'581d8efe3a41a8f2ad706fdbaf0c10aefea9fecc7b3fa6c4297be46aa599c9c1',
                   h'71238ad07326c9cde3720a845b65b66e42daed198883a63e7e999ba79501fccb',
@@ -1162,22 +1162,22 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                   h'd61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcff',
                   h'e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3ee',
                   {
-                     24("image"):   ; leaf
+                     24("image"):   / leaf /
                      [
-                        24(   ; leaf
-                           40001(   ; digest
+                        24(   / leaf /
+                           40001(   / digest /
                               h'03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2'
                            )
                         ),
                         {
                            9:
-                           24(   ; leaf
+                           24(   / leaf /
                               "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
                            )
                         },
                         {
                            4:
-                           24(   ; leaf
+                           24(   / leaf /
                               "This is an image of John Smith."
                            )
                         }
@@ -1192,14 +1192,14 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
       {
          3:
          [
-            24(   ; leaf
-               40020(   ; signature
+            24(   / leaf /
+               40020(   / signature /
                   h'e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6'
                )
             ),
             {
                4:
-               24(   ; leaf
+               24(   / leaf /
                   "Made by the State of Example."
                )
             }
@@ -1213,10 +1213,10 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
 
 ```
 82                                       # array(2)
-   d8 c8                                 # tag(200)   ; envelope
+   d8 c8                                 # tag(200) envelope
       86                                 # array(6)
-         d8 18                           # tag(24)   ; leaf
-            d9 9c4c                      # tag(40012)   ; cid
+         d8 18                           # tag(24) leaf
+            d9 9c4c                      # tag(40012) cid
                5820                      # bytes(32)
                   174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
          5820                            # bytes(32)
@@ -1224,47 +1224,47 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
          a1                              # map(1)
             0d                           # unsigned(13)
             83                           # array(3)
-               d8 18                     # tag(24)   ; leaf
-                  d9 9c4c                # tag(40012)   ; cid
+               d8 18                     # tag(24) leaf
+                  d9 9c4c                # tag(40012) cid
                      5820                # bytes(32)
                         04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
                a1                        # map(1)
                   04                     # unsigned(4)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      78 1e               # text(30)
                         49737375656420627920746865205374617465206f66204578616d706c65 # "Issued by the State of Example"
                a1                        # map(1)
                   09                     # unsigned(9)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      d8 20               # tag(32)
                         78 5e            # text(94)
                            68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
          a1                              # map(1)
             01                           # unsigned(1)
-            d8 18                        # tag(24)   ; leaf
+            d8 18                        # tag(24) leaf
                6a                        # text(10)
                   63726564656e7469616c   # "credential"
          a1                              # map(1)
             0e                           # unsigned(14)
             8c                           # array(12)
-               d8 18                     # tag(24)   ; leaf
-                  d9 9c4c                # tag(40012)   ; cid
+               d8 18                     # tag(24) leaf
+                  d9 9c4c                # tag(40012) cid
                      5820                # bytes(32)
                         78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
                5820                      # bytes(32)
                   137169f416059f4897484d87752da80bf1485cf374a9e727931bbd1de69138c4
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      6a                  # text(10)
                         66616d696c794e616d65 # "familyName"
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      65                  # text(5)
                         534d495448       # "SMITH"
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      69                  # text(9)
                         676976656e4e616d65 # "givenName"
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      64                  # text(4)
                         4a4f484e         # "JOHN"
                5820                      # bytes(32)
@@ -1280,22 +1280,22 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                5820                      # bytes(32)
                   e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3ee
                a1                        # map(1)
-                  d8 18                  # tag(24)   ; leaf
+                  d8 18                  # tag(24) leaf
                      65                  # text(5)
                         696d616765       # "image"
                   83                     # array(3)
-                     d8 18               # tag(24)   ; leaf
-                        d9 9c41          # tag(40001)   ; digest
+                     d8 18               # tag(24) leaf
+                        d9 9c41          # tag(40001) digest
                            5820          # bytes(32)
                               03b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2
                      a1                  # map(1)
                         09               # unsigned(9)
-                        d8 18            # tag(24)   ; leaf
+                        d8 18            # tag(24) leaf
                            78 61         # text(97)
                               68747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939 # "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
                      a1                  # map(1)
                         04               # unsigned(4)
-                        d8 18            # tag(24)   ; leaf
+                        d8 18            # tag(24) leaf
                            78 1f         # text(31)
                               5468697320697320616e20696d616765206f66204a6f686e20536d6974682e # "This is an image of John Smith."
                5820                      # bytes(32)
@@ -1305,13 +1305,13 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
    a1                                    # map(1)
       03                                 # unsigned(3)
       82                                 # array(2)
-         d8 18                           # tag(24)   ; leaf
-            d9 9c54                      # tag(40020)   ; signature
+         d8 18                           # tag(24) leaf
+            d9 9c54                      # tag(40020) signature
                5840                      # bytes(64)
                   e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6
          a1                              # map(1)
             04                           # unsigned(4)
-            d8 18                        # tag(24)   ; leaf
+            d8 18                        # tag(24) leaf
                78 1d                     # text(29)
                   4d61646520627920746865205374617465206f66204578616d706c652e # "Made by the State of Example."
 ```

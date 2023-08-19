@@ -27,8 +27,8 @@ class CoreTests: XCTestCase {
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
-           24(42)   ; leaf
+        200(   / envelope /
+           24(42)   / leaf /
         )
         """)
         
@@ -48,8 +48,8 @@ class CoreTests: XCTestCase {
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
-           24(-42)   ; leaf
+        200(   / envelope /
+           24(-42)   / leaf /
         )
         """)
         
@@ -69,8 +69,8 @@ class CoreTests: XCTestCase {
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
-           24("Hello.")   ; leaf
+        200(   / envelope /
+           24("Hello.")   / leaf /
         )
         """)
         
@@ -90,7 +90,7 @@ class CoreTests: XCTestCase {
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(4)   ; envelope
+        200(4)   / envelope /
         """)
         
         try e.checkEncoding()
@@ -115,10 +115,10 @@ class CoreTests: XCTestCase {
 
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
+        200(   / envelope /
            {
-              24("knows"):   ; leaf
-              24("Bob")   ; leaf
+              24("knows"):   / leaf /
+              24("Bob")   / leaf /
            }
         )
         """)
@@ -138,12 +138,12 @@ class CoreTests: XCTestCase {
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
+        200(   / envelope /
            [
-              24("Alice"),   ; leaf
+              24("Alice"),   / leaf /
               {
-                 24("knows"):   ; leaf
-                 24("Bob")   ; leaf
+                 24("knows"):   / leaf /
+                 24("Bob")   / leaf /
               }
            ]
         )
@@ -166,16 +166,16 @@ class CoreTests: XCTestCase {
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
+        200(   / envelope /
            [
-              24("Alice"),   ; leaf
+              24("Alice"),   / leaf /
               {
-                 24("knows"):   ; leaf
-                 24("Carol")   ; leaf
+                 24("knows"):   / leaf /
+                 24("Carol")   / leaf /
               },
               {
-                 24("knows"):   ; leaf
-                 24("Bob")   ; leaf
+                 24("knows"):   / leaf /
+                 24("Bob")   / leaf /
               }
            ]
         )
@@ -197,9 +197,9 @@ class CoreTests: XCTestCase {
     func testWrapped() throws {
         XCTAssertEqual(Self.wrappedEnvelope.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
-           200(   ; envelope
-              24("Hello.")   ; leaf
+        200(   / envelope /
+           200(   / envelope /
+              24("Hello.")   / leaf /
            )
         )
         """
@@ -222,10 +222,10 @@ class CoreTests: XCTestCase {
         
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
-           200(   ; envelope
-              200(   ; envelope
-                 24("Hello.")   ; leaf
+        200(   / envelope /
+           200(   / envelope /
+              200(   / envelope /
+                 24("Hello.")   / leaf /
               )
            )
         )
@@ -277,9 +277,9 @@ class CoreTests: XCTestCase {
 
         XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
         """
-        200(   ; envelope
-           24(   ; leaf
-              40001(   ; digest
+        200(   / envelope /
+           24(   / leaf /
+              40001(   / digest /
                  h'8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
               )
            )

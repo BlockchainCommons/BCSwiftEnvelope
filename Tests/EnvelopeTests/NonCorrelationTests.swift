@@ -21,13 +21,13 @@ class NonCorrelationTests: XCTestCase {
         """)
 
         XCTAssertEqual(e2.diagnostic(annotate: true, context: globalFormatContext), """
-        200(   ; envelope
+        200(   / envelope /
            [
-              24("Hello."),   ; leaf
+              24("Hello."),   / leaf /
               {
                  15:
-                 24(   ; leaf
-                    40018(h'b559bbbf6cce2632')   ; salt
+                 24(   / leaf /
+                    40018(h'b559bbbf6cce2632')   / salt /
                  )
               }
            ]
