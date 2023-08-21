@@ -64,7 +64,7 @@ class TestFunction: XCTestCase {
         
         let unknownErrorResponse = Envelope(error: "Decryption failure")
         XCTAssertEqual(unknownErrorResponse.format(context: globalFormatContext), """
-        response(unknown) [
+        response(Unknown) [
             error: "Decryption failure"
         ]
         """)

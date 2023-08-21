@@ -52,7 +52,7 @@ class ExpressionTests: XCTestCase {
         let response = Envelope(response: cid)
         XCTAssertEqual(response.format(context: globalFormatContext), """
         response(CID(be74063a)) [
-            result: ok
+            result: OK
         ]
         """)
         XCTAssertTrue(try response.isResultOK)
@@ -75,7 +75,7 @@ class ExpressionTests: XCTestCase {
         XCTAssertTrue(errorResponse.isError)
         XCTAssertTrue(try errorResponse.isResponseIDUnknown)
         XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
-        response(unknown) [
+        response(Unknown) [
             error: "Decryption Failed"
         ]
         """)

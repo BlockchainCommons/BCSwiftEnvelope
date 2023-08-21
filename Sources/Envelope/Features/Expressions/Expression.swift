@@ -134,7 +134,7 @@ public extension Envelope {
         if let result {
             effectiveResult = result.envelope
         } else {
-            effectiveResult = KnownValue.ok.envelope
+            effectiveResult = KnownValue.OK.envelope
         }
         self = Envelope(CBOR.tagged(.response, id.taggedCBOR))
             .addAssertion(.result, effectiveResult)
@@ -319,7 +319,7 @@ public extension Envelope {
     /// - Throws: Throws an exception if there is no `result` predicate.
     var isResultOK: Bool {
         get throws {
-            try extractResult(KnownValue.self) == .ok
+            try extractResult(KnownValue.self) == .OK
         }
     }
     
