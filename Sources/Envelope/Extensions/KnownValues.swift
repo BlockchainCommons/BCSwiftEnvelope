@@ -20,6 +20,9 @@ public extension KnownValue {
     static let date = KnownValue(16, "date")
     static let unknown = KnownValue(17, "Unknown")
     static let diffEdits = KnownValue(20, "edits")
+    static let attachment = KnownValue(50, "attachment")
+    static let vendor = KnownValue(51, "vendor")
+    static let conformsTo = KnownValue(52, "conformsTo")
     static let body = KnownValue(100, "body")
     static let result = KnownValue(101, "result")
     static let error = KnownValue(102, "error")
@@ -64,6 +67,9 @@ public var globalKnownValues: KnownValuesStore = [
     .date,
     .unknown,
     .diffEdits,
+    .attachment,
+    .vendor,
+    .conformsTo,
     .body,
     .result,
     .error,
