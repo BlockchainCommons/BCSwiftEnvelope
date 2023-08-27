@@ -1,6 +1,7 @@
 import Foundation
 import SecureComponents
 import WolfBase
+import Envelope
 
 /// This is a mostly-duplicate of the `Seed` struct from BCSwiftFoundation, used here for demonstration and testing purposes only.
 struct Seed {
@@ -20,6 +21,44 @@ struct Seed {
 extension Seed: PrivateKeysDataProvider {
     public var privateKeysData: Data {
         data
+    }
+}
+
+extension Seed {
+    var envelope: Envelope {
+        var e = Envelope(data)
+            .addType(.Seed)
+            .addAssertion(.date, creationDate)
+        
+        if !name.isEmpty {
+            e = e.addAssertion(.hasName, name)
+        }
+
+        if !note.isEmpty {
+            e = e.addAssertion(.note, note)
+        }
+        
+        return e
+    }
+    
+    init(_ envelope: Envelope) throws {
+        try envelope.checkType(.Seed)
+        if
+            let subjectLeaf = envelope.leaf,
+            case CBOR.tagged(.seed, let item) = subjectLeaf
+        {
+            self = try Self.init(untaggedCBOR: item)
+            return
+        }
+
+        let data = try envelope.extractSubject(Data.self)
+        let name = try envelope.extractOptionalObject(String.self, forPredicate: .hasName) ?? ""
+        let note = try envelope.extractOptionalObject(String.self, forPredicate: .note) ?? ""
+        let creationDate = try? envelope.extractObject(Date.self, forPredicate: .date)
+        guard let result = Self.init(data: data, name: name, note: note, creationDate: creationDate) else {
+            throw EnvelopeError.invalidFormat
+        }
+        self = result
     }
 }
 
