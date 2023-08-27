@@ -3,6 +3,7 @@ import Foundation
 extension EnvelopeError {
     static let nonexistentAttachment = EnvelopeError("nonexistentAttachment")
     static let ambiguousAttachment = EnvelopeError("ambiguousAttachment")
+    static let invalidAttachment = EnvelopeError("invalidAttachment")
 }
 
 public extension Assertion {
@@ -47,6 +48,7 @@ public extension Envelope {
     
     func attachments(withVendor vendor: String? = nil, conformingTo conformsTo: String? = nil) throws -> [Envelope] {
         try assertions(withPredicate: .attachment).filter { envelope in
+            try validateAttachment(envelope)
             if let vendor {
                 guard try envelope.attachmentVendor == vendor else {
                     return false
@@ -58,6 +60,17 @@ public extension Envelope {
                 }
             }
             return true
+        }
+    }
+    
+    func validateAttachment(_ envelope: Envelope) throws {
+        let payload = try envelope.attachmentPayload
+        let vendor = try envelope.attachmentVendor
+        let conformsTo = try envelope.attachmentConformsTo
+        let assertion = Assertion(attachment: payload, vendor: vendor, conformsTo: conformsTo)
+        let e = Envelope(assertion)
+        guard e.isEquivalent(to: envelope) else {
+            throw EnvelopeError.invalidAttachment
         }
     }
     
