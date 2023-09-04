@@ -36,11 +36,11 @@ class TestFunction: XCTestCase {
     }
     
     func testRequest() {
-        let requestID = CID(‡"c66be27dbad7cd095ca77647406d07976dc0f35f0d4d654bb0e96dd227a1e9fc")!
+        let requestID = ARID(‡"c66be27dbad7cd095ca77647406d07976dc0f35f0d4d654bb0e96dd227a1e9fc")!
         
         let requestEnvelope = Envelope(request: requestID, body: twoPlusThree())
         XCTAssertEqual(requestEnvelope.format(context: globalFormatContext), """
-        request(CID(c66be27d)) [
+        request(ARID(c66be27d)) [
             body: «add» [
                 ❰lhs❱: 2
                 ❰rhs❱: 3
@@ -50,14 +50,14 @@ class TestFunction: XCTestCase {
 
         let responseEnvelope = Envelope(response: requestID, result: 5)
         XCTAssertEqual(responseEnvelope.format(context: globalFormatContext), """
-        response(CID(c66be27d)) [
+        response(ARID(c66be27d)) [
             result: 5
         ]
         """)
 
         let errorResponse = Envelope(response: requestID, error: "Internal Server Error")
         XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
-        response(CID(c66be27d)) [
+        response(ARID(c66be27d)) [
             error: "Internal Server Error"
         ]
         """)

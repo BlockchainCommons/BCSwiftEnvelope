@@ -6,7 +6,7 @@ import WolfBase
 class GraphTests: XCTestCase {
     // https://jsonld.com/person/
     func testJSONLD() throws {
-        let address = Envelope(CID())
+        let address = Envelope(ARID())
             .addType("PostalAddress")
             .addAssertion("addressLocality", "Colorado Springs")
             .addAssertion("addressRegion", "CO")
@@ -18,7 +18,7 @@ class GraphTests: XCTestCase {
             .addAssertion("sameAs", "http://www.twitter.com/")
             .addAssertion("sameAs", "http://www.instagram.com/")
             .addAssertion("sameAs", "http://plus.google.com/")
-        let john = Envelope(CID())
+        let john = Envelope(ARID())
             .addAssertion("@context", "https://schema.org")
             .addAssertion("address", address)
             .addAssertion("colleague", "http://www.example.com/JohnColleague.html")

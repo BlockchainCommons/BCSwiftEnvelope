@@ -108,8 +108,8 @@ class ProofTests: XCTestCase {
     }
     
     func testVerifiableCredential() throws {
-        let cid = Envelope(CID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
-        let credential = try cid
+        let arid = Envelope(ARID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
+        let credential = try arid
             .addAssertion("firstName", "John", salted: true)
             .addAssertion("lastName", "Smith", salted: true)
             .addAssertion("address", "123 Main St.", salted: true)

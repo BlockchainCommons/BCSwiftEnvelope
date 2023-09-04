@@ -4,16 +4,16 @@ import Envelope
 import WolfBase
 
 class ExpressionTests: XCTestCase {
-    let cid = CID(‡"be74063a9e65855271432f5a4c1e877dea75aff0beaad47dc24260d93b4ea27b")!
+    let arid = ARID(‡"be74063a9e65855271432f5a4c1e877dea75aff0beaad47dc24260d93b4ea27b")!
 
     func testRequest() throws {
         let request = Envelope(
-            request: cid,
+            request: arid,
             body: Envelope(function: .add)
                 .addParameter(.lhs, value: 2)
                 .addParameter(.rhs, value: 3))
         XCTAssertEqual(request.format(context: globalFormatContext), """
-        request(CID(be74063a)) [
+        request(ARID(be74063a)) [
             body: «add» [
                 ❰lhs❱: 2
                 ❰rhs❱: 3
@@ -21,7 +21,7 @@ class ExpressionTests: XCTestCase {
         ]
         """)
         
-        XCTAssertEqual(try request.requestID, cid)
+        XCTAssertEqual(try request.requestID, arid)
         let requestBody = try request.requestBody
         XCTAssertEqual(requestBody.format(context: globalFormatContext), """
         «add» [
@@ -36,22 +36,22 @@ class ExpressionTests: XCTestCase {
     }
     
     func testResponse() throws {
-        let response = Envelope(response: cid, result: 5)
+        let response = Envelope(response: arid, result: 5)
         XCTAssertEqual(response.format(context: globalFormatContext), """
-        response(CID(be74063a)) [
+        response(ARID(be74063a)) [
             result: 5
         ]
         """)
         
-        XCTAssertEqual(try response.responseID, cid)
+        XCTAssertEqual(try response.responseID, arid)
         XCTAssertFalse(response.isError)
         XCTAssertEqual(try response.extractResult(Int.self), 5)
     }
     
     func testOKResponse() throws {
-        let response = Envelope(response: cid)
+        let response = Envelope(response: arid)
         XCTAssertEqual(response.format(context: globalFormatContext), """
-        response(CID(be74063a)) [
+        response(ARID(be74063a)) [
             result: OK
         ]
         """)
@@ -59,11 +59,11 @@ class ExpressionTests: XCTestCase {
     }
     
     func testError() throws {
-        let errorResponse = Envelope(response: cid, error: "Internal Server Error")
+        let errorResponse = Envelope(response: arid, error: "Internal Server Error")
         XCTAssertTrue(errorResponse.isError)
         XCTAssertFalse(try errorResponse.isResponseIDUnknown)
         XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
-        response(CID(be74063a)) [
+        response(ARID(be74063a)) [
             error: "Internal Server Error"
         ]
         """)

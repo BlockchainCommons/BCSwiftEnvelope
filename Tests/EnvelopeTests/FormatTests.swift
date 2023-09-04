@@ -886,10 +886,10 @@ class FormatTests: XCTestCase {
     }
 
     func testComplexMetadata() throws {
-        // Assertions made about an CID are considered part of a distributed set. Which
-        // assertions are returned depends on who resolves the CID and when it is
-        // resolved. In other words, the referent of a CID is mutable.
-        let author = try Envelope(CID(‡"9c747ace78a4c826392510dd6285551e7df4e5164729a1b36198e56e017666c8")!)
+        // Assertions made about an ARID are considered part of a distributed set. Which
+        // assertions are returned depends on who resolves the ARID and when it is
+        // resolved. In other words, the referent of an ARID is mutable.
+        let author = try Envelope(ARID(‡"9c747ace78a4c826392510dd6285551e7df4e5164729a1b36198e56e017666c8")!)
             .addAssertion(.dereferenceVia, "LibraryOfCongress")
             .addAssertion(.hasName, "Ayn Rand")
             .checkEncoding()
@@ -902,7 +902,7 @@ class FormatTests: XCTestCase {
         let name_es = Envelope("La rebelión de Atlas")
             .addAssertion(.language, "es")
 
-        let work = try Envelope(CID(‡"7fb90a9d96c07f39f75ea6acf392d79f241fac4ec0be2120f7c82489711e3e80")!)
+        let work = try Envelope(ARID(‡"7fb90a9d96c07f39f75ea6acf392d79f241fac4ec0be2120f7c82489711e3e80")!)
             .addType("novel")
             .addAssertion("isbn", "9780451191144")
             .addAssertion("author", author)
@@ -924,9 +924,9 @@ class FormatTests: XCTestCase {
         """
         Digest(26d05af5) [
             "format": "EPUB"
-            "work": CID(7fb90a9d) [
+            "work": ARID(7fb90a9d) [
                 isA: "novel"
-                "author": CID(9c747ace) [
+                "author": ARID(9c747ace) [
                     dereferenceVia: "LibraryOfCongress"
                     hasName: "Ayn Rand"
                 ]
@@ -955,7 +955,7 @@ class FormatTests: XCTestCase {
             eec25a61 ASSERTION
                 2ddb0b05 pred "work"
                 26681136 obj NODE
-                    0c69be6e subj CID(7fb90a9d)
+                    0c69be6e subj ARID(7fb90a9d)
                     1786d8b5 ASSERTION
                         4019420b pred "isbn"
                         69ff76b1 obj "9780451191144"
@@ -972,7 +972,7 @@ class FormatTests: XCTestCase {
                     7d6d5c1d ASSERTION
                         29c09059 pred "author"
                         1ba13788 obj NODE
-                            3c47e105 subj CID(9c747ace)
+                            3c47e105 subj ARID(9c747ace)
                             9c10d60f ASSERTION
                                 cdb6a696 pred dereferenceVia
                                 34a04547 obj "LibraryOfCongress"
@@ -1001,7 +1001,7 @@ class FormatTests: XCTestCase {
                 "EPUB"
             ASSERTION
                 "work"
-                CID(7fb90a9d)
+                ARID(7fb90a9d)
                     ASSERTION
                         "isbn"
                         "9780451191144"
@@ -1016,7 +1016,7 @@ class FormatTests: XCTestCase {
                                 "es"
                     ASSERTION
                         "author"
-                        CID(9c747ace)
+                        ARID(9c747ace)
                             ASSERTION
                                 dereferenceVia
                                 "LibraryOfCongress"
@@ -1048,7 +1048,7 @@ class FormatTests: XCTestCase {
             9(["eec25a61<br/>ASSERTION"])
             10["2ddb0b05<br/>#quot;work#quot;"]
             11(("26681136<br/>NODE"))
-            12["0c69be6e<br/>CID(7fb90a9d)"]
+            12["0c69be6e<br/>ARID(7fb90a9d)"]
             13(["1786d8b5<br/>ASSERTION"])
             14["4019420b<br/>#quot;isbn#quot;"]
             15["69ff76b1<br/>#quot;9780451191144#quot;"]
@@ -1065,7 +1065,7 @@ class FormatTests: XCTestCase {
             26(["7d6d5c1d<br/>ASSERTION"])
             27["29c09059<br/>#quot;author#quot;"]
             28(("1ba13788<br/>NODE"))
-            29["3c47e105<br/>CID(9c747ace)"]
+            29["3c47e105<br/>ARID(9c747ace)"]
             30(["9c10d60f<br/>ASSERTION"])
             31[/"cdb6a696<br/>dereferenceVia"/]
             32["34a04547<br/>#quot;LibraryOfCongress#quot;"]
@@ -1228,7 +1228,7 @@ class FormatTests: XCTestCase {
             7["#quot;EPUB#quot;"]
             8(["ASSERTION"])
             9["#quot;work#quot;"]
-            10["CID(7fb90a9d)"]
+            10["ARID(7fb90a9d)"]
             11(["ASSERTION"])
             12["#quot;isbn#quot;"]
             13["#quot;9780451191144#quot;"]
@@ -1243,7 +1243,7 @@ class FormatTests: XCTestCase {
             22["#quot;es#quot;"]
             23(["ASSERTION"])
             24["#quot;author#quot;"]
-            25["CID(9c747ace)"]
+            25["ARID(9c747ace)"]
             26(["ASSERTION"])
             27[/"dereferenceVia"/]
             28["#quot;LibraryOfCongress#quot;"]
@@ -1382,7 +1382,7 @@ class FormatTests: XCTestCase {
 
     static let credential = {
         var rng = makeFakeRandomNumberGenerator()
-        return try! Envelope(CID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
+        return try! Envelope(ARID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
         .addType("Certificate of Completion")
         .addAssertion(.issuer, "Example Electrical Engineering Board")
         .addAssertion(.controller, "Example Electrical Engineering Board")
@@ -1406,7 +1406,7 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(Self.credential.format(),
         """
         {
-            CID(4676635a) [
+            ARID(4676635a) [
                 isA: "Certificate of Completion"
                 "certificateNumber": "123-456-789"
                 "continuingEducationUnits": 1
@@ -1431,7 +1431,7 @@ class FormatTests: XCTestCase {
         11d52de3 NODE
             397a2d4c subj WRAPPED
                 8122ffa9 subj NODE
-                    10d3de01 subj CID(4676635a)
+                    10d3de01 subj ARID(4676635a)
                     1f9ff098 ASSERTION
                         9e3bff3a pred "certificateNumber"
                         21c21808 obj "123-456-789"
@@ -1481,7 +1481,7 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(Self.credential.treeFormat(hideNodes: true),
         """
         WRAPPED
-            CID(4676635a)
+            ARID(4676635a)
                 ASSERTION
                     "certificateNumber"
                     "123-456-789"
@@ -1535,7 +1535,7 @@ class FormatTests: XCTestCase {
             1(("11d52de3<br/>NODE"))
             2[/"397a2d4c<br/>WRAPPED"\]
             3(("8122ffa9<br/>NODE"))
-            4["10d3de01<br/>CID(4676635a)"]
+            4["10d3de01<br/>ARID(4676635a)"]
             5(["1f9ff098<br/>ASSERTION"])
             6["9e3bff3a<br/>#quot;certificateNumber#quot;"]
             7["21c21808<br/>#quot;123-456-789#quot;"]
@@ -1731,7 +1731,7 @@ class FormatTests: XCTestCase {
         #"""
         graph LR
             1[/"WRAPPED"\]
-            2["CID(4676635a)"]
+            2["ARID(4676635a)"]
             3(["ASSERTION"])
             4["#quot;certificateNumber#quot;"]
             5["#quot;123-456-789#quot;"]
@@ -1951,7 +1951,7 @@ class FormatTests: XCTestCase {
         {
             {
                 {
-                    CID(4676635a) [
+                    ARID(4676635a) [
                         isA: "Certificate of Completion"
                         "expirationDate": 2028-01-01
                         "firstName": "James"
@@ -1982,7 +1982,7 @@ class FormatTests: XCTestCase {
                         11d52de3 subj NODE
                             397a2d4c subj WRAPPED
                                 8122ffa9 subj NODE
-                                    10d3de01 subj CID(4676635a)
+                                    10d3de01 subj ARID(4676635a)
                                     1f9ff098 ELIDED
                                     36c254d0 ASSERTION
                                         6e5d379f pred "expirationDate"
@@ -2032,7 +2032,7 @@ class FormatTests: XCTestCase {
         WRAPPED
             WRAPPED
                 WRAPPED
-                    CID(4676635a)
+                    ARID(4676635a)
                         ELIDED
                         ASSERTION
                             "expirationDate"
@@ -2088,7 +2088,7 @@ class FormatTests: XCTestCase {
             5(("11d52de3<br/>NODE"))
             6[/"397a2d4c<br/>WRAPPED"\]
             7(("8122ffa9<br/>NODE"))
-            8["10d3de01<br/>CID(4676635a)"]
+            8["10d3de01<br/>ARID(4676635a)"]
             9{{"1f9ff098<br/>ELIDED"}}
             10(["36c254d0<br/>ASSERTION"])
             11["6e5d379f<br/>#quot;expirationDate#quot;"]
@@ -2290,7 +2290,7 @@ class FormatTests: XCTestCase {
             1[/"WRAPPED"\]
             2[/"WRAPPED"\]
             3[/"WRAPPED"\]
-            4["CID(4676635a)"]
+            4["ARID(4676635a)"]
             5{{"ELIDED"}}
             6(["ASSERTION"])
             7["#quot;expirationDate#quot;"]

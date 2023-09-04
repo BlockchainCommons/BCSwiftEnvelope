@@ -196,7 +196,7 @@ final class EnvelopeTestVectors: XCTestCase {
     }
 
     // John Smith's identifier
-    static let johnSmithIdentifier = CID(‡"78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc")!
+    static let johnSmithIdentifier = ARID(‡"78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc")!
 
     // A photo of John Smith
     static let johnSmithImage = Envelope(Digest("John Smith smiling"))
@@ -205,12 +205,12 @@ final class EnvelopeTestVectors: XCTestCase {
 
     static let johnSmithResidentCard = {
         var rng = makeFakeRandomNumberGenerator()
-        return try! Envelope(CID(‡"174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8")!)
+        return try! Envelope(ARID(‡"174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8")!)
         .addType("credential")
         .addAssertion("dateIssued", Date(iso8601: "2022-04-27"))
         .addAssertion(.issuer, Envelope(stateIdentifier)
             .addAssertion(.note, "Issued by the State of Example")
-            .addAssertion(.dereferenceVia, URL(string: "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8")!)
+            .addAssertion(.dereferenceVia, URL(string: "https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8")!)
         )
         .addAssertion(.holder, Envelope(johnSmithIdentifier)
             .addType("Person")

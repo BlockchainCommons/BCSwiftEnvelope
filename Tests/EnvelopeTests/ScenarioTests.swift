@@ -5,10 +5,10 @@ import WolfBase
 
 class ScenarioTests: XCTestCase {
     func testComplexMetadata() throws {
-        // Assertions made about an CID are considered part of a distributed set. Which
-        // assertions are returned depends on who resolves the CID and when it is
-        // resolved. In other words, the referent of a CID is mutable.
-        let author = try Envelope(CID(‡"9c747ace78a4c826392510dd6285551e7df4e5164729a1b36198e56e017666c8")!)
+        // Assertions made about an ARID are considered part of a distributed set. Which
+        // assertions are returned depends on who resolves the ARID and when it is
+        // resolved. In other words, the referent of an ARID is mutable.
+        let author = try Envelope(ARID(‡"9c747ace78a4c826392510dd6285551e7df4e5164729a1b36198e56e017666c8")!)
             .addAssertion(.dereferenceVia, "LibraryOfCongress")
             .addAssertion(.hasName, "Ayn Rand")
             .checkEncoding()
@@ -21,7 +21,7 @@ class ScenarioTests: XCTestCase {
         let name_es = Envelope("La rebelión de Atlas")
             .addAssertion(.language, "es")
 
-        let work = try Envelope(CID(‡"7fb90a9d96c07f39f75ea6acf392d79f241fac4ec0be2120f7c82489711e3e80")!)
+        let work = try Envelope(ARID(‡"7fb90a9d96c07f39f75ea6acf392d79f241fac4ec0be2120f7c82489711e3e80")!)
             .addType("novel")
             .addAssertion("isbn", "9780451191144")
             .addAssertion("author", author)
@@ -43,9 +43,9 @@ class ScenarioTests: XCTestCase {
         """
         Digest(26d05af5) [
             "format": "EPUB"
-            "work": CID(7fb90a9d) [
+            "work": ARID(7fb90a9d) [
                 isA: "novel"
-                "author": CID(9c747ace) [
+                "author": ARID(9c747ace) [
                     dereferenceVia: "LibraryOfCongress"
                     hasName: "Ayn Rand"
                 ]
@@ -66,7 +66,7 @@ class ScenarioTests: XCTestCase {
 
     func testIdentifier() throws {
         // An analogue of a DID document, which identifies an entity. The
-        // document itself can be referred to by its CID, while the signed document
+        // document itself can be referred to by its ARID, while the signed document
         // can be referred to by its digest.
 
         let aliceUnsignedDocument = try Envelope(aliceIdentifier)
@@ -82,8 +82,8 @@ class ScenarioTests: XCTestCase {
         let expectedFormat =
         """
         {
-            CID(d44c5e0a) [
-                controller: CID(d44c5e0a)
+            ARID(d44c5e0a) [
+                controller: ARID(d44c5e0a)
                 publicKeys: PublicKeyBase
             ]
         } [
@@ -110,16 +110,16 @@ class ScenarioTests: XCTestCase {
         // ➡️ ☁️ ➡️
 
         // A registrar checks the signature on Alice's submitted identifier document,
-        // performs any other necessary validity checks, and then extracts her CID from
+        // performs any other necessary validity checks, and then extracts her ARID from
         // it.
         let aliceCID = try aliceSignedDocument.verifySignature(from: alicePublicKeys)
             .unwrap()
             // other validity checks here
-            .extractSubject(CID.self)
+            .extractSubject(ARID.self)
 
-        // The registrar creates its own registration document using Alice's CID as the
+        // The registrar creates its own registration document using Alice's ARID as the
         // subject, incorporating Alice's signed document, and adding its own signature.
-        let aliceURL = URL(string: "https://exampleledger.com/cid/\(aliceCID.data.hex)")!
+        let aliceURL = URL(string: "https://exampleledger.com/arid/\(aliceCID.data.hex)")!
         let aliceRegistration = try Envelope(aliceCID)
             .addAssertion(.entity, aliceSignedDocument)
             .addAssertion(.dereferenceVia, aliceURL)
@@ -130,11 +130,11 @@ class ScenarioTests: XCTestCase {
         let expectedRegistrationFormat =
         """
         {
-            CID(d44c5e0a) [
-                dereferenceVia: URI(https://exampleledger.com/cid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
+            ARID(d44c5e0a) [
+                dereferenceVia: URI(https://exampleledger.com/arid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
                 entity: {
-                    CID(d44c5e0a) [
-                        controller: CID(d44c5e0a)
+                    ARID(d44c5e0a) [
+                        controller: ARID(d44c5e0a)
                         publicKeys: PublicKeyBase
                     ]
                 } [
@@ -157,7 +157,7 @@ class ScenarioTests: XCTestCase {
             .verifySignature(from: exampleLedgerPublicKeys)
             .unwrap()
             .extractObject(URL.self, forPredicate: .dereferenceVia)
-        XCTAssertEqual(aliceURI†, "https://exampleledger.com/cid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f")
+        XCTAssertEqual(aliceURI†, "https://exampleledger.com/arid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f")
 
         // Alice wants to introduce herself to Bob, so Bob needs to know she controls her
         // identifier. Bob sends a challenge:
@@ -189,7 +189,7 @@ class ScenarioTests: XCTestCase {
                     note: "Challenge to Alice from Bob."
                 ]
             } [
-                dereferenceVia: URI(https://exampleledger.com/cid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
+                dereferenceVia: URI(https://exampleledger.com/arid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
             ]
         } [
             verifiedBy: Signature [
@@ -209,7 +209,7 @@ class ScenarioTests: XCTestCase {
         let responseURI = try aliceChallengeResponse
             .unwrap()
             .extractObject(URL.self, forPredicate: .dereferenceVia)
-        XCTAssertEqual(responseURI.absoluteString, "https://exampleledger.com/cid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f")
+        XCTAssertEqual(responseURI.absoluteString, "https://exampleledger.com/arid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f")
 
         // Bob uses the URI to ask ExampleLedger for Alice's identifier document, then
         // checks ExampleLedgers's signature. Bob trusts ExampleLedger's validation of
@@ -228,7 +228,7 @@ class ScenarioTests: XCTestCase {
 
     func testCredential() throws {
         // John Smith's identifier
-        let johnSmithIdentifier = CID(‡"78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc")!
+        let johnSmithIdentifier = ARID(‡"78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc")!
 
         // A photo of John Smith
         let johnSmithImage = Envelope("John Smith smiling")
@@ -238,12 +238,12 @@ class ScenarioTests: XCTestCase {
         // John Smith's Permanent Resident Card issued by the State of Example
         let johnSmithResidentCard = {
             var rng = makeFakeRandomNumberGenerator()
-            return try! Envelope(CID(‡"174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8")!)
+            return try! Envelope(ARID(‡"174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8")!)
             .addType("credential")
             .addAssertion("dateIssued", Date(iso8601: "2022-04-27"))
             .addAssertion(.issuer, Envelope(stateIdentifier)
                 .addAssertion(.note, "Issued by the State of Example")
-                .addAssertion(.dereferenceVia, URL(string: "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8")!)
+                .addAssertion(.dereferenceVia, URL(string: "https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8")!)
             )
             .addAssertion(.holder, Envelope(johnSmithIdentifier)
                 .addType("Person")
@@ -272,10 +272,10 @@ class ScenarioTests: XCTestCase {
         let expectedFormat =
         """
         {
-            CID(174842ea) [
+            ARID(174842ea) [
                 isA: "credential"
                 "dateIssued": 2022-04-27
-                holder: CID(78bc3000) [
+                holder: ARID(78bc3000) [
                     isA: "Permanent Resident"
                     isA: "Person"
                     "birthCountry": "bs" [
@@ -293,8 +293,8 @@ class ScenarioTests: XCTestCase {
                     "residentSince": 2018-01-07
                     "sex": "MALE"
                 ]
-                issuer: CID(04363d5f) [
-                    dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+                issuer: ARID(04363d5f) [
+                    dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
                     note: "Issued by the State of Example"
                 ]
                 note: "The State of Example recognizes JOHN SMITH as a Permanent Resident."
@@ -364,9 +364,9 @@ class ScenarioTests: XCTestCase {
         let expectedElidedFormat =
         """
         {
-            CID(174842ea) [
+            ARID(174842ea) [
                 isA: "credential"
-                holder: CID(78bc3000) [
+                holder: ARID(78bc3000) [
                     "familyName": "SMITH"
                     "givenName": "JOHN"
                     "image": "John Smith smiling" [
@@ -375,8 +375,8 @@ class ScenarioTests: XCTestCase {
                     ]
                     ELIDED (8)
                 ]
-                issuer: CID(04363d5f) [
-                    dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+                issuer: ARID(04363d5f) [
+                    dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
                     note: "Issued by the State of Example"
                 ]
                 ELIDED (2)
@@ -396,9 +396,9 @@ class ScenarioTests: XCTestCase {
         let expectedEncryptedFormat =
         """
         {
-            CID(174842ea) [
+            ARID(174842ea) [
                 isA: "credential"
-                holder: CID(78bc3000) [
+                holder: ARID(78bc3000) [
                     "familyName": "SMITH"
                     "givenName": "JOHN"
                     "image": "John Smith smiling" [
@@ -407,8 +407,8 @@ class ScenarioTests: XCTestCase {
                     ]
                     ENCRYPTED (8)
                 ]
-                issuer: CID(04363d5f) [
-                    dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+                issuer: ARID(04363d5f) [
+                    dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
                     note: "Issued by the State of Example"
                 ]
                 ENCRYPTED (2)
@@ -428,33 +428,33 @@ class ScenarioTests: XCTestCase {
         // Declare Actors
         //
 
-//        let johnSmithIdentifier = CID(‡"78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc")!
+//        let johnSmithIdentifier = ARID(‡"78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc")!
 //        let johnSmithPrivateKeys = PrivateKeyBase(Seed(data: ‡"3e9271f46cdb85a3b584e7220b976918")!)
 //        let johnSmithPublicKeys = johnSmithPrivateKeys.publicKeys
 //        let johnSmithDocument = Envelope(johnSmithIdentifier)
 //            .add(.hasName, "John Smith")
-//            .add(.dereferenceVia, URL(string: "https://exampleledger.com/cid/78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc")!)
+//            .add(.dereferenceVia, URL(string: "https://exampleledger.com/arid/78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc")!)
 
 //        let acmeCorpPrivateKeys = PrivateKeyBase(Seed(data: ‡"3e9271f46cdb85a3b584e7220b976918")!)
 //        let acmeCorpPublicKeys = acmeCorpPrivateKeys.publicKeys
-        let acmeCorpIdentifier = CID(‡"361235424efc81cedec7eb983a97bbe74d7972f778486f93881e5eed577d0aa7")!
+        let acmeCorpIdentifier = ARID(‡"361235424efc81cedec7eb983a97bbe74d7972f778486f93881e5eed577d0aa7")!
         let acmeCorpDocument = try Envelope(acmeCorpIdentifier)
             .addAssertion(.hasName, "Acme Corp.")
-            .addAssertion(.dereferenceVia, URL(string: "https://exampleledger.com/cid/361235424efc81cedec7eb983a97bbe74d7972f778486f93881e5eed577d0aa7")!)
+            .addAssertion(.dereferenceVia, URL(string: "https://exampleledger.com/arid/361235424efc81cedec7eb983a97bbe74d7972f778486f93881e5eed577d0aa7")!)
             .checkEncoding()
 
         //
         // Declare Products
         //
 
-        let qualityProduct = try Envelope(CID(‡"5bcca01f5f370ceb3b7365f076e9600e294d4da6ddf7a616976c87775ea8f0f1")!)
+        let qualityProduct = try Envelope(ARID(‡"5bcca01f5f370ceb3b7365f076e9600e294d4da6ddf7a616976c87775ea8f0f1")!)
             .addType("Product")
             .addAssertion(.hasName, "Quality Widget")
             .addAssertion("seller", acmeCorpDocument)
             .addAssertion("priceEach", "10.99")
             .checkEncoding()
 
-        let cheapProduct = try Envelope(CID(‡"ae464c5f9569ae23ff9a75e83caf485fb581d1ef9da147ca086d10e3d6f93e64")!)
+        let cheapProduct = try Envelope(ARID(‡"ae464c5f9569ae23ff9a75e83caf485fb581d1ef9da147ca086d10e3d6f93e64")!)
             .addType("Product")
             .addAssertion(.hasName, "Cheap Widget")
             .addAssertion("seller", acmeCorpDocument)
@@ -468,7 +468,7 @@ class ScenarioTests: XCTestCase {
         // Since the line items of a PurchaseOrder may be mutated before being finalized,
         // they are not declared as part of the creation of the PurchaseOrder itself.
 
-        let purchaseOrder = try Envelope(CID(‡"1bebb5b6e447f819d5a4cb86409c5da1207d1460672dfe903f55cde833549625")!)
+        let purchaseOrder = try Envelope(ARID(‡"1bebb5b6e447f819d5a4cb86409c5da1207d1460672dfe903f55cde833549625")!)
             .addType("PurchaseOrder")
             .addAssertion(.hasName, "PO 123")
             .checkEncoding()
@@ -481,14 +481,14 @@ class ScenarioTests: XCTestCase {
         // order object. This forms a successor -> predecessor relationship to the purchase
         // order.
         //
-        // A line item's product is the CID of the product. The product document found by
-        // referencing the product's CID may change over time, for instance the price may
+        // A line item's product is the ARID of the product. The product document found by
+        // referencing the product's ARID may change over time, for instance the price may
         // be updated. The line item therefore captures the current price from the product
         // document in its priceEach assertion.
 
         let line1 = try Envelope(purchaseOrder.digest)
             .addType("PurchaseOrderLineItem")
-            .addAssertion("product", qualityProduct.extractSubject(CID.self))
+            .addAssertion("product", qualityProduct.extractSubject(ARID.self))
             .addAssertion(.hasName, qualityProduct.object(forPredicate: .hasName))
             .addAssertion("priceEach", qualityProduct.object(forPredicate: "priceEach"))
             .addAssertion("quantity", 4)
@@ -496,7 +496,7 @@ class ScenarioTests: XCTestCase {
 
         let line2 = try Envelope(purchaseOrder.digest)
             .addType("PurchaseOrderLineItem")
-            .addAssertion("product", cheapProduct.extractSubject(CID.self))
+            .addAssertion("product", cheapProduct.extractSubject(ARID.self))
             .addAssertion(.hasName, cheapProduct.object(forPredicate: .hasName))
             .addAssertion("priceEach", cheapProduct.object(forPredicate: "priceEach"))
             .addAssertion("quantity", 3)
@@ -507,7 +507,7 @@ class ScenarioTests: XCTestCase {
         Digest(3d0b1fb6) [
             isA: "PurchaseOrderLineItem"
             "priceEach": "4.99"
-            "product": CID(ae464c5f)
+            "product": ARID(ae464c5f)
             "quantity": 3
             hasName: "Cheap Widget"
         ]
@@ -526,19 +526,19 @@ class ScenarioTests: XCTestCase {
 
         let purchaseOrderProjectionExpectedFormat =
         """
-        CID(1bebb5b6) [
+        ARID(1bebb5b6) [
             isA: "PurchaseOrder"
             "lineItem": Digest(3d0b1fb6) [
                 isA: "PurchaseOrderLineItem"
                 "priceEach": "10.99"
-                "product": CID(5bcca01f)
+                "product": ARID(5bcca01f)
                 "quantity": 4
                 hasName: "Quality Widget"
             ]
             "lineItem": Digest(3d0b1fb6) [
                 isA: "PurchaseOrderLineItem"
                 "priceEach": "4.99"
-                "product": CID(ae464c5f)
+                "product": ARID(ae464c5f)
                 "quantity": 3
                 hasName: "Cheap Widget"
             ]
@@ -549,7 +549,7 @@ class ScenarioTests: XCTestCase {
     }
     
     func testExampleCredential() {
-        let omarCID = CID()
+        let omarCID = ARID()
         let omarPrivateKey = PrivateKeyBase()
         let omar = Envelope(omarCID)
             .addAssertion(.hasName, "Omar Chaim")
@@ -558,7 +558,7 @@ class ScenarioTests: XCTestCase {
             .wrap()
             .sign(with: omarPrivateKey, note: "Self-signed by Omar.")
         
-        let jonathanCID = CID()
+        let jonathanCID = ARID()
         let jonathanPrivateKey = PrivateKeyBase()
         let jonathanPublicKey = jonathanPrivateKey.publicKeys
         let ur = jonathanPublicKey.ur
@@ -569,10 +569,10 @@ class ScenarioTests: XCTestCase {
             .wrap()
             .sign(with: jonathanPrivateKey, note: "Self-signed by Jonathan")
 
-        let certCID = CID()
+        let certCID = ARID()
         let cert = Envelope(certCID)
-            .addAssertion(.issuer, Envelope(omarCID).addAssertion(.note, "Omar's CID"))
-            .addAssertion("subject", Envelope(jonathanCID).addAssertion(.note, "Jonathan's CID"))
+            .addAssertion(.issuer, Envelope(omarCID).addAssertion(.note, "Omar's ARID"))
+            .addAssertion("subject", Envelope(jonathanCID).addAssertion(.note, "Jonathan's ARID"))
             .addType("Assessment of Blockchain Tech Writing Expertise")
             .wrap()
             .sign(with: omarPrivateKey, note: "Signed by Omar")

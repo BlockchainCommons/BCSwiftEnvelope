@@ -39,7 +39,7 @@ extension Digest: EnvelopeFormat {
     }
 }
 
-extension CID: EnvelopeFormat {
+extension ARID: EnvelopeFormat {
     func formatItem(context: FormatContext?) -> EnvelopeFormatItem {
         return .item(data.hex)
     }
@@ -104,8 +104,8 @@ extension CBOR {
                         s = s.prefix(count: 10)
                     }
                     return s
-                case CID.cborTag:
-                    return try CID(untaggedCBOR: cbor).shortDescription.flanked("CID(", ")")
+                case ARID.cborTag:
+                    return try ARID(untaggedCBOR: cbor).shortDescription.flanked("ARID(", ")")
                 case URL.cborTag:
                     return try URL(untaggedCBOR: cbor)†.flanked("URI(", ")")
                 case UUID.cborTag:

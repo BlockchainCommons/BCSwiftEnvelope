@@ -152,8 +152,8 @@ public extension Envelope {
         Envelope(.isA, object)
     }
 
-    /// Convenience constructor to create an assertion ``Envelope`` with the `id` predicate and the provided `CID` as its object.
-    static func id(_ id: CID) -> Envelope {
+    /// Convenience constructor to create an assertion ``Envelope`` with the `id` predicate and the provided `ARID` as its object.
+    static func id(_ id: ARID) -> Envelope {
         Envelope(.id, id)
     }
 }

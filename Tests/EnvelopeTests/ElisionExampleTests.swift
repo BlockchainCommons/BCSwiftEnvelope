@@ -6,7 +6,7 @@ import WolfBase
 class ElisionExampleTests: XCTestCase {
     func testRedactionExample2() throws {
         var rng = makeFakeRandomNumberGenerator()
-        let credential = try Envelope(CID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
+        let credential = try Envelope(ARID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
             .addType("Certificate of Completion")
             .addAssertion(.issuer, "Example Electrical Engineering Board")
             .addAssertion(.controller, "Example Electrical Engineering Board")
@@ -28,7 +28,7 @@ class ElisionExampleTests: XCTestCase {
         XCTAssertEqual(credential.format(),
         """
         {
-            CID(4676635a) [
+            ARID(4676635a) [
                 isA: "Certificate of Completion"
                 "certificateNumber": "123-456-789"
                 "continuingEducationUnits": 1
@@ -120,13 +120,13 @@ class ElisionExampleTests: XCTestCase {
             )
         }
         
-        /// We insert the digest of the wrapped envelope's subject, revealing the employee's CID according to the certifying agency.
+        /// We insert the digest of the wrapped envelope's subject, revealing the employee's ARID according to the certifying agency.
         target.insert(content.subject)
         with(credential.elideRevealing(target)) {
             XCTAssertEqual($0.format(),
             """
             {
-                CID(4676635a) [
+                ARID(4676635a) [
                     ELIDED (13)
                 ]
             } [
@@ -148,7 +148,7 @@ class ElisionExampleTests: XCTestCase {
         XCTAssertEqual(redactedCredential.format(),
         """
         {
-            CID(4676635a) [
+            ARID(4676635a) [
                 isA: "Certificate of Completion"
                 "expirationDate": 2028-01-01
                 "firstName": "James"
@@ -177,7 +177,7 @@ class ElisionExampleTests: XCTestCase {
         {
             {
                 {
-                    CID(4676635a) [
+                    ARID(4676635a) [
                         isA: "Certificate of Completion"
                         "expirationDate": 2028-01-01
                         "firstName": "James"
@@ -210,7 +210,7 @@ class ElisionExampleTests: XCTestCase {
     }
     
     func testRedactionExample() throws {
-        let credential = try Envelope(CID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
+        let credential = try Envelope(ARID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
             .addAssertion("firstName", "John")
             .addAssertion("lastName", "Smith")
             .addAssertion("address", "123 Main St.")
@@ -228,7 +228,7 @@ class ElisionExampleTests: XCTestCase {
         XCTAssertEqual(credential.format(),
         """
         {
-            CID(4676635a) [
+            ARID(4676635a) [
                 "address": "123 Main St."
                 "birthDate": 1970-01-01
                 "dlNumber": "123-456-789"

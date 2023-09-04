@@ -77,8 +77,8 @@ public extension Envelope {
 // MARK: - Request Construction
 
 public extension Envelope {
-    /// Creates an envelope with a `request(CID)` subject and a `body: «function»` assertion.
-    init(request id: CID, body: EnvelopeEncodable) {
+    /// Creates an envelope with a `request(ARID)` subject and a `body: «function»` assertion.
+    init(request id: ARID, body: EnvelopeEncodable) {
         let bodyEnvelope = body.envelope
         precondition((try? bodyEnvelope.extractSubject(Function.self)) != nil)
         self = Envelope(CBOR.tagged(.request, id.cbor))
@@ -93,7 +93,7 @@ public extension EnvelopeError {
 }
 
 public extension Envelope {
-    var requestID: CID {
+    var requestID: ARID {
         get throws {
             guard
                 let leaf = self.subject.leaf,
@@ -102,7 +102,7 @@ public extension Envelope {
                 throw EnvelopeError.invalidFormat
             }
             
-            return try CID(cbor: cbor)
+            return try ARID(cbor: cbor)
         }
     }
     
@@ -128,8 +128,8 @@ public extension Envelope {
 // MARK: - Response Construction
 
 public extension Envelope {
-    /// Creates an envelope with a `response(CID)` subject and a `result: value` assertion.
-    init(response id: CID, result: EnvelopeEncodable? = nil) {
+    /// Creates an envelope with a `response(ARID)` subject and a `result: value` assertion.
+    init(response id: ARID, result: EnvelopeEncodable? = nil) {
         let effectiveResult: Envelope
         if let result {
             effectiveResult = result.envelope
@@ -140,8 +140,8 @@ public extension Envelope {
             .addAssertion(.result, effectiveResult)
     }
     
-    /// Creates an envelope with a `CID` subject and a `result: value` assertion for each provided result.
-    init(response id: CID, results: [EnvelopeEncodable]) {
+    /// Creates an envelope with an `ARID` subject and a `result: value` assertion for each provided result.
+    init(response id: ARID, results: [EnvelopeEncodable]) {
         var e = Envelope(CBOR.tagged(.response, id.taggedCBOR))
         for result in results {
             e = e.addAssertion(.result, result.envelope)
@@ -149,8 +149,8 @@ public extension Envelope {
         self = e
     }
     
-    /// Creates an envelope with a `CID` subject and a `error: value` assertion.
-    init(response id: CID, error: EnvelopeEncodable) {
+    /// Creates an envelope with an `ARID` subject and a `error: value` assertion.
+    init(response id: ARID, error: EnvelopeEncodable) {
         self = Envelope(CBOR.tagged(.response, id.taggedCBOR))
             .addAssertion(.error, error.envelope)
     }
@@ -171,7 +171,7 @@ public extension Envelope {
 // MARK: - Response Decoding
 
 public extension Envelope {
-    var responseID: CID {
+    var responseID: ARID {
         get throws {
             guard
                 let leaf = self.subject.leaf,
@@ -180,7 +180,7 @@ public extension Envelope {
                 throw EnvelopeError.invalidFormat
             }
             
-            return try CID(cbor: cbor)
+            return try ARID(cbor: cbor)
         }
     }
     

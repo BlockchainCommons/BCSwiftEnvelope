@@ -688,10 +688,10 @@ John Smith is issued a Permanent Resident Card signed by the State of Example
 
 ```
 {
-    CID(174842ea) [
+    ARID(174842ea) [
         isA: "credential"
         "dateIssued": 2022-04-27
-        holder: CID(78bc3000) [
+        holder: ARID(78bc3000) [
             isA: "Permanent Resident"
             isA: "Person"
             "birthCountry": "bs" [
@@ -709,8 +709,8 @@ John Smith is issued a Permanent Resident Card signed by the State of Example
             "residentSince": 2018-01-07
             "sex": "MALE"
         ]
-        issuer: CID(04363d5f) [
-            dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+        issuer: ARID(04363d5f) [
+            dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
             note: "Issued by the State of Example"
         ]
         note: "The State of Example recognizes JOHN SMITH as a Permanent Resident."
@@ -727,13 +727,13 @@ John Smith is issued a Permanent Resident Card signed by the State of Example
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/lftpsplntpcstansgshdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaospoyaatpcsksfxghisihcxgujyhsjyihcxjliycxfekshsjnjojzihcxjpihiajliojtinknihjkcxgegwfdglcxgugtgaghfdcxhsjkcxhscxgdihjpjnhsjtihjtjycxgmihjkinieihjtjydmoybtlstpcstansgshdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvsoyaatpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihoyastpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihetoyadtpcsimiajpihieihjtjyinhsjzoybalktpcstansgshdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguooytpcsjzidinjpjyisfxjlkpjtjyjpkklftpcsididjkoyaatpcsjeghisihcxfwhsishsjnhsjkoytpcsimiyhsjninjzkkglhsjnihtpcsihgugtgaghfdoytpcsinioinkoihjtglhsjnihtpcsiegegwfdgloyadtpcsiygdihjpjkjljtoyadtpcsjpgdihjpjnhsjtihjtjycxgmihjkinieihjtjyoytpcsjejzjojpfxhsjyihiojljpkktpcsiafxdyesoytpcsinidinjpjyisfyhsjyihtpcssecyatskiolaoytpcsinjzjojpglkpjnidihjptpcsjeesesesdpesesesdpesesesoytpcsjnjpihjkinieihjtjyguinjtiaihtpcssecyhtgyiaaeoytpcsihinjnhsioihlstpcstansfphdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessaoyastpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesesoyaatpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmoytpcsiajkihkstpcsiegtfpgsfeoytpcsimiehsjyihgajkjkkpihietpcssecyidisltlaoyaxlftpcstansghhdfzvoiojesglrolfgqzgdnthkjpetjkihgafpjkcpvyayiohkyagtgshdaodncyesceadtokndydrhyhllrtlrlplecgacndedlcncxfzwdknongdosgdndjteebdimkoynoyaatpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmlutbmwgs
+ur:envelope/lftpsplntpcstansgshdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaospoyaatpcsksfxghisihcxgujyhsjyihcxjliycxfekshsjnjojzihcxjpihiajliojtinknihjkcxgegwfdglcxgugtgaghfdcxhsjkcxhscxgdihjpjnhsjtihjtjycxgmihjkinieihjtjydmoybtlstpcstansgshdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvsoyaatpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihoyastpcstpcxksheisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlhsjpiniedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihetoyadtpcsimiajpihieihjtjyinhsjzoybalktpcstansgshdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguooytpcsjzidinjpjyisfxjlkpjtjyjpkklftpcsididjkoyaatpcsjeghisihcxfwhsishsjnhsjkoytpcsimiyhsjninjzkkglhsjnihtpcsihgugtgaghfdoytpcsinioinkoihjtglhsjnihtpcsiegegwfdgloyadtpcsiygdihjpjkjljtoyadtpcsjpgdihjpjnhsjtihjtjycxgmihjkinieihjtjyoytpcsjejzjojpfxhsjyihiojljpkktpcsiafxdyesoytpcsinidinjpjyisfyhsjyihtpcssecyatskiolaoytpcsinjzjojpglkpjnidihjptpcsjeesesesdpesesesdpesesesoytpcsjnjpihjkinieihjtjyguinjtiaihtpcssecyhtgyiaaeoytpcsihinjnhsioihlstpcstansfphdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessaoyastpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesesoyaatpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmoytpcsiajkihkstpcsiegtfpgsfeoytpcsimiehsjyihgajkjkkpihietpcssecyidisltlaoyaxlftpcstansghhdfzfxensogaceqzzctosesesgvtytgtkgbzfhfzlouecxmhchyllbjtbsdlzcvlgmgdbejzbdgyzctsnycyjswdsrhkrekphsbglppakngydkuebybbcnbtgttatkgmptttoyaatpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmdlwnmntp
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8a104d8187843546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742ea10d83d818d99c4c582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8a104d818781e49737375656420627920746865205374617465206f66204578616d706c65a109d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538a101d8186a63726564656e7469616ca10e8cd818d99c4c582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadca1d8186c6269727468436f756e74727982d818626273a104d8186b54686520426168616d6173a1d8186a66616d696c794e616d65d81865534d495448a1d81869676976656e4e616d65d818644a4f484ea101d81866506572736f6ea101d818725065726d616e656e74205265736964656e74a1d8186b6c707243617465676f7279d81863433039a1d81869626972746844617465d818c11a07c56780a1d818696c70724e756d626572d8186b3939392d3939392d393939a1d8186d7265736964656e7453696e6365d818c11a5a516300a1d81865696d61676583d818d99c41582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2a109d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939a104d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ea1d81863736578d818644d414c45a1d8186a64617465497373756564d818c11a62688780a10382d818d99c545840e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6a104d818781d4d61646520627920746865205374617465206f66204578616d706c652e
+d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8a104d8187843546865205374617465206f66204578616d706c65207265636f676e697a6573204a4f484e20534d4954482061732061205065726d616e656e74205265736964656e742ea10d83d818d99c4c582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8a104d818781e49737375656420627920746865205374617465206f66204578616d706c65a109d818d820785f68747470733a2f2f6578616d706c656c65646765722e636f6d2f617269642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538a101d8186a63726564656e7469616ca10e8cd818d99c4c582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadca1d8186c6269727468436f756e74727982d818626273a104d8186b54686520426168616d6173a1d8186a66616d696c794e616d65d81865534d495448a1d81869676976656e4e616d65d818644a4f484ea101d81866506572736f6ea101d818725065726d616e656e74205265736964656e74a1d8186b6c707243617465676f7279d81863433039a1d81869626972746844617465d818c11a07c56780a1d818696c70724e756d626572d8186b3939392d3939392d393939a1d8186d7265736964656e7453696e6365d818c11a5a516300a1d81865696d61676583d818d99c41582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2a109d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939a104d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682ea1d81863736578d818644d414c45a1d8186a64617465497373756564d818c11a62688780a10382d818d99c5458404336c9491cb4fdcec1c1cae0f94d7b153f4088de209017f77f6e0f2ffde35250106c0b51fdd79a1a71eac359b575611285b17a5124de1114230d4dd9cf52a9d1a104d818781d4d61646520627920746865205374617465206f66204578616d706c652e
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -744,7 +744,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
       200(   / envelope /
          [
             24(   / leaf /
-               40012(   / cid /
+               40012(   / arid /
                   h'174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8'
                )
             ),
@@ -758,7 +758,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                13:
                [
                   24(   / leaf /
-                     40012(   / cid /
+                     40012(   / arid /
                         h'04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8'
                      )
                   ),
@@ -772,7 +772,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                      9:
                      24(   / leaf /
                         32(
-                           "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
+                           "https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
                         )
                      )
                   }
@@ -786,7 +786,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                14:
                [
                   24(   / leaf /
-                     40012(   / cid /
+                     40012(   / arid /
                         h'78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc'
                      )
                   ),
@@ -877,7 +877,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
          [
             24(   / leaf /
                40020(   / signature /
-                  h'e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6'
+                  h'4336c9491cb4fdcec1c1cae0f94d7b153f4088de209017f77f6e0f2ffde35250106c0b51fdd79a1a71eac359b575611285b17a5124de1114230d4dd9cf52a9d1'
                )
             ),
             {
@@ -899,7 +899,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
    d8 c8                                 # tag(200) envelope
       86                                 # array(6)
          d8 18                           # tag(24) leaf
-            d9 9c4c                      # tag(40012) cid
+            d9 9c4c                      # tag(40012) arid
                5820                      # bytes(32)
                   174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
          a1                              # map(1)
@@ -911,7 +911,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
             0d                           # unsigned(13)
             83                           # array(3)
                d8 18                     # tag(24) leaf
-                  d9 9c4c                # tag(40012) cid
+                  d9 9c4c                # tag(40012) arid
                      5820                # bytes(32)
                         04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
                a1                        # map(1)
@@ -923,8 +923,8 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                   09                     # unsigned(9)
                   d8 18                  # tag(24) leaf
                      d8 20               # tag(32)
-                        78 5e            # text(94)
-                           68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
+                        78 5f            # text(95)
+                           68747470733a2f2f6578616d706c656c65646765722e636f6d2f617269642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
          a1                              # map(1)
             01                           # unsigned(1)
             d8 18                        # tag(24) leaf
@@ -934,7 +934,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
             0e                           # unsigned(14)
             8c                           # array(12)
                d8 18                     # tag(24) leaf
-                  d9 9c4c                # tag(40012) cid
+                  d9 9c4c                # tag(40012) arid
                      5820                # bytes(32)
                         78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
                a1                        # map(1)
@@ -1041,7 +1041,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
          d8 18                           # tag(24) leaf
             d9 9c54                      # tag(40020) signature
                5840                      # bytes(64)
-                  e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6
+                  4336c9491cb4fdcec1c1cae0f94d7b153f4088de209017f77f6e0f2ffde35250106c0b51fdd79a1a71eac359b575611285b17a5124de1114230d4dd9cf52a9d1
          a1                              # map(1)
             04                           # unsigned(4)
             d8 18                        # tag(24) leaf
@@ -1059,9 +1059,9 @@ John wishes to identify himself to a third party using his government-issued cre
 
 ```
 {
-    CID(174842ea) [
+    ARID(174842ea) [
         isA: "credential"
-        holder: CID(78bc3000) [
+        holder: ARID(78bc3000) [
             "familyName": "SMITH"
             "givenName": "JOHN"
             "image": Digest(03b7adb0) [
@@ -1070,8 +1070,8 @@ John wishes to identify himself to a third party using his government-issued cre
             ]
             ELIDED (8)
         ]
-        issuer: CID(04363d5f) [
-            dereferenceVia: URI(https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+        issuer: ARID(04363d5f) [
+            dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
             note: "Issued by the State of Example"
         ]
         ELIDED (2)
@@ -1088,13 +1088,13 @@ John wishes to identify himself to a third party using his government-issued cre
 👉 _The CBOR in a UR is never tagged, because the UR `type` field serves this purpose._
 
 ```
-ur:envelope/lftpsplntpcstansgshdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosphdcxfnstoxfwdaglhlmywzpafwmnfdzezmkisgfhtaetihtibemedpnsuevswtcngwpaoybtlstpcstansgshdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvsoyaatpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihoyastpcstpcxkshyisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndliainiedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihetoyadtpcsimiajpihieihjtjyinhsjzoybalktpcstansgshdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguohdcxbwjsinwkcmahnefdmsfdgtltkpdppdbdwnfdhhwfjyptvddimucwrycavameetssoytpcsimiyhsjninjzkkglhsjnihtpcsihgugtgaghfdoytpcsinioinkoihjtglhsjnihtpcsiegegwfdglhdcxhdcamnzeftfppdwzpmjojluypebnbeplzeptzesfkgfholssdtkgveimonnlsosehdcxjscnletijkdssosnvljpbklrhpihrpjtfwtnwecflolsolfmkbnlndosmdadztsbhdcxnsmkylvtfseegsgotaammhcezebdgwhyhhyljkrhwfqzoskgeosodsgmpmhgzchhhdcxosfmfplpfxvefzoybncfwzgtfewdcapsqdkkuolagdtdltvwfdttvorflocwzegahdcxtbcffdrptpstzmmomdktssmegedwvdecgadtdsreaygtdifwmokimwaodwbyuozmhdcxvyidloaagdetmopfrnbwleidmeioftfptavtlnptprvohnfpmtcegdseamceotwyoytpcsihinjnhsioihlstpcstansfphdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessaoyastpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesesoyaatpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmhdcxzejocerptnaxchswvossceasnehkgefyptmhndretdghwtwepymwoyrocmnntddihdcxwmesosbwlupscfiopltaemchmdzmtllrgraxlnrhwnkbfmlrveadrtlobspspmmsoyaxlftpcstansghhdfzvoiojesglrolfgqzgdnthkjpetjkihgafpjkcpvyayiohkyagtgshdaodncyesceadtokndydrhyhllrtlrlplecgacndedlcncxfzwdknongdosgdndjteebdimkoynoyaatpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmdlkgpsis
+ur:envelope/lftpsplntpcstansgshdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosphdcxfnstoxfwdaglhlmywzpafwmnfdzezmkisgfhtaetihtibemedpnsuevswtcngwpaoybtlstpcstansgshdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvsoyaatpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihoyastpcstpcxksheisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlhsjpiniedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihetoyadtpcsimiajpihieihjtjyinhsjzoybalktpcstansgshdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguohdcxbwjsinwkcmahnefdmsfdgtltkpdppdbdwnfdhhwfjyptvddimucwrycavameetssoytpcsimiyhsjninjzkkglhsjnihtpcsihgugtgaghfdoytpcsinioinkoihjtglhsjnihtpcsiegegwfdglhdcxhdcamnzeftfppdwzpmjojluypebnbeplzeptzesfkgfholssdtkgveimonnlsosehdcxjscnletijkdssosnvljpbklrhpihrpjtfwtnwecflolsolfmkbnlndosmdadztsbhdcxnsmkylvtfseegsgotaammhcezebdgwhyhhyljkrhwfqzoskgeosodsgmpmhgzchhhdcxosfmfplpfxvefzoybncfwzgtfewdcapsqdkkuolagdtdltvwfdttvorflocwzegahdcxtbcffdrptpstzmmomdktssmegedwvdecgadtdsreaygtdifwmokimwaodwbyuozmhdcxvyidloaagdetmopfrnbwleidmeioftfptavtlnptprvohnfpmtcegdseamceotwyoytpcsihinjnhsioihlstpcstansfphdcxaxrlpmpfrpzsdlrplobkfrhevtmnbaemplhyinbdtlsfbefsvaylmdgtfzlnessaoyastpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesesoyaatpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmhdcxzejocerptnaxchswvossceasnehkgefyptmhndretdghwtwepymwoyrocmnntddihdcxwmesosbwlupscfiopltaemchmdzmtllrgraxlnrhwnkbfmlrveadrtlobspspmmsoyaxlftpcstansghhdfzfxensogaceqzzctosesesgvtytgtkgbzfhfzlouecxmhchyllbjtbsdlzcvlgmgdbejzbdgyzctsnycyjswdsrhkrekphsbglppakngydkuebybbcnbtgttatkgmptttoyaatpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmsgftgegd
 ```
 
 ### Tagged CBOR Binary
 
 ```
-d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c858203cc7a442254e5d8ff2b1428e48feff7dca3fd93865d010912d9cdee8f0234fb1a10d83d818d99c4c582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8a104d818781e49737375656420627920746865205374617465206f66204578616d706c65a109d818d820785e68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538a101d8186a63726564656e7469616ca10e8cd818d99c4c582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc5820137169f416059f4897484d87752da80bf1485cf374a9e727931bbd1de69138c4a1d8186a66616d696c794e616d65d81865534d495448a1d81869676976656e4e616d65d818644a4f484e5820581d8efe3a41a8f2ad706fdbaf0c10aefea9fecc7b3fa6c4297be46aa599c9c1582071238ad07326c9cde3720a845b65b66e42daed198883a63e7e999ba79501fccb58209c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5c5820a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe495820d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcff5820e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3eea1d81865696d61676583d818d99c41582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2a109d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939a104d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682e5820fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed2275820eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97a10382d818d99c545840e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6a104d818781d4d61646520627920746865205374617465206f66204578616d706c652e
+d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c858203cc7a442254e5d8ff2b1428e48feff7dca3fd93865d010912d9cdee8f0234fb1a10d83d818d99c4c582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8a104d818781e49737375656420627920746865205374617465206f66204578616d706c65a109d818d820785f68747470733a2f2f6578616d706c656c65646765722e636f6d2f617269642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538a101d8186a63726564656e7469616ca10e8cd818d99c4c582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc5820137169f416059f4897484d87752da80bf1485cf374a9e727931bbd1de69138c4a1d8186a66616d696c794e616d65d81865534d495448a1d81869676976656e4e616d65d818644a4f484e5820581d8efe3a41a8f2ad706fdbaf0c10aefea9fecc7b3fa6c4297be46aa599c9c1582071238ad07326c9cde3720a845b65b66e42daed198883a63e7e999ba79501fccb58209c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5c5820a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe495820d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcff5820e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3eea1d81865696d61676583d818d99c41582003b7adb0b6fa2fb6880a3b5fe08e0e37ae5e690bd5cc103de6f7954d408639c2a109d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939a104d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682e5820fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed2275820eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97a10382d818d99c5458404336c9491cb4fdcec1c1cae0f94d7b153f4088de209017f77f6e0f2ffde35250106c0b51fdd79a1a71eac359b575611285b17a5124de1114230d4dd9cf52a9d1a104d818781d4d61646520627920746865205374617465206f66204578616d706c652e
 ```
 
 ### Tagged CBOR Diagnostic Notation
@@ -1105,7 +1105,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
       200(   / envelope /
          [
             24(   / leaf /
-               40012(   / cid /
+               40012(   / arid /
                   h'174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8'
                )
             ),
@@ -1114,7 +1114,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                13:
                [
                   24(   / leaf /
-                     40012(   / cid /
+                     40012(   / arid /
                         h'04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8'
                      )
                   ),
@@ -1128,7 +1128,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                      9:
                      24(   / leaf /
                         32(
-                           "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
+                           "https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
                         )
                      )
                   }
@@ -1142,7 +1142,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                14:
                [
                   24(   / leaf /
-                     40012(   / cid /
+                     40012(   / arid /
                         h'78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc'
                      )
                   ),
@@ -1194,7 +1194,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
          [
             24(   / leaf /
                40020(   / signature /
-                  h'e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6'
+                  h'4336c9491cb4fdcec1c1cae0f94d7b153f4088de209017f77f6e0f2ffde35250106c0b51fdd79a1a71eac359b575611285b17a5124de1114230d4dd9cf52a9d1'
                )
             ),
             {
@@ -1216,7 +1216,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
    d8 c8                                 # tag(200) envelope
       86                                 # array(6)
          d8 18                           # tag(24) leaf
-            d9 9c4c                      # tag(40012) cid
+            d9 9c4c                      # tag(40012) arid
                5820                      # bytes(32)
                   174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8
          5820                            # bytes(32)
@@ -1225,7 +1225,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
             0d                           # unsigned(13)
             83                           # array(3)
                d8 18                     # tag(24) leaf
-                  d9 9c4c                # tag(40012) cid
+                  d9 9c4c                # tag(40012) arid
                      5820                # bytes(32)
                         04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8
                a1                        # map(1)
@@ -1237,8 +1237,8 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
                   09                     # unsigned(9)
                   d8 18                  # tag(24) leaf
                      d8 20               # tag(32)
-                        78 5e            # text(94)
-                           68747470733a2f2f6578616d706c656c65646765722e636f6d2f6369642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/cid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
+                        78 5f            # text(95)
+                           68747470733a2f2f6578616d706c656c65646765722e636f6d2f617269642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538 # "https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
          a1                              # map(1)
             01                           # unsigned(1)
             d8 18                        # tag(24) leaf
@@ -1248,7 +1248,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
             0e                           # unsigned(14)
             8c                           # array(12)
                d8 18                     # tag(24) leaf
-                  d9 9c4c                # tag(40012) cid
+                  d9 9c4c                # tag(40012) arid
                      5820                # bytes(32)
                         78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc
                5820                      # bytes(32)
@@ -1308,7 +1308,7 @@ d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed4
          d8 18                           # tag(24) leaf
             d9 9c54                      # tag(40020) signature
                5840                      # bytes(64)
-                  e2676bca84a646b4509d597238736549417322e1086759f84d4c58022b1a391c01ce7a302a5e5d84d5b7ae354923282f232040ea7aa550a7509b6e340b6a76f6
+                  4336c9491cb4fdcec1c1cae0f94d7b153f4088de209017f77f6e0f2ffde35250106c0b51fdd79a1a71eac359b575611285b17a5124de1114230d4dd9cf52a9d1
          a1                              # map(1)
             04                           # unsigned(4)
             d8 18                        # tag(24) leaf
