@@ -387,7 +387,7 @@ public extension Envelope {
     /// Throws an exception if there are multiple matching predicates.
     /// Throws an exception if the encoded type doesn't match the given type.
     func optionalObject<T>(_ type: T.Type, forPredicate predicate: Envelope) throws -> T? where T: EnvelopeDecodable {
-        try type.self.init(optionalObject(forPredicate: predicate))
+        try type.self.init(envelope: optionalObject(forPredicate: predicate))
     }
 
     /// Returns the object of the assertion with the given predicate
@@ -403,7 +403,7 @@ public extension Envelope {
     /// Throws an exception if there is no matching or multiple matching predicates.
     /// Throws an exception if the encoded type doesn't match the given type.
     func object<T>(_ type: T.Type, forPredicate predicate: Envelope) throws -> T where T: EnvelopeDecodable {
-        try type.self.init(object(forPredicate: predicate))
+        try type.self.init(envelope: object(forPredicate: predicate))
     }
 
     /// Returns the object of the assertion with the given predicate, or `nil` if none exists.
@@ -495,7 +495,7 @@ public extension Envelope {
     /// Throws an exception if the encoded type doesn't match the given type.
     func objects<T>(_ type: T.Type, forPredicate predicate: CBOREncodable) throws -> [T] where T: EnvelopeDecodable {
         let predicate = Envelope(predicate)
-        return try objects(forPredicate: predicate).map { try type.self.init($0) }
+        return try objects(forPredicate: predicate).map { try type.self.init(envelope: $0) }
     }
 
     /// Returns the objects of all assertions with the matching predicate.
@@ -511,7 +511,71 @@ public extension Envelope {
     /// Throws an exception if the encoded type doesn't match the given type.
     func objects<T>(_ type: T.Type, forPredicate predicate: KnownValue) throws -> [T] where T: EnvelopeDecodable {
         let predicate = Envelope(predicate)
-        return try objects(forPredicate: predicate).map { try type.self.init($0) }
+        return try objects(forPredicate: predicate).map { try type.self.init(envelope: $0) }
+    }
+}
+
+public extension Envelope {
+    private func validateNonemptyString(_ s: String?) throws -> String? {
+        guard let s else {
+            return nil
+        }
+        guard !s.isEmpty else {
+            throw EnvelopeError.invalidFormat
+        }
+        return s
+    }
+    
+    
+    func extractString(forPredicte predicate: Envelope) throws -> String {
+        try extractObject(String.self, forPredicate: predicate)
+    }
+    
+    func extractString(forPredicte predicate: CBOREncodable) throws -> String {
+        try extractObject(String.self, forPredicate: predicate)
+    }
+    
+    func extractString(forPredicte predicate: KnownValue) throws -> String {
+        try extractObject(String.self, forPredicate: predicate)
+    }
+    
+    
+    func extractNonemptyString(forPredicate predicate: Envelope) throws -> String {
+        try validateNonemptyString(extractString(forPredicte: predicate))!
+    }
+    
+    func extractNonemptyString(forPredicate predicate: CBOREncodable) throws -> String {
+        try validateNonemptyString(extractString(forPredicte: predicate))!
+    }
+    
+    func extractNonemptyString(forPredicate predicate: KnownValue) throws -> String {
+        try validateNonemptyString(extractString(forPredicte: predicate))!
+    }
+    
+    
+    func extractOptionalString(forPredicate predicate: Envelope) throws -> String? {
+        try extractOptionalObject(String.self, forPredicate: predicate)
+    }
+    
+    func extractOptionalString(forPredicate predicate: CBOREncodable) throws -> String? {
+        try extractOptionalObject(String.self, forPredicate: predicate)
+    }
+    
+    func extractOptionalString(forPredicate predicate: KnownValue) throws -> String? {
+        try extractOptionalObject(String.self, forPredicate: predicate)
+    }
+    
+    
+    func extractOptionalNonemptyString(forPredicate predicate: Envelope) throws -> String? {
+        try validateNonemptyString(extractOptionalString(forPredicate: predicate))
+    }
+    
+    func extractOptionalNonemptyString(forPredicate predicate: CBOREncodable) throws -> String? {
+        try validateNonemptyString(extractOptionalString(forPredicate: predicate))
+    }
+    
+    func extractOptionalNonemptyString(forPredicate predicate: KnownValue) throws -> String? {
+        try validateNonemptyString(extractOptionalString(forPredicate: predicate))
     }
 }
 

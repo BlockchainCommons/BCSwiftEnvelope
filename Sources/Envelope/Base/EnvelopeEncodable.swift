@@ -5,16 +5,16 @@ public protocol EnvelopeEncodable {
 }
 
 public protocol EnvelopeDecodable {
-    init(_ envelope: Envelope) throws
-    init?(_ envelope: Envelope?) throws
+    init(envelope: Envelope) throws
+    init?(envelope: Envelope?) throws
 }
 
 public extension EnvelopeDecodable {
-    init?(_ envelope: Envelope?) throws {
+    init?(envelope: Envelope?) throws {
         guard let envelope else {
             return nil
         }
-        try self.init(envelope)
+        try self.init(envelope: envelope)
     }
 }
 
@@ -30,7 +30,7 @@ extension Bool: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -40,7 +40,7 @@ extension Data: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -50,7 +50,7 @@ extension Date: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -60,7 +60,7 @@ extension Int: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -70,7 +70,7 @@ extension Int8: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -80,7 +80,7 @@ extension Int16: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -90,7 +90,7 @@ extension Int32: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -100,7 +100,7 @@ extension Int64: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -110,7 +110,7 @@ extension String: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -120,7 +120,7 @@ extension UInt: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -130,7 +130,7 @@ extension UInt8: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -140,7 +140,7 @@ extension UInt16: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -150,7 +150,7 @@ extension UInt32: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }
@@ -160,7 +160,7 @@ extension UInt64: EnvelopeCodable {
         Envelope(self)
     }
     
-    public init(_ envelope: Envelope) throws {
+    public init(envelope: Envelope) throws {
         self = try envelope.extractSubject(Self.self)
     }
 }

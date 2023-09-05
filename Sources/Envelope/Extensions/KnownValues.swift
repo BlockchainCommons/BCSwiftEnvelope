@@ -46,6 +46,7 @@ public extension KnownValue {
     static let parentFingerprint = KnownValue(505, "parentFingerprint")
     static let PSBT = KnownValue(506, "PSBT")
     static let OutputDescriptor = KnownValue(507, "OutputDescriptor")
+    static let outputDescriptor = KnownValue(508, "outputDescriptor")
 }
 
 public var globalKnownValues: KnownValuesStore = [
@@ -93,4 +94,5 @@ public var globalKnownValues: KnownValuesStore = [
     .parentFingerprint,
     .PSBT,
     .OutputDescriptor,
+    .outputDescriptor,
 ]
