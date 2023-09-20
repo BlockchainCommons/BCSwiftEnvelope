@@ -257,7 +257,7 @@ d8 c8                                    # tag(200) envelope
 
 ```
 "It is the unspoken ethic of all magicians to not reveal the secrets. -- David Copperfield" [
-    note: "This could be vendor-specific data attached to the envelope."
+    'note': "This could be vendor-specific data attached to the envelope."
 ]
 ```
 

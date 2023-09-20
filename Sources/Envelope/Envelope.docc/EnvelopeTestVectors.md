@@ -85,7 +85,7 @@ A string has been signed by Alice.
 
 ```
 "Hello." [
-    verifiedBy: Signature
+    'verifiedBy': Signature
 ]
 ```
 
@@ -146,8 +146,8 @@ Alice and Carol jointly send a signed plaintext message to Bob.
 
 ```
 "Hello." [
-    verifiedBy: Signature
-    verifiedBy: Signature
+    'verifiedBy': Signature
+    'verifiedBy': Signature
 ]
 ```
 
@@ -334,7 +334,7 @@ A message is first encrypted, then signed. Its signature may be checked before t
 
 ```
 ENCRYPTED [
-    verifiedBy: Signature
+    'verifiedBy': Signature
 ]
 ```
 
@@ -409,8 +409,8 @@ Alice encrypts a message using the public keys of Bob and Carol so that it can o
 
 ```
 ENCRYPTED [
-    hasRecipient: SealedMessage
-    hasRecipient: SealedMessage
+    'hasRecipient': SealedMessage
+    'hasRecipient': SealedMessage
 ]
 ```
 
@@ -541,9 +541,9 @@ Alice encrypts a message using the public keys of Bob and Carol so that it can o
 
 ```
 ENCRYPTED [
-    hasRecipient: SealedMessage
-    hasRecipient: SealedMessage
-    verifiedBy: Signature
+    'hasRecipient': SealedMessage
+    'hasRecipient': SealedMessage
+    'verifiedBy': Signature
 ]
 ```
 
@@ -689,35 +689,35 @@ John Smith is issued a Permanent Resident Card signed by the State of Example
 ```
 {
     ARID(174842ea) [
-        isA: "credential"
+        'isA': "credential"
         "dateIssued": 2022-04-27
-        holder: ARID(78bc3000) [
-            isA: "Permanent Resident"
-            isA: "Person"
+        'holder': ARID(78bc3000) [
+            'isA': "Permanent Resident"
+            'isA': "Person"
             "birthCountry": "bs" [
-                note: "The Bahamas"
+                'note': "The Bahamas"
             ]
             "birthDate": 1974-02-18
             "familyName": "SMITH"
             "givenName": "JOHN"
             "image": Digest(03b7adb0) [
-                dereferenceVia: "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-                note: "This is an image of John Smith."
+                'dereferenceVia': "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
+                'note': "This is an image of John Smith."
             ]
             "lprCategory": "C09"
             "lprNumber": "999-999-999"
             "residentSince": 2018-01-07
             "sex": "MALE"
         ]
-        issuer: ARID(04363d5f) [
-            dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
-            note: "Issued by the State of Example"
+        'issuer': ARID(04363d5f) [
+            'dereferenceVia': URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+            'note': "Issued by the State of Example"
         ]
-        note: "The State of Example recognizes JOHN SMITH as a Permanent Resident."
+        'note': "The State of Example recognizes JOHN SMITH as a Permanent Resident."
     ]
 } [
-    verifiedBy: Signature [
-        note: "Made by the State of Example."
+    'verifiedBy': Signature [
+        'note': "Made by the State of Example."
     ]
 ]
 ```
@@ -1060,25 +1060,25 @@ John wishes to identify himself to a third party using his government-issued cre
 ```
 {
     ARID(174842ea) [
-        isA: "credential"
-        holder: ARID(78bc3000) [
+        'isA': "credential"
+        'holder': ARID(78bc3000) [
             "familyName": "SMITH"
             "givenName": "JOHN"
             "image": Digest(03b7adb0) [
-                dereferenceVia: "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-                note: "This is an image of John Smith."
+                'dereferenceVia': "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
+                'note': "This is an image of John Smith."
             ]
             ELIDED (8)
         ]
-        issuer: ARID(04363d5f) [
-            dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
-            note: "Issued by the State of Example"
+        'issuer': ARID(04363d5f) [
+            'dereferenceVia': URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+            'note': "Issued by the State of Example"
         ]
         ELIDED (2)
     ]
 } [
-    verifiedBy: Signature [
-        note: "Made by the State of Example."
+    'verifiedBy': Signature [
+        'note': "Made by the State of Example."
     ]
 ]
 ```

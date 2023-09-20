@@ -20,17 +20,17 @@ class ProofTests: XCTestCase {
             {
                 "knows": "Bob"
             } [
-                salt: Salt
+                'salt': Salt
             ]
             {
                 "knows": "Carol"
             } [
-                salt: Salt
+                'salt': Salt
             ]
             {
                 "knows": "Dan"
             } [
-                salt: Salt
+                'salt': Salt
             ]
         ]
         """

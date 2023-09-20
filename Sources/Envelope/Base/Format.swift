@@ -53,7 +53,7 @@ extension Assertion: EnvelopeFormat {
 
 extension KnownValue: EnvelopeFormat {
     func formatItem(context: FormatContext?) -> EnvelopeFormatItem {
-        .item(context?.knownValues.assignedName(for: self) ?? name)
+        .item((context?.knownValues.assignedName(for: self) ?? name).flanked("'"))
     }
 }
 
@@ -84,7 +84,7 @@ extension CBOR {
                     else {
                         return "<not a known value>"
                     }
-                    return knownValue†
+                    return knownValue†.flanked("'")
                 case Signature.cborTag:
                     return "Signature"
                 case Nonce.cborTag:

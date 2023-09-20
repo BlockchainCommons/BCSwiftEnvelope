@@ -42,7 +42,7 @@ class CryptoTests: XCTestCase {
         let expectedFormat =
         """
         "Hello." [
-            verifiedBy: Signature
+            'verifiedBy': Signature
         ]
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
@@ -81,8 +81,8 @@ class CryptoTests: XCTestCase {
         let expectedFormat =
         """
         "Hello." [
-            verifiedBy: Signature
-            verifiedBy: Signature
+            'verifiedBy': Signature
+            'verifiedBy': Signature
         ]
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
@@ -243,7 +243,7 @@ class CryptoTests: XCTestCase {
         let expectedFormat =
         """
         ENCRYPTED [
-            verifiedBy: Signature
+            'verifiedBy': Signature
         ]
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
@@ -275,8 +275,8 @@ class CryptoTests: XCTestCase {
         let expectedFormat =
         """
         ENCRYPTED [
-            hasRecipient: SealedMessage
-            hasRecipient: SealedMessage
+            'hasRecipient': SealedMessage
+            'hasRecipient': SealedMessage
         ]
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
@@ -320,9 +320,9 @@ class CryptoTests: XCTestCase {
         let expectedFormat =
         """
         ENCRYPTED [
-            hasRecipient: SealedMessage
-            hasRecipient: SealedMessage
-            verifiedBy: Signature
+            'hasRecipient': SealedMessage
+            'hasRecipient': SealedMessage
+            'verifiedBy': Signature
         ]
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
@@ -372,8 +372,8 @@ class CryptoTests: XCTestCase {
         let expectedFormat =
         """
         ENCRYPTED [
-            hasRecipient: SealedMessage
-            hasRecipient: SealedMessage
+            'hasRecipient': SealedMessage
+            'hasRecipient': SealedMessage
         ]
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
@@ -439,7 +439,7 @@ class CryptoTests: XCTestCase {
         let expectedFormat =
         """
         ENCRYPTED [
-            sskrShare: SSKRShare
+            'sskrShare': SSKRShare
         ]
         """
         XCTAssertEqual(sentEnvelopes[0].format(), expectedFormat)

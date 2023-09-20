@@ -14,21 +14,21 @@ class AttachmentTests: XCTestCase {
             .addAttachment("Attachment Data V2", vendor: "com.example", conformsTo: "https://example.com/seed-attachment/v2")
         XCTAssertEqual(seedEnvelope.envelope.format(), """
         Bytes(16) [
-            isA: Seed
-            attachment: {
+            'isA': 'Seed'
+            'attachment': {
                 "Attachment Data V1"
             } [
-                conformsTo: "https://example.com/seed-attachment/v1"
-                vendor: "com.example"
+                'conformsTo': "https://example.com/seed-attachment/v1"
+                'vendor': "com.example"
             ]
-            attachment: {
+            'attachment': {
                 "Attachment Data V2"
             } [
-                conformsTo: "https://example.com/seed-attachment/v2"
-                vendor: "com.example"
+                'conformsTo': "https://example.com/seed-attachment/v2"
+                'vendor': "com.example"
             ]
-            hasName: "Alice's Seed"
-            note: "This is the note."
+            'hasName': "Alice's Seed"
+            'note': "This is the note."
         ]
         """)
         XCTAssertEqual(try seedEnvelope.attachments().count, 2)

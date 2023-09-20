@@ -14,7 +14,7 @@ class ExpressionTests: XCTestCase {
                 .addParameter(.rhs, value: 3))
         XCTAssertEqual(request.format(context: globalFormatContext), """
         request(ARID(be74063a)) [
-            body: «add» [
+            'body': «add» [
                 ❰lhs❱: 2
                 ❰rhs❱: 3
             ]
@@ -39,7 +39,7 @@ class ExpressionTests: XCTestCase {
         let response = Envelope(response: arid, result: 5)
         XCTAssertEqual(response.format(context: globalFormatContext), """
         response(ARID(be74063a)) [
-            result: 5
+            'result': 5
         ]
         """)
         
@@ -52,7 +52,7 @@ class ExpressionTests: XCTestCase {
         let response = Envelope(response: arid)
         XCTAssertEqual(response.format(context: globalFormatContext), """
         response(ARID(be74063a)) [
-            result: OK
+            'result': 'OK'
         ]
         """)
         XCTAssertTrue(try response.isResultOK)
@@ -64,7 +64,7 @@ class ExpressionTests: XCTestCase {
         XCTAssertFalse(try errorResponse.isResponseIDUnknown)
         XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
         response(ARID(be74063a)) [
-            error: "Internal Server Error"
+            'error': "Internal Server Error"
         ]
         """)
         XCTAssertEqual(try errorResponse.extractError(String.self), "Internal Server Error")
@@ -75,8 +75,8 @@ class ExpressionTests: XCTestCase {
         XCTAssertTrue(errorResponse.isError)
         XCTAssertTrue(try errorResponse.isResponseIDUnknown)
         XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
-        response(Unknown) [
-            error: "Decryption Failed"
+        response('Unknown') [
+            'error': "Decryption Failed"
         ]
         """)
     }

@@ -40,7 +40,7 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(envelope.format(),
         """
         "Hello." [
-            verifiedBy: Signature
+            'verifiedBy': Signature
         ]
         """)
         XCTAssertEqual(envelope.treeFormat(),
@@ -48,14 +48,14 @@ class FormatTests: XCTestCase {
         509d8ab2 NODE
             8cc96cdb subj "Hello."
             f761face ASSERTION
-                d0e39e78 pred verifiedBy
+                d0e39e78 pred 'verifiedBy'
                 0d868228 obj Signature
         """)
         XCTAssertEqual(envelope.treeFormat(hideNodes: true),
         """
         "Hello."
             ASSERTION
-                verifiedBy
+                'verifiedBy'
                 Signature
         """)
         XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
@@ -65,7 +65,7 @@ class FormatTests: XCTestCase {
             1(("509d8ab2<br/>NODE"))
             2["8cc96cdb<br/>#quot;Hello.#quot;"]
             3(["f761face<br/>ASSERTION"])
-            4[/"d0e39e78<br/>verifiedBy"/]
+            4[/"d0e39e78<br/>'verifiedBy'"/]
             5["0d868228<br/>Signature"]
             1 -->|subj| 2
             1 --> 3
@@ -86,7 +86,7 @@ class FormatTests: XCTestCase {
         graph LR
             1["#quot;Hello.#quot;"]
             2(["ASSERTION"])
-            3[/"verifiedBy"/]
+            3[/"'verifiedBy'"/]
             4["Signature"]
             1 --> 2
             2 --> 3
@@ -297,7 +297,7 @@ class FormatTests: XCTestCase {
         "Alice" [
             "knows": "Bob"
             "knows": "Carol"
-            verifiedBy: Signature
+            'verifiedBy': Signature
         ]
         """)
         XCTAssertEqual(envelope.treeFormat(),
@@ -308,7 +308,7 @@ class FormatTests: XCTestCase {
                 db7dd21c pred "knows"
                 afb8122e obj "Carol"
             6c31d926 ASSERTION
-                d0e39e78 pred verifiedBy
+                d0e39e78 pred 'verifiedBy'
                 4ab15d8b obj Signature
             78d666eb ASSERTION
                 db7dd21c pred "knows"
@@ -321,7 +321,7 @@ class FormatTests: XCTestCase {
                 "knows"
                 "Carol"
             ASSERTION
-                verifiedBy
+                'verifiedBy'
                 Signature
             ASSERTION
                 "knows"
@@ -337,7 +337,7 @@ class FormatTests: XCTestCase {
             4["db7dd21c<br/>#quot;knows#quot;"]
             5["afb8122e<br/>#quot;Carol#quot;"]
             6(["6c31d926<br/>ASSERTION"])
-            7[/"d0e39e78<br/>verifiedBy"/]
+            7[/"d0e39e78<br/>'verifiedBy'"/]
             8["4ab15d8b<br/>Signature"]
             9(["78d666eb<br/>ASSERTION"])
             10["db7dd21c<br/>#quot;knows#quot;"]
@@ -382,7 +382,7 @@ class FormatTests: XCTestCase {
             3["#quot;knows#quot;"]
             4["#quot;Carol#quot;"]
             5(["ASSERTION"])
-            6[/"verifiedBy"/]
+            6[/"'verifiedBy'"/]
             7["Signature"]
             8(["ASSERTION"])
             9["#quot;knows#quot;"]
@@ -501,7 +501,7 @@ class FormatTests: XCTestCase {
                 "knows": "Carol"
             ]
         } [
-            verifiedBy: Signature
+            'verifiedBy': Signature
         ]
         """)
         XCTAssertEqual(envelope.treeFormat(),
@@ -517,7 +517,7 @@ class FormatTests: XCTestCase {
                         db7dd21c pred "knows"
                         13b74194 obj "Bob"
             73600f24 ASSERTION
-                d0e39e78 pred verifiedBy
+                d0e39e78 pred 'verifiedBy'
                 d08ddb0d obj Signature
         """)
         XCTAssertEqual(envelope.treeFormat(hideNodes: true),
@@ -531,7 +531,7 @@ class FormatTests: XCTestCase {
                     "knows"
                     "Bob"
             ASSERTION
-                verifiedBy
+                'verifiedBy'
                 Signature
         """)
         XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
@@ -549,7 +549,7 @@ class FormatTests: XCTestCase {
             9["db7dd21c<br/>#quot;knows#quot;"]
             10["13b74194<br/>#quot;Bob#quot;"]
             11(["73600f24<br/>ASSERTION"])
-            12[/"d0e39e78<br/>verifiedBy"/]
+            12[/"d0e39e78<br/>'verifiedBy'"/]
             13["d08ddb0d<br/>Signature"]
             1 -->|subj| 2
             2 -->|subj| 3
@@ -601,7 +601,7 @@ class FormatTests: XCTestCase {
             7["#quot;knows#quot;"]
             8["#quot;Bob#quot;"]
             9(["ASSERTION"])
-            10[/"verifiedBy"/]
+            10[/"'verifiedBy'"/]
             11["Signature"]
             1 --> 2
             2 --> 3
@@ -646,8 +646,8 @@ class FormatTests: XCTestCase {
         XCTAssertEqual(envelope.format(),
         """
         ENCRYPTED [
-            hasRecipient: SealedMessage
-            hasRecipient: SealedMessage
+            'hasRecipient': SealedMessage
+            'hasRecipient': SealedMessage
         ]
         """)
         XCTAssertEqual(envelope.treeFormat(),
@@ -655,20 +655,20 @@ class FormatTests: XCTestCase {
         310c90f6 NODE
             8cc96cdb subj ENCRYPTED
             93f3bf1d ASSERTION
-                943a35d1 pred hasRecipient
+                943a35d1 pred 'hasRecipient'
                 d3250f01 obj SealedMessage
             bf724d53 ASSERTION
-                943a35d1 pred hasRecipient
+                943a35d1 pred 'hasRecipient'
                 78a28897 obj SealedMessage
         """)
         XCTAssertEqual(envelope.treeFormat(hideNodes: true),
         """
         ENCRYPTED
             ASSERTION
-                hasRecipient
+                'hasRecipient'
                 SealedMessage
             ASSERTION
-                hasRecipient
+                'hasRecipient'
                 SealedMessage
         """)
         XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
@@ -678,10 +678,10 @@ class FormatTests: XCTestCase {
             1(("310c90f6<br/>NODE"))
             2>"8cc96cdb<br/>ENCRYPTED"]
             3(["93f3bf1d<br/>ASSERTION"])
-            4[/"943a35d1<br/>hasRecipient"/]
+            4[/"943a35d1<br/>'hasRecipient'"/]
             5["d3250f01<br/>SealedMessage"]
             6(["bf724d53<br/>ASSERTION"])
-            7[/"943a35d1<br/>hasRecipient"/]
+            7[/"943a35d1<br/>'hasRecipient'"/]
             8["78a28897<br/>SealedMessage"]
             1 -->|subj| 2
             1 --> 3
@@ -711,10 +711,10 @@ class FormatTests: XCTestCase {
         graph LR
             1>"ENCRYPTED"]
             2(["ASSERTION"])
-            3[/"hasRecipient"/]
+            3[/"'hasRecipient'"/]
             4["SealedMessage"]
             5(["ASSERTION"])
-            6[/"hasRecipient"/]
+            6[/"'hasRecipient'"/]
             7["SealedMessage"]
             1 --> 2
             2 --> 3
@@ -925,21 +925,21 @@ class FormatTests: XCTestCase {
         Digest(26d05af5) [
             "format": "EPUB"
             "work": ARID(7fb90a9d) [
-                isA: "novel"
+                'isA': "novel"
                 "author": ARID(9c747ace) [
-                    dereferenceVia: "LibraryOfCongress"
-                    hasName: "Ayn Rand"
+                    'dereferenceVia': "LibraryOfCongress"
+                    'hasName': "Ayn Rand"
                 ]
                 "isbn": "9780451191144"
-                dereferenceVia: "LibraryOfCongress"
-                hasName: "Atlas Shrugged" [
-                    language: "en"
+                'dereferenceVia': "LibraryOfCongress"
+                'hasName': "Atlas Shrugged" [
+                    'language': "en"
                 ]
-                hasName: "La rebelión de Atlas" [
-                    language: "es"
+                'hasName': "La rebelión de Atlas" [
+                    'language': "es"
                 ]
             ]
-            dereferenceVia: "IPFS"
+            'dereferenceVia': "IPFS"
         ]
         """)
         XCTAssertEqual(bookMetadata.treeFormat(),
@@ -947,7 +947,7 @@ class FormatTests: XCTestCase {
         c93370e7 NODE
             0c1e45b9 subj Digest(26d05af5)
             83b00bef ASSERTION
-                cdb6a696 pred dereferenceVia
+                cdb6a696 pred 'dereferenceVia'
                 15eac58f obj "IPFS"
             953cdab2 ASSERTION
                 a9a86b03 pred "format"
@@ -960,41 +960,41 @@ class FormatTests: XCTestCase {
                         4019420b pred "isbn"
                         69ff76b1 obj "9780451191144"
                     5355d973 ASSERTION
-                        2be2d79b pred isA
+                        2be2d79b pred 'isA'
                         6d7c7189 obj "novel"
                     63cd143a ASSERTION
-                        14ff9eac pred hasName
+                        14ff9eac pred 'hasName'
                         29fa40b1 obj NODE
                             5e825721 subj "La rebelión de Atlas"
                             c8db157b ASSERTION
-                                60dfb783 pred language
+                                60dfb783 pred 'language'
                                 b33e79c2 obj "es"
                     7d6d5c1d ASSERTION
                         29c09059 pred "author"
                         1ba13788 obj NODE
                             3c47e105 subj ARID(9c747ace)
                             9c10d60f ASSERTION
-                                cdb6a696 pred dereferenceVia
+                                cdb6a696 pred 'dereferenceVia'
                                 34a04547 obj "LibraryOfCongress"
                             bff8435a ASSERTION
-                                14ff9eac pred hasName
+                                14ff9eac pred 'hasName'
                                 98985bd5 obj "Ayn Rand"
                     9c10d60f ASSERTION
-                        cdb6a696 pred dereferenceVia
+                        cdb6a696 pred 'dereferenceVia'
                         34a04547 obj "LibraryOfCongress"
                     b722c07c ASSERTION
-                        14ff9eac pred hasName
+                        14ff9eac pred 'hasName'
                         0cfacc06 obj NODE
                             e84c3091 subj "Atlas Shrugged"
                             b80d3b05 ASSERTION
-                                60dfb783 pred language
+                                60dfb783 pred 'language'
                                 6700869c obj "en"
         """)
         XCTAssertEqual(bookMetadata.treeFormat(hideNodes: true),
         """
         Digest(26d05af5)
             ASSERTION
-                dereferenceVia
+                'dereferenceVia'
                 "IPFS"
             ASSERTION
                 "format"
@@ -1006,31 +1006,31 @@ class FormatTests: XCTestCase {
                         "isbn"
                         "9780451191144"
                     ASSERTION
-                        isA
+                        'isA'
                         "novel"
                     ASSERTION
-                        hasName
+                        'hasName'
                         "La rebelión de Atlas"
                             ASSERTION
-                                language
+                                'language'
                                 "es"
                     ASSERTION
                         "author"
                         ARID(9c747ace)
                             ASSERTION
-                                dereferenceVia
+                                'dereferenceVia'
                                 "LibraryOfCongress"
                             ASSERTION
-                                hasName
+                                'hasName'
                                 "Ayn Rand"
                     ASSERTION
-                        dereferenceVia
+                        'dereferenceVia'
                         "LibraryOfCongress"
                     ASSERTION
-                        hasName
+                        'hasName'
                         "Atlas Shrugged"
                             ASSERTION
-                                language
+                                'language'
                                 "en"
         """)
         XCTAssertEqual(bookMetadata.elementsCount, bookMetadata.treeFormat().split(separator: "\n").count)
@@ -1040,7 +1040,7 @@ class FormatTests: XCTestCase {
             1(("c93370e7<br/>NODE"))
             2["0c1e45b9<br/>Digest(26d05af5)"]
             3(["83b00bef<br/>ASSERTION"])
-            4[/"cdb6a696<br/>dereferenceVia"/]
+            4[/"cdb6a696<br/>'dereferenceVia'"/]
             5["15eac58f<br/>#quot;IPFS#quot;"]
             6(["953cdab2<br/>ASSERTION"])
             7["a9a86b03<br/>#quot;format#quot;"]
@@ -1053,34 +1053,34 @@ class FormatTests: XCTestCase {
             14["4019420b<br/>#quot;isbn#quot;"]
             15["69ff76b1<br/>#quot;9780451191144#quot;"]
             16(["5355d973<br/>ASSERTION"])
-            17[/"2be2d79b<br/>isA"/]
+            17[/"2be2d79b<br/>'isA'"/]
             18["6d7c7189<br/>#quot;novel#quot;"]
             19(["63cd143a<br/>ASSERTION"])
-            20[/"14ff9eac<br/>hasName"/]
+            20[/"14ff9eac<br/>'hasName'"/]
             21(("29fa40b1<br/>NODE"))
             22["5e825721<br/>#quot;La rebelión de Atlas#quot;"]
             23(["c8db157b<br/>ASSERTION"])
-            24[/"60dfb783<br/>language"/]
+            24[/"60dfb783<br/>'language'"/]
             25["b33e79c2<br/>#quot;es#quot;"]
             26(["7d6d5c1d<br/>ASSERTION"])
             27["29c09059<br/>#quot;author#quot;"]
             28(("1ba13788<br/>NODE"))
             29["3c47e105<br/>ARID(9c747ace)"]
             30(["9c10d60f<br/>ASSERTION"])
-            31[/"cdb6a696<br/>dereferenceVia"/]
+            31[/"cdb6a696<br/>'dereferenceVia'"/]
             32["34a04547<br/>#quot;LibraryOfCongress#quot;"]
             33(["bff8435a<br/>ASSERTION"])
-            34[/"14ff9eac<br/>hasName"/]
+            34[/"14ff9eac<br/>'hasName'"/]
             35["98985bd5<br/>#quot;Ayn Rand#quot;"]
             36(["9c10d60f<br/>ASSERTION"])
-            37[/"cdb6a696<br/>dereferenceVia"/]
+            37[/"cdb6a696<br/>'dereferenceVia'"/]
             38["34a04547<br/>#quot;LibraryOfCongress#quot;"]
             39(["b722c07c<br/>ASSERTION"])
-            40[/"14ff9eac<br/>hasName"/]
+            40[/"14ff9eac<br/>'hasName'"/]
             41(("0cfacc06<br/>NODE"))
             42["e84c3091<br/>#quot;Atlas Shrugged#quot;"]
             43(["b80d3b05<br/>ASSERTION"])
-            44[/"60dfb783<br/>language"/]
+            44[/"60dfb783<br/>'language'"/]
             45["6700869c<br/>#quot;en#quot;"]
             1 -->|subj| 2
             1 --> 3
@@ -1221,7 +1221,7 @@ class FormatTests: XCTestCase {
         graph LR
             1["Digest(26d05af5)"]
             2(["ASSERTION"])
-            3[/"dereferenceVia"/]
+            3[/"'dereferenceVia'"/]
             4["#quot;IPFS#quot;"]
             5(["ASSERTION"])
             6["#quot;format#quot;"]
@@ -1233,31 +1233,31 @@ class FormatTests: XCTestCase {
             12["#quot;isbn#quot;"]
             13["#quot;9780451191144#quot;"]
             14(["ASSERTION"])
-            15[/"isA"/]
+            15[/"'isA'"/]
             16["#quot;novel#quot;"]
             17(["ASSERTION"])
-            18[/"hasName"/]
+            18[/"'hasName'"/]
             19["#quot;La rebelión de Atlas#quot;"]
             20(["ASSERTION"])
-            21[/"language"/]
+            21[/"'language'"/]
             22["#quot;es#quot;"]
             23(["ASSERTION"])
             24["#quot;author#quot;"]
             25["ARID(9c747ace)"]
             26(["ASSERTION"])
-            27[/"dereferenceVia"/]
+            27[/"'dereferenceVia'"/]
             28["#quot;LibraryOfCongress#quot;"]
             29(["ASSERTION"])
-            30[/"hasName"/]
+            30[/"'hasName'"/]
             31["#quot;Ayn Rand#quot;"]
             32(["ASSERTION"])
-            33[/"dereferenceVia"/]
+            33[/"'dereferenceVia'"/]
             34["#quot;LibraryOfCongress#quot;"]
             35(["ASSERTION"])
-            36[/"hasName"/]
+            36[/"'hasName'"/]
             37["#quot;Atlas Shrugged#quot;"]
             38(["ASSERTION"])
-            39[/"language"/]
+            39[/"'language'"/]
             40["#quot;en#quot;"]
             1 --> 2
             2 --> 3
@@ -1407,7 +1407,7 @@ class FormatTests: XCTestCase {
         """
         {
             ARID(4676635a) [
-                isA: "Certificate of Completion"
+                'isA': "Certificate of Completion"
                 "certificateNumber": "123-456-789"
                 "continuingEducationUnits": 1
                 "expirationDate": 2028-01-01
@@ -1418,12 +1418,12 @@ class FormatTests: XCTestCase {
                 "professionalDevelopmentHours": 15
                 "subject": "RF and Microwave Engineering"
                 "topics": ["Subject 1", "Subject 2"]
-                controller: "Example Electrical Engineering Board"
-                issuer: "Example Electrical Engineering Board"
+                'controller': "Example Electrical Engineering Board"
+                'issuer': "Example Electrical Engineering Board"
             ]
         } [
-            note: "Signed by Example Electrical Engineering Board"
-            verifiedBy: Signature
+            'note': "Signed by Example Electrical Engineering Board"
+            'verifiedBy': Signature
         ]
         """)
         XCTAssertEqual(Self.credential.treeFormat(),
@@ -1445,7 +1445,7 @@ class FormatTests: XCTestCase {
                         222afe69 pred "issueDate"
                         cb67f31d obj 2020-01-01
                     4d67bba0 ASSERTION
-                        2be2d79b pred isA
+                        2be2d79b pred 'isA'
                         051beee6 obj "Certificate of Completion"
                     5171cbaf ASSERTION
                         3976ef74 pred "photo"
@@ -1463,19 +1463,19 @@ class FormatTests: XCTestCase {
                         2b191589 pred "continuingEducationUnits"
                         4bf5122f obj 1
                     9b3d4785 ASSERTION
-                        af10ee92 pred controller
+                        af10ee92 pred 'controller'
                         f8489ac1 obj "Example Electrical Engineering Board"
                     caf5ced3 ASSERTION
                         8e4e62eb pred "subject"
                         202c10ef obj "RF and Microwave Engineering"
                     d3e0cc15 ASSERTION
-                        6dd16ba3 pred issuer
+                        6dd16ba3 pred 'issuer'
                         f8489ac1 obj "Example Electrical Engineering Board"
             52b10e0b ASSERTION
-                d0e39e78 pred verifiedBy
+                d0e39e78 pred 'verifiedBy'
                 039ef97a obj Signature
             e6d7fca0 ASSERTION
-                0fcd6a39 pred note
+                0fcd6a39 pred 'note'
                 f106bad1 obj "Signed by Example Electrical Engineering…"
         """)
         XCTAssertEqual(Self.credential.treeFormat(hideNodes: true),
@@ -1495,7 +1495,7 @@ class FormatTests: XCTestCase {
                     "issueDate"
                     2020-01-01
                 ASSERTION
-                    isA
+                    'isA'
                     "Certificate of Completion"
                 ASSERTION
                     "photo"
@@ -1513,19 +1513,19 @@ class FormatTests: XCTestCase {
                     "continuingEducationUnits"
                     1
                 ASSERTION
-                    controller
+                    'controller'
                     "Example Electrical Engineering Board"
                 ASSERTION
                     "subject"
                     "RF and Microwave Engineering"
                 ASSERTION
-                    issuer
+                    'issuer'
                     "Example Electrical Engineering Board"
             ASSERTION
-                verifiedBy
+                'verifiedBy'
                 Signature
             ASSERTION
-                note
+                'note'
                 "Signed by Example Electrical Engineering…"
         """)
         XCTAssertEqual(Self.credential.elementsCount, Self.credential.treeFormat().split(separator: "\n").count)
@@ -1549,7 +1549,7 @@ class FormatTests: XCTestCase {
             15["222afe69<br/>#quot;issueDate#quot;"]
             16["cb67f31d<br/>2020-01-01"]
             17(["4d67bba0<br/>ASSERTION"])
-            18[/"2be2d79b<br/>isA"/]
+            18[/"2be2d79b<br/>'isA'"/]
             19["051beee6<br/>#quot;Certificate of Completion#quot;"]
             20(["5171cbaf<br/>ASSERTION"])
             21["3976ef74<br/>#quot;photo#quot;"]
@@ -1567,19 +1567,19 @@ class FormatTests: XCTestCase {
             33["2b191589<br/>#quot;continuingEducationUnits#quot;"]
             34["4bf5122f<br/>1"]
             35(["9b3d4785<br/>ASSERTION"])
-            36[/"af10ee92<br/>controller"/]
+            36[/"af10ee92<br/>'controller'"/]
             37["f8489ac1<br/>#quot;Example Electrical Engineering Board#quot;"]
             38(["caf5ced3<br/>ASSERTION"])
             39["8e4e62eb<br/>#quot;subject#quot;"]
             40["202c10ef<br/>#quot;RF and Microwave Engineering#quot;"]
             41(["d3e0cc15<br/>ASSERTION"])
-            42[/"6dd16ba3<br/>issuer"/]
+            42[/"6dd16ba3<br/>'issuer'"/]
             43["f8489ac1<br/>#quot;Example Electrical Engineering Board#quot;"]
             44(["52b10e0b<br/>ASSERTION"])
-            45[/"d0e39e78<br/>verifiedBy"/]
+            45[/"d0e39e78<br/>'verifiedBy'"/]
             46["039ef97a<br/>Signature"]
             47(["e6d7fca0<br/>ASSERTION"])
-            48[/"0fcd6a39<br/>note"/]
+            48[/"0fcd6a39<br/>'note'"/]
             49["f106bad1<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
             1 -->|subj| 2
             2 -->|subj| 3
@@ -1745,7 +1745,7 @@ class FormatTests: XCTestCase {
             13["#quot;issueDate#quot;"]
             14["2020-01-01"]
             15(["ASSERTION"])
-            16[/"isA"/]
+            16[/"'isA'"/]
             17["#quot;Certificate of Completion#quot;"]
             18(["ASSERTION"])
             19["#quot;photo#quot;"]
@@ -1763,19 +1763,19 @@ class FormatTests: XCTestCase {
             31["#quot;continuingEducationUnits#quot;"]
             32["1"]
             33(["ASSERTION"])
-            34[/"controller"/]
+            34[/"'controller'"/]
             35["#quot;Example Electrical Engineering Board#quot;"]
             36(["ASSERTION"])
             37["#quot;subject#quot;"]
             38["#quot;RF and Microwave Engineering#quot;"]
             39(["ASSERTION"])
-            40[/"issuer"/]
+            40[/"'issuer'"/]
             41["#quot;Example Electrical Engineering Board#quot;"]
             42(["ASSERTION"])
-            43[/"verifiedBy"/]
+            43[/"'verifiedBy'"/]
             44["Signature"]
             45(["ASSERTION"])
-            46[/"note"/]
+            46[/"'note'"/]
             47["#quot;Signed by Example Electrical Engineering…#quot;"]
             1 --> 2
             2 --> 3
@@ -1952,25 +1952,25 @@ class FormatTests: XCTestCase {
             {
                 {
                     ARID(4676635a) [
-                        isA: "Certificate of Completion"
+                        'isA': "Certificate of Completion"
                         "expirationDate": 2028-01-01
                         "firstName": "James"
                         "lastName": "Maxwell"
                         "subject": "RF and Microwave Engineering"
-                        issuer: "Example Electrical Engineering Board"
+                        'issuer': "Example Electrical Engineering Board"
                         ELIDED (7)
                     ]
                 } [
-                    note: "Signed by Example Electrical Engineering Board"
-                    verifiedBy: Signature
+                    'note': "Signed by Example Electrical Engineering Board"
+                    'verifiedBy': Signature
                 ]
             } [
                 "employeeHiredDate": 2022-01-01
                 "employeeStatus": "active"
             ]
         } [
-            note: "Signed by Employer Corp."
-            verifiedBy: Signature
+            'note': "Signed by Employer Corp."
+            'verifiedBy': Signature
         ]
         """)
         XCTAssertEqual(warranty.treeFormat(),
@@ -1992,7 +1992,7 @@ class FormatTests: XCTestCase {
                                         fe4d5230 obj "Maxwell"
                                     4a9b2e4d ELIDED
                                     4d67bba0 ASSERTION
-                                        2be2d79b pred isA
+                                        2be2d79b pred 'isA'
                                         051beee6 obj "Certificate of Completion"
                                     5171cbaf ELIDED
                                     54b3e1e7 ELIDED
@@ -2006,13 +2006,13 @@ class FormatTests: XCTestCase {
                                         8e4e62eb pred "subject"
                                         202c10ef obj "RF and Microwave Engineering"
                                     d3e0cc15 ASSERTION
-                                        6dd16ba3 pred issuer
+                                        6dd16ba3 pred 'issuer'
                                         f8489ac1 obj "Example Electrical Engineering Board"
                             52b10e0b ASSERTION
-                                d0e39e78 pred verifiedBy
+                                d0e39e78 pred 'verifiedBy'
                                 039ef97a obj Signature
                             e6d7fca0 ASSERTION
-                                0fcd6a39 pred note
+                                0fcd6a39 pred 'note'
                                 f106bad1 obj "Signed by Example Electrical Engineering…"
                     4c159c16 ASSERTION
                         e1ae011e pred "employeeHiredDate"
@@ -2021,10 +2021,10 @@ class FormatTests: XCTestCase {
                         d03e7352 pred "employeeStatus"
                         1d7a790d obj "active"
             4054359a ASSERTION
-                d0e39e78 pred verifiedBy
+                d0e39e78 pred 'verifiedBy'
                 0ea27c28 obj Signature
             874aa7e1 ASSERTION
-                0fcd6a39 pred note
+                0fcd6a39 pred 'note'
                 f59806d2 obj "Signed by Employer Corp."
         """)
         XCTAssertEqual(warranty.treeFormat(hideNodes: true),
@@ -2042,7 +2042,7 @@ class FormatTests: XCTestCase {
                             "Maxwell"
                         ELIDED
                         ASSERTION
-                            isA
+                            'isA'
                             "Certificate of Completion"
                         ELIDED
                         ELIDED
@@ -2056,13 +2056,13 @@ class FormatTests: XCTestCase {
                             "subject"
                             "RF and Microwave Engineering"
                         ASSERTION
-                            issuer
+                            'issuer'
                             "Example Electrical Engineering Board"
                     ASSERTION
-                        verifiedBy
+                        'verifiedBy'
                         Signature
                     ASSERTION
-                        note
+                        'note'
                         "Signed by Example Electrical Engineering…"
                 ASSERTION
                     "employeeHiredDate"
@@ -2071,10 +2071,10 @@ class FormatTests: XCTestCase {
                     "employeeStatus"
                     "active"
             ASSERTION
-                verifiedBy
+                'verifiedBy'
                 Signature
             ASSERTION
-                note
+                'note'
                 "Signed by Employer Corp."
         """)
         XCTAssertEqual(warranty.elementsCount, warranty.treeFormat().split(separator: "\n").count)
@@ -2098,7 +2098,7 @@ class FormatTests: XCTestCase {
             15["fe4d5230<br/>#quot;Maxwell#quot;"]
             16{{"4a9b2e4d<br/>ELIDED"}}
             17(["4d67bba0<br/>ASSERTION"])
-            18[/"2be2d79b<br/>isA"/]
+            18[/"2be2d79b<br/>'isA'"/]
             19["051beee6<br/>#quot;Certificate of Completion#quot;"]
             20{{"5171cbaf<br/>ELIDED"}}
             21{{"54b3e1e7<br/>ELIDED"}}
@@ -2112,13 +2112,13 @@ class FormatTests: XCTestCase {
             29["8e4e62eb<br/>#quot;subject#quot;"]
             30["202c10ef<br/>#quot;RF and Microwave Engineering#quot;"]
             31(["d3e0cc15<br/>ASSERTION"])
-            32[/"6dd16ba3<br/>issuer"/]
+            32[/"6dd16ba3<br/>'issuer'"/]
             33["f8489ac1<br/>#quot;Example Electrical Engineering Board#quot;"]
             34(["52b10e0b<br/>ASSERTION"])
-            35[/"d0e39e78<br/>verifiedBy"/]
+            35[/"d0e39e78<br/>'verifiedBy'"/]
             36["039ef97a<br/>Signature"]
             37(["e6d7fca0<br/>ASSERTION"])
-            38[/"0fcd6a39<br/>note"/]
+            38[/"0fcd6a39<br/>'note'"/]
             39["f106bad1<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
             40(["4c159c16<br/>ASSERTION"])
             41["e1ae011e<br/>#quot;employeeHiredDate#quot;"]
@@ -2127,10 +2127,10 @@ class FormatTests: XCTestCase {
             44["d03e7352<br/>#quot;employeeStatus#quot;"]
             45["1d7a790d<br/>#quot;active#quot;"]
             46(["4054359a<br/>ASSERTION"])
-            47[/"d0e39e78<br/>verifiedBy"/]
+            47[/"d0e39e78<br/>'verifiedBy'"/]
             48["0ea27c28<br/>Signature"]
             49(["874aa7e1<br/>ASSERTION"])
-            50[/"0fcd6a39<br/>note"/]
+            50[/"0fcd6a39<br/>'note'"/]
             51["f59806d2<br/>#quot;Signed by Employer Corp.#quot;"]
             1 -->|subj| 2
             2 -->|subj| 3
@@ -2300,7 +2300,7 @@ class FormatTests: XCTestCase {
             11["#quot;Maxwell#quot;"]
             12{{"ELIDED"}}
             13(["ASSERTION"])
-            14[/"isA"/]
+            14[/"'isA'"/]
             15["#quot;Certificate of Completion#quot;"]
             16{{"ELIDED"}}
             17{{"ELIDED"}}
@@ -2314,13 +2314,13 @@ class FormatTests: XCTestCase {
             25["#quot;subject#quot;"]
             26["#quot;RF and Microwave Engineering#quot;"]
             27(["ASSERTION"])
-            28[/"issuer"/]
+            28[/"'issuer'"/]
             29["#quot;Example Electrical Engineering Board#quot;"]
             30(["ASSERTION"])
-            31[/"verifiedBy"/]
+            31[/"'verifiedBy'"/]
             32["Signature"]
             33(["ASSERTION"])
-            34[/"note"/]
+            34[/"'note'"/]
             35["#quot;Signed by Example Electrical Engineering…#quot;"]
             36(["ASSERTION"])
             37["#quot;employeeHiredDate#quot;"]
@@ -2329,10 +2329,10 @@ class FormatTests: XCTestCase {
             40["#quot;employeeStatus#quot;"]
             41["#quot;active#quot;"]
             42(["ASSERTION"])
-            43[/"verifiedBy"/]
+            43[/"'verifiedBy'"/]
             44["Signature"]
             45(["ASSERTION"])
-            46[/"note"/]
+            46[/"'note'"/]
             47["#quot;Signed by Employer Corp.#quot;"]
             1 --> 2
             2 --> 3

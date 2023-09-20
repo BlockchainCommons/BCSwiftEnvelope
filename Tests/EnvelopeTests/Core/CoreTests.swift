@@ -99,7 +99,7 @@ class CoreTests: XCTestCase {
         
         XCTAssertEqual(e.format(),
         """
-        note
+        'note'
         """)
         
         XCTAssertEqual(try e.extractSubject(KnownValue.self), KnownValue.note)

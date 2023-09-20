@@ -41,7 +41,7 @@ class TestFunction: XCTestCase {
         let requestEnvelope = Envelope(request: requestID, body: twoPlusThree())
         XCTAssertEqual(requestEnvelope.format(context: globalFormatContext), """
         request(ARID(c66be27d)) [
-            body: «add» [
+            'body': «add» [
                 ❰lhs❱: 2
                 ❰rhs❱: 3
             ]
@@ -51,21 +51,21 @@ class TestFunction: XCTestCase {
         let responseEnvelope = Envelope(response: requestID, result: 5)
         XCTAssertEqual(responseEnvelope.format(context: globalFormatContext), """
         response(ARID(c66be27d)) [
-            result: 5
+            'result': 5
         ]
         """)
 
         let errorResponse = Envelope(response: requestID, error: "Internal Server Error")
         XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
         response(ARID(c66be27d)) [
-            error: "Internal Server Error"
+            'error': "Internal Server Error"
         ]
         """)
         
         let unknownErrorResponse = Envelope(error: "Decryption failure")
         XCTAssertEqual(unknownErrorResponse.format(context: globalFormatContext), """
-        response(Unknown) [
-            error: "Decryption failure"
+        response('Unknown') [
+            'error': "Decryption failure"
         ]
         """)
     }

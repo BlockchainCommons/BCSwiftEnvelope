@@ -44,21 +44,21 @@ class ScenarioTests: XCTestCase {
         Digest(26d05af5) [
             "format": "EPUB"
             "work": ARID(7fb90a9d) [
-                isA: "novel"
+                'isA': "novel"
                 "author": ARID(9c747ace) [
-                    dereferenceVia: "LibraryOfCongress"
-                    hasName: "Ayn Rand"
+                    'dereferenceVia': "LibraryOfCongress"
+                    'hasName': "Ayn Rand"
                 ]
                 "isbn": "9780451191144"
-                dereferenceVia: "LibraryOfCongress"
-                hasName: "Atlas Shrugged" [
-                    language: "en"
+                'dereferenceVia': "LibraryOfCongress"
+                'hasName': "Atlas Shrugged" [
+                    'language': "en"
                 ]
-                hasName: "La rebelión de Atlas" [
-                    language: "es"
+                'hasName': "La rebelión de Atlas" [
+                    'language': "es"
                 ]
             ]
-            dereferenceVia: "IPFS"
+            'dereferenceVia': "IPFS"
         ]
         """
         XCTAssertEqual(bookMetadata.format(), expectedFormat)
@@ -83,12 +83,12 @@ class ScenarioTests: XCTestCase {
         """
         {
             ARID(d44c5e0a) [
-                controller: ARID(d44c5e0a)
-                publicKeys: PublicKeyBase
+                'controller': ARID(d44c5e0a)
+                'publicKeys': PublicKeyBase
             ]
         } [
-            verifiedBy: Signature [
-                note: "Made by Alice."
+            'verifiedBy': Signature [
+                'note': "Made by Alice."
             ]
         ]
         """
@@ -131,21 +131,21 @@ class ScenarioTests: XCTestCase {
         """
         {
             ARID(d44c5e0a) [
-                dereferenceVia: URI(https://exampleledger.com/arid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
-                entity: {
+                'dereferenceVia': URI(https://exampleledger.com/arid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
+                'entity': {
                     ARID(d44c5e0a) [
-                        controller: ARID(d44c5e0a)
-                        publicKeys: PublicKeyBase
+                        'controller': ARID(d44c5e0a)
+                        'publicKeys': PublicKeyBase
                     ]
                 } [
-                    verifiedBy: Signature [
-                        note: "Made by Alice."
+                    'verifiedBy': Signature [
+                        'note': "Made by Alice."
                     ]
                 ]
             ]
         } [
-            verifiedBy: Signature [
-                note: "Made by ExampleLedger."
+            'verifiedBy': Signature [
+                'note': "Made by ExampleLedger."
             ]
         ]
         """
@@ -168,7 +168,7 @@ class ScenarioTests: XCTestCase {
         let aliceChallengeExpectedFormat =
         """
         Nonce [
-            note: "Challenge to Alice from Bob."
+            'note': "Challenge to Alice from Bob."
         ]
         """
         XCTAssertEqual(aliceChallenge.format(), aliceChallengeExpectedFormat)
@@ -186,14 +186,14 @@ class ScenarioTests: XCTestCase {
         {
             {
                 Nonce [
-                    note: "Challenge to Alice from Bob."
+                    'note': "Challenge to Alice from Bob."
                 ]
             } [
-                dereferenceVia: URI(https://exampleledger.com/arid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
+                'dereferenceVia': URI(https://exampleledger.com/arid/d44c5e0afd353f47b02f58a5a3a29d9a2efa6298692f896cd2923268599a0d0f)
             ]
         } [
-            verifiedBy: Signature [
-                note: "Made by Alice."
+            'verifiedBy': Signature [
+                'note': "Made by Alice."
             ]
         ]
         """
@@ -273,35 +273,35 @@ class ScenarioTests: XCTestCase {
         """
         {
             ARID(174842ea) [
-                isA: "credential"
+                'isA': "credential"
                 "dateIssued": 2022-04-27
-                holder: ARID(78bc3000) [
-                    isA: "Permanent Resident"
-                    isA: "Person"
+                'holder': ARID(78bc3000) [
+                    'isA': "Permanent Resident"
+                    'isA': "Person"
                     "birthCountry": "bs" [
-                        note: "The Bahamas"
+                        'note': "The Bahamas"
                     ]
                     "birthDate": 1974-02-18
                     "familyName": "SMITH"
                     "givenName": "JOHN"
                     "image": "John Smith smiling" [
-                        dereferenceVia: "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-                        note: "This is an image of John Smith."
+                        'dereferenceVia': "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
+                        'note': "This is an image of John Smith."
                     ]
                     "lprCategory": "C09"
                     "lprNumber": "999-999-999"
                     "residentSince": 2018-01-07
                     "sex": "MALE"
                 ]
-                issuer: ARID(04363d5f) [
-                    dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
-                    note: "Issued by the State of Example"
+                'issuer': ARID(04363d5f) [
+                    'dereferenceVia': URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+                    'note': "Issued by the State of Example"
                 ]
-                note: "The State of Example recognizes JOHN SMITH as a Permanent Resident."
+                'note': "The State of Example recognizes JOHN SMITH as a Permanent Resident."
             ]
         } [
-            verifiedBy: Signature [
-                note: "Made by the State of Example."
+            'verifiedBy': Signature [
+                'note': "Made by the State of Example."
             ]
         ]
         """
@@ -365,25 +365,25 @@ class ScenarioTests: XCTestCase {
         """
         {
             ARID(174842ea) [
-                isA: "credential"
-                holder: ARID(78bc3000) [
+                'isA': "credential"
+                'holder': ARID(78bc3000) [
                     "familyName": "SMITH"
                     "givenName": "JOHN"
                     "image": "John Smith smiling" [
-                        dereferenceVia: "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-                        note: "This is an image of John Smith."
+                        'dereferenceVia': "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
+                        'note': "This is an image of John Smith."
                     ]
                     ELIDED (8)
                 ]
-                issuer: ARID(04363d5f) [
-                    dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
-                    note: "Issued by the State of Example"
+                'issuer': ARID(04363d5f) [
+                    'dereferenceVia': URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+                    'note': "Issued by the State of Example"
                 ]
                 ELIDED (2)
             ]
         } [
-            verifiedBy: Signature [
-                note: "Made by the State of Example."
+            'verifiedBy': Signature [
+                'note': "Made by the State of Example."
             ]
         ]
         """
@@ -397,25 +397,25 @@ class ScenarioTests: XCTestCase {
         """
         {
             ARID(174842ea) [
-                isA: "credential"
-                holder: ARID(78bc3000) [
+                'isA': "credential"
+                'holder': ARID(78bc3000) [
                     "familyName": "SMITH"
                     "givenName": "JOHN"
                     "image": "John Smith smiling" [
-                        dereferenceVia: "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
-                        note: "This is an image of John Smith."
+                        'dereferenceVia': "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
+                        'note': "This is an image of John Smith."
                     ]
                     ENCRYPTED (8)
                 ]
-                issuer: ARID(04363d5f) [
-                    dereferenceVia: URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
-                    note: "Issued by the State of Example"
+                'issuer': ARID(04363d5f) [
+                    'dereferenceVia': URI(https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8)
+                    'note': "Issued by the State of Example"
                 ]
                 ENCRYPTED (2)
             ]
         } [
-            verifiedBy: Signature [
-                note: "Made by the State of Example."
+            'verifiedBy': Signature [
+                'note': "Made by the State of Example."
             ]
         ]
         """
@@ -505,11 +505,11 @@ class ScenarioTests: XCTestCase {
         let line2ExpectedFormat =
         """
         Digest(3d0b1fb6) [
-            isA: "PurchaseOrderLineItem"
+            'isA': "PurchaseOrderLineItem"
             "priceEach": "4.99"
             "product": ARID(ae464c5f)
             "quantity": 3
-            hasName: "Cheap Widget"
+            'hasName': "Cheap Widget"
         ]
         """
         XCTAssertEqual(line2.format(), line2ExpectedFormat)
@@ -527,22 +527,22 @@ class ScenarioTests: XCTestCase {
         let purchaseOrderProjectionExpectedFormat =
         """
         ARID(1bebb5b6) [
-            isA: "PurchaseOrder"
+            'isA': "PurchaseOrder"
             "lineItem": Digest(3d0b1fb6) [
-                isA: "PurchaseOrderLineItem"
+                'isA': "PurchaseOrderLineItem"
                 "priceEach": "10.99"
                 "product": ARID(5bcca01f)
                 "quantity": 4
-                hasName: "Quality Widget"
+                'hasName': "Quality Widget"
             ]
             "lineItem": Digest(3d0b1fb6) [
-                isA: "PurchaseOrderLineItem"
+                'isA': "PurchaseOrderLineItem"
                 "priceEach": "4.99"
                 "product": ARID(ae464c5f)
                 "quantity": 3
-                hasName: "Cheap Widget"
+                'hasName': "Cheap Widget"
             ]
-            hasName: "PO 123"
+            'hasName': "PO 123"
         ]
         """
         XCTAssertEqual(purchaseOrderProjection.format(), purchaseOrderProjectionExpectedFormat)

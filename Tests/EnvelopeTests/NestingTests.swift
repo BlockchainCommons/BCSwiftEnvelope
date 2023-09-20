@@ -12,7 +12,7 @@ class NestingTests: XCTestCase {
         let expectedFormat =
         """
         "Hello." [
-            verifiedBy: Signature
+            'verifiedBy': Signature
         ]
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
@@ -23,7 +23,7 @@ class NestingTests: XCTestCase {
         let expectedElidedFormat =
         """
         ELIDED [
-            verifiedBy: Signature
+            'verifiedBy': Signature
         ]
         """
         XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
@@ -40,7 +40,7 @@ class NestingTests: XCTestCase {
         {
             "Hello."
         } [
-            verifiedBy: Signature
+            'verifiedBy': Signature
         ]
         """
         XCTAssertEqual(envelope.format(), expectedFormat)
@@ -54,7 +54,7 @@ class NestingTests: XCTestCase {
         {
             ELIDED
         } [
-            verifiedBy: Signature
+            'verifiedBy': Signature
         ]
         """
         XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
@@ -84,7 +84,7 @@ class NestingTests: XCTestCase {
         """
         {
             "Hello." [
-                verifiedBy: Signature
+                'verifiedBy': Signature
             ]
         }
         """

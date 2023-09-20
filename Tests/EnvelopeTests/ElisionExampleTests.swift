@@ -29,7 +29,7 @@ class ElisionExampleTests: XCTestCase {
         """
         {
             ARID(4676635a) [
-                isA: "Certificate of Completion"
+                'isA': "Certificate of Completion"
                 "certificateNumber": "123-456-789"
                 "continuingEducationUnits": 1
                 "expirationDate": 2028-01-01
@@ -40,12 +40,12 @@ class ElisionExampleTests: XCTestCase {
                 "professionalDevelopmentHours": 15
                 "subject": "RF and Microwave Engineering"
                 "topics": ["Subject 1", "Subject 2"]
-                controller: "Example Electrical Engineering Board"
-                issuer: "Example Electrical Engineering Board"
+                'controller': "Example Electrical Engineering Board"
+                'issuer': "Example Electrical Engineering Board"
             ]
         } [
-            note: "Signed by Example Electrical Engineering Board"
-            verifiedBy: Signature
+            'note': "Signed by Example Electrical Engineering Board"
+            'verifiedBy': Signature
         ]
         """)
         
@@ -80,8 +80,8 @@ class ElisionExampleTests: XCTestCase {
             XCTAssertEqual($0.format(),
             """
             ELIDED [
-                note: "Signed by Example Electrical Engineering Board"
-                verifiedBy: Signature
+                'note': "Signed by Example Electrical Engineering Board"
+                'verifiedBy': Signature
             ]
             """
             )
@@ -95,8 +95,8 @@ class ElisionExampleTests: XCTestCase {
             {
                 ELIDED
             } [
-                note: "Signed by Example Electrical Engineering Board"
-                verifiedBy: Signature
+                'note': "Signed by Example Electrical Engineering Board"
+                'verifiedBy': Signature
             ]
             """
             )
@@ -113,8 +113,8 @@ class ElisionExampleTests: XCTestCase {
                     ELIDED (13)
                 ]
             } [
-                note: "Signed by Example Electrical Engineering Board"
-                verifiedBy: Signature
+                'note': "Signed by Example Electrical Engineering Board"
+                'verifiedBy': Signature
             ]
             """
             )
@@ -130,8 +130,8 @@ class ElisionExampleTests: XCTestCase {
                     ELIDED (13)
                 ]
             } [
-                note: "Signed by Example Electrical Engineering Board"
-                verifiedBy: Signature
+                'note': "Signed by Example Electrical Engineering Board"
+                'verifiedBy': Signature
             ]
             """
             )
@@ -149,17 +149,17 @@ class ElisionExampleTests: XCTestCase {
         """
         {
             ARID(4676635a) [
-                isA: "Certificate of Completion"
+                'isA': "Certificate of Completion"
                 "expirationDate": 2028-01-01
                 "firstName": "James"
                 "lastName": "Maxwell"
                 "subject": "RF and Microwave Engineering"
-                issuer: "Example Electrical Engineering Board"
+                'issuer': "Example Electrical Engineering Board"
                 ELIDED (7)
             ]
         } [
-            note: "Signed by Example Electrical Engineering Board"
-            verifiedBy: Signature
+            'note': "Signed by Example Electrical Engineering Board"
+            'verifiedBy': Signature
         ]
         """
         )
@@ -178,25 +178,25 @@ class ElisionExampleTests: XCTestCase {
             {
                 {
                     ARID(4676635a) [
-                        isA: "Certificate of Completion"
+                        'isA': "Certificate of Completion"
                         "expirationDate": 2028-01-01
                         "firstName": "James"
                         "lastName": "Maxwell"
                         "subject": "RF and Microwave Engineering"
-                        issuer: "Example Electrical Engineering Board"
+                        'issuer': "Example Electrical Engineering Board"
                         ELIDED (7)
                     ]
                 } [
-                    note: "Signed by Example Electrical Engineering Board"
-                    verifiedBy: Signature
+                    'note': "Signed by Example Electrical Engineering Board"
+                    'verifiedBy': Signature
                 ]
             } [
                 "employeeHiredDate": 2022-01-01
                 "employeeStatus": "active"
             ]
         } [
-            note: "Signed by Employer Corp."
-            verifiedBy: Signature
+            'note': "Signed by Employer Corp."
+            'verifiedBy': Signature
         ]
         """
         )
@@ -237,12 +237,12 @@ class ElisionExampleTests: XCTestCase {
                 "motorocycleEndorsement": true
                 "nonCommercialVehicleEndorsement": true
                 "photo": "This is John Smith's photo."
-                controller: "State of Example"
-                issuer: "State of Example"
+                'controller': "State of Example"
+                'issuer': "State of Example"
             ]
         } [
-            note: "Signed by the State of Example"
-            verifiedBy: Signature
+            'note': "Signed by the State of Example"
+            'verifiedBy': Signature
         ]
         """
         )
@@ -278,8 +278,8 @@ class ElisionExampleTests: XCTestCase {
             XCTAssertEqual($0.format(),
             """
             ELIDED [
-                note: "Signed by the State of Example"
-                verifiedBy: Signature
+                'note': "Signed by the State of Example"
+                'verifiedBy': Signature
             ]
             """
             )
@@ -293,8 +293,8 @@ class ElisionExampleTests: XCTestCase {
             {
                 ELIDED
             } [
-                note: "Signed by the State of Example"
-                verifiedBy: Signature
+                'note': "Signed by the State of Example"
+                'verifiedBy': Signature
             ]
             """
             )
@@ -311,8 +311,8 @@ class ElisionExampleTests: XCTestCase {
                     ELIDED (10)
                 ]
             } [
-                note: "Signed by the State of Example"
-                verifiedBy: Signature
+                'note': "Signed by the State of Example"
+                'verifiedBy': Signature
             ]
             """
             )
@@ -332,8 +332,8 @@ class ElisionExampleTests: XCTestCase {
                 ELIDED (8)
             ]
         } [
-            note: "Signed by the State of Example"
-            verifiedBy: Signature
+            'note': "Signed by the State of Example"
+            'verifiedBy': Signature
         ]
         """
         )

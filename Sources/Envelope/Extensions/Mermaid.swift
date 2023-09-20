@@ -151,7 +151,7 @@ extension Envelope {
         case .wrapped(_, _):
             return "WRAPPED"
         case .knownValue(let knownValue, _):
-            return knownValue.name
+            return knownValue.name.flanked("'")
         case .assertion:
             return "ASSERTION"
         case .encrypted:
