@@ -109,7 +109,7 @@ extension CBOR {
                 case URL.cborTag:
                     return try URL(untaggedCBOR: cbor)†.flanked("URI(", ")")
                 case UUID.cborTag:
-                    return try UUID(untaggedCBOR: cbor)†.flanked("UUID(", ")")
+                    return try UUID(untaggedCBOR: cbor)†.lowercased().flanked("UUID(", ")")
                 case Digest.cborTag:
                     return try Digest(untaggedCBOR: cbor).shortDescription.flanked("Digest(", ")")
                 case Function.cborTag:
