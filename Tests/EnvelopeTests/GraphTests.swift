@@ -18,7 +18,7 @@ class GraphTests: XCTestCase {
             .addAssertion("sameAs", "http://www.twitter.com/")
             .addAssertion("sameAs", "http://www.instagram.com/")
             .addAssertion("sameAs", "http://plus.google.com/")
-        let john = Envelope(ARID())
+        let _/*john*/ = Envelope(ARID())
             .addAssertion("@context", "https://schema.org")
             .addAssertion("address", address)
             .addAssertion("colleague", "http://www.example.com/JohnColleague.html")
@@ -36,8 +36,8 @@ class GraphTests: XCTestCase {
             .addAssertion("nationality", "Albanian")
             .addAssertion("telephone", "(123) 456-6789")
             .addAssertion("url", url)
-        print(john.format)
-        print(john.mermaidFormat())
+//        print(john.format)
+//        print(john.mermaidFormat())
     }
     // https://neo4j.com/press-releases/neo4j-financial-services-momentum/
     func testNeo4j() throws {
@@ -60,15 +60,15 @@ class GraphTests: XCTestCase {
             .addAssertion("ARITY", "*")
         let postedBy = Envelope("POSTED_BY")
             .addAssertion("ARITY", "1")
-        let tweet = Envelope("Tweet")
+        let _/*tweet*/ = Envelope("Tweet")
             .addAssertion(mentions, user)
             .addAssertion(retweets, "Tweet")
             .addAssertion(using, "Source")
             .addAssertion(contains, "Link")
             .addAssertion(tags, "Hashtag")
             .addAssertion(postedBy, "User")
-        print(tweet.format)
-        print(tweet.mermaidFormat())
+//        print(tweet.format)
+//        print(tweet.mermaidFormat())
     }
     
     // https://docs.stardog.com/assets/images/tutorials/learn-sparql/rdf-beatles.png
@@ -98,12 +98,12 @@ class GraphTests: XCTestCase {
             .addAssertion("length", 125)
             .addAssertion(":writer", ":Paul_McCartney")
             .addAssertion(":writer", ":John_Lennon")
-        let pleasePleaseMe = Envelope(":Please_Please_Me")
+        let _/*pleasePleaseMe*/ = Envelope(":Please_Please_Me")
             .addType(":Album")
             .addAssertion(.hasName, "Please Please Me")
             .addAssertion(.date, try Date(iso8601: "1963-03-22"))
             .addAssertion(":artist", theBeatles)
             .addAssertion(":track", loveMeDo)
-        print(pleasePleaseMe.format)
+//        print(pleasePleaseMe.format)
     }
 }

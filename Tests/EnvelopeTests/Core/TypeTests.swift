@@ -15,12 +15,12 @@ class TypeTests: XCTestCase {
     func testDate() throws {
         let envelope = try Envelope(Date(iso8601: "2018-01-07")).checkEncoding()
         XCTAssertEqual(envelope.format(), "2018-01-07")
-        print(envelope.diagnostic(annotate: true, context: globalFormatContext))
-        print(envelope.diagnostic())
+//        print(envelope.diagnostic(annotate: true, context: globalFormatContext))
+//        print(envelope.diagnostic())
         
         let e = Envelope(Date(timeIntervalSince1970: 1693454262.5))//.checkEncoding()
-        print(e.format(context: globalFormatContext))
-        print(e.diagnostic(annotate: true, context: globalFormatContext))
-        print(e.diagnostic())
+//        print(e.format(context: globalFormatContext))
+//        print(e.diagnostic(annotate: true, context: globalFormatContext))
+//        print(e.diagnostic())
     }
 }

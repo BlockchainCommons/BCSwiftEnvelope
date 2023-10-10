@@ -6,7 +6,7 @@ import WolfBase
 class CompressionTests: XCTestCase {
     let source = "Lorem ipsum dolor sit amet consectetur adipiscing elit mi nibh ornare proin blandit diam ridiculus, faucibus mus dui eu vehicula nam donec dictumst sed vivamus bibendum aliquet efficitur. Felis imperdiet sodales dictum morbi vivamus augue dis duis aliquet velit ullamcorper porttitor, lobortis dapibus hac purus aliquam natoque iaculis blandit montes nunc pretium."
     func testCompress() throws {
-        print(source)
+//        print(source)
         let original = Envelope(source)
         XCTAssertEqual(original.cborData.count, 369)
         let compressed = try original.compress().checkEncoding(tags: globalTags)

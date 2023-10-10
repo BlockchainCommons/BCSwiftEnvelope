@@ -92,7 +92,7 @@ class ScenarioTests: XCTestCase {
             ]
         ]
         """
-        print(aliceSignedDocument.format())
+//        print(aliceSignedDocument.format())
         XCTAssertEqual(aliceSignedDocument.format(), expectedFormat)
 
         // Signatures have a random component, so anything with a signature will have a
@@ -720,7 +720,7 @@ class ScenarioTests: XCTestCase {
     func testExampleCredential() {
         let omarCID = ARID()
         let omarPrivateKey = PrivateKeyBase()
-        let omar = Envelope(omarCID)
+        let _/*omar*/ = Envelope(omarCID)
             .addAssertion(.hasName, "Omar Chaim")
             .addAssertion("githubID", "omarc-bc-guy")
             .addAssertion("pubkeyURL", "https://github.com/omarc-bc-guy.keys")
@@ -731,7 +731,7 @@ class ScenarioTests: XCTestCase {
         let jonathanPrivateKey = PrivateKeyBase()
         let jonathanPublicKey = jonathanPrivateKey.publicKeys
         let ur = jonathanPublicKey.ur
-        let jonathan = Envelope(jonathanCID)
+        let _/*jonathan*/ = Envelope(jonathanCID)
             .addAssertion(.hasName, "Jonathan Jakes")
             .addAssertion("githubID", "jojokes")
             .addAssertion("pubkey", ur.string)
@@ -739,15 +739,15 @@ class ScenarioTests: XCTestCase {
             .sign(with: jonathanPrivateKey, note: "Self-signed by Jonathan")
 
         let certCID = ARID()
-        let cert = Envelope(certCID)
+        let _/*cert*/ = Envelope(certCID)
             .addAssertion(.issuer, Envelope(omarCID).addAssertion(.note, "Omar's ARID"))
             .addAssertion("subject", Envelope(jonathanCID).addAssertion(.note, "Jonathan's ARID"))
             .addType("Assessment of Blockchain Tech Writing Expertise")
             .wrap()
             .sign(with: omarPrivateKey, note: "Signed by Omar")
         
-        print(omar.format())
-        print(jonathan.format())
-        print(cert.format())
+//        print(omar.format())
+//        print(jonathan.format())
+//        print(cert.format())
     }
 }

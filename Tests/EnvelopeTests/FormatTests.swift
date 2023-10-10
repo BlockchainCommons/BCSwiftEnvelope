@@ -2474,6 +2474,6 @@ class FormatTests: XCTestCase {
             linkStyle 44 stroke-width:2.0px
             linkStyle 45 stroke-width:2.0px
         """#)
-        print(warranty.hex(annotate: true, context: globalFormatContext))
+        //print(warranty.hex(annotate: true, context: globalFormatContext))
     }
 }

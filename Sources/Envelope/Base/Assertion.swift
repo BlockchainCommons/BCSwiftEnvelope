@@ -55,6 +55,12 @@ extension Assertion: Equatable {
     }
 }
 
+extension Assertion {
+    public var envelope: Envelope {
+        Envelope(self)
+    }
+}
+
 /// Support for manipulating assertions.
 
 public extension Envelope {
