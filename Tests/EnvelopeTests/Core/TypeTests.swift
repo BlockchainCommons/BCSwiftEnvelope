@@ -18,7 +18,7 @@ class TypeTests: XCTestCase {
 //        print(envelope.diagnostic(annotate: true, context: globalFormatContext))
 //        print(envelope.diagnostic())
         
-        let e = Envelope(Date(timeIntervalSince1970: 1693454262.5))//.checkEncoding()
+        let _ = try Envelope(Date(timeIntervalSince1970: 1693454262.5)).checkEncoding()
 //        print(e.format(context: globalFormatContext))
 //        print(e.diagnostic(annotate: true, context: globalFormatContext))
 //        print(e.diagnostic())

@@ -25,7 +25,7 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - [Output Formats](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/OutputFormats.md) - A comparison of the various Envelope output formats.
 - [Elision and Redaction](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Elision.md) - Removing information without invalidating the digest tree.
 - [Noncorrelation](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Noncorrelation.md) - A discussion of noncorrelation, salt, and related concepts.
-- [Existence Proofs](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/ExistenceProofs.md) - Computing and verifying minimal proofs that an envelope contains some target information.
+- [Inclusion Proofs](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/InclusionProofs.md) - Computing and verifying minimal proofs that an envelope contains some target information.
 - [Diffing Envelopes](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Diffing.md) - Computing and applying the changes between two envelopes.
 - [Envelope Expressions](https://github.com/BlockchainCommons/Gordian/blob/master/Envelope/Expressions.md) - Encoding machine-evaluatable expressions using envelopes.
 
@@ -33,7 +33,7 @@ The envelope protocol specifies a structured format for hierarchical binary data
 
 ### Essentials
 
-- <doc:Overview>
+- <doc:OverviewArticle>
 - <doc:Examples>
 - ``Envelope/Envelope``
 
@@ -103,13 +103,12 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - ``Envelope/Envelope/extractObject(_:forPredicate:)-23b00``
 - ``Envelope/Envelope/extractObject(_:forPredicate:)-1lsfm``
 - ``Envelope/Envelope/extractObject(_:forPredicate:)-675fq``
-- ``Envelope/Envelope/extractObject(forPredicate:)-7at6i``
-- ``Envelope/Envelope/extractObject(forPredicate:)-ypga``
-- ``Envelope/Envelope/extractObject(forPredicate:)-5pof``
-- ``Envelope/Envelope/extractObjects(_:forPredicate:)-55b0m``
 - ``Envelope/Envelope/extractObjects(_:forPredicate:)-85q2w``
-- ``Envelope/Envelope/extractObjects(forPredicate:)-1cnrl``
-- ``Envelope/Envelope/extractObjects(forPredicate:)-9e4gg``
+- ``Envelope/Envelope/object(forPredicate:)-atr9``
+- ``Envelope/Envelope/object(forPredicate:)-3pxqr``
+- ``Envelope/Envelope/object(forPredicate:)-40b0q``
+- ``Envelope/Envelope/objects(forPredicate:)-72jru``
+- ``Envelope/Envelope/objects(forPredicate:)-1xpx1``
 - ``Envelope/Envelope/isA(_:)``
 - ``Envelope/Envelope/id(_:)``
 - ``Envelope/Envelope/removeAssertion(_:)``
@@ -125,15 +124,15 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - ``Envelope/Envelope/shallowDigests``
 - ``Envelope/Envelope/deepDigests``
 - ``Envelope/Envelope/digests(levelLimit:)``
-- ``Envelope/Envelope/elideRemoving(_:encryptingWith:)-66yx0``
-- ``Envelope/Envelope/elideRemoving(_:encryptingWith:)-4p0a2``
-- ``Envelope/Envelope/elideRemoving(_:encryptingWith:)-8tgiz``
-- ``Envelope/Envelope/elideRevealing(_:encryptingWith:)-8o34i``
-- ``Envelope/Envelope/elideRevealing(_:encryptingWith:)-139hi``
-- ``Envelope/Envelope/elideRevealing(_:encryptingWith:)-3aeex``
-- ``Envelope/Envelope/elide(_:isRevealing:encryptingWith:)-8qngj``
-- ``Envelope/Envelope/elide(_:isRevealing:encryptingWith:)-8w1o6``
-- ``Envelope/Envelope/elide(_:isRevealing:encryptingWith:)-i3mw``
+- ``Envelope/Envelope/elideRemoving(_:action:)-4qvgb``
+- ``Envelope/Envelope/elideRemoving(_:action:)-3w305``
+- ``Envelope/Envelope/elideRemoving(_:action:)-94hor``
+- ``Envelope/Envelope/elideRevealing(_:action:)-6hjlp``
+- ``Envelope/Envelope/elideRevealing(_:action:)-8brht``
+- ``Envelope/Envelope/elideRevealing(_:action:)-8g4hj``
+- ``Envelope/Envelope/elide(_:isRevealing:action:)-9gy3k``
+- ``Envelope/Envelope/elide(_:isRevealing:action:)-12xz7``
+- ``Envelope/Envelope/elide(_:isRevealing:action:)-97kvt``
 - ``Envelope/Envelope/unelide(_:)``
 
 ### Wrapping Envelopes
@@ -161,9 +160,9 @@ The envelope protocol specifies a structured format for hierarchical binary data
 
 ### Signatures
 
-- ``Envelope/Envelope/sign(with:tag:randomGenerator:)``
-- ``Envelope/Envelope/sign(with:note:tag:randomGenerator:)``
-- ``Envelope/Envelope/sign(with:uncoveredAssertions:tag:randomGenerator:)``
+- ``Envelope/Envelope/sign(with:tag:)``
+- ``Envelope/Envelope/sign(with:note:tag:)``
+- ``Envelope/Envelope/sign(with:uncoveredAssertions:tag:)``
 - ``Envelope/Envelope/verifiedBy(signature:note:)``
 - ``Envelope/Envelope/signatures``
 - ``Envelope/Envelope/isVerifiedSignature(_:publicKeys:)``
@@ -202,7 +201,6 @@ The envelope protocol specifies a structured format for hierarchical binary data
 
 ### Splitting Envelopes with SSKR
 
-- ``Envelope/Envelope/split(groupThreshold:groups:contentKey:testRandomGenerator:)``
 - ``Envelope/Envelope/init(shares:)``
 - ``Envelope/Envelope/addSSKRShare(_:)``
 
@@ -213,15 +211,14 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - ``Envelope/Envelope/addSalt(_:)-9lg7y``
 - ``Envelope/Envelope/addSalt(_:)-7vbe0``
 - ``Envelope/Envelope/addSalt(_:)-8vq5g``
-- ``Envelope/Envelope/addSalt(using:)``
 
-### Existence Proofs
+### Inclusion Proofs
 
-- <doc:ExistenceProofs>
+- <doc:InclusionProofs>
 - ``Envelope/Envelope/proof(contains:)-jpk9``
 - ``Envelope/Envelope/proof(contains:)-fnjv``
-- ``Envelope/Envelope/confirm(contains:using:)-28uny``
-- ``Envelope/Envelope/confirm(contains:using:)-bjef``
+- ``Envelope/Envelope/confirm(contains:proof:)-7h8bb``
+- ``Envelope/Envelope/confirm(contains:proof:)-83824``
 
 ### Diffing Envelopes
 
@@ -242,13 +239,13 @@ The envelope protocol specifies a structured format for hierarchical binary data
 
 ### Envelope Expressions: Parameters
 
-- ``Envelope/Envelope/addParameter(_:value:)-8g1uy``
-- ``Envelope/Envelope/addParameter(_:value:)-5j06r``
+- ``Envelope/Envelope/addParameter(_:value:)-2y1wr``
+- ``Envelope/Envelope/addParameter(_:value:)-1e5yr``
 - ``Envelope/Parameter``
 - ``Envelope/Envelope/extractObject(_:forParameter:)``
 - ``Envelope/Envelope/extractObjects(_:forParameter:)``
-- ``Envelope/Envelope/parameter(_:value:)-8ag8n``
-- ``Envelope/Envelope/parameter(_:value:)-9sbgf``
+- ``Envelope/Envelope/parameter(_:value:)-12r6u``
+- ``Envelope/Envelope/parameter(_:value:)-6o9s3``
 
 ### Envelope Expressions: Requests and Responses
 
@@ -261,12 +258,12 @@ The envelope protocol specifies a structured format for hierarchical binary data
 - ``Envelope/Envelope/results()``
 - ``Envelope/Envelope/result(_:)``
 - ``Envelope/Envelope/results(_:)``
-- ``Envelope/Envelope/isResultOK()``
+- ``Envelope/Envelope/isResultOK``
 - ``Envelope/Envelope/error(_:)``
 
 ### Debugging Tools
 
-- ``Envelope/Envelope/checkEncoding(knownTags:)``
+- ``Envelope/checkEncoding(tags:)``
 - ``Envelope/EnvelopeError``
 
 ### Test Vectors

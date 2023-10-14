@@ -4,7 +4,7 @@ import SecureComponents
 public extension Envelope {
     /// Returns a proof that this envelope includes every element in the target set.
     ///
-    /// - Parameter target: The elements if this envelope that the proof must include.
+    /// - Parameter target: The elements of this envelope that the proof must include.
     /// - Returns: The proof, of `nil` if it cannot be proven that the envelope contains every element in the target set.
     func proof(contains target: Set<Digest>) -> Envelope? {
         let revealSet = revealSet(of: target)
@@ -14,7 +14,7 @@ public extension Envelope {
 
     /// Returns a proof that this envelope includes the target element.
     ///
-    /// - Parameter target: The elements if this envelope that the proof must include.
+    /// - Parameter target: The element of this envelope that the proof must include.
     /// - Returns: The proof, of `nil` if it cannot be proven that the envelope contains the targeted element.
     func proof(contains target: DigestProvider) -> Envelope? {
         proof(contains: [target.digest])
@@ -27,7 +27,7 @@ public extension Envelope {
     ///   - proof: The inclusion proof to use.
     ///
     /// - Returns: `true` if every element of `target` is in this envelope as shown by `proof`, `false` otherwise.
-    func confirm(contains target: Set<Digest>, using proof: Envelope) -> Bool {
+    func confirm(contains target: Set<Digest>, proof: Envelope) -> Bool {
         self.digest == proof.digest && proof.containsAll(in: target)
     }
 
@@ -38,8 +38,8 @@ public extension Envelope {
     ///   - proof: The inclusion proof to use.
     ///
     /// - Returns: `true` if `target` is in this envelope as shown by `proof`, `false` otherwise.
-    func confirm(contains target: DigestProvider, using proof: Envelope) -> Bool {
-        confirm(contains: [target.digest], using: proof)
+    func confirm(contains target: DigestProvider, proof: Envelope) -> Bool {
+        confirm(contains: [target.digest], proof: proof)
     }
 }
 
@@ -50,22 +50,12 @@ extension Envelope {
         return result
     }
 
-    func revealSet(of target: DigestProvider) -> Set<Digest> {
-        revealSet(of: [target.digest])
-    }
-
     func containsAll(in target: Set<Digest>) -> Bool {
         var target = target
         removeAllFound(in: &target)
         return target.isEmpty
     }
 
-    func contains(_ target: DigestProvider) -> Bool {
-        containsAll(in: [target.digest])
-    }
-}
-
-extension Envelope {
     func revealSets(of target: Set<Digest>, current: Set<Digest>, result: inout Set<Digest>) {
         var current = current
         current.insert(digest)
