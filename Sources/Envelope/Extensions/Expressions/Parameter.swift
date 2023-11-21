@@ -63,7 +63,7 @@ extension Parameter: ExpressibleByStringLiteral {
 }
 
 extension Parameter: CBORTaggedCodable {
-    public static var cborTag = Tag.parameter
+    public static var cborTags = [Tag.parameter]
     
     public var untaggedCBOR: CBOR {
         switch self {

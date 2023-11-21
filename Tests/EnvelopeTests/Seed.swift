@@ -45,7 +45,7 @@ extension Seed {
         try envelope.checkType(.Seed)
         if
             let subjectLeaf = envelope.leaf,
-            case CBOR.tagged(.seed, let item) = subjectLeaf
+            case CBOR.tagged(.seedV1, let item) = subjectLeaf
         {
             self = try Self.init(untaggedCBOR: item)
             return
@@ -63,18 +63,18 @@ extension Seed {
 }
 
 extension Seed: URCodable {
-    static var cborTag = Tag.seed
+    static var cborTags = [Tag.seed, Tag.seedV1]
     
     var untaggedCBOR: CBOR {
         var map: Map = [1: data]
         if let creationDate {
-            map[2] = creationDate.cbor
+            map[2] = creationDate
         }
         if !name.isEmpty {
-            map[3] = name.cbor
+            map[3] = name
         }
         if !note.isEmpty {
-            map[4] = note.cbor
+            map[4] = note
         }
         return map.cbor
     }
@@ -85,7 +85,7 @@ extension Seed: URCodable {
             throw CBORError.invalidFormat
         }
         guard
-            let dataItem = map[1],
+            let dataItem = map.get(1),
             case let CBOR.bytes(bytes) = dataItem,
             !bytes.isEmpty
         else {
@@ -95,7 +95,7 @@ extension Seed: URCodable {
         let data = bytes.data
 
         let creationDate: Date?
-        if let dateItem = map[2] {
+        if let dateItem = map.get(2) {
             guard let d = try? Date(cbor: dateItem) else {
                 // CreationDate field doesn't contain a date.
                 throw CBORError.invalidFormat
@@ -106,7 +106,7 @@ extension Seed: URCodable {
         }
 
         let name: String
-        if let nameItem = map[3] {
+        if let nameItem = map.get(3) {
             guard case let CBOR.text(s) = nameItem else {
                 // Name field doesn't contain string.
                 throw CBORError.invalidFormat
@@ -117,7 +117,7 @@ extension Seed: URCodable {
         }
 
         let note: String
-        if let noteItem = map[4] {
+        if let noteItem = map.get(4) {
             guard case let CBOR.text(s) = noteItem else {
                 // Note field doesn't contain string.
                 throw CBORError.invalidFormat

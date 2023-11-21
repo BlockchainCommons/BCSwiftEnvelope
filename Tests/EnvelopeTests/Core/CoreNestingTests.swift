@@ -194,7 +194,7 @@ class CoreNestingTests: XCTestCase {
         "Hello."
         """)
         
-        XCTAssertEqual(e1.treeFormat(context: globalFormatContext),
+        XCTAssertEqual(e1.treeFormat(),
         """
         8cc96cdb "Hello."
         """)
@@ -210,7 +210,7 @@ class CoreNestingTests: XCTestCase {
         }
         """)
 
-        XCTAssertEqual(envelope.treeFormat(context: globalFormatContext),
+        XCTAssertEqual(envelope.treeFormat(),
         """
         172a5e51 WRAPPED
             8cc96cdb subj "Hello."
@@ -230,7 +230,7 @@ class CoreNestingTests: XCTestCase {
         }
         """)
 
-        XCTAssertEqual(elidedEnvelope.treeFormat(context: globalFormatContext),
+        XCTAssertEqual(elidedEnvelope.treeFormat(),
         """
         172a5e51 WRAPPED
             8cc96cdb subj ELIDED
@@ -252,7 +252,7 @@ class CoreNestingTests: XCTestCase {
         }
         """)
         
-        XCTAssertEqual(envelope.treeFormat(context: globalFormatContext),
+        XCTAssertEqual(envelope.treeFormat(),
         """
         8b14f3bc WRAPPED
             172a5e51 subj WRAPPED
@@ -275,7 +275,7 @@ class CoreNestingTests: XCTestCase {
         XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
         XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
 
-        XCTAssertEqual(elidedEnvelope.treeFormat(context: globalFormatContext),
+        XCTAssertEqual(elidedEnvelope.treeFormat(),
         """
         8b14f3bc WRAPPED
             172a5e51 subj WRAPPED

@@ -10,7 +10,7 @@ class CoreEncodingTests: XCTestCase {
 
     func test1() throws {
         let e = try Envelope(plaintextHello).checkEncoding()
-        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
+        XCTAssertEqual(e.diagnostic(),
             """
             200(   / envelope /
                24("Hello.")   / leaf /
@@ -22,7 +22,7 @@ class CoreEncodingTests: XCTestCase {
     func test2() throws {
         let array: CBOR = [1, 2, 3]
         let e = try Envelope(array).checkEncoding()
-        XCTAssertEqual(e.diagnostic(annotate: true, context: globalFormatContext),
+        XCTAssertEqual(e.diagnostic(),
             """
             200(   / envelope /
                24(   / leaf /
@@ -49,7 +49,7 @@ class CoreEncodingTests: XCTestCase {
         """
         )
         
-        XCTAssertEqual(e4.diagnostic(annotate: true, context: globalFormatContext),
+        XCTAssertEqual(e4.diagnostic(),
         """
         200(   / envelope /
            [
@@ -83,7 +83,7 @@ class CoreEncodingTests: XCTestCase {
             """
         )
 
-        XCTAssertEqual(e5.diagnostic(annotate: true, context: globalFormatContext),
+        XCTAssertEqual(e5.diagnostic(),
             """
             200(   / envelope /
                [

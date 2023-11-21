@@ -52,7 +52,7 @@ extension KnownValue: DigestProvider {
 }
 
 extension KnownValue: CBORTaggedCodable {
-    public static let cborTag = Tag.knownValue
+    public static let cborTags = [Tag.knownValue]
     
     public var untaggedCBOR: CBOR {
         .unsigned(value)

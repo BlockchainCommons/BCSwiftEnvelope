@@ -425,13 +425,13 @@ class CryptoTests: XCTestCase {
         // seed and a single share.
         let contentKey = SymmetricKey()
         let seedEnvelope = danSeed.envelope
-//        print(seedEnvelope.format(context: globalFormatContext))
+//        print(seedEnvelope.format())
 
         let encryptedSeedEnvelope = try seedEnvelope
             .wrap()
             .encryptSubject(with: contentKey)
         
-//        print(encryptedSeedEnvelope.format(context: globalFormatContext))
+//        print(encryptedSeedEnvelope.format())
 
         let envelopes = encryptedSeedEnvelope
             .split(groupThreshold: 1, groups: [(2, 3)], contentKey: contentKey)
@@ -467,7 +467,7 @@ class CryptoTests: XCTestCase {
         // At some future point, Dan retrieves two of the three envelopes so he can recover his seed.
         let recoveredEnvelopes = [bobEnvelope, carolEnvelope]
         let recoveredSeedEnvelope = try Envelope(shares: recoveredEnvelopes).unwrap()
-//        print(recoveredSeedEnvelope.format(context: globalFormatContext))
+//        print(recoveredSeedEnvelope.format())
 
         let recoveredSeed = try Seed(recoveredSeedEnvelope)
 

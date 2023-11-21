@@ -18,7 +18,7 @@ class TestFunction: XCTestCase {
             ❰rhs❱: 3
         ]
         """
-        XCTAssertEqual(envelope.format(context: globalFormatContext), expectedFormat)
+        XCTAssertEqual(envelope.format(), expectedFormat)
     }
     
     func testNamed() {
@@ -39,7 +39,7 @@ class TestFunction: XCTestCase {
         let requestID = ARID(‡"c66be27dbad7cd095ca77647406d07976dc0f35f0d4d654bb0e96dd227a1e9fc")!
         
         let requestEnvelope = Envelope(request: requestID, body: twoPlusThree())
-        XCTAssertEqual(requestEnvelope.format(context: globalFormatContext), """
+        XCTAssertEqual(requestEnvelope.format(), """
         request(ARID(c66be27d)) [
             'body': «add» [
                 ❰lhs❱: 2
@@ -49,21 +49,21 @@ class TestFunction: XCTestCase {
         """)
 
         let responseEnvelope = Envelope(response: requestID, result: 5)
-        XCTAssertEqual(responseEnvelope.format(context: globalFormatContext), """
+        XCTAssertEqual(responseEnvelope.format(), """
         response(ARID(c66be27d)) [
             'result': 5
         ]
         """)
 
         let errorResponse = Envelope(response: requestID, error: "Internal Server Error")
-        XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
+        XCTAssertEqual(errorResponse.format(), """
         response(ARID(c66be27d)) [
             'error': "Internal Server Error"
         ]
         """)
         
         let unknownErrorResponse = Envelope(error: "Decryption failure")
-        XCTAssertEqual(unknownErrorResponse.format(context: globalFormatContext), """
+        XCTAssertEqual(unknownErrorResponse.format(), """
         response('Unknown') [
             'error': "Decryption failure"
         ]

@@ -61,7 +61,7 @@ extension Function: ExpressibleByStringLiteral {
 }
 
 extension Function: CBORTaggedCodable {
-    public static var cborTag = Tag.function
+    public static var cborTags = [Tag.function]
     
     public var untaggedCBOR: CBOR {
         switch self {

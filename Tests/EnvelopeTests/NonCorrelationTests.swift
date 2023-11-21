@@ -20,7 +20,7 @@ class NonCorrelationTests: XCTestCase {
         ]
         """)
 
-        XCTAssertEqual(e2.diagnostic(annotate: true, context: globalFormatContext), """
+        XCTAssertEqual(e2.diagnostic(), """
         200(   / envelope /
            [
               24("Hello."),   / leaf /

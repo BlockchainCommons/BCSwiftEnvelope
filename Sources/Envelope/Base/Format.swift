@@ -2,13 +2,69 @@ import Foundation
 import WolfBase
 import SecureComponents
 
+public extension Function {
+    static let getSeed = Function(100, "getSeed")
+    static let getKey = Function(101, "getKey")
+    static let signPSBT = Function(102, "signPSBT")
+    static let getOutputDescriptor = Function(103, "getOutputDescriptor")
+}
+
+public extension Parameter {
+    static let seedDigest = Parameter(200, "seedDigest")
+    static let derivationPath = Parameter(201, "derivationPath")
+    static let isPrivate = Parameter(202, "isPrivate")
+    static let useInfo = Parameter(203, "useInfo")
+    static let isDerivable = Parameter(204, "isDerivable")
+    static let psbt = Parameter(205, "psbt")
+    static let name = Parameter(206, "name")
+    static let challenge = Parameter(207, "challenge")
+}
+
+public func addKnownFunctionExtensions() {
+    let fns: [Function] = [
+        .getSeed,
+        .getKey,
+        .signPSBT,
+        .getOutputDescriptor,
+    ]
+    
+    fns.forEach {
+        globalFunctions.insert($0)
+    }
+
+    let params: [Parameter] = [
+        .seedDigest,
+        .derivationPath,
+        .isPrivate,
+        .useInfo,
+        .isDerivable,
+        .psbt,
+        .name,
+        .challenge,
+    ]
+    
+    params.forEach {
+        globalParameters.insert($0)
+    }
+}
+
+public let globalFormatContext: FormatContext = {
+    addKnownFunctionExtensions()
+    return FormatContext(
+        tags: globalTags,
+        knownValues: globalKnownValues,
+        functions: globalFunctions,
+        parameters: globalParameters
+    )
+}()
+
 /// Support for the various text output formats for ``Envelope``.
 
 public extension Envelope {
     /// Returns the envelope notation for this envelope.
     ///
     /// See <doc:Notation> for a description of envelope notation.
-    func format(context: FormatContext? = nil) -> String {
+    func format(context: FormatContext? = globalFormatContext) -> String {
         formatItem(context: context).format.trim()
     }
 
@@ -16,7 +72,7 @@ public extension Envelope {
     ///
     /// See [RFC-8949 §8](https://www.rfc-editor.org/rfc/rfc8949.html#name-diagnostic-notation)
     /// for information on CBOR diagnostic notation.
-    func diagnostic(annotate: Bool = false, context: FormatContext? = nil) -> String {
+    func diagnostic(annotate: Bool = true, context: FormatContext? = globalFormatContext) -> String {
         taggedCBOR.diagnostic(annotate: annotate, tags: context)
     }
 
@@ -24,7 +80,7 @@ public extension Envelope {
     ///
     /// See [RFC-8949](https://www.rfc-editor.org/rfc/rfc8949.html) for information on
     /// the CBOR binary format.
-    func hex(annotate: Bool = false, context: FormatContext? = nil) -> String {
+    func hex(annotate: Bool = true, context: FormatContext? = globalFormatContext) -> String {
         cbor.hex(annotate: annotate, tags: context)
     }
 }

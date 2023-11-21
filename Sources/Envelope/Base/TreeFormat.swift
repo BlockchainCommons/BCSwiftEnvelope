@@ -15,7 +15,7 @@ public extension Envelope {
     ///   - target: All elements in `target` will be highlighted with an asterisk.
     ///
     /// - Returns: The tree notation description.
-    func treeFormat(hideNodes: Bool = false, highlighting target: Set<Digest> = [], context: FormatContext? = nil) -> String {
+    func treeFormat(hideNodes: Bool = false, highlighting target: Set<Digest> = [], context: FormatContext? = globalFormatContext) -> String {
         var elements: [TreeElement] = []
         walk(hideNodes: hideNodes) { (envelope, level, incomingEdge, _) -> Int? in
             elements.append(TreeElement(level: level, envelope: envelope, incomingEdge: incomingEdge, showID: !hideNodes, isHighlighted: target.contains(envelope.digest)))

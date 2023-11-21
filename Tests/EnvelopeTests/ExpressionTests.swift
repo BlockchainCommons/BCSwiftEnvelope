@@ -12,7 +12,7 @@ class ExpressionTests: XCTestCase {
             body: Envelope(function: .add)
                 .addParameter(.lhs, value: 2)
                 .addParameter(.rhs, value: 3))
-        XCTAssertEqual(request.format(context: globalFormatContext), """
+        XCTAssertEqual(request.format(), """
         request(ARID(be74063a)) [
             'body': «add» [
                 ❰lhs❱: 2
@@ -23,7 +23,7 @@ class ExpressionTests: XCTestCase {
         
         XCTAssertEqual(try request.requestID, arid)
         let requestBody = try request.requestBody
-        XCTAssertEqual(requestBody.format(context: globalFormatContext), """
+        XCTAssertEqual(requestBody.format(), """
         «add» [
             ❰lhs❱: 2
             ❰rhs❱: 3
@@ -37,7 +37,7 @@ class ExpressionTests: XCTestCase {
     
     func testResponse() throws {
         let response = Envelope(response: arid, result: 5)
-        XCTAssertEqual(response.format(context: globalFormatContext), """
+        XCTAssertEqual(response.format(), """
         response(ARID(be74063a)) [
             'result': 5
         ]
@@ -50,7 +50,7 @@ class ExpressionTests: XCTestCase {
     
     func testOKResponse() throws {
         let response = Envelope(response: arid)
-        XCTAssertEqual(response.format(context: globalFormatContext), """
+        XCTAssertEqual(response.format(), """
         response(ARID(be74063a)) [
             'result': 'OK'
         ]
@@ -62,7 +62,7 @@ class ExpressionTests: XCTestCase {
         let errorResponse = Envelope(response: arid, error: "Internal Server Error")
         XCTAssertTrue(errorResponse.isError)
         XCTAssertFalse(try errorResponse.isResponseIDUnknown)
-        XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
+        XCTAssertEqual(errorResponse.format(), """
         response(ARID(be74063a)) [
             'error': "Internal Server Error"
         ]
@@ -74,7 +74,7 @@ class ExpressionTests: XCTestCase {
         let errorResponse = Envelope(error: "Decryption Failed")
         XCTAssertTrue(errorResponse.isError)
         XCTAssertTrue(try errorResponse.isResponseIDUnknown)
-        XCTAssertEqual(errorResponse.format(context: globalFormatContext), """
+        XCTAssertEqual(errorResponse.format(), """
         response('Unknown') [
             'error': "Decryption Failed"
         ]
