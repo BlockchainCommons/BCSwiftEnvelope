@@ -49,6 +49,7 @@ public func addKnownFunctionExtensions() {
 }
 
 public let globalFormatContext: FormatContext = {
+    addKnownTags()
     addKnownFunctionExtensions()
     return FormatContext(
         tags: globalTags,

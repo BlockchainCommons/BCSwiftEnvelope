@@ -14,7 +14,7 @@ class CoreTests: XCTestCase {
         .addAssertion("knows", "Bob")
     static let doubleAssertionEnvelope = singleAssertionEnvelope
         .addAssertion("knows", "Carol")
-    
+
     func testIntSubject() throws {
         let e = try Envelope(42).checkEncoding()
         
