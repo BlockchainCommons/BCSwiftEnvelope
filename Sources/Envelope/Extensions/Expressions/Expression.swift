@@ -31,7 +31,7 @@ public extension Envelope {
     ///
     /// - Returns: The new envelope. If `value` is `nil`, returns the original envelope.
     func addParameter(_ param: Parameter, value: EnvelopeEncodable?) -> Envelope {
-        try! addAssertion(.parameter(param, value: value?.envelope))
+        try! addAssertion(.parameter(param, value: value))
     }
     
     /// Adds a `❰parameter❱: value` assertion to the envelope.
@@ -70,7 +70,7 @@ public extension Envelope {
         guard let value else {
             return nil
         }
-        return parameter(Parameter(name), value: value.envelope)
+        return parameter(Parameter(name), value: value)
     }
 }
 
