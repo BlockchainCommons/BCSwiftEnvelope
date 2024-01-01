@@ -35,6 +35,7 @@ public extension KnownValue {
     static let asset = KnownValue(300, "asset")
     static let Bitcoin = KnownValue(301, "BTC")
     static let Ethereum = KnownValue(302, "ETH")
+    static let Tezos = KnownValue(303, "XTZ")
     static let network = KnownValue(400, "network")
     static let MainNet = KnownValue(401, "MainNet")
     static let TestNet = KnownValue(402, "TestNet")
@@ -83,6 +84,7 @@ public var globalKnownValues: KnownValuesStore = [
     .asset,
     .Bitcoin,
     .Ethereum,
+    .Tezos,
     .network,
     .MainNet,
     .TestNet,
