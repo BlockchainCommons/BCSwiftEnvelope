@@ -15,7 +15,7 @@ let package = Package(
             targets: ["Envelope"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git", from: "5.0.0"),
+        .package(url: "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git", from: "6.0.0"),
         .package(url: "https://github.com/WolfMcNally/WolfBase", from: "6.0.0"),
         .package(url: "https://github.com/WolfMcNally/Graph.git", from: "1.0.0"),
         .package(url: "https://github.com/WolfMcNally/GraphMermaid.git", from: "1.0.0"),
