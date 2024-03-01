@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BlockchainCommons/BCSwiftCrypto",
       "state" : {
-        "revision" : "b471e177fc106d33ee8126aec5d03422402795f1",
-        "version" : "1.0.0"
+        "revision" : "c018451ad9479d3474578f02d4e40662af6ee40c",
+        "version" : "4.0.1"
       }
     },
     {
@@ -28,12 +28,30 @@
       }
     },
     {
+      "identity" : "bcswiftrandom",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BlockchainCommons/BCSwiftRandom",
+      "state" : {
+        "revision" : "51ead8f55f8bbe5906d1e83279abc5944864873f",
+        "version" : "1.0.0"
+      }
+    },
+    {
       "identity" : "bcswiftsecurecomponents",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git",
       "state" : {
-        "revision" : "73624420d15bf10e2619616dcf116fe8326eb08b",
-        "version" : "5.0.0"
+        "revision" : "956cc18199a5007101f0b307b3c4b2f53355aab8",
+        "version" : "8.0.2"
+      }
+    },
+    {
+      "identity" : "blake2.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tesseract-one/Blake2.swift.git",
+      "state" : {
+        "revision" : "29c55c8fe42d6661e5a32cc5bbbad1fff64fd01e",
+        "version" : "0.2.0"
       }
     },
     {
@@ -140,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BlockchainCommons/URKit.git",
       "state" : {
-        "revision" : "527d97f3d62ea7d6ecfa3bb0f28a22ce879fdf38",
-        "version" : "12.0.0"
+        "revision" : "797b31115689f9b1e963c4b1bc7844360f96f311",
+        "version" : "14.0.1"
       }
     },
     {
