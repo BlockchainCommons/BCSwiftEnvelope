@@ -74,7 +74,7 @@ public extension Envelope {
     func sign<T>(with privateKeys: PrivateKeyBase, uncoveredAssertions: [Envelope], tag: DataProvider? = nil, using rng: inout T) throws -> Envelope
     where T: RandomNumberGenerator
     {
-        let signature = try Envelope(privateKeys.signingPrivateKey.schnorrSign(subject.digest, tag: tag, using: &rng))
+        let signature = try Envelope(privateKeys.signingPrivateKey.secp256k1SchnorrSign(subject.digest, tag: tag, using: &rng))
             .addAssertions(uncoveredAssertions)
         return try addAssertion(Envelope(.verifiedBy, signature))
     }
