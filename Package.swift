@@ -23,7 +23,7 @@ let package = Package(
         .package(url: "https://github.com/WolfMcNally/WolfLorem", from: "3.0.0"),
         .package(url: "https://github.com/WolfMcNally/TreeDistance", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
-        .package(path: "../BCSwiftKnownValues"),
+        .package(url: "https://github.com/BlockchainCommons/BCSwiftKnownValues", from: "0.1.0"),
     ],
     targets: [
         .target(
