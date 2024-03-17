@@ -16,6 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/BlockchainCommons/BCSwiftSecureComponents", from: "8.0.0"),
+        .package(url: "https://github.com/BlockchainCommons/BCSwiftKnownValues", from: "0.1.0"),
         .package(url: "https://github.com/WolfMcNally/WolfBase", from: "6.0.0"),
         .package(url: "https://github.com/WolfMcNally/Graph", from: "1.0.0"),
         .package(url: "https://github.com/WolfMcNally/GraphMermaid", from: "1.0.0"),
@@ -23,7 +24,6 @@ let package = Package(
         .package(url: "https://github.com/WolfMcNally/WolfLorem", from: "3.0.0"),
         .package(url: "https://github.com/WolfMcNally/TreeDistance", from: "1.0.0"),
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
-        .package(url: "https://github.com/BlockchainCommons/BCSwiftKnownValues", from: "0.1.0"),
     ],
     targets: [
         .target(
