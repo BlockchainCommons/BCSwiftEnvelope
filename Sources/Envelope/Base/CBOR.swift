@@ -47,7 +47,8 @@ extension Envelope: CBORCodable {
         switch untaggedCBOR {
         case CBOR.tagged(let tag, let item):
             switch tag {
-            case .leaf:
+            // See testReadLegacyLeaf
+            case .leaf, .encodedCBOR:
                 result = Envelope(leaf: item)
             case .envelope:
                 result = Envelope(wrapped: try Self(taggedCBOR: untaggedCBOR))

@@ -23,10 +23,10 @@ class NonCorrelationTests: XCTestCase {
         XCTAssertEqual(e2.diagnostic(), """
         200(   / envelope /
            [
-              24("Hello."),   / leaf /
+              201("Hello."),   / leaf /
               {
                  15:
-                 24(   / leaf /
+                 201(   / leaf /
                     40018(h'b559bbbf6cce2632')   / salt /
                  )
               }

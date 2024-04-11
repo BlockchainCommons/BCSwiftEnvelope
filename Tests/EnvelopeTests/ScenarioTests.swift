@@ -361,7 +361,7 @@ class ScenarioTests: XCTestCase {
         // Verify that the state's signature on the elided card is still valid.
         try elidedCredential.verifySignature(from: statePublicKeys)
         
-        XCTAssertEqual(elidedCredential.urString, "ur:envelope/lftpsplntpcstansgshdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosphdcxfnstoxfwdaglhlmywzpafwmnfdzezmkisgfhtaetihtibemedpnsuevswtcngwpaoybtlstpcstansgshdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvsoyaatpcsksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihoyastpcstpcxksheisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlhsjpiniedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihetoybalktpcstansgshdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguohdcxbwjsinwkcmahnefdmsfdgtltkpdppdbdwnfdhhwfjyptvddimucwrycavameetssoytpcsimiyhsjninjzkkglhsjnihtpcsihgugtgaghfdoytpcsinioinkoihjtglhsjnihtpcsiegegwfdglhdcxhdcamnzeftfppdwzpmjojluypebnbeplzeptzesfkgfholssdtkgveimonnlsosehdcxjscnletijkdssosnvljpbklrhpihrpjtfwtnwecflolsolfmkbnlndosmdadztsboytpcsihinjnhsioihlstpcsjpgejlisjtcxgujninjyiscxjkjninjzinjtiooyastpcskshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesesoyaatpcsksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmhdcxnsmkylvtfseegsgotaammhcezebdgwhyhhyljkrhwfqzoskgeosodsgmpmhgzchhhdcxosfmfplpfxvefzoybncfwzgtfewdcapsqdkkuolagdtdltvwfdttvorflocwzegahdcxtbcffdrptpstzmmomdktssmegedwvdecgadtdsreaygtdifwmokimwaodwbyuozmhdcxvyidloaagdetmopfrnbwleidmeioftfptavtlnptprvohnfpmtcegdseamceotwyhdcxzejocerptnaxchswvossceasnehkgefyptmhndretdghwtwepymwoyrocmnntddioyadtpcsimiajpihieihjtjyinhsjzhdcxwmesosbwlupscfiopltaemchmdzmtllrgraxlnrhwnkbfmlrveadrtlobspspmmsoyaxlftpcstansghhdfzqdwtmnhlgegylkasmhvtguaadtbstohstekbolkpastlrecltasgadcwtljtnlrhvlecrplufyvacfkevacpesbkdesfpfkpoyosylwzlbvosfyldtdejnbtioprdmoxoyaatpcskscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmjzveesyk")
+        XCTAssertEqual(elidedCredential.urString, "ur:envelope/lftpsplntpsotansgshdcxchfdfwwdsrzofytsyndsvetsndkbbelbtdmuskhfdtyntbcprocktyatktaxaosphdcxfnstoxfwdaglhlmywzpafwmnfdzezmkisgfhtaetihtibemedpnsuevswtcngwpaoybtlstpsotansgshdcxaaenfsheytmseorfbsbzktrdrdfybkwntkeegetaveghzstattdertbswsihahvsoyaatpsoksckgajkjkkpihiecxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihoyastpsotpcxksheisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlhsjpiniedldyeeeoeneoieeciyiyesesemeoeoidiadyiyehecememidhsidhseeeedyhsiyehiaiyeoeeeehsieesiheeeceeiyhsieesieeheyetiadydyiyihiyenecdyecihetoybalktpsotansgshdcxksrfdyaeflkootmhhpsfrhronbeytkjpdwwdwtrkzocygawdwfcshepyhdaysguohdcxbwjsinwkcmahnefdmsfdgtltkpdppdbdwnfdhhwfjyptvddimucwrycavameetssoytpsoimiyhsjninjzkkglhsjnihtpsoihgugtgaghfdoytpsoinioinkoihjtglhsjnihtpsoiegegwfdglhdcxhdcamnzeftfppdwzpmjojluypebnbeplzeptzesfkgfholssdtkgveimonnlsosehdcxjscnletijkdssosnvljpbklrhpihrpjtfwtnwecflolsolfmkbnlndosmdadztsboytpsoihinjnhsioihlstpsojpgejlisjtcxgujninjyiscxjkjninjzinjtiooyastpsokshsisjyjyjojkftdldlihkshsjnjojzihjzihieioihjpdmiajljndlieinioihjkjydleoenidiheodyemeyenidihiyideneciahseheoideheoenhsiheyesieetdyetehiyeneeemeseyiaeyemdyeyeeehecihidendyhsieehiaecenihieeoeoiaesesesoyaatpsoksctghisinjkcxinjkcxhsjtcxinjnhsioihcxjliycxgejlisjtcxgujninjyisdmhdcxnsmkylvtfseegsgotaammhcezebdgwhyhhyljkrhwfqzoskgeosodsgmpmhgzchhhdcxosfmfplpfxvefzoybncfwzgtfewdcapsqdkkuolagdtdltvwfdttvorflocwzegahdcxtbcffdrptpstzmmomdktssmegedwvdecgadtdsreaygtdifwmokimwaodwbyuozmhdcxvyidloaagdetmopfrnbwleidmeioftfptavtlnptprvohnfpmtcegdseamceotwyhdcxzejocerptnaxchswvossceasnehkgefyptmhndretdghwtwepymwoyrocmnntddioyadtpsoimiajpihieihjtjyinhsjzhdcxwmesosbwlupscfiopltaemchmdzmtllrgraxlnrhwnkbfmlrveadrtlobspspmmsoyaxlftpsotansghhdfzqdwtmnhlgegylkasmhvtguaadtbstohstekbolkpastlrecltasgadcwtljtnlrhvlecrplufyvacfkevacpesbkdesfpfkpoyosylwzlbvosfyldtdejnbtioprdmoxoyaatpsokscagthsieihcxidkkcxjyisihcxgujyhsjyihcxjliycxfekshsjnjojzihdmldvyqzje")
         
         let expectedElidedFormat =
         """
@@ -393,14 +393,14 @@ class ScenarioTests: XCTestCase {
         
 
         
-        XCTAssertEqual(elidedCredential.taggedCBOR.cborData.hex, "d8c882d8c886d818d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c858203cc7a442254e5d8ff2b1428e48feff7dca3fd93865d010912d9cdee8f0234fb1a10d83d818d99c4c582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8a104d818781e49737375656420627920746865205374617465206f66204578616d706c65a109d818d820785f68747470733a2f2f6578616d706c656c65646765722e636f6d2f617269642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538a10e8cd818d99c4c582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc5820137169f416059f4897484d87752da80bf1485cf374a9e727931bbd1de69138c4a1d8186a66616d696c794e616d65d81865534d495448a1d81869676976656e4e616d65d818644a4f484e5820581d8efe3a41a8f2ad706fdbaf0c10aefea9fecc7b3fa6c4297be46aa599c9c1582071238ad07326c9cde3720a845b65b66e42daed198883a63e7e999ba79501fccba1d81865696d61676583d818724a6f686e20536d69746820736d696c696e67a109d818786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939a104d818781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682e58209c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5c5820a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe495820d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcff5820e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3ee5820fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227a101d8186a63726564656e7469616c5820eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97a10382d818d99c545840b3f08e5d4a518c0990e05304290fce61d37ea67509d5b521d9ca011bd56e99b9e335b68b44e6197ce622390a28ccb075a1a7f7f27fe2ccf729286d0d67b22ea4a104d818781d4d61646520627920746865205374617465206f66204578616d706c652e")
+        XCTAssertEqual(elidedCredential.taggedCBOR.cborData.hex, "d8c882d8c886d8c9d99c4c5820174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c858203cc7a442254e5d8ff2b1428e48feff7dca3fd93865d010912d9cdee8f0234fb1a10d83d8c9d99c4c582004363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8a104d8c9781e49737375656420627920746865205374617465206f66204578616d706c65a109d8c9d820785f68747470733a2f2f6578616d706c656c65646765722e636f6d2f617269642f30343336336435666639393733336263306631353737626162613434306166316366333434616439653435346661643964313238633030666566363530356538a10e8cd8c9d99c4c582078bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc5820137169f416059f4897484d87752da80bf1485cf374a9e727931bbd1de69138c4a1d8c96a66616d696c794e616d65d8c965534d495448a1d8c969676976656e4e616d65d8c9644a4f484e5820581d8efe3a41a8f2ad706fdbaf0c10aefea9fecc7b3fa6c4297be46aa599c9c1582071238ad07326c9cde3720a845b65b66e42daed198883a63e7e999ba79501fccba1d8c965696d61676583d8c9724a6f686e20536d69746820736d696c696e67a109d8c9786168747470733a2f2f6578616d706c656c65646765722e636f6d2f6469676573742f33366265333037323662656662363563613133623133366165323964383038316636343739326332373032343135656236306164316335366564333363393939a104d8c9781f5468697320697320616e20696d616765206f66204a6f686e20536d6974682e58209c98f7e03d344c55d906901cfe0b4f5e5cf773b9f3b4a77b33c92652ad57fd5c5820a73e418543e440a10c19f24d45ea1dacb379dc8050d287e548d1e2bc881bfe495820d61948b6d8c7ff929577c4914a2ce735492926b5084d2742927d94022c11dcff5820e1628804503892b0be138a6291673a41d9e086a9b2e26041961c50c1061ca3ee5820fe701cb6da0317c6e2c41c099f594a44a9909bb5d254f0edab94a1b8169ed227a101d8c96a63726564656e7469616c5820eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97a10382d8c9d99c545840b3f08e5d4a518c0990e05304290fce61d37ea67509d5b521d9ca011bd56e99b9e335b68b44e6197ce622390a28ccb075a1a7f7f27fe2ccf729286d0d67b22ea4a104d8c9781d4d61646520627920746865205374617465206f66204578616d706c652e")
         
         XCTAssertEqual(elidedCredential.diagnostic(), """
         200(   / envelope /
            [
               200(   / envelope /
                  [
-                    24(   / leaf /
+                    201(   / leaf /
                        40012(   / arid /
                           h'174842eac3fb44d7f626e4d79b7e107fd293c55629f6d622b81ed407770302c8'
                        )
@@ -409,20 +409,20 @@ class ScenarioTests: XCTestCase {
                     {
                        13:
                        [
-                          24(   / leaf /
+                          201(   / leaf /
                              40012(   / arid /
                                 h'04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8'
                              )
                           ),
                           {
                              4:
-                             24(   / leaf /
+                             201(   / leaf /
                                 "Issued by the State of Example"
                              )
                           },
                           {
                              9:
-                             24(   / leaf /
+                             201(   / leaf /
                                 32(
                                    "https://exampleledger.com/arid/04363d5ff99733bc0f1577baba440af1cf344ad9e454fad9d128c00fef6505e8"
                                 )
@@ -433,35 +433,35 @@ class ScenarioTests: XCTestCase {
                     {
                        14:
                        [
-                          24(   / leaf /
+                          201(   / leaf /
                              40012(   / arid /
                                 h'78bc30004776a3905bccb9b8a032cf722ceaf0bbfb1a49eaf3185fab5808cadc'
                              )
                           ),
                           h'137169f416059f4897484d87752da80bf1485cf374a9e727931bbd1de69138c4',
                           {
-                             24("familyName"):   / leaf /
-                             24("SMITH")   / leaf /
+                             201("familyName"):   / leaf /
+                             201("SMITH")   / leaf /
                           },
                           {
-                             24("givenName"):   / leaf /
-                             24("JOHN")   / leaf /
+                             201("givenName"):   / leaf /
+                             201("JOHN")   / leaf /
                           },
                           h'581d8efe3a41a8f2ad706fdbaf0c10aefea9fecc7b3fa6c4297be46aa599c9c1',
                           h'71238ad07326c9cde3720a845b65b66e42daed198883a63e7e999ba79501fccb',
                           {
-                             24("image"):   / leaf /
+                             201("image"):   / leaf /
                              [
-                                24("John Smith smiling"),   / leaf /
+                                201("John Smith smiling"),   / leaf /
                                 {
                                    9:
-                                   24(   / leaf /
+                                   201(   / leaf /
                                       "https://exampleledger.com/digest/36be30726befb65ca13b136ae29d8081f64792c2702415eb60ad1c56ed33c999"
                                    )
                                 },
                                 {
                                    4:
-                                   24(   / leaf /
+                                   201(   / leaf /
                                       "This is an image of John Smith."
                                    )
                                 }
@@ -476,7 +476,7 @@ class ScenarioTests: XCTestCase {
                     },
                     {
                        1:
-                       24("credential")   / leaf /
+                       201("credential")   / leaf /
                     },
                     h'eb39a7138bac1967aed9371795ffd5844b0386b9f17e3e84e401c0880facad97'
                  ]
@@ -484,14 +484,14 @@ class ScenarioTests: XCTestCase {
               {
                  3:
                  [
-                    24(   / leaf /
+                    201(   / leaf /
                        40020(   / signature /
                           h'b3f08e5d4a518c0990e05304290fce61d37ea67509d5b521d9ca011bd56e99b9e335b68b44e6197ce622390a28ccb075a1a7f7f27fe2ccf729286d0d67b22ea4'
                        )
                     ),
                     {
                        4:
-                       24(   / leaf /
+                       201(   / leaf /
                           "Made by the State of Example."
                        )
                     }

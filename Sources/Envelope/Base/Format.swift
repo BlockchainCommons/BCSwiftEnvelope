@@ -1,6 +1,7 @@
 import Foundation
 import WolfBase
 import SecureComponents
+import NumberKit
 
 public extension Function {
     static let getSeed = Function(100, "getSeed")
@@ -121,7 +122,7 @@ extension CBOR {
             case .unsigned(let n):
                 return String(n)
             case .negative(let n):
-                return String(n)
+                return String(-1 - BigInt(n))
             case .bytes(let data):
                 return "Bytes(\(data.count))"
             case .text(let string):

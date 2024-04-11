@@ -15,13 +15,30 @@ class CoreTests: XCTestCase {
     static let doubleAssertionEnvelope = singleAssertionEnvelope
         .addAssertion("knows", "Carol")
 
+    // A previous version of the Envelope spec used tag #6.24 ("Encoded CBOR Item") as
+    // the header for the Envelope `leaf` case. Unfortunately, this was not a correct
+    // use of the tag, as the contents of #6.24 (RFC8949 §3.4.5.1) MUST always be a
+    // byte string, while we were simply using it as a wrapper/header for any dCBOR
+    // data item.
+    //
+    // https://www.rfc-editor.org/rfc/rfc8949.html#name-encoded-cbor-data-item
+    //
+    // This test ensures that Envelopes encoded with the old tag are still
+    // correctly decoded as `leaf` cases.
+    func testReadLegacyLeaf() throws {
+        let legacyEnvelope = try Envelope(taggedCBORData: ‡"d8c8d818182a")
+        let envelope = Envelope(42)
+        XCTAssert(envelope.isEquivalent(to: legacyEnvelope))
+        XCTAssert(envelope.isIdentical(to: legacyEnvelope))
+    }
+
     func testIntSubject() throws {
         let e = try Envelope(42).checkEncoding()
         
         XCTAssertEqual(e.diagnostic(),
         """
         200(   / envelope /
-           24(42)   / leaf /
+           201(42)   / leaf /
         )
         """)
         
@@ -42,7 +59,7 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(),
         """
         200(   / envelope /
-           24(-42)   / leaf /
+           201(-42)   / leaf /
         )
         """)
         
@@ -63,7 +80,7 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(),
         """
         200(   / envelope /
-           24("Hello.")   / leaf /
+           201("Hello.")   / leaf /
         )
         """)
         
@@ -110,8 +127,8 @@ class CoreTests: XCTestCase {
         """
         200(   / envelope /
            {
-              24("knows"):   / leaf /
-              24("Bob")   / leaf /
+              201("knows"):   / leaf /
+              201("Bob")   / leaf /
            }
         )
         """)
@@ -133,10 +150,10 @@ class CoreTests: XCTestCase {
         """
         200(   / envelope /
            [
-              24("Alice"),   / leaf /
+              201("Alice"),   / leaf /
               {
-                 24("knows"):   / leaf /
-                 24("Bob")   / leaf /
+                 201("knows"):   / leaf /
+                 201("Bob")   / leaf /
               }
            ]
         )
@@ -161,14 +178,14 @@ class CoreTests: XCTestCase {
         """
         200(   / envelope /
            [
-              24("Alice"),   / leaf /
+              201("Alice"),   / leaf /
               {
-                 24("knows"):   / leaf /
-                 24("Carol")   / leaf /
+                 201("knows"):   / leaf /
+                 201("Carol")   / leaf /
               },
               {
-                 24("knows"):   / leaf /
-                 24("Bob")   / leaf /
+                 201("knows"):   / leaf /
+                 201("Bob")   / leaf /
               }
            ]
         )
@@ -192,7 +209,7 @@ class CoreTests: XCTestCase {
         """
         200(   / envelope /
            200(   / envelope /
-              24("Hello.")   / leaf /
+              201("Hello.")   / leaf /
            )
         )
         """
@@ -218,7 +235,7 @@ class CoreTests: XCTestCase {
         200(   / envelope /
            200(   / envelope /
               200(   / envelope /
-                 24("Hello.")   / leaf /
+                 201("Hello.")   / leaf /
               )
            )
         )
@@ -271,7 +288,7 @@ class CoreTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(),
         """
         200(   / envelope /
-           24(   / leaf /
+           201(   / leaf /
               40001(   / digest /
                  h'8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
               )

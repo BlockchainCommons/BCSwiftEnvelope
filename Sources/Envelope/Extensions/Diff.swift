@@ -313,7 +313,7 @@ extension EnvelopeEdit {
             } else {
                 switch components.removeFirst() {
                 case .negative(let n):
-                    guard n == -1 else {
+                    guard n == 0 else {
                         throw EnvelopeError.invalidDiff
                     }
                     operation = .insertRoot(label: label)

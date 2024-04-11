@@ -13,7 +13,7 @@ class CoreEncodingTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(),
             """
             200(   / envelope /
-               24("Hello.")   / leaf /
+               201("Hello.")   / leaf /
             )
             """
         )
@@ -25,7 +25,7 @@ class CoreEncodingTests: XCTestCase {
         XCTAssertEqual(e.diagnostic(),
             """
             200(   / envelope /
-               24(   / leaf /
+               201(   / leaf /
                   [1, 2, 3]
                )
             )
@@ -54,12 +54,12 @@ class CoreEncodingTests: XCTestCase {
         200(   / envelope /
            [
               {
-                 24("C"):   / leaf /
-                 24("D")   / leaf /
+                 201("C"):   / leaf /
+                 201("D")   / leaf /
               },
               {
-                 24("E"):   / leaf /
-                 24("F")   / leaf /
+                 201("E"):   / leaf /
+                 201("F")   / leaf /
               }
            ]
         )
@@ -88,17 +88,17 @@ class CoreEncodingTests: XCTestCase {
             200(   / envelope /
                [
                   {
-                     24("A"):   / leaf /
-                     24("B")   / leaf /
+                     201("A"):   / leaf /
+                     201("B")   / leaf /
                   },
                   [
                      {
-                        24("C"):   / leaf /
-                        24("D")   / leaf /
+                        201("C"):   / leaf /
+                        201("D")   / leaf /
                      },
                      {
-                        24("E"):   / leaf /
-                        24("F")   / leaf /
+                        201("E"):   / leaf /
+                        201("F")   / leaf /
                      }
                   ]
                ]

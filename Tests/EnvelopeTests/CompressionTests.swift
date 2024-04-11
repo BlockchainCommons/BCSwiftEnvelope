@@ -10,7 +10,7 @@ class CompressionTests: XCTestCase {
         let original = Envelope(source)
         XCTAssertEqual(original.cborData.count, 369)
         let compressed = try original.compress().checkEncoding(tags: globalTags)
-        XCTAssertEqual(compressed.cborData.count, 282)
+        XCTAssertEqual(compressed.cborData.count, 281)
 
         XCTAssertEqual(original.digest, compressed.digest)
         let uncompressed = try compressed.uncompress().checkEncoding(tags: globalTags)
@@ -38,7 +38,7 @@ class CompressionTests: XCTestCase {
                 dd386db5 obj Signature
         """)
         let compressed = try original.compressSubject().checkEncoding(tags: globalTags)
-        XCTAssertEqual(compressed.cborData.count, 373)
+        XCTAssertEqual(compressed.cborData.count, 372)
         XCTAssertEqual(compressed.treeFormat(), """
         9ed291b0 NODE
             d7183f04 subj COMPRESSED
