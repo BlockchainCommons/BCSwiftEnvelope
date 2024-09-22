@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 
 import PackageDescription
 
@@ -15,15 +15,15 @@ let package = Package(
             targets: ["Envelope"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/BlockchainCommons/BCSwiftSecureComponents", from: "8.0.0"),
-        .package(url: "https://github.com/BlockchainCommons/BCSwiftKnownValues", from: "0.1.0"),
-        .package(url: "https://github.com/WolfMcNally/WolfBase", from: "6.0.0"),
-        .package(url: "https://github.com/WolfMcNally/Graph", from: "1.0.0"),
-        .package(url: "https://github.com/WolfMcNally/GraphMermaid", from: "1.0.0"),
-        .package(url: "https://github.com/WolfMcNally/GraphDot", from: "1.0.0"),
-        .package(url: "https://github.com/WolfMcNally/WolfLorem", from: "3.0.0"),
-        .package(url: "https://github.com/WolfMcNally/TreeDistance", from: "1.0.0"),
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
+        .package(url: "https://github.com/BlockchainCommons/BCSwiftSecureComponents.git", from: "9.0.0"),
+        .package(url: "https://github.com/BlockchainCommons/BCSwiftKnownValues.git", from: "0.2.4"),
+        .package(url: "https://github.com/WolfMcNally/WolfBase.git", from: "7.0.0"),
+        .package(url: "https://github.com/WolfMcNally/Graph.git", from: "2.0.0"),
+        .package(url: "https://github.com/WolfMcNally/GraphMermaid.git", from: "2.0.0"),
+        .package(url: "https://github.com/WolfMcNally/GraphDot.git", from: "2.0.0"),
+        .package(url: "https://github.com/WolfMcNally/WolfLorem.git", from: "4.0.0"),
+        .package(url: "https://github.com/WolfMcNally/TreeDistance.git", from: "2.0.0"),
+        .package(url: "https://github.com/apple/swift-docc-plugin.git", from: "1.0.0"),
     ],
     targets: [
         .target(

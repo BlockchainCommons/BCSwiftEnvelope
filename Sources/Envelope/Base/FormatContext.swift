@@ -2,7 +2,7 @@ import Foundation
 import WolfBase
 import SecureComponents
 
-public struct FormatContext {
+public struct FormatContext: Sendable {
     public let tags: TagsStore
     public let knownValues: KnownValuesStore
     public let functions: FunctionsStore

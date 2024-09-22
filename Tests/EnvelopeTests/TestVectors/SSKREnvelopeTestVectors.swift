@@ -1,7 +1,8 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
+import Foundation
 
 fileprivate let seedPayload: Seed = {
     var seed = Seed(data: ‡"59f2293a5bce7d4de59e71b4207ac5d2")!
@@ -26,8 +27,8 @@ extension AnyTestCase {
     }
 }
 
-final class SSKREnvelopeTestVectors: XCTestCase {
-    func testGenerateSSKREnvelopeTestVectors() throws {
+struct SSKREnvelopeTestVectors {
+    @Test func testGenerateSSKREnvelopeTestVectors() throws {
         let testCase1 = try TestCase(
             name: "Seed 2 of 3",
             payload: seedPayload,
@@ -64,7 +65,7 @@ final class SSKREnvelopeTestVectors: XCTestCase {
             }
 
         let text = formatDocument(testCases: testCases)
-        writeDocFile("SSKRTestVectors", text)
+        try writeDocFile("SSKRTestVectors", text)
     }
 
     @StringBuilder
@@ -130,14 +131,14 @@ final class SSKREnvelopeTestVectors: XCTestCase {
             if firstShare != expectedFirstShare {
                 print("name: \(name), \(firstShare)")
             }
-            XCTAssertEqual(firstShare, expectedFirstShare)
+            #expect(firstShare == expectedFirstShare)
 
             let recoveredShares = groupedShares.flatMap { $0 }.enumerated().compactMap { index, share in
                 recoveredShareIndexes.contains(index) ? share : nil
             }
     
             let recoveredPayload = try recoverPayload(recoveredShares: recoveredShares)
-            XCTAssertEqual(payload.cbor, recoveredPayload.cbor)
+            #expect(payload.cbor == recoveredPayload.cbor)
         }
 
         func recoverPayload(recoveredShares: [Envelope]) throws -> T {

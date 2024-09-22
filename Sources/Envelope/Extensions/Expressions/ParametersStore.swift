@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ParametersStore {
+public struct ParametersStore: Sendable {
     var dict: [Parameter: String]
     
     public init<T>(_ parameters: T) where T: Sequence, T.Element == Parameter {
@@ -10,6 +10,7 @@ public struct ParametersStore {
         }
     }
     
+    @MainActor
     public mutating func insert(_ parameter: Parameter) {
         Self._insert(parameter, dict: &dict)
     }

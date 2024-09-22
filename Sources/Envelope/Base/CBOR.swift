@@ -115,7 +115,7 @@ public extension Envelope {
 }
 
 extension Envelope: CBORTaggedCodable {
-    public static var cborTags = [Tag.envelope]
+    public static let cborTags = [Tag.envelope]
     
     public var cbor: CBOR {
         untaggedCBOR

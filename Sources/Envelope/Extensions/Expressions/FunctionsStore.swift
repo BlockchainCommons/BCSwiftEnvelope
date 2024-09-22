@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FunctionsStore {
+public struct FunctionsStore: Sendable {
     var dict: [Function: String]
     
     public init<T>(_ functions: T) where T: Sequence, T.Element == Function {
@@ -10,6 +10,7 @@ public struct FunctionsStore {
         }
     }
     
+    @MainActor
     public mutating func insert(_ function: Function) {
         Self._insert(function, dict: &dict)
     }

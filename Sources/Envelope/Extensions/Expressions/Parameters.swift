@@ -6,7 +6,7 @@ public extension Parameter {
     static let rhs = Parameter(3, "rhs")
 }
 
-public var globalParameters: ParametersStore = [
+nonisolated(unsafe) public var globalParameters: ParametersStore = [
     .blank,
     .lhs,
     .rhs,

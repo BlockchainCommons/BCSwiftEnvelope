@@ -1,10 +1,11 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
+import Foundation
 
-final class EnvelopeTestVectors: XCTestCase {
-    func testGenerateEnvelopeTestVectors() throws {
+struct EnvelopeTestVectors {
+    @Test func testGenerateEnvelopeTestVectors() throws {
         let helloWorld = TestCase(
             name: "Hello, World!",
             explanation: "The simplest case: encoding a plaintext string as the envelope's `subject`. The `subject` can be any CBOR-encodable structure.",
@@ -104,7 +105,7 @@ final class EnvelopeTestVectors: XCTestCase {
             }
 
         let text = formatDocument(testCases: testCases)
-        writeDocFile("EnvelopeTestVectors", text)
+        try writeDocFile("EnvelopeTestVectors", text)
     }
 
     @StringBuilder
@@ -265,7 +266,7 @@ final class EnvelopeTestVectors: XCTestCase {
         let elidedCredential = try top.elideRevealing(target).checkEncoding()
 
         // Verify that the elided credential compares equal to the original credential.
-        XCTAssert(elidedCredential.isEquivalent(to: johnSmithResidentCard))
+        #expect(elidedCredential.isEquivalent(to: johnSmithResidentCard))
 
         // Verify that the state's signature on the elided card is still valid.
         return try! elidedCredential.verifySignature(from: statePublicKeys)

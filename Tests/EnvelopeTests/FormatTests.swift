@@ -1,31 +1,32 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
+import Foundation
 
-class FormatTests: XCTestCase {
-    func testPlaintext() throws {
+struct FormatTests {
+    @Test func testPlaintext() throws {
         let envelope = Envelope(plaintextHello)
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         "Hello."
         """)
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
         8cc96cdb "Hello."
         """)
-        XCTAssertEqual(envelope.treeFormat(hideNodes: true),
+        #expect(envelope.treeFormat(hideNodes: true) ==
         """
         "Hello."
         """)
-        XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(envelope.mermaidFormat(),
+        #expect(envelope.elementsCount == envelope.treeFormat().split(separator: "\n").count)
+        #expect(envelope.mermaidFormat() ==
         """
         graph LR
             1["8cc96cdb<br/>#quot;Hello.#quot;"]
             style 1 stroke:#55f,stroke-width:3.0px
         """)
-        XCTAssertEqual(envelope.mermaidFormat(hideNodes: true),
+        #expect(envelope.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1["#quot;Hello.#quot;"]
@@ -33,40 +34,40 @@ class FormatTests: XCTestCase {
         """)
     }
     
-    func testSignedPlaintext() throws {
+    @Test func testSignedPlaintext() throws {
         var rng = makeFakeRandomNumberGenerator()
         let envelope = Envelope(plaintextHello)
             .sign(with: alicePrivateKeys, using: &rng)
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         "Hello." [
             'verifiedBy': Signature
         ]
         """)
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
-        509d8ab2 NODE
+        949a991e NODE
             8cc96cdb subj "Hello."
-            f761face ASSERTION
+            fcb4e2be ASSERTION
                 d0e39e78 pred 'verifiedBy'
-                0d868228 obj Signature
+                b8bb043f obj Signature
         """)
-        XCTAssertEqual(envelope.treeFormat(hideNodes: true),
+        #expect(envelope.treeFormat(hideNodes: true) ==
         """
         "Hello."
             ASSERTION
                 'verifiedBy'
                 Signature
         """)
-        XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(envelope.mermaidFormat(),
+        #expect(envelope.elementsCount == envelope.treeFormat().split(separator: "\n").count)
+        #expect(envelope.mermaidFormat() ==
         """
         graph LR
-            1(("509d8ab2<br/>NODE"))
+            1(("949a991e<br/>NODE"))
             2["8cc96cdb<br/>#quot;Hello.#quot;"]
-            3(["f761face<br/>ASSERTION"])
+            3(["fcb4e2be<br/>ASSERTION"])
             4[/"d0e39e78<br/>'verifiedBy'"/]
-            5["0d868228<br/>Signature"]
+            5["b8bb043f<br/>Signature"]
             1 -->|subj| 2
             1 --> 3
             3 -->|pred| 4
@@ -81,7 +82,7 @@ class FormatTests: XCTestCase {
             linkStyle 2 stroke:green,stroke-width:2.0px
             linkStyle 3 stroke:#55f,stroke-width:2.0px
         """)
-        XCTAssertEqual(envelope.mermaidFormat(hideNodes: true),
+        #expect(envelope.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1["#quot;Hello.#quot;"]
@@ -101,17 +102,17 @@ class FormatTests: XCTestCase {
         """)
     }
     
-    func testEncryptSubject() throws {
+    @Test func testEncryptSubject() throws {
         let envelope = try Envelope("Alice")
             .addAssertion("knows", "Bob")
             .encryptSubject(with: SymmetricKey())
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         ENCRYPTED [
             "knows": "Bob"
         ]
         """)
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
         8955db5e NODE
             13941b48 subj ENCRYPTED
@@ -119,15 +120,15 @@ class FormatTests: XCTestCase {
                 db7dd21c pred "knows"
                 13b74194 obj "Bob"
         """)
-        XCTAssertEqual(envelope.treeFormat(hideNodes: true),
+        #expect(envelope.treeFormat(hideNodes: true) ==
         """
         ENCRYPTED
             ASSERTION
                 "knows"
                 "Bob"
         """)
-        XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(envelope.mermaidFormat(),
+        #expect(envelope.elementsCount == envelope.treeFormat().split(separator: "\n").count)
+        #expect(envelope.mermaidFormat() ==
         """
         graph LR
             1(("8955db5e<br/>NODE"))
@@ -149,7 +150,7 @@ class FormatTests: XCTestCase {
             linkStyle 2 stroke:green,stroke-width:2.0px
             linkStyle 3 stroke:#55f,stroke-width:2.0px
         """)
-        XCTAssertEqual(envelope.mermaidFormat(hideNodes: true),
+        #expect(envelope.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1>"ENCRYPTED"]
@@ -169,26 +170,26 @@ class FormatTests: XCTestCase {
         """)
     }
     
-    func testTopLevelAssertion() throws {
+    @Test func testTopLevelAssertion() throws {
         let envelope = Envelope("knows", "Bob")
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         "knows": "Bob"
         """)
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
         78d666eb ASSERTION
             db7dd21c pred "knows"
             13b74194 obj "Bob"
         """)
-        XCTAssertEqual(envelope.treeFormat(hideNodes: true),
+        #expect(envelope.treeFormat(hideNodes: true) ==
         """
         ASSERTION
             "knows"
             "Bob"
         """)
-        XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(envelope.mermaidFormat(),
+        #expect(envelope.elementsCount == envelope.treeFormat().split(separator: "\n").count)
+        #expect(envelope.mermaidFormat() ==
         """
         graph LR
             1(["78d666eb<br/>ASSERTION"])
@@ -202,7 +203,7 @@ class FormatTests: XCTestCase {
             linkStyle 0 stroke:green,stroke-width:2.0px
             linkStyle 1 stroke:#55f,stroke-width:2.0px
         """)
-        XCTAssertEqual(envelope.mermaidFormat(hideNodes: true),
+        #expect(envelope.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1(["ASSERTION"])
@@ -218,17 +219,17 @@ class FormatTests: XCTestCase {
         """)
     }
 
-    func testElidedObject() throws {
+    @Test func testElidedObject() throws {
         let envelope = Envelope("Alice")
             .addAssertion("knows", "Bob")
         let elided = envelope.elideRemoving(Envelope("Bob"))
-        XCTAssertEqual(elided.format(),
+        #expect(elided.format() ==
         """
         "Alice" [
             "knows": ELIDED
         ]
         """)
-        XCTAssertEqual(elided.treeFormat(),
+        #expect(elided.treeFormat() ==
         """
         8955db5e NODE
             13941b48 subj "Alice"
@@ -236,15 +237,15 @@ class FormatTests: XCTestCase {
                 db7dd21c pred "knows"
                 13b74194 obj ELIDED
         """)
-        XCTAssertEqual(elided.treeFormat(hideNodes: true),
+        #expect(elided.treeFormat(hideNodes: true) ==
         """
         "Alice"
             ASSERTION
                 "knows"
                 ELIDED
         """)
-        XCTAssertEqual(elided.elementsCount, elided.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(elided.mermaidFormat(),
+        #expect(elided.elementsCount == elided.treeFormat().split(separator: "\n").count)
+        #expect(elided.mermaidFormat() ==
         """
         graph LR
             1(("8955db5e<br/>NODE"))
@@ -266,7 +267,7 @@ class FormatTests: XCTestCase {
             linkStyle 2 stroke:green,stroke-width:2.0px
             linkStyle 3 stroke:#55f,stroke-width:2.0px
         """)
-        XCTAssertEqual(elided.mermaidFormat(hideNodes: true),
+        #expect(elided.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1["#quot;Alice#quot;"]
@@ -286,13 +287,13 @@ class FormatTests: XCTestCase {
         """)
     }
 
-    func testSignedSubject() throws {
+    @Test func testSignedSubject() throws {
         var rng = makeFakeRandomNumberGenerator()
         let envelope = Envelope("Alice")
             .addAssertion("knows", "Bob")
             .addAssertion("knows", "Carol")
             .sign(with: alicePrivateKeys, using: &rng)
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -300,45 +301,45 @@ class FormatTests: XCTestCase {
             'verifiedBy': Signature
         ]
         """)
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
-        98457ac2 NODE
+        d595106e NODE
             13941b48 subj "Alice"
+            399c974c ASSERTION
+                d0e39e78 pred 'verifiedBy'
+                ff10427c obj Signature
             4012caf2 ASSERTION
                 db7dd21c pred "knows"
                 afb8122e obj "Carol"
-            6c31d926 ASSERTION
-                d0e39e78 pred 'verifiedBy'
-                4ab15d8b obj Signature
             78d666eb ASSERTION
                 db7dd21c pred "knows"
                 13b74194 obj "Bob"
         """)
-        XCTAssertEqual(envelope.treeFormat(hideNodes: true),
+        #expect(envelope.treeFormat(hideNodes: true) ==
         """
         "Alice"
-            ASSERTION
-                "knows"
-                "Carol"
             ASSERTION
                 'verifiedBy'
                 Signature
             ASSERTION
                 "knows"
+                "Carol"
+            ASSERTION
+                "knows"
                 "Bob"
         """)
-        XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(envelope.mermaidFormat(),
+        #expect(envelope.elementsCount == envelope.treeFormat().split(separator: "\n").count)
+        #expect(envelope.mermaidFormat() ==
         """
         graph LR
-            1(("98457ac2<br/>NODE"))
+            1(("d595106e<br/>NODE"))
             2["13941b48<br/>#quot;Alice#quot;"]
-            3(["4012caf2<br/>ASSERTION"])
-            4["db7dd21c<br/>#quot;knows#quot;"]
-            5["afb8122e<br/>#quot;Carol#quot;"]
-            6(["6c31d926<br/>ASSERTION"])
-            7[/"d0e39e78<br/>'verifiedBy'"/]
-            8["4ab15d8b<br/>Signature"]
+            3(["399c974c<br/>ASSERTION"])
+            4[/"d0e39e78<br/>'verifiedBy'"/]
+            5["ff10427c<br/>Signature"]
+            6(["4012caf2<br/>ASSERTION"])
+            7["db7dd21c<br/>#quot;knows#quot;"]
+            8["afb8122e<br/>#quot;Carol#quot;"]
             9(["78d666eb<br/>ASSERTION"])
             10["db7dd21c<br/>#quot;knows#quot;"]
             11["13b74194<br/>#quot;Bob#quot;"]
@@ -374,16 +375,16 @@ class FormatTests: XCTestCase {
             linkStyle 8 stroke:green,stroke-width:2.0px
             linkStyle 9 stroke:#55f,stroke-width:2.0px
         """)
-        XCTAssertEqual(envelope.mermaidFormat(hideNodes: true),
+        #expect(envelope.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1["#quot;Alice#quot;"]
             2(["ASSERTION"])
-            3["#quot;knows#quot;"]
-            4["#quot;Carol#quot;"]
+            3[/"'verifiedBy'"/]
+            4["Signature"]
             5(["ASSERTION"])
-            6[/"'verifiedBy'"/]
-            7["Signature"]
+            6["#quot;knows#quot;"]
+            7["#quot;Carol#quot;"]
             8(["ASSERTION"])
             9["#quot;knows#quot;"]
             10["#quot;Bob#quot;"]
@@ -422,35 +423,35 @@ class FormatTests: XCTestCase {
         target.insert(envelope)
         target.insert(envelope.subject)
         let elided = envelope.elideRevealing(target)
-        XCTAssertEqual(elided.format(),
+        #expect(elided.format() ==
         """
         "Alice" [
             ELIDED (3)
         ]
         """)
-        XCTAssertEqual(elided.treeFormat(),
+        #expect(elided.treeFormat() ==
         """
-        98457ac2 NODE
+        d595106e NODE
             13941b48 subj "Alice"
+            399c974c ELIDED
             4012caf2 ELIDED
-            6c31d926 ELIDED
             78d666eb ELIDED
         """)
-        XCTAssertEqual(elided.treeFormat(hideNodes: true),
+        #expect(elided.treeFormat(hideNodes: true) ==
         """
         "Alice"
             ELIDED
             ELIDED
             ELIDED
         """)
-        XCTAssertEqual(elided.elementsCount, elided.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(elided.mermaidFormat(),
+        #expect(elided.elementsCount == elided.treeFormat().split(separator: "\n").count)
+        #expect(elided.mermaidFormat() ==
         """
         graph LR
-            1(("98457ac2<br/>NODE"))
+            1(("d595106e<br/>NODE"))
             2["13941b48<br/>#quot;Alice#quot;"]
-            3{{"4012caf2<br/>ELIDED"}}
-            4{{"6c31d926<br/>ELIDED"}}
+            3{{"399c974c<br/>ELIDED"}}
+            4{{"4012caf2<br/>ELIDED"}}
             5{{"78d666eb<br/>ELIDED"}}
             1 -->|subj| 2
             1 --> 3
@@ -466,7 +467,7 @@ class FormatTests: XCTestCase {
             linkStyle 2 stroke-width:2.0px
             linkStyle 3 stroke-width:2.0px
         """)
-        XCTAssertEqual(elided.mermaidFormat(hideNodes: true),
+        #expect(elided.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1["#quot;Alice#quot;"]
@@ -486,14 +487,14 @@ class FormatTests: XCTestCase {
         """)
     }
 
-    func testWrapThenSign() throws {
+    @Test func testWrapThenSign() throws {
         var rng = makeFakeRandomNumberGenerator()
         let envelope = Envelope("Alice")
             .addAssertion("knows", "Bob")
             .addAssertion("knows", "Carol")
             .wrap()
             .sign(with: alicePrivateKeys, using: &rng)
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         {
             "Alice" [
@@ -504,9 +505,9 @@ class FormatTests: XCTestCase {
             'verifiedBy': Signature
         ]
         """)
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
-        410ba52c NODE
+        66c9d594 NODE
             9e3b0673 subj WRAPPED
                 b8d857f6 subj NODE
                     13941b48 subj "Alice"
@@ -516,11 +517,11 @@ class FormatTests: XCTestCase {
                     78d666eb ASSERTION
                         db7dd21c pred "knows"
                         13b74194 obj "Bob"
-            73600f24 ASSERTION
+            f13623da ASSERTION
                 d0e39e78 pred 'verifiedBy'
-                d08ddb0d obj Signature
+                e30a727c obj Signature
         """)
-        XCTAssertEqual(envelope.treeFormat(hideNodes: true),
+        #expect(envelope.treeFormat(hideNodes: true) ==
         """
         WRAPPED
             "Alice"
@@ -534,11 +535,11 @@ class FormatTests: XCTestCase {
                 'verifiedBy'
                 Signature
         """)
-        XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(envelope.mermaidFormat(),
+        #expect(envelope.elementsCount == envelope.treeFormat().split(separator: "\n").count)
+        #expect(envelope.mermaidFormat() ==
         #"""
         graph LR
-            1(("410ba52c<br/>NODE"))
+            1(("66c9d594<br/>NODE"))
             2[/"9e3b0673<br/>WRAPPED"\]
             3(("b8d857f6<br/>NODE"))
             4["13941b48<br/>#quot;Alice#quot;"]
@@ -548,9 +549,9 @@ class FormatTests: XCTestCase {
             8(["78d666eb<br/>ASSERTION"])
             9["db7dd21c<br/>#quot;knows#quot;"]
             10["13b74194<br/>#quot;Bob#quot;"]
-            11(["73600f24<br/>ASSERTION"])
+            11(["f13623da<br/>ASSERTION"])
             12[/"d0e39e78<br/>'verifiedBy'"/]
-            13["d08ddb0d<br/>Signature"]
+            13["e30a727c<br/>Signature"]
             1 -->|subj| 2
             2 -->|subj| 3
             3 -->|subj| 4
@@ -589,7 +590,7 @@ class FormatTests: XCTestCase {
             linkStyle 10 stroke:green,stroke-width:2.0px
             linkStyle 11 stroke:#55f,stroke-width:2.0px
         """#)
-        XCTAssertEqual(envelope.mermaidFormat(hideNodes: true),
+        #expect(envelope.mermaidFormat(hideNodes: true) ==
         #"""
         graph LR
             1[/"WRAPPED"\]
@@ -637,20 +638,20 @@ class FormatTests: XCTestCase {
         """#)
     }
     
-    func testEncryptToRecipients() throws {
+    @Test func testEncryptToRecipients() throws {
         // Alice encrypts a message so that it can only be decrypted by Bob or Carol.
         let envelope = try Envelope(plaintextHello)
             .encryptSubject(with: fakeContentKey, testNonce: fakeNonce).checkEncoding()
             .addRecipient(bobPublicKeys, contentKey: fakeContentKey, testKeyMaterial: fakeContentKey, testNonce: fakeNonce).checkEncoding()
             .addRecipient(carolPublicKeys, contentKey: fakeContentKey, testKeyMaterial: fakeContentKey, testNonce: fakeNonce).checkEncoding()
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         ENCRYPTED [
             'hasRecipient': SealedMessage
             'hasRecipient': SealedMessage
         ]
         """)
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
         310c90f6 NODE
             8cc96cdb subj ENCRYPTED
@@ -661,7 +662,7 @@ class FormatTests: XCTestCase {
                 943a35d1 pred 'hasRecipient'
                 78a28897 obj SealedMessage
         """)
-        XCTAssertEqual(envelope.treeFormat(hideNodes: true),
+        #expect(envelope.treeFormat(hideNodes: true) ==
         """
         ENCRYPTED
             ASSERTION
@@ -671,8 +672,8 @@ class FormatTests: XCTestCase {
                 'hasRecipient'
                 SealedMessage
         """)
-        XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(envelope.mermaidFormat(),
+        #expect(envelope.elementsCount == envelope.treeFormat().split(separator: "\n").count)
+        #expect(envelope.mermaidFormat() ==
         """
         graph LR
             1(("310c90f6<br/>NODE"))
@@ -706,7 +707,7 @@ class FormatTests: XCTestCase {
             linkStyle 5 stroke:green,stroke-width:2.0px
             linkStyle 6 stroke:#55f,stroke-width:2.0px
         """)
-        XCTAssertEqual(envelope.mermaidFormat(hideNodes: true),
+        #expect(envelope.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1>"ENCRYPTED"]
@@ -738,7 +739,7 @@ class FormatTests: XCTestCase {
         """)
     }
 
-    func testAssertionPositions() throws {
+    @Test func testAssertionPositions() throws {
         let predicate = Envelope("predicate")
             .addAssertion("predicate-predicate", "predicate-object")
         let object = Envelope("object")
@@ -746,7 +747,7 @@ class FormatTests: XCTestCase {
         let envelope = try Envelope("subject")
             .addAssertion(predicate, object)
             .checkEncoding()
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         "subject" [
             "predicate" [
@@ -757,7 +758,7 @@ class FormatTests: XCTestCase {
             ]
         ]
         """)
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
         e06d7003 NODE
             8e4e62eb subj "subject"
@@ -773,7 +774,7 @@ class FormatTests: XCTestCase {
                         88bb262f pred "object-predicate"
                         0bdb89a6 obj "object-object"
         """)
-        XCTAssertEqual(envelope.treeFormat(hideNodes: true),
+        #expect(envelope.treeFormat(hideNodes: true) ==
         """
         "subject"
             ASSERTION
@@ -786,8 +787,8 @@ class FormatTests: XCTestCase {
                         "object-predicate"
                         "object-object"
         """)
-        XCTAssertEqual(envelope.elementsCount, envelope.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(envelope.mermaidFormat(),
+        #expect(envelope.elementsCount == envelope.treeFormat().split(separator: "\n").count)
+        #expect(envelope.mermaidFormat() ==
         """
         graph LR
             1(("e06d7003<br/>NODE"))
@@ -841,7 +842,7 @@ class FormatTests: XCTestCase {
             linkStyle 10 stroke:green,stroke-width:2.0px
             linkStyle 11 stroke:#55f,stroke-width:2.0px
         """)
-        XCTAssertEqual(envelope.mermaidFormat(hideNodes: true),
+        #expect(envelope.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1["#quot;subject#quot;"]
@@ -885,7 +886,7 @@ class FormatTests: XCTestCase {
         """)
     }
 
-    func testComplexMetadata() throws {
+    @Test func testComplexMetadata() throws {
         // Assertions made about an ARID are considered part of a distributed set. Which
         // assertions are returned depends on who resolves the ARID and when it is
         // resolved. In other words, the referent of an ARID is mutable.
@@ -920,7 +921,7 @@ class FormatTests: XCTestCase {
             .addAssertion(.dereferenceVia, "IPFS")
             .checkEncoding()
         
-        XCTAssertEqual(bookMetadata.format(),
+        #expect(bookMetadata.format() ==
         """
         Digest(26d05af5) [
             "format": "EPUB"
@@ -942,7 +943,7 @@ class FormatTests: XCTestCase {
             'dereferenceVia': "IPFS"
         ]
         """)
-        XCTAssertEqual(bookMetadata.treeFormat(),
+        #expect(bookMetadata.treeFormat() ==
         """
         c93370e7 NODE
             0c1e45b9 subj Digest(26d05af5)
@@ -990,7 +991,7 @@ class FormatTests: XCTestCase {
                                 60dfb783 pred 'language'
                                 6700869c obj "en"
         """)
-        XCTAssertEqual(bookMetadata.treeFormat(hideNodes: true),
+        #expect(bookMetadata.treeFormat(hideNodes: true) ==
         """
         Digest(26d05af5)
             ASSERTION
@@ -1033,8 +1034,8 @@ class FormatTests: XCTestCase {
                                 'language'
                                 "en"
         """)
-        XCTAssertEqual(bookMetadata.elementsCount, bookMetadata.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(bookMetadata.mermaidFormat(),
+        #expect(bookMetadata.elementsCount == bookMetadata.treeFormat().split(separator: "\n").count)
+        #expect(bookMetadata.mermaidFormat() ==
         """
         graph LR
             1(("c93370e7<br/>NODE"))
@@ -1216,7 +1217,7 @@ class FormatTests: XCTestCase {
             linkStyle 42 stroke:green,stroke-width:2.0px
             linkStyle 43 stroke:#55f,stroke-width:2.0px
         """)
-        XCTAssertEqual(bookMetadata.mermaidFormat(hideNodes: true),
+        #expect(bookMetadata.mermaidFormat(hideNodes: true) ==
         """
         graph LR
             1["Digest(26d05af5)"]
@@ -1402,8 +1403,8 @@ class FormatTests: XCTestCase {
         .checkEncoding()
     }()
 
-    func testCredential() throws {
-        XCTAssertEqual(Self.credential.format(),
+    @Test func testCredential() throws {
+        #expect(Self.credential.format() ==
         """
         {
             ARID(4676635a) [
@@ -1426,9 +1427,9 @@ class FormatTests: XCTestCase {
             'verifiedBy': Signature
         ]
         """)
-        XCTAssertEqual(Self.credential.treeFormat(),
+        #expect(Self.credential.treeFormat() ==
         """
-        11d52de3 NODE
+        0b721f78 NODE
             397a2d4c subj WRAPPED
                 8122ffa9 subj NODE
                     10d3de01 subj ARID(4676635a)
@@ -1471,14 +1472,14 @@ class FormatTests: XCTestCase {
                     d3e0cc15 ASSERTION
                         6dd16ba3 pred 'issuer'
                         f8489ac1 obj "Example Electrical Engineering Board"
-            52b10e0b ASSERTION
+            46a02aaf ASSERTION
                 d0e39e78 pred 'verifiedBy'
-                039ef97a obj Signature
+                34c14941 obj Signature
             e6d7fca0 ASSERTION
                 0fcd6a39 pred 'note'
                 f106bad1 obj "Signed by Example Electrical Engineering…"
         """)
-        XCTAssertEqual(Self.credential.treeFormat(hideNodes: true),
+        #expect(Self.credential.treeFormat(hideNodes: true) ==
         """
         WRAPPED
             ARID(4676635a)
@@ -1528,11 +1529,11 @@ class FormatTests: XCTestCase {
                 'note'
                 "Signed by Example Electrical Engineering…"
         """)
-        XCTAssertEqual(Self.credential.elementsCount, Self.credential.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(Self.credential.mermaidFormat(),
+        #expect(Self.credential.elementsCount == Self.credential.treeFormat().split(separator: "\n").count)
+        #expect(Self.credential.mermaidFormat() ==
         #"""
         graph LR
-            1(("11d52de3<br/>NODE"))
+            1(("0b721f78<br/>NODE"))
             2[/"397a2d4c<br/>WRAPPED"\]
             3(("8122ffa9<br/>NODE"))
             4["10d3de01<br/>ARID(4676635a)"]
@@ -1575,9 +1576,9 @@ class FormatTests: XCTestCase {
             41(["d3e0cc15<br/>ASSERTION"])
             42[/"6dd16ba3<br/>'issuer'"/]
             43["f8489ac1<br/>#quot;Example Electrical Engineering Board#quot;"]
-            44(["52b10e0b<br/>ASSERTION"])
+            44(["46a02aaf<br/>ASSERTION"])
             45[/"d0e39e78<br/>'verifiedBy'"/]
-            46["039ef97a<br/>Signature"]
+            46["34c14941<br/>Signature"]
             47(["e6d7fca0<br/>ASSERTION"])
             48[/"0fcd6a39<br/>'note'"/]
             49["f106bad1<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
@@ -1727,7 +1728,7 @@ class FormatTests: XCTestCase {
             linkStyle 46 stroke:green,stroke-width:2.0px
             linkStyle 47 stroke:#55f,stroke-width:2.0px
         """#)
-        XCTAssertEqual(Self.credential.mermaidFormat(hideNodes: true),
+        #expect(Self.credential.mermaidFormat(hideNodes: true) ==
         #"""
         graph LR
             1[/"WRAPPED"\]
@@ -1919,7 +1920,7 @@ class FormatTests: XCTestCase {
         """#)
     }
     
-    func testRedactedCredential() throws {
+    @Test func testRedactedCredential() throws {
         let credential = Self.credential
         var target: Set<Digest> = []
         target.insert(credential)
@@ -1946,7 +1947,7 @@ class FormatTests: XCTestCase {
             .addAssertion(.note, "Signed by Employer Corp.")
             .sign(with: bobPrivateKeys, using: &rng)
             .checkEncoding()
-        XCTAssertEqual(warranty.format(),
+        #expect(warranty.format() ==
         """
         {
             {
@@ -1973,13 +1974,13 @@ class FormatTests: XCTestCase {
             'verifiedBy': Signature
         ]
         """)
-        XCTAssertEqual(warranty.treeFormat(),
+        #expect(warranty.treeFormat() ==
         """
-        a816c8ce NODE
-            d4a527ac subj WRAPPED
-                3e2b6cab subj NODE
-                    7506ccc6 subj WRAPPED
-                        11d52de3 subj NODE
+        7ab3e6b1 NODE
+            3907ee6f subj WRAPPED
+                719d5955 subj NODE
+                    10fb2e18 subj WRAPPED
+                        0b721f78 subj NODE
                             397a2d4c subj WRAPPED
                                 8122ffa9 subj NODE
                                     10d3de01 subj ARID(4676635a)
@@ -2008,9 +2009,9 @@ class FormatTests: XCTestCase {
                                     d3e0cc15 ASSERTION
                                         6dd16ba3 pred 'issuer'
                                         f8489ac1 obj "Example Electrical Engineering Board"
-                            52b10e0b ASSERTION
+                            46a02aaf ASSERTION
                                 d0e39e78 pred 'verifiedBy'
-                                039ef97a obj Signature
+                                34c14941 obj Signature
                             e6d7fca0 ASSERTION
                                 0fcd6a39 pred 'note'
                                 f106bad1 obj "Signed by Example Electrical Engineering…"
@@ -2020,14 +2021,14 @@ class FormatTests: XCTestCase {
                     e071508b ASSERTION
                         d03e7352 pred "employeeStatus"
                         1d7a790d obj "active"
-            4054359a ASSERTION
-                d0e39e78 pred 'verifiedBy'
-                0ea27c28 obj Signature
             874aa7e1 ASSERTION
                 0fcd6a39 pred 'note'
                 f59806d2 obj "Signed by Employer Corp."
+            d21d2033 ASSERTION
+                d0e39e78 pred 'verifiedBy'
+                5ba600c9 obj Signature
         """)
-        XCTAssertEqual(warranty.treeFormat(hideNodes: true),
+        #expect(warranty.treeFormat(hideNodes: true) ==
         """
         WRAPPED
             WRAPPED
@@ -2071,21 +2072,21 @@ class FormatTests: XCTestCase {
                     "employeeStatus"
                     "active"
             ASSERTION
-                'verifiedBy'
-                Signature
-            ASSERTION
                 'note'
                 "Signed by Employer Corp."
+            ASSERTION
+                'verifiedBy'
+                Signature
         """)
-        XCTAssertEqual(warranty.elementsCount, warranty.treeFormat().split(separator: "\n").count)
-        XCTAssertEqual(warranty.mermaidFormat(),
+        #expect(warranty.elementsCount == warranty.treeFormat().split(separator: "\n").count)
+        #expect(warranty.mermaidFormat() ==
         #"""
         graph LR
-            1(("a816c8ce<br/>NODE"))
-            2[/"d4a527ac<br/>WRAPPED"\]
-            3(("3e2b6cab<br/>NODE"))
-            4[/"7506ccc6<br/>WRAPPED"\]
-            5(("11d52de3<br/>NODE"))
+            1(("7ab3e6b1<br/>NODE"))
+            2[/"3907ee6f<br/>WRAPPED"\]
+            3(("719d5955<br/>NODE"))
+            4[/"10fb2e18<br/>WRAPPED"\]
+            5(("0b721f78<br/>NODE"))
             6[/"397a2d4c<br/>WRAPPED"\]
             7(("8122ffa9<br/>NODE"))
             8["10d3de01<br/>ARID(4676635a)"]
@@ -2114,9 +2115,9 @@ class FormatTests: XCTestCase {
             31(["d3e0cc15<br/>ASSERTION"])
             32[/"6dd16ba3<br/>'issuer'"/]
             33["f8489ac1<br/>#quot;Example Electrical Engineering Board#quot;"]
-            34(["52b10e0b<br/>ASSERTION"])
+            34(["46a02aaf<br/>ASSERTION"])
             35[/"d0e39e78<br/>'verifiedBy'"/]
-            36["039ef97a<br/>Signature"]
+            36["34c14941<br/>Signature"]
             37(["e6d7fca0<br/>ASSERTION"])
             38[/"0fcd6a39<br/>'note'"/]
             39["f106bad1<br/>#quot;Signed by Example Electrical Engineering…#quot;"]
@@ -2126,12 +2127,12 @@ class FormatTests: XCTestCase {
             43(["e071508b<br/>ASSERTION"])
             44["d03e7352<br/>#quot;employeeStatus#quot;"]
             45["1d7a790d<br/>#quot;active#quot;"]
-            46(["4054359a<br/>ASSERTION"])
-            47[/"d0e39e78<br/>'verifiedBy'"/]
-            48["0ea27c28<br/>Signature"]
-            49(["874aa7e1<br/>ASSERTION"])
-            50[/"0fcd6a39<br/>'note'"/]
-            51["f59806d2<br/>#quot;Signed by Employer Corp.#quot;"]
+            46(["874aa7e1<br/>ASSERTION"])
+            47[/"0fcd6a39<br/>'note'"/]
+            48["f59806d2<br/>#quot;Signed by Employer Corp.#quot;"]
+            49(["d21d2033<br/>ASSERTION"])
+            50[/"d0e39e78<br/>'verifiedBy'"/]
+            51["5ba600c9<br/>Signature"]
             1 -->|subj| 2
             2 -->|subj| 3
             3 -->|subj| 4
@@ -2284,7 +2285,7 @@ class FormatTests: XCTestCase {
             linkStyle 48 stroke:green,stroke-width:2.0px
             linkStyle 49 stroke:#55f,stroke-width:2.0px
         """#)
-        XCTAssertEqual(warranty.mermaidFormat(hideNodes: true),
+        #expect(warranty.mermaidFormat(hideNodes: true) ==
         #"""
         graph LR
             1[/"WRAPPED"\]
@@ -2329,11 +2330,11 @@ class FormatTests: XCTestCase {
             40["#quot;employeeStatus#quot;"]
             41["#quot;active#quot;"]
             42(["ASSERTION"])
-            43[/"'verifiedBy'"/]
-            44["Signature"]
+            43[/"'note'"/]
+            44["#quot;Signed by Employer Corp.#quot;"]
             45(["ASSERTION"])
-            46[/"'note'"/]
-            47["#quot;Signed by Employer Corp.#quot;"]
+            46[/"'verifiedBy'"/]
+            47["Signature"]
             1 --> 2
             2 --> 3
             3 --> 4

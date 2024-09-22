@@ -1,26 +1,30 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
 
-class NonCorrelationTests: XCTestCase {
-    func testEnvelopeNonCorrelation() throws {
+struct NonCorrelationTests {
+    init() async {
+        await addKnownTags()
+    }
+
+    @Test func testEnvelopeNonCorrelation() throws {
         let e1 = Envelope("Hello.")
         
         // e1 correlates with its elision
-        XCTAssert(e1.isEquivalent(to: e1.elide()))
+        #expect(e1.isEquivalent(to: e1.elide()))
 
         // e2 is the same message, but with random salt
         var rng = makeFakeRandomNumberGenerator()
         let e2 = try e1.addSalt(using: &rng).checkEncoding()
 
-        XCTAssertEqual(e2.format(), """
+        #expect(e2.format() == """
         "Hello." [
             'salt': Salt
         ]
         """)
 
-        XCTAssertEqual(e2.diagnostic(), """
+        #expect(e2.diagnostic() == """
         200(   / envelope /
            [
               201("Hello."),   / leaf /
@@ -34,7 +38,7 @@ class NonCorrelationTests: XCTestCase {
         )
         """)
 
-        XCTAssertEqual(e2.treeFormat(), """
+        #expect(e2.treeFormat() == """
         4f0f2d55 NODE
             8cc96cdb subj "Hello."
             dd412f1d ASSERTION
@@ -43,13 +47,13 @@ class NonCorrelationTests: XCTestCase {
         """)
 
         // So even though its content is the same, it doesn't correlate.
-        XCTAssertFalse(e1.isEquivalent(to: e2))
+        #expect(!e1.isEquivalent(to: e2))
 
         // And of course, neither does its elision.
-        XCTAssertFalse(e1.isEquivalent(to: e2.elide()))
+        #expect(!e1.isEquivalent(to: e2.elide()))
     }
     
-    func testPredicateCorrelation() throws {
+    @Test func testPredicateCorrelation() throws {
         let e1 = try Envelope("Foo")
             .addAssertion(.note, "Bar").checkEncoding()
         let e2 = try Envelope("Baz")
@@ -60,10 +64,10 @@ class NonCorrelationTests: XCTestCase {
             'note': "Bar"
         ]
         """
-        XCTAssertEqual(e1.format(), e1ExpectedFormat)
+        #expect(e1.format() == e1ExpectedFormat)
 
         // e1 and e2 have the same predicate
-        XCTAssert(e1.assertions.first!.predicate!.isEquivalent(to: e2.assertions.first!.predicate!))
+        #expect(e1.assertions.first!.predicate!.isEquivalent(to: e2.assertions.first!.predicate!))
         
         // Redact the entire contents of e1 without
         // redacting the envelope itself.
@@ -74,10 +78,10 @@ class NonCorrelationTests: XCTestCase {
             ELIDED
         ]
         """
-        XCTAssertEqual(e1Elided.format(), redactedExpectedFormat)
+        #expect(e1Elided.format() == redactedExpectedFormat)
     }
     
-    func testAddSalt() throws {
+    @Test func testAddSalt() throws {
         // Add salt to every part of an envelope.
         let source = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         let e1 = try Envelope("Alpha")
@@ -101,7 +105,7 @@ class NonCorrelationTests: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(e1.format(), e1ExpectedFormat)
+        #expect(e1.format() == e1ExpectedFormat)
 
         let e1Elided = try e1.elideRevealing(e1).checkEncoding()
         
@@ -110,6 +114,13 @@ class NonCorrelationTests: XCTestCase {
             ELIDED
         ]
         """
-        XCTAssertEqual(e1Elided.format(), redactedExpectedFormat)
+        #expect(e1Elided.format() == redactedExpectedFormat)
+    }
+    
+    @Test func testAddSaltedAssertion() throws {
+        let saltedAssertion = Envelope("knows", "Bob").addSalt()
+        let e = try Envelope("Alice")
+            .addAssertion(saltedAssertion)
+        print(e.format())
     }
 }

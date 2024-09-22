@@ -21,6 +21,7 @@ public extension Parameter {
     static let challenge = Parameter(207, "challenge")
 }
 
+@MainActor
 public func addKnownFunctionExtensions() {
     let fns: [Function] = [
         .getSeed,
@@ -49,16 +50,15 @@ public func addKnownFunctionExtensions() {
     }
 }
 
-public let globalFormatContext: FormatContext = {
-    addKnownTags()
-    addKnownFunctionExtensions()
-    return FormatContext(
+//addKnownTags()
+//addKnownFunctionExtensions()
+
+public let globalFormatContext = FormatContext(
         tags: globalTags,
         knownValues: globalKnownValues,
         functions: globalFunctions,
         parameters: globalParameters
     )
-}()
 
 /// Support for the various text output formats for ``Envelope``.
 

@@ -4,7 +4,7 @@ import SecureComponents
 /// Represents an assertion in an envelope.
 ///
 /// This structure is public but opaque, and the APIs on ``Envelope`` itself should be used to manipulate it.
-public struct Assertion {
+public struct Assertion: Sendable {
     let predicate: Envelope
     let object: Envelope
     let digest: Digest
@@ -68,9 +68,9 @@ public extension Envelope {
     ///
     /// ```swift
     /// let assertion = Envelope("knows", "Bob")
-    /// let e = Envelope("Alice")
+    /// let e = try Envelope("Alice")
     ///     .addAssertion(assertion)
-    /// print(e.format)
+    /// print(e.format())
     /// ```
     ///
     /// ```

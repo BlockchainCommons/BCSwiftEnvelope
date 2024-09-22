@@ -1,10 +1,10 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
 
-class CoreNestingTests: XCTestCase {
-    func testPredicateEnclosures() throws {
+struct CoreNestingTests {
+    @Test func testPredicateEnclosures() throws {
         let alice = Envelope("Alice")
         let knows = Envelope("knows")
         let bob = Envelope("Bob")
@@ -13,21 +13,21 @@ class CoreNestingTests: XCTestCase {
         let b = Envelope("B")
         
         let knowsBob = Envelope(knows, bob)
-        XCTAssertEqual(knowsBob.format(),
+        #expect(knowsBob.format() ==
             """
             "knows": "Bob"
             """
         )
         
         let ab = Envelope(a, b)
-        XCTAssertEqual(ab.format(),
+        #expect(ab.format() ==
             """
             "A": "B"
             """
         )
         
         let knowsABBob = try Envelope(knows.addAssertion(ab), bob).checkEncoding()
-        XCTAssertEqual(knowsABBob.format(),
+        #expect(knowsABBob.format() ==
             """
             "knows" [
                 "A": "B"
@@ -37,7 +37,7 @@ class CoreNestingTests: XCTestCase {
         )
         
         let knowsBobAB = try Envelope(knows, bob.addAssertion(ab)).checkEncoding()
-        XCTAssertEqual(knowsBobAB.format(),
+        #expect(knowsBobAB.format() ==
             """
             "knows": "Bob" [
                 "A": "B"
@@ -48,7 +48,7 @@ class CoreNestingTests: XCTestCase {
         let knowsBobEncloseAB = try knowsBob
             .addAssertion(ab)
             .checkEncoding()
-        XCTAssertEqual(knowsBobEncloseAB.format(),
+        #expect(knowsBobEncloseAB.format() ==
             """
             {
                 "knows": "Bob"
@@ -61,7 +61,7 @@ class CoreNestingTests: XCTestCase {
         let aliceKnowsBob = try alice
             .addAssertion(knowsBob)
             .checkEncoding()
-        XCTAssertEqual(aliceKnowsBob.format(),
+        #expect(aliceKnowsBob.format() ==
             """
             "Alice" [
                 "knows": "Bob"
@@ -72,7 +72,7 @@ class CoreNestingTests: XCTestCase {
         let aliceABKnowsBob = try aliceKnowsBob
             .addAssertion(ab)
             .checkEncoding()
-        XCTAssertEqual(aliceABKnowsBob.format(),
+        #expect(aliceABKnowsBob.format() ==
             """
             "Alice" [
                 "A": "B"
@@ -84,7 +84,7 @@ class CoreNestingTests: XCTestCase {
         let aliceKnowsABBob = try alice
             .addAssertion(Envelope(knows.addAssertion(ab), bob))
             .checkEncoding()
-        XCTAssertEqual(aliceKnowsABBob.format(),
+        #expect(aliceKnowsABBob.format() ==
             """
             "Alice" [
                 "knows" [
@@ -98,7 +98,7 @@ class CoreNestingTests: XCTestCase {
         let aliceKnowsBobAB = try alice
             .addAssertion(Envelope(knows, bob.addAssertion(ab)))
             .checkEncoding()
-        XCTAssertEqual(aliceKnowsBobAB.format(),
+        #expect(aliceKnowsBobAB.format() ==
             """
             "Alice" [
                 "knows": "Bob" [
@@ -111,7 +111,7 @@ class CoreNestingTests: XCTestCase {
         let aliceKnowsABBobAB = try alice
             .addAssertion(Envelope(knows.addAssertion(ab), bob.addAssertion(ab)))
             .checkEncoding()
-        XCTAssertEqual(aliceKnowsABBobAB.format(),
+        #expect(aliceKnowsABBobAB.format() ==
             """
             "Alice" [
                 "knows" [
@@ -128,7 +128,7 @@ class CoreNestingTests: XCTestCase {
             .addAssertion(ab)
             .addAssertion(Envelope(knows.addAssertion(ab), bob.addAssertion(ab)))
             .checkEncoding()
-        XCTAssertEqual(aliceABKnowsABBobAB.format(),
+        #expect(aliceABKnowsABBobAB.format() ==
             """
             "Alice" [
                 "A": "B"
@@ -149,7 +149,7 @@ class CoreNestingTests: XCTestCase {
                     .addAssertion(ab)
             )
             .checkEncoding()
-        XCTAssertEqual(aliceABKnowsABBobABEncloseAB.format(),
+        #expect(aliceABKnowsABBobABEncloseAB.format() ==
             """
             "Alice" [
                 {
@@ -168,33 +168,33 @@ class CoreNestingTests: XCTestCase {
         )
     }
     
-    func testNestingPlaintext() {
+    @Test func testNestingPlaintext() {
         let envelope = Envelope(plaintextHello)
         
         let expectedFormat =
         """
         "Hello."
         """
-        XCTAssertEqual(envelope.format(), expectedFormat)
+        #expect(envelope.format() == expectedFormat)
         
         let elidedEnvelope = envelope.elide()
-        XCTAssert(elidedEnvelope.isEquivalent(to: envelope))
+        #expect(elidedEnvelope.isEquivalent(to: envelope))
         
         let expectedElidedFormat =
         """
         ELIDED
         """
-        XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
+        #expect(elidedEnvelope.format() == expectedElidedFormat)
     }
     
-    func testNestingOnce() throws {
+    @Test func testNestingOnce() throws {
         let e1 = Envelope(plaintextHello)
-        XCTAssertEqual(e1.format(),
+        #expect(e1.format() ==
         """
         "Hello."
         """)
         
-        XCTAssertEqual(e1.treeFormat(),
+        #expect(e1.treeFormat() ==
         """
         8cc96cdb "Hello."
         """)
@@ -203,14 +203,14 @@ class CoreNestingTests: XCTestCase {
             .wrap()
             .checkEncoding()
         
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         {
             "Hello."
         }
         """)
 
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
         172a5e51 WRAPPED
             8cc96cdb subj "Hello."
@@ -221,29 +221,29 @@ class CoreNestingTests: XCTestCase {
             .wrap()
             .checkEncoding()
         
-        XCTAssert(elidedEnvelope.isEquivalent(to: envelope))
+        #expect(elidedEnvelope.isEquivalent(to: envelope))
         
-        XCTAssertEqual(elidedEnvelope.format(),
+        #expect(elidedEnvelope.format() ==
         """
         {
             ELIDED
         }
         """)
 
-        XCTAssertEqual(elidedEnvelope.treeFormat(),
+        #expect(elidedEnvelope.treeFormat() ==
         """
         172a5e51 WRAPPED
             8cc96cdb subj ELIDED
         """)
     }
     
-    func testNestingTwice() throws {
+    @Test func testNestingTwice() throws {
         let envelope = try Envelope(plaintextHello)
             .wrap()
             .wrap()
             .checkEncoding()
         
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         {
             {
@@ -252,7 +252,7 @@ class CoreNestingTests: XCTestCase {
         }
         """)
         
-        XCTAssertEqual(envelope.treeFormat(),
+        #expect(envelope.treeFormat() ==
         """
         8b14f3bc WRAPPED
             172a5e51 subj WRAPPED
@@ -264,7 +264,7 @@ class CoreNestingTests: XCTestCase {
             .unwrap()
         let elidedEnvelope = envelope.elideRemoving(target)
         
-        XCTAssertEqual(elidedEnvelope.format(),
+        #expect(elidedEnvelope.format() ==
         """
         {
             {
@@ -272,10 +272,10 @@ class CoreNestingTests: XCTestCase {
             }
         }
         """)
-        XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
-        XCTAssert(envelope.isEquivalent(to: elidedEnvelope))
+        #expect(envelope.isEquivalent(to: elidedEnvelope))
+        #expect(envelope.isEquivalent(to: elidedEnvelope))
 
-        XCTAssertEqual(elidedEnvelope.treeFormat(),
+        #expect(elidedEnvelope.treeFormat() ==
         """
         8b14f3bc WRAPPED
             172a5e51 subj WRAPPED
@@ -283,7 +283,7 @@ class CoreNestingTests: XCTestCase {
         """)
     }
 
-    func testAssertionsOnAllPartsOfEnvelope() throws {
+    @Test func testAssertionsOnAllPartsOfEnvelope() throws {
         let predicate = Envelope("predicate")
             .addAssertion("predicate-predicate", "predicate-object")
         let object = Envelope("object")
@@ -303,10 +303,10 @@ class CoreNestingTests: XCTestCase {
             ]
         ]
         """
-        XCTAssertEqual(envelope.format(), expectedFormat)
+        #expect(envelope.format() == expectedFormat)
     }
     
-    func testAssertionOnBareAssertion() throws {
+    @Test func testAssertionOnBareAssertion() throws {
         let envelope = try Envelope("predicate", "object")
             .addAssertion(Envelope("assertion-predicate", "assertion-object"))
         let expectedFormat =
@@ -317,6 +317,6 @@ class CoreNestingTests: XCTestCase {
             "assertion-predicate": "assertion-object"
         ]
         """
-        XCTAssertEqual(envelope.format(), expectedFormat)
+        #expect(envelope.format() == expectedFormat)
     }
 }

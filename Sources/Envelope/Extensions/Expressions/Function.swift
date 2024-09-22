@@ -2,7 +2,7 @@ import Foundation
 import SecureComponents
 
 /// A type used to identify functions in envelope expressions.
-public enum Function {
+public enum Function: Sendable {
     case known(value: UInt64, name: String?)
     case named(String)
 }
@@ -61,7 +61,7 @@ extension Function: ExpressibleByStringLiteral {
 }
 
 extension Function: CBORTaggedCodable {
-    public static var cborTags = [Tag.function]
+    public static let cborTags = [Tag.function]
     
     public var untaggedCBOR: CBOR {
         switch self {

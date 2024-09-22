@@ -46,7 +46,7 @@ public extension Envelope {
 
 typealias MermaidEnvelopeGraph = Graph<Int, Int, Envelope, EnvelopeEdgeData, Envelope.MermaidOptions>
 
-extension MermaidEnvelopeGraph: MermaidEncodable {
+extension MermaidEnvelopeGraph: @retroactive MermaidEncodable {
     public var mermaidGraphAttributes: GraphAttributes {
         let layoutDirection: LayoutDirection
         switch self.data.layoutDirection {

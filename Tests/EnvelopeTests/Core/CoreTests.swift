@@ -1,14 +1,18 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
 
-class CoreTests: XCTestCase {
+struct CoreTests {
     static let basicEnvelope = Envelope("Hello.")
     static let knownValueEnvelope = Envelope(.note)
     static let wrappedEnvelope = basicEnvelope.wrap()
     static let doubleWrappedEnvelope = wrappedEnvelope.wrap()
     static let assertionEnvelope = Envelope("knows", "Bob")
+
+    init() async {
+        await addKnownTags()
+    }
 
     static let singleAssertionEnvelope = Envelope("Alice")
         .addAssertion("knows", "Bob")
@@ -25,105 +29,105 @@ class CoreTests: XCTestCase {
     //
     // This test ensures that Envelopes encoded with the old tag are still
     // correctly decoded as `leaf` cases.
-    func testReadLegacyLeaf() throws {
+    @Test func testReadLegacyLeaf() throws {
         let legacyEnvelope = try Envelope(taggedCBORData: ‡"d8c8d818182a")
         let envelope = Envelope(42)
-        XCTAssert(envelope.isEquivalent(to: legacyEnvelope))
-        XCTAssert(envelope.isIdentical(to: legacyEnvelope))
+        #expect(envelope.isEquivalent(to: legacyEnvelope))
+        #expect(envelope.isIdentical(to: legacyEnvelope))
     }
 
-    func testIntSubject() throws {
+    @Test func testIntSubject() throws {
         let e = try Envelope(42).checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
         """
         200(   / envelope /
            201(42)   / leaf /
         )
         """)
         
-        XCTAssertEqual(e.digest†, "Digest(7f83f7bda2d63959d34767689f06d47576683d378d9eb8d09386c9a020395c53)")
+        #expect(e.digest† == "Digest(7f83f7bda2d63959d34767689f06d47576683d378d9eb8d09386c9a020395c53)")
         
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         42
         """
         )
         
-        XCTAssertEqual(try e.extractSubject(Int.self), 42)
+        #expect(try e.extractSubject(Int.self) == 42)
     }
     
-    func testNegativeIntSubject() throws {
+    @Test func testNegativeIntSubject() throws {
         let e = try Envelope(-42).checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
         """
         200(   / envelope /
            201(-42)   / leaf /
         )
         """)
         
-        XCTAssertEqual(e.digest†, "Digest(9e0ad272780de7aa1dbdfbc99058bb81152f623d3b95b5dfb0a036badfcc9055)")
+        #expect(e.digest† == "Digest(9e0ad272780de7aa1dbdfbc99058bb81152f623d3b95b5dfb0a036badfcc9055)")
         
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         -42
         """
         )
         
-        XCTAssertEqual(try e.extractSubject(Int.self), -42)
+        #expect(try e.extractSubject(Int.self) == -42)
     }
     
-    func testCBOREncodableSubject() throws {
+    @Test func testCBOREncodableSubject() throws {
         let e = try Self.basicEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
         """
         200(   / envelope /
            201("Hello.")   / leaf /
         )
         """)
         
-        XCTAssertEqual(e.digest†, "Digest(8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59)")
+        #expect(e.digest† == "Digest(8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59)")
         
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         "Hello."
         """
         )
         
-        XCTAssertEqual(try e.extractSubject(String.self), "Hello.")
+        #expect(try e.extractSubject(String.self) == "Hello.")
     }
     
-    func testKnownValueSubject() throws {
+    @Test func testKnownValueSubject() throws {
         let e = try Self.knownValueEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
         """
         200(4)   / envelope /
         """)
         
         try e.checkEncoding()
         
-        XCTAssertEqual(e.digest†, "Digest(0fcd6a39d6ed37f2e2efa6a96214596f1b28a5cd42a5a27afc32162aaf821191)")
+        #expect(e.digest† == "Digest(0fcd6a39d6ed37f2e2efa6a96214596f1b28a5cd42a5a27afc32162aaf821191)")
         
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         'note'
         """)
         
-        XCTAssertEqual(try e.extractSubject(KnownValue.self), KnownValue.note)
+        #expect(try e.extractSubject(KnownValue.self) == KnownValue.note)
     }
     
-    func testAssertionSubject() throws {
+    @Test func testAssertionSubject() throws {
         let e = try Self.assertionEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.predicate.digest†, "Digest(db7dd21c5169b4848d2a1bcb0a651c9617cdd90bae29156baaefbb2a8abef5ba)")
-        XCTAssertEqual(e.object.digest†, "Digest(13b741949c37b8e09cc3daa3194c58e4fd6b2f14d4b1d0f035a46d6d5a1d3f11)")
-        XCTAssertEqual(e.subject.digest†, "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
-        XCTAssertEqual(e.digest†, "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
+        #expect(e.predicate.digest† == "Digest(db7dd21c5169b4848d2a1bcb0a651c9617cdd90bae29156baaefbb2a8abef5ba)")
+        #expect(e.object.digest† == "Digest(13b741949c37b8e09cc3daa3194c58e4fd6b2f14d4b1d0f035a46d6d5a1d3f11)")
+        #expect(e.subject.digest† == "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
+        #expect(e.digest† == "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
 
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
         """
         200(   / envelope /
            {
@@ -133,20 +137,20 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        XCTAssertEqual(e.digest†, "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
+        #expect(e.digest† == "Digest(78d666eb8f4c0977a0425ab6aa21ea16934a6bc97c6f0c3abaefac951c1714a2)")
         
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         "knows": "Bob"
         """)
         
-        XCTAssertEqual(e.subject.digest, Envelope("knows", "Bob").digest)
+        #expect(e.subject.digest == Envelope("knows", "Bob").digest)
     }
     
-    func testSubjectWithAssertion() throws {
+    @Test func testSubjectWithAssertion() throws {
         let e = try Self.singleAssertionEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
         """
         200(   / envelope /
            [
@@ -159,22 +163,22 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        XCTAssertEqual(e.digest†, "Digest(8955db5e016affb133df56c11fe6c5c82fa3036263d651286d134c7e56c0e9f2)")
+        #expect(e.digest† == "Digest(8955db5e016affb133df56c11fe6c5c82fa3036263d651286d134c7e56c0e9f2)")
         
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         "Alice" [
             "knows": "Bob"
         ]
         """)
         
-        XCTAssertEqual(try e.extractSubject(String.self), "Alice")
+        #expect(try e.extractSubject(String.self) == "Alice")
     }
     
-    func testSubjectWithTwoAssertions() throws {
+    @Test func testSubjectWithTwoAssertions() throws {
         let e = try Self.doubleAssertionEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
         """
         200(   / envelope /
            [
@@ -191,9 +195,9 @@ class CoreTests: XCTestCase {
         )
         """)
         
-        XCTAssertEqual(e.digest†, "Digest(b8d857f6e06a836fbc68ca0ce43e55ceb98eefd949119dab344e11c4ba5a0471)")
+        #expect(e.digest† == "Digest(b8d857f6e06a836fbc68ca0ce43e55ceb98eefd949119dab344e11c4ba5a0471)")
         
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -201,11 +205,11 @@ class CoreTests: XCTestCase {
         ]
         """)
         
-        XCTAssertEqual(try e.extractSubject(String.self), "Alice")
+        #expect(try e.extractSubject(String.self) == "Alice")
     }
     
-    func testWrapped() throws {
-        XCTAssertEqual(Self.wrappedEnvelope.diagnostic(),
+    @Test func testWrapped() throws {
+        #expect(Self.wrappedEnvelope.diagnostic() ==
         """
         200(   / envelope /
            200(   / envelope /
@@ -215,9 +219,9 @@ class CoreTests: XCTestCase {
         """
         )
         
-        XCTAssertEqual(Self.wrappedEnvelope.digest†, "Digest(172a5e51431062e7b13525cbceb8ad8475977444cf28423e21c0d1dcbdfcaf47)")
+        #expect(Self.wrappedEnvelope.digest† == "Digest(172a5e51431062e7b13525cbceb8ad8475977444cf28423e21c0d1dcbdfcaf47)")
         
-        XCTAssertEqual(Self.wrappedEnvelope.format(),
+        #expect(Self.wrappedEnvelope.format() ==
         """
         {
             "Hello."
@@ -227,10 +231,10 @@ class CoreTests: XCTestCase {
         try Self.wrappedEnvelope.checkEncoding()
     }
     
-    func testDoubleWrapped() throws {
+    @Test func testDoubleWrapped() throws {
         let e = try Self.doubleWrappedEnvelope.checkEncoding()
         
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
         """
         200(   / envelope /
            200(   / envelope /
@@ -242,9 +246,9 @@ class CoreTests: XCTestCase {
         """
         )
         
-        XCTAssertEqual(e.digest†, "Digest(8b14f3bcd7c05aac8f2162e7047d7ef5d5eab7d82ee3f9dc4846c70bae4d200b)")
+        #expect(e.digest† == "Digest(8b14f3bcd7c05aac8f2162e7047d7ef5d5eab7d82ee3f9dc4846c70bae4d200b)")
         
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         {
             {
@@ -254,13 +258,13 @@ class CoreTests: XCTestCase {
         """)
     }
     
-    func testAssertionWithAssertions() throws {
+    @Test func testAssertionWithAssertions() throws {
         let a = try Envelope(1, 2)
             .addAssertion(Envelope(3, 4))
             .addAssertion(Envelope(5, 6))
         let e = try Envelope(7)
             .addAssertion(a)
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         7 [
             {
@@ -273,19 +277,19 @@ class CoreTests: XCTestCase {
         """)
     }
 
-    func testDigestLeaf() throws {
+    @Test func testDigestLeaf() throws {
         let digest = Self.basicEnvelope.digest
         let e = try Envelope(digest).checkEncoding()
 
-        XCTAssertEqual(e.format(),
+        #expect(e.format() ==
         """
         Digest(8cc96cdb)
         """
         )
 
-        XCTAssertEqual(e.digest†, "Digest(07b518af92a6196bc153752aabefedb34ff8e1a7d820c01ef978dfc3e7e52e05)")
+        #expect(e.digest† == "Digest(07b518af92a6196bc153752aabefedb34ff8e1a7d820c01ef978dfc3e7e52e05)")
 
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
         """
         200(   / envelope /
            201(   / leaf /

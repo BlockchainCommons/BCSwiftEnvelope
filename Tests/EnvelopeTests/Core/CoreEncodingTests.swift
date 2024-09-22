@@ -1,16 +1,20 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
 
-class CoreEncodingTests: XCTestCase {
-    func testDigest() throws {
+struct CoreEncodingTests {
+    init() async {
+        await addKnownTags()
+    }
+    
+    @Test func testDigest() throws {
         try Envelope(Digest("Hello.")).checkEncoding()
     }
 
-    func test1() throws {
+    @Test func test1() throws {
         let e = try Envelope(plaintextHello).checkEncoding()
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
             """
             200(   / envelope /
                201("Hello.")   / leaf /
@@ -19,10 +23,10 @@ class CoreEncodingTests: XCTestCase {
         )
     }
     
-    func test2() throws {
+    @Test func test2() throws {
         let array: CBOR = [1, 2, 3]
         let e = try Envelope(array).checkEncoding()
-        XCTAssertEqual(e.diagnostic(),
+        #expect(e.diagnostic() ==
             """
             200(   / envelope /
                201(   / leaf /
@@ -33,13 +37,13 @@ class CoreEncodingTests: XCTestCase {
         )
     }
     
-    func test3() throws {
+    @Test func test3() throws {
         let e1 = try Envelope("A", "B").checkEncoding()
         let e2 = try Envelope("C", "D").checkEncoding()
         let e3 = try Envelope("E", "F").checkEncoding()
         
         let e4 = try e2.addAssertion(e3)
-        XCTAssertEqual(e4.format(),
+        #expect(e4.format() ==
         """
         {
             "C": "D"
@@ -49,7 +53,7 @@ class CoreEncodingTests: XCTestCase {
         """
         )
         
-        XCTAssertEqual(e4.diagnostic(),
+        #expect(e4.diagnostic() ==
         """
         200(   / envelope /
            [
@@ -69,7 +73,7 @@ class CoreEncodingTests: XCTestCase {
 
         let e5 = try e1.addAssertion(e4)
         
-        XCTAssertEqual(e5.format(),
+        #expect(e5.format() ==
             """
             {
                 "A": "B"
@@ -83,7 +87,7 @@ class CoreEncodingTests: XCTestCase {
             """
         )
 
-        XCTAssertEqual(e5.diagnostic(),
+        #expect(e5.diagnostic() ==
             """
             200(   / envelope /
                [

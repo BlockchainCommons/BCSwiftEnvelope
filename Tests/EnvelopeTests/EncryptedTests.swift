@@ -1,9 +1,10 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
+import Foundation
 
-class EncryptedTests: XCTestCase {
+struct EncryptedTests {
     static let basicEnvelope = Envelope("Hello.")
     static let knownValueEnvelope = Envelope(.note)
     static let wrappedEnvelope = basicEnvelope.wrap()
@@ -20,19 +21,19 @@ class EncryptedTests: XCTestCase {
             .encryptSubject(with: symmetricKey, testNonce: fakeNonce)
             .checkEncoding()
         
-        XCTAssert(e1.isEquivalent(to: e2))
-        XCTAssert(e1.subject.isEquivalent(to: e2.subject))
+        #expect(e1.isEquivalent(to: e2))
+        #expect(e1.subject.isEquivalent(to: e2.subject))
         
         let encryptedMessage = try e2.extractSubject(EncryptedMessage.self)
-        XCTAssertEqual(encryptedMessage.digest, e1.subject.digest)
+        #expect(encryptedMessage.digest == e1.subject.digest)
         
         let e3 = try e2
             .decryptSubject(with: symmetricKey)
         
-        XCTAssert(e1.isEquivalent(to: e3))
+        #expect(e1.isEquivalent(to: e3))
     }
     
-    func testEncrypted() throws {
+    @Test func testEncrypted() throws {
         try encryptedTest(Self.basicEnvelope)
         try encryptedTest(Self.wrappedEnvelope)
         try encryptedTest(Self.doubleWrappedEnvelope)
@@ -42,7 +43,7 @@ class EncryptedTests: XCTestCase {
         try encryptedTest(Self.doubleAssertionEnvelope)
     }
     
-    func testSignWrapEncrypt() throws {
+    @Test func testSignWrapEncrypt() throws {
         let e1 = Self.basicEnvelope
         //print(e1.format)
         
@@ -61,21 +62,21 @@ class EncryptedTests: XCTestCase {
         let d3 = try e4
             .decryptSubject(with: symmetricKey)
         //print(d3.format)
-        XCTAssert(d3.isEquivalent(to: e3))
+        #expect(d3.isEquivalent(to: e3))
         
         let d2 = try d3
             .unwrap()
         //print(d2.format)
-        XCTAssert(d2.isEquivalent(to: e2))
+        #expect(d2.isEquivalent(to: e2))
         
         try d2.verifySignature(from: alicePublicKeys)
         
         let d1 = d2.subject
         //print(d1.format)
-        XCTAssert(d1.isEquivalent(to: e1))
+        #expect(d1.isEquivalent(to: e1))
     }
     
-    func testSignWrapEncryptToRecipient() throws {
+    @Test func testSignWrapEncryptToRecipient() throws {
         let e1 = Self.basicEnvelope
             .sign(with: alicePrivateKeys)
             .wrap()
@@ -91,10 +92,10 @@ class EncryptedTests: XCTestCase {
         
         let d1 = try e3.decrypt(to: bobPrivateKeys)
         //print(d1.format)
-        XCTAssert(d1.isEquivalent(to: e1))
+        #expect(d1.isEquivalent(to: e1))
     }
     
-    func testEncryptDecryptWithOrderedMapKeys() throws {
+    @Test func testEncryptDecryptWithOrderedMapKeys() throws {
         var danSeed = Seed(data: ‡"59f2293a5bce7d4de59e71b4207ac5d2")!
         danSeed.name = "Dark Purple Aqua Love"
         danSeed.creationDate = try! Date(iso8601: "2021-02-24")
@@ -104,11 +105,11 @@ class EncryptedTests: XCTestCase {
         let encryptedSeedEnvelope = try seedEnvelope
             .encryptSubject(with: symmetricKey)
             .checkEncoding()
-        XCTAssert(seedEnvelope.subject.isEquivalent(to: encryptedSeedEnvelope.subject))
-        XCTAssert(seedEnvelope.isEquivalent(to: encryptedSeedEnvelope))
+        #expect(seedEnvelope.subject.isEquivalent(to: encryptedSeedEnvelope.subject))
+        #expect(seedEnvelope.isEquivalent(to: encryptedSeedEnvelope))
         
         let decryptedSeedEnvelope = try encryptedSeedEnvelope
             .decryptSubject(with: symmetricKey)
-        XCTAssert(seedEnvelope.isEquivalent(to: decryptedSeedEnvelope))
+        #expect(seedEnvelope.isEquivalent(to: decryptedSeedEnvelope))
     }
 }

@@ -1,10 +1,11 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
+import Foundation
 
-class ProofTests: XCTestCase {
-    func testFriendsList() throws {
+struct ProofTests {
+    @Test func testFriendsList() throws {
         /// This document contains a list of people Alice knows. Each "knows" assertion has
         /// been salted so if the assertions have been elided one can't merely guess at who
         /// she knows by pairing the "knows" predicate with the names of possibly-known
@@ -14,7 +15,7 @@ class ProofTests: XCTestCase {
             .addAssertion("knows", "Bob", salted: true)
             .addAssertion("knows", "Carol", salted: true)
             .addAssertion("knows", "Dan", salted: true)
-        XCTAssertEqual(aliceFriends.format(),
+        #expect(aliceFriends.format() ==
         """
         "Alice" [
             {
@@ -39,7 +40,7 @@ class ProofTests: XCTestCase {
         /// Alice provides just the root digest of her document to a third party. This is
         /// simply an envelope in which everything has been elided and nothing revealed.
         let aliceFriendsRoot = aliceFriends.elideRevealing([])
-        XCTAssertEqual(aliceFriendsRoot.format(), "ELIDED")
+        #expect(aliceFriendsRoot.format() == "ELIDED")
         
         /// Now Alice wants to prove to the third party that her document contains a "knows
         /// Bob" assertion. To do this, she produces a proof that is an envelope with the
@@ -52,7 +53,7 @@ class ProofTests: XCTestCase {
         /// guess who else she knows.
         let knowsBobAssertion = Envelope("knows", "Bob")
         let aliceKnowsBobProof = try aliceFriends.proof(contains: knowsBobAssertion)!.checkEncoding()
-        XCTAssertEqual(aliceKnowsBobProof.format(),
+        #expect(aliceKnowsBobProof.format() ==
         """
         ELIDED [
             ELIDED [
@@ -65,10 +66,10 @@ class ProofTests: XCTestCase {
         
         /// The third party then uses the previously known and trusted root to confirm that
         /// the envelope does indeed contain a "knows bob" assertion.
-        XCTAssertTrue(aliceFriendsRoot.confirm(contains: knowsBobAssertion, proof: aliceKnowsBobProof))
+        #expect(aliceFriendsRoot.confirm(contains: knowsBobAssertion, proof: aliceKnowsBobProof))
     }
     
-    func testMultiPosition() throws {
+    @Test func testMultiPosition() throws {
         let aliceFriends = Envelope("Alice")
             .addAssertion("knows", "Bob", salted: true)
             .addAssertion("knows", "Carol", salted: true)
@@ -84,7 +85,7 @@ class ProofTests: XCTestCase {
         /// reveals the digest of the salt for each assertion, which might make Alice's other
         /// associates easier to guess.
         let knowsProof = try aliceFriends.proof(contains: Envelope("knows"))!.checkEncoding()
-        XCTAssertEqual(knowsProof.format(),
+        #expect(knowsProof.format() ==
         """
         ELIDED [
             {
@@ -107,7 +108,7 @@ class ProofTests: XCTestCase {
         )
     }
     
-    func testVerifiableCredential() throws {
+    @Test func testVerifiableCredential() throws {
         let arid = Envelope(ARID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
         let credential = try arid
             .addAssertion("firstName", "John", salted: true)
@@ -130,7 +131,7 @@ class ProofTests: XCTestCase {
         let addressAssertion = Envelope("address", "123 Main St.")
         let addressProof = try credential.proof(contains: addressAssertion)!.checkEncoding()
         /// The proof includes digests from all the elided assertions.
-        XCTAssertEqual(addressProof.format(),
+        #expect(addressProof.format() ==
         """
         {
             ELIDED [
@@ -146,14 +147,14 @@ class ProofTests: XCTestCase {
         )
 
         /// The proof confirms the address, as intended.
-        XCTAssertTrue(credentialRoot.confirm(contains: addressAssertion, proof: addressProof))
+        #expect(credentialRoot.confirm(contains: addressAssertion, proof: addressProof))
 
         /// Assertions without salt can also be confirmed.
         let issuerAssertion = Envelope(.issuer, "State of Example")
-        XCTAssertTrue(credentialRoot.confirm(contains: issuerAssertion, proof: addressProof))
+        #expect(credentialRoot.confirm(contains: issuerAssertion, proof: addressProof))
 
         /// The proof cannot be used to confirm salted assertions.
         let firstNameAssertion = Envelope("firstName", "John")
-        XCTAssertFalse(credentialRoot.confirm(contains: firstNameAssertion, proof: addressProof))
+        #expect(!credentialRoot.confirm(contains: firstNameAssertion, proof: addressProof))
     }
 }

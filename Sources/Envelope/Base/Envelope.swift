@@ -5,7 +5,7 @@ import WolfBase
 /// A flexible container for structured data.
 ///
 /// Envelopes are immutable. You create "mutations" by creating new envelopes from old envelopes.
-public indirect enum Envelope: DigestProvider {
+public indirect enum Envelope: DigestProvider, Sendable {
     /// Represents an envelope with one or more assertions.
     case node(subject: Envelope, assertions: [Envelope], digest: Digest)
     

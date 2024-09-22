@@ -18,7 +18,7 @@ public extension Function {
     static let not = Function(15, "not") // logical not
 }
 
-public var globalFunctions: FunctionsStore = [
+nonisolated(unsafe) public var globalFunctions: FunctionsStore = [
     .add,
     .sub,
     .mul,

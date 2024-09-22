@@ -1,9 +1,9 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
 
-class ElisionTests: XCTestCase {
+struct ElisionTests {
     static let basicEnvelope = Envelope("Hello.")
     static let assertionEnvelope = Envelope("knows", "Bob")
 
@@ -12,20 +12,24 @@ class ElisionTests: XCTestCase {
     static let doubleAssertionEnvelope = singleAssertionEnvelope
         .addAssertion("knows", "Carol")
 
-    func testEnvelopeElision() throws {
+    init() async {
+        await addKnownTags()
+    }
+
+    @Test func testEnvelopeElision() throws {
         let e1 = Self.basicEnvelope
 
         let e2 = e1.elide()
-        XCTAssert(e1.isEquivalent(to: e2))
-        XCTAssertFalse(e1.isIdentical(to: e2))
+        #expect(e1.isEquivalent(to: e2))
+        #expect(!e1.isIdentical(to: e2))
 
-        XCTAssertEqual(e2.format(),
+        #expect(e2.format() ==
         """
         ELIDED
         """
         )
 
-        XCTAssertEqual(e2.diagnostic(),
+        #expect(e2.diagnostic() ==
         """
         200(   / envelope /
            h'8cc96cdb771176e835114a0f8936690b41cfed0df22d014eedd64edaea945d59'
@@ -34,18 +38,18 @@ class ElisionTests: XCTestCase {
         )
 
         let e3 = try e2.unelide(e1)
-        XCTAssert(e3.isEquivalent(to: e1))
-        XCTAssertEqual(e3.format(),
+        #expect(e3.isEquivalent(to: e1))
+        #expect(e3.format() ==
         """
         "Hello."
         """
         )
     }
 
-    func testSingleAssertionRemoveElision() throws {
+    @Test func testSingleAssertionRemoveElision() throws {
         // The original Envelope
         let e1 = Self.singleAssertionEnvelope
-        XCTAssertEqual(e1.format(),
+        #expect(e1.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -55,7 +59,7 @@ class ElisionTests: XCTestCase {
 
         // Elide the entire envelope
         let e2 = try e1.elideRemoving(e1).checkEncoding()
-        XCTAssertEqual(e2.format(),
+        #expect(e2.format() ==
         """
         ELIDED
         """
@@ -63,7 +67,7 @@ class ElisionTests: XCTestCase {
 
         // Elide just the envelope's subject
         let e3 = try e1.elideRemoving(Envelope("Alice")).checkEncoding()
-        XCTAssertEqual(e3.format(),
+        #expect(e3.format() ==
         """
         ELIDED [
             "knows": "Bob"
@@ -73,7 +77,7 @@ class ElisionTests: XCTestCase {
 
         // Elide just the assertion's predicate
         let e4 = try e1.elideRemoving(Envelope("knows")).checkEncoding()
-        XCTAssertEqual(e4.format(),
+        #expect(e4.format() ==
         """
         "Alice" [
             ELIDED: "Bob"
@@ -83,7 +87,7 @@ class ElisionTests: XCTestCase {
 
         // Elide just the assertion's object
         let e5 = try e1.elideRemoving(Envelope("Bob")).checkEncoding()
-        XCTAssertEqual(e5.format(),
+        #expect(e5.format() ==
         """
         "Alice" [
             "knows": ELIDED
@@ -93,7 +97,7 @@ class ElisionTests: XCTestCase {
 
         // Elide the entire assertion
         let e6 = try e1.elideRemoving(Self.assertionEnvelope).checkEncoding()
-        XCTAssertEqual(e6.format(),
+        #expect(e6.format() ==
         """
         "Alice" [
             ELIDED
@@ -102,10 +106,10 @@ class ElisionTests: XCTestCase {
         )
     }
 
-    func testDoubleAssertionRemoveElision() throws {
+    @Test func testDoubleAssertionRemoveElision() throws {
         // The original Envelope
         let e1 = Self.doubleAssertionEnvelope
-        XCTAssertEqual(e1.format(),
+        #expect(e1.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -116,7 +120,7 @@ class ElisionTests: XCTestCase {
 
         // Elide the entire envelope
         let e2 = try e1.elideRemoving(e1).checkEncoding()
-        XCTAssertEqual(e2.format(),
+        #expect(e2.format() ==
         """
         ELIDED
         """
@@ -124,7 +128,7 @@ class ElisionTests: XCTestCase {
 
         // Elide just the envelope's subject
         let e3 = try e1.elideRemoving(Envelope("Alice")).checkEncoding()
-        XCTAssertEqual(e3.format(),
+        #expect(e3.format() ==
         """
         ELIDED [
             "knows": "Bob"
@@ -135,7 +139,7 @@ class ElisionTests: XCTestCase {
 
         // Elide just the assertion's predicate
         let e4 = try e1.elideRemoving(Envelope("knows")).checkEncoding()
-        XCTAssertEqual(e4.format(),
+        #expect(e4.format() ==
         """
         "Alice" [
             ELIDED: "Bob"
@@ -146,7 +150,7 @@ class ElisionTests: XCTestCase {
 
         // Elide just the assertion's object
         let e5 = try e1.elideRemoving(Envelope("Bob")).checkEncoding()
-        XCTAssertEqual(e5.format(),
+        #expect(e5.format() ==
         """
         "Alice" [
             "knows": "Carol"
@@ -157,7 +161,7 @@ class ElisionTests: XCTestCase {
 
         // Elide the entire assertion
         let e6 = try e1.elideRemoving(Self.assertionEnvelope).checkEncoding()
-        XCTAssertEqual(e6.format(),
+        #expect(e6.format() ==
         """
         "Alice" [
             "knows": "Carol"
@@ -167,10 +171,10 @@ class ElisionTests: XCTestCase {
         )
     }
 
-    func testSingleAssertionRevealElision() throws {
+    @Test func testSingleAssertionRevealElision() throws {
         // The original Envelope
         let e1 = Self.singleAssertionEnvelope
-        XCTAssertEqual(e1.format(),
+        #expect(e1.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -180,7 +184,7 @@ class ElisionTests: XCTestCase {
 
         // Elide revealing nothing
         let e2 = try e1.elideRevealing([]).checkEncoding()
-        XCTAssertEqual(e2.format(),
+        #expect(e2.format() ==
         """
         ELIDED
         """
@@ -188,7 +192,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the envelope's structure
         let e3 = try e1.elideRevealing(e1).checkEncoding()
-        XCTAssertEqual(e3.format(),
+        #expect(e3.format() ==
         """
         ELIDED [
             ELIDED
@@ -198,7 +202,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the envelope's subject
         let e4 = try e1.elideRevealing([e1, Envelope("Alice")]).checkEncoding()
-        XCTAssertEqual(e4.format(),
+        #expect(e4.format() ==
         """
         "Alice" [
             ELIDED
@@ -208,7 +212,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the assertion's structure.
         let e5 = try e1.elideRevealing([e1, Self.assertionEnvelope]).checkEncoding()
-        XCTAssertEqual(e5.format(),
+        #expect(e5.format() ==
         """
         ELIDED [
             ELIDED: ELIDED
@@ -218,7 +222,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the assertion's predicate
         let e6 = try e1.elideRevealing([e1, Self.assertionEnvelope, Envelope("knows")]).checkEncoding()
-        XCTAssertEqual(e6.format(),
+        #expect(e6.format() ==
         """
         ELIDED [
             "knows": ELIDED
@@ -228,7 +232,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the assertion's object
         let e7 = try e1.elideRevealing([e1, Self.assertionEnvelope, Envelope("Bob")]).checkEncoding()
-        XCTAssertEqual(e7.format(),
+        #expect(e7.format() ==
         """
         ELIDED [
             ELIDED: "Bob"
@@ -237,10 +241,10 @@ class ElisionTests: XCTestCase {
         )
     }
 
-    func testDoubleAssertionRevealElision() throws {
+    @Test func testDoubleAssertionRevealElision() throws {
         // The original Envelope
         let e1 = Self.doubleAssertionEnvelope
-        XCTAssertEqual(e1.format(),
+        #expect(e1.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -251,7 +255,7 @@ class ElisionTests: XCTestCase {
 
         // Elide revealing nothing
         let e2 = try e1.elideRevealing([]).checkEncoding()
-        XCTAssertEqual(e2.format(),
+        #expect(e2.format() ==
         """
         ELIDED
         """
@@ -259,7 +263,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the envelope's structure
         let e3 = try e1.elideRevealing(e1).checkEncoding()
-        XCTAssertEqual(e3.format(),
+        #expect(e3.format() ==
         """
         ELIDED [
             ELIDED (2)
@@ -269,7 +273,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the envelope's subject
         let e4 = try e1.elideRevealing([e1, Envelope("Alice")]).checkEncoding()
-        XCTAssertEqual(e4.format(),
+        #expect(e4.format() ==
         """
         "Alice" [
             ELIDED (2)
@@ -279,7 +283,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the assertion's structure.
         let e5 = try e1.elideRevealing([e1, Self.assertionEnvelope]).checkEncoding()
-        XCTAssertEqual(e5.format(),
+        #expect(e5.format() ==
         """
         ELIDED [
             ELIDED: ELIDED
@@ -290,7 +294,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the assertion's predicate
         let e6 = try e1.elideRevealing([e1, Self.assertionEnvelope, Envelope("knows")]).checkEncoding()
-        XCTAssertEqual(e6.format(),
+        #expect(e6.format() ==
         """
         ELIDED [
             "knows": ELIDED
@@ -301,7 +305,7 @@ class ElisionTests: XCTestCase {
 
         // Reveal just the assertion's object
         let e7 = try e1.elideRevealing([e1, Self.assertionEnvelope, Envelope("Bob")]).checkEncoding()
-        XCTAssertEqual(e7.format(),
+        #expect(e7.format() ==
         """
         ELIDED [
             ELIDED: "Bob"
@@ -311,9 +315,9 @@ class ElisionTests: XCTestCase {
         )
     }
 
-    func testDigests() throws {
+    @Test func testDigests() throws {
         let e1 = Self.doubleAssertionEnvelope
-        XCTAssertEqual(e1.format(),
+        #expect(e1.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -323,14 +327,14 @@ class ElisionTests: XCTestCase {
         )
 
         let e2 = try e1.elideRevealing(e1.digests(levelLimit: 0)).checkEncoding()
-        XCTAssertEqual(e2.format(),
+        #expect(e2.format() ==
         """
         ELIDED
         """
         )
 
         let e3 = try e1.elideRevealing(e1.digests(levelLimit: 1)).checkEncoding()
-        XCTAssertEqual(e3.format(),
+        #expect(e3.format() ==
         """
         "Alice" [
             ELIDED (2)
@@ -339,7 +343,7 @@ class ElisionTests: XCTestCase {
         )
 
         let e4 = try e1.elideRevealing(e1.digests(levelLimit: 2)).checkEncoding()
-        XCTAssertEqual(e4.format(),
+        #expect(e4.format() ==
         """
         "Alice" [
             ELIDED: ELIDED
@@ -349,7 +353,7 @@ class ElisionTests: XCTestCase {
         )
 
         let e5 = try e1.elideRevealing(e1.digests(levelLimit: 3)).checkEncoding()
-        XCTAssertEqual(e5.format(),
+        #expect(e5.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -359,10 +363,10 @@ class ElisionTests: XCTestCase {
         )
     }
 
-    func testTargetedReveal() throws {
+    @Test func testTargetedReveal() throws {
         let e1 = Self.doubleAssertionEnvelope
             .addAssertion("livesAt", "123 Main St.")
-        XCTAssertEqual(e1.format(),
+        #expect(e1.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -382,7 +386,7 @@ class ElisionTests: XCTestCase {
         // Reveal the specific `livesAt` assertion
         target.formUnion(try e1.assertion(withPredicate: "livesAt").deepDigests)
         let e2 = try e1.elideRevealing(target).checkEncoding()
-        XCTAssertEqual(e2.format(),
+        #expect(e2.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -393,10 +397,10 @@ class ElisionTests: XCTestCase {
         )
     }
 
-    func testTargetedRemove() throws {
+    @Test func testTargetedRemove() throws {
         let e1 = Self.doubleAssertionEnvelope
             .addAssertion("livesAt", "123 Main St.")
-        XCTAssertEqual(e1.format(),
+        #expect(e1.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -410,7 +414,7 @@ class ElisionTests: XCTestCase {
         // Hide one of the assertions
         target2.formUnion(Self.assertionEnvelope.digests(levelLimit: 1))
         let e2 = try e1.elideRemoving(target2).checkEncoding()
-        XCTAssertEqual(e2.format(),
+        #expect(e2.format() ==
         """
         "Alice" [
             "knows": "Carol"
@@ -424,7 +428,7 @@ class ElisionTests: XCTestCase {
         // Hide one of the assertions by finding its predicate
         target3.formUnion(try e1.assertion(withPredicate: "livesAt").deepDigests)
         let e3 = try e1.elideRemoving(target3).checkEncoding()
-        XCTAssertEqual(e3.format(),
+        #expect(e3.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -435,9 +439,9 @@ class ElisionTests: XCTestCase {
         )
         
         // Semantically equivalent
-        XCTAssert(e1.isEquivalent(to: e3))
+        #expect(e1.isEquivalent(to: e3))
         
         // Structurally different
-        XCTAssertFalse(e1.isIdentical(to: e3))
+        #expect(!e1.isIdentical(to: e3))
     }
 }

@@ -4,7 +4,7 @@ import SecureComponents
 /// A type used to identify parameters in envelope expressions.
 ///
 /// Used as a predicate. In an assertion, the object is the argument.
-public enum Parameter {
+public enum Parameter: Sendable {
     case known(value: UInt64, name: String?)
     case named(String)
 }
@@ -63,7 +63,7 @@ extension Parameter: ExpressibleByStringLiteral {
 }
 
 extension Parameter: CBORTaggedCodable {
-    public static var cborTags = [Tag.parameter]
+    public static let cborTags = [Tag.parameter]
     
     public var untaggedCBOR: CBOR {
         switch self {

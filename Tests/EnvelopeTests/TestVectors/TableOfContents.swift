@@ -1,5 +1,4 @@
 import Foundation
-import XCTest
 
 @StringBuilder
 func documentHeader(_ name: String) -> String {

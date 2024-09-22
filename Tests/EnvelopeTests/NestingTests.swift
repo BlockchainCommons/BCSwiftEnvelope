@@ -1,10 +1,10 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
 
-class NestingTests: XCTestCase {
-    func testNestingSigned() throws {
+struct NestingTests {
+    @Test func testNestingSigned() throws {
         let envelope = try Envelope(plaintextHello)
             .sign(with: alicePrivateKeys)
             .checkEncoding()
@@ -15,7 +15,7 @@ class NestingTests: XCTestCase {
             'verifiedBy': Signature
         ]
         """
-        XCTAssertEqual(envelope.format(), expectedFormat)
+        #expect(envelope.format() == expectedFormat)
 
         let target = envelope.subject
         let elidedEnvelope = try envelope.elideRemoving(target).checkEncoding()
@@ -26,10 +26,10 @@ class NestingTests: XCTestCase {
             'verifiedBy': Signature
         ]
         """
-        XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
+        #expect(elidedEnvelope.format() == expectedElidedFormat)
     }
 
-    func testNestingEncloseThenSign() throws {
+    @Test func testNestingEncloseThenSign() throws {
         let envelope = try Envelope(plaintextHello)
             .wrap()
             .sign(with: alicePrivateKeys)
@@ -43,11 +43,11 @@ class NestingTests: XCTestCase {
             'verifiedBy': Signature
         ]
         """
-        XCTAssertEqual(envelope.format(), expectedFormat)
+        #expect(envelope.format() == expectedFormat)
 
         let target = try envelope.unwrap().subject
         let elidedEnvelope = try envelope.elideRemoving(target).checkEncoding()
-        XCTAssert(elidedEnvelope.isEquivalent(to: envelope))
+        #expect(elidedEnvelope.isEquivalent(to: envelope))
         try elidedEnvelope.verifySignature(from: alicePublicKeys)
         let expectedElidedFormat =
         """
@@ -57,13 +57,13 @@ class NestingTests: XCTestCase {
             'verifiedBy': Signature
         ]
         """
-        XCTAssertEqual(elidedEnvelope.format(), expectedElidedFormat)
+        #expect(elidedEnvelope.format() == expectedElidedFormat)
 
         let p1 = envelope
         let p2 = envelope.subject
         let p3 = try p1.unwrap()
         let revealedEnvelope = try envelope.elideRevealing([p1, p2, p3]).checkEncoding()
-        XCTAssert(revealedEnvelope.isEquivalent(to: envelope))
+        #expect(revealedEnvelope.isEquivalent(to: envelope))
         let expectedRevealedFormat =
         """
         {
@@ -72,10 +72,10 @@ class NestingTests: XCTestCase {
             ELIDED
         ]
         """
-        XCTAssertEqual(revealedEnvelope.format(), expectedRevealedFormat)
+        #expect(revealedEnvelope.format() == expectedRevealedFormat)
     }
 
-    func testNestingSignThenEnclose() {
+    @Test func testNestingSignThenEnclose() {
         let envelope = Envelope(plaintextHello)
             .sign(with: alicePrivateKeys)
             .wrap()
@@ -88,6 +88,6 @@ class NestingTests: XCTestCase {
             ]
         }
         """
-        XCTAssertEqual(envelope.format(), expectedFormat)
+        #expect(envelope.format() == expectedFormat)
     }
 }

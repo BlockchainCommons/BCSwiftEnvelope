@@ -1,11 +1,12 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
+import Foundation
 
-class GraphTests: XCTestCase {
+struct GraphTests {
     // https://jsonld.com/person/
-    func testJSONLD() throws {
+    @Test func testJSONLD() throws {
         let address = Envelope(ARID())
             .addType("PostalAddress")
             .addAssertion("addressLocality", "Colorado Springs")
@@ -40,7 +41,7 @@ class GraphTests: XCTestCase {
 //        print(john.mermaidFormat())
     }
     // https://neo4j.com/press-releases/neo4j-financial-services-momentum/
-    func testNeo4j() throws {
+    @Test func testNeo4j() throws {
         let follows = Envelope("FOLLOWS")
             .addAssertion("ARITY", "*")
         let mentions = Envelope("MENTIONS")
@@ -72,7 +73,7 @@ class GraphTests: XCTestCase {
     }
     
     // https://docs.stardog.com/assets/images/tutorials/learn-sparql/rdf-beatles.png
-    func testRDF() throws {
+    @Test func testRDF() throws {
         let john = Envelope(":John_Lennon")
             .addType(":SoloArtist")
             .addAssertion(.hasName, "John Lennon")

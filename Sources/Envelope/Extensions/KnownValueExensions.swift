@@ -1,7 +1,7 @@
 import Foundation
 import SecureComponents
 
-extension KnownValue: DigestProvider {
+extension KnownValue: @retroactive DigestProvider {
     public var digest: Digest {
         Digest(taggedCBOR.cborData)
     }

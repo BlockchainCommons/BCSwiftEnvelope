@@ -1,10 +1,11 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
+import Foundation
 
-class ElisionExampleTests: XCTestCase {
-    func testRedactionExample2() throws {
+struct ElisionExampleTests {
+    @Test func testRedactionExample2() throws {
         var rng = makeFakeRandomNumberGenerator()
         let credential = try Envelope(ARID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
             .addType("Certificate of Completion")
@@ -24,8 +25,8 @@ class ElisionExampleTests: XCTestCase {
             .sign(with: alicePrivateKeys, using: &rng)
             .addAssertion(.note, "Signed by Example Electrical Engineering Board")
             .checkEncoding()
-        XCTAssertEqual(credential.ur†, "ur:envelope/lstpspmntpsotansgshdcxfgkoiahtjthnissawsfhzcmyyldsutfzcttefpaxjtmobsbwimcaleykvsdtgajnoytpsojsiaihjpjyiniyiniahsjyihglkpjnidihjptpsojeeheyeodpeeecendpemetesoytpsojtihksjoinjphsjyinjljtfyhsjyihtpsosecyjncscxaeoytpsoisjzhsjkjyglhsjnihtpsoiogthsksktihjzjzoytpsoininjkjkkpihfyhsjyihtpsosecyhybdvyaeoyadtpsokscffxihjpjyiniyiniahsjyihcxjliycxfxjljnjojzihjyinjljtoytpsoihjoisjljyjltpsoksckghisinjkcxinjkcxgehsjnihjkcxgthsksktihjzjzdijkcxjoisjljyjldmoytpsokscejojpjliyihjkjkinjljthsjzfyihkoihjzjljojnihjtjyfdjlkpjpjktpsobsoytpsoiniyinjpjkjyglhsjnihtpsoihgehsjnihjkoytpsoiyjyjljoiniajktpsolfingukpidimihiajycxehingukpidimihiajycxeyoytpsokscsiajljtjyinjtkpinjtiofeiekpiahsjyinjljtgojtinjyjktpsoadoyattpsoksdkfekshsjnjojzihcxfejzihiajyjpiniahsjzcxfejtioinjtihihjpinjtiocxfwjlhsjpieoytpsoiojkkpidimihiajytpsokscegmfgcxhsjtiecxgtiniajpjlkthskoihcxfejtioinjtihihjpinjtiooybttpsoksdkfekshsjnjojzihcxfejzihiajyjpiniahsjzcxfejtioinjtihihjpinjtiocxfwjlhsjpieoyaxtpsotansghhdfzdlmunbknwymowslbwfkidawyastikibksfhdosgslulecpwktysphprdheingyckvlrtjlrdhswnkbdereotdryapyhddpmnahcsmymnlsmtpdadsptyptmdbyosdllooyaatpsoksdmguiniojtihiecxidkkcxfekshsjnjojzihcxfejzihiajyjpiniahsjzcxfejtioinjtihihjpinjtiocxfwjlhsjpietdeoahrf")
-        XCTAssertEqual(credential.format(),
+        #expect(credential.ur† == "ur:envelope/lstpspmntpsotansgshdcxfgkoiahtjthnissawsfhzcmyyldsutfzcttefpaxjtmobsbwimcaleykvsdtgajnoytpsojsiaihjpjyiniyiniahsjyihglkpjnidihjptpsojeeheyeodpeeecendpemetesoytpsojtihksjoinjphsjyinjljtfyhsjyihtpsosecyjncscxaeoytpsoisjzhsjkjyglhsjnihtpsoiogthsksktihjzjzoytpsoininjkjkkpihfyhsjyihtpsosecyhybdvyaeoyadtpsokscffxihjpjyiniyiniahsjyihcxjliycxfxjljnjojzihjyinjljtoytpsoihjoisjljyjltpsoksckghisinjkcxinjkcxgehsjnihjkcxgthsksktihjzjzdijkcxjoisjljyjldmoytpsokscejojpjliyihjkjkinjljthsjzfyihkoihjzjljojnihjtjyfdjlkpjpjktpsobsoytpsoiniyinjpjkjyglhsjnihtpsoihgehsjnihjkoytpsoiyjyjljoiniajktpsolfingukpidimihiajycxehingukpidimihiajycxeyoytpsokscsiajljtjyinjtkpinjtiofeiekpiahsjyinjljtgojtinjyjktpsoadoyattpsoksdkfekshsjnjojzihcxfejzihiajyjpiniahsjzcxfejtioinjtihihjpinjtiocxfwjlhsjpieoytpsoiojkkpidimihiajytpsokscegmfgcxhsjtiecxgtiniajpjlkthskoihcxfejtioinjtihihjpinjtiooybttpsoksdkfekshsjnjojzihcxfejzihiajyjpiniahsjzcxfejtioinjtihihjpinjtiocxfwjlhsjpieoyaxtpsotansghhdfzcebwzmctresbkockbnpekbfdgtflsrzcplkozslbhkkelgasihqzjkdetkdspdlnsbrltnaozorkhpsgesoydyoejeuonbnbiswltegaioencpnycltdrelrwsrklkttoyaatpsoksdmguiniojtihiecxidkkcxfekshsjnjojzihcxfejzihiajyjpiniahsjzcxfejtioinjtihihjpinjtiocxfwjlhsjpiechcetahn")
+        #expect(credential.format() ==
         """
         {
             ARID(4676635a) [
@@ -53,7 +54,7 @@ class ElisionExampleTests: XCTestCase {
         
         /// With an empty target, the entire document is elided.
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             ELIDED
             """
@@ -63,7 +64,7 @@ class ElisionExampleTests: XCTestCase {
         /// By adding the top-level digest of the document, its macro structure is revealed. The subject of the document is the drivers license proper. The two assertions are the `.note` and `.verifiedBy` assertions.
         target.insert(credential)
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             ELIDED [
                 ELIDED (2)
@@ -77,7 +78,7 @@ class ElisionExampleTests: XCTestCase {
             target.insert(assertion.deepDigests)
         }
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             ELIDED [
                 'note': "Signed by Example Electrical Engineering Board"
@@ -90,7 +91,7 @@ class ElisionExampleTests: XCTestCase {
         /// We insert the digest of the document's subject. The subject is a wrapped envelope, which is still elided.
         target.insert(credential.subject)
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             {
                 ELIDED
@@ -106,7 +107,7 @@ class ElisionExampleTests: XCTestCase {
         let content = try credential.subject.unwrap()
         target.insert(content)
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             {
                 ELIDED [
@@ -123,7 +124,7 @@ class ElisionExampleTests: XCTestCase {
         /// We insert the digest of the wrapped envelope's subject, revealing the employee's ARID according to the certifying agency.
         target.insert(content.subject)
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             {
                 ARID(4676635a) [
@@ -145,7 +146,7 @@ class ElisionExampleTests: XCTestCase {
         target.insert(try content.assertion(withPredicate: "subject").shallowDigests)
         target.insert(try content.assertion(withPredicate: "expirationDate").shallowDigests)
         let redactedCredential = credential.elideRevealing(target)
-        XCTAssertEqual(redactedCredential.format(),
+        #expect(redactedCredential.format() ==
         """
         {
             ARID(4676635a) [
@@ -172,7 +173,7 @@ class ElisionExampleTests: XCTestCase {
             .addAssertion(.note, "Signed by Employer Corp.")
             .sign(with: bobPrivateKeys)
             .checkEncoding()
-        XCTAssertEqual(warranty.format(),
+        #expect(warranty.format() ==
         """
         {
             {
@@ -206,10 +207,10 @@ class ElisionExampleTests: XCTestCase {
 //        print(warranty.cborData.count)
 //        print(edits.cborData.count)
 //        print(edits.format())
-        XCTAssert(try credential.transform(edits: edits).isIdentical(to: warranty))
+        #expect(try credential.transform(edits: edits).isIdentical(to: warranty))
     }
     
-    func testRedactionExample() throws {
+    @Test func testRedactionExample() throws {
         let credential = try Envelope(ARID(‡"4676635a6e6068c2ef3ffd8ff726dd401fd341036e920f136a1d8af5e829496d")!)
             .addAssertion("firstName", "John")
             .addAssertion("lastName", "Smith")
@@ -225,7 +226,7 @@ class ElisionExampleTests: XCTestCase {
             .sign(with: alicePrivateKeys)
             .addAssertion(.note, "Signed by the State of Example")
             .checkEncoding()
-        XCTAssertEqual(credential.format(),
+        #expect(credential.format() ==
         """
         {
             ARID(4676635a) [
@@ -251,7 +252,7 @@ class ElisionExampleTests: XCTestCase {
         
         /// With an empty target, the entire document is elided.
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             ELIDED
             """
@@ -261,7 +262,7 @@ class ElisionExampleTests: XCTestCase {
         /// By adding the top-level digest of the document, its macro structure is revealed. The subject of the document is the drivers license proper. The two assertions are the `.note` and `.verifiedBy` assertions.
         target.insert(credential)
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             ELIDED [
                 ELIDED (2)
@@ -275,7 +276,7 @@ class ElisionExampleTests: XCTestCase {
             target.insert(assertion.deepDigests)
         }
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             ELIDED [
                 'note': "Signed by the State of Example"
@@ -288,7 +289,7 @@ class ElisionExampleTests: XCTestCase {
         /// We insert the digest of the document's subject. The subject is a wrapped envelope, which is still elided.
         target.insert(credential.subject)
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             {
                 ELIDED
@@ -304,7 +305,7 @@ class ElisionExampleTests: XCTestCase {
         let content = try credential.subject.unwrap()
         target.insert(content)
         with(credential.elideRevealing(target)) {
-            XCTAssertEqual($0.format(),
+            #expect($0.format() ==
             """
             {
                 ELIDED [
@@ -323,7 +324,7 @@ class ElisionExampleTests: XCTestCase {
         target.insert(try content.assertion(withPredicate: "birthDate").shallowDigests)
         target.insert(try content.assertion(withPredicate: "photo").shallowDigests)
         let redactedCredential = credential.elideRevealing(target)
-        XCTAssertEqual(redactedCredential.format(),
+        #expect(redactedCredential.format() ==
         """
         {
             ELIDED [
@@ -341,10 +342,10 @@ class ElisionExampleTests: XCTestCase {
         // print(target.count) // 15
     }
     
-    func testPositions() throws {
+    @Test func testPositions() throws {
         let envelope = Envelope("Alice")
             .addAssertion("knows", "Bob")
-        XCTAssertEqual(envelope.format(),
+        #expect(envelope.format() ==
         """
         "Alice" [
             "knows": "Bob"
@@ -353,7 +354,7 @@ class ElisionExampleTests: XCTestCase {
         )
 
         with(try envelope.elideRemoving(envelope).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             ELIDED
             """
@@ -362,7 +363,7 @@ class ElisionExampleTests: XCTestCase {
 
         let key = SymmetricKey()
         with(try envelope.elideRemoving(envelope, action: .encrypt(key)).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             ENCRYPTED
             """
@@ -370,7 +371,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(envelope, action: .compress).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             COMPRESSED
             """
@@ -378,7 +379,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(envelope.subject).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             ELIDED [
                 "knows": "Bob"
@@ -388,7 +389,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(envelope.subject, action: .encrypt(key)).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             ENCRYPTED [
                 "knows": "Bob"
@@ -398,7 +399,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(envelope.subject, action: .compress).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             COMPRESSED [
                 "knows": "Bob"
@@ -409,7 +410,7 @@ class ElisionExampleTests: XCTestCase {
 
         let assertion = envelope.assertions.first!
         with(try envelope.elideRemoving(assertion).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             "Alice" [
                 ELIDED
@@ -419,7 +420,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(assertion, action: .encrypt(key)).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             "Alice" [
                 ENCRYPTED
@@ -429,7 +430,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(assertion, action: .compress).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             "Alice" [
                 COMPRESSED
@@ -439,7 +440,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(assertion.predicate!).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             "Alice" [
                 ELIDED: "Bob"
@@ -449,7 +450,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(assertion.predicate!, action: .encrypt(key)).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             "Alice" [
                 ENCRYPTED: "Bob"
@@ -459,7 +460,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(assertion.predicate!, action: .compress).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             "Alice" [
                 COMPRESSED: "Bob"
@@ -469,7 +470,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(assertion.object!).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             "Alice" [
                 "knows": ELIDED
@@ -479,7 +480,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(assertion.object!, action: .encrypt(key)).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             "Alice" [
                 "knows": ENCRYPTED
@@ -489,7 +490,7 @@ class ElisionExampleTests: XCTestCase {
         }
 
         with(try envelope.elideRemoving(assertion.object!, action: .compress).checkEncoding()) { e in
-            XCTAssertEqual(e.format(),
+            #expect(e.format() ==
             """
             "Alice" [
                 "knows": COMPRESSED

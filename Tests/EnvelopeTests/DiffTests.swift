@@ -1,14 +1,14 @@
-import XCTest
+import Testing
 import SecureComponents
 import Envelope
 import WolfBase
 
-class DiffTests: XCTestCase {
+struct DiffTests {
     func run1(_ e1: Envelope, _ e2: Envelope) throws {
         let edits = e1.diff(target: e2)
 //        print(edits.format)
         let e3 = try e1.transform(edits: edits)
-        XCTAssert(e3.isIdentical(to: e2))
+        #expect(e3.isIdentical(to: e2))
     }
     
     func run(_ e1: Envelope, _ e2: Envelope) throws {
@@ -16,7 +16,7 @@ class DiffTests: XCTestCase {
         try run1(e2, e1)
     }
 
-    func test1() throws {
+    @Test func test1() throws {
         let e1 = Envelope("Alice")
             .addAssertion("knows", "Bob")
             .addAssertion("knows", "Carol")
@@ -26,7 +26,7 @@ class DiffTests: XCTestCase {
         try run(e1, e2)
     }
     
-    func test2() throws {
+    @Test func test2() throws {
         let e1 = Envelope("Alice")
             .addAssertion("knows", "Bob")
         let e2 = e1
@@ -35,14 +35,14 @@ class DiffTests: XCTestCase {
         try run(e1, e2)
     }
     
-    func test3() throws {
+    @Test func test3() throws {
         let e1 = Envelope("Alice")
             .addAssertion("knows", "Bob")
         let e2 = Envelope("Alice")
         try run(e1, e2)
     }
     
-    func test4() throws {
+    @Test func test4() throws {
         let e1 = Envelope("Alice")
             .addAssertion("knows", "Bob")
         let e2 = e1
@@ -51,7 +51,7 @@ class DiffTests: XCTestCase {
         try run(e1, e2)
     }
     
-    func test5() throws {
+    @Test func test5() throws {
         for _ in 0..<20 {
             let generator = EnvelopeGenerator(rng: makeRNG())
             let e1 = generator.envelope(count: 20)
@@ -60,30 +60,30 @@ class DiffTests: XCTestCase {
         }
     }
     
-    func testExampleEquivalence() throws {
+    @Test func testExampleEquivalence() throws {
         let e1 = Envelope("Alice")
         let e2 = e1.elide()
 
         // Envelopes are equivalent
-        XCTAssertEqual(e1.digest, e2.digest)
-        XCTAssertTrue(e1.isEquivalent(to: e2))
+        #expect(e1.digest == e2.digest)
+        #expect(e1.isEquivalent(to: e2))
         
         // ...but not identical
-        XCTAssertNotEqual(e1.structuralDigest, e2.structuralDigest)
-        XCTAssertFalse(e1.isIdentical(to: e2))
+        #expect(e1.structuralDigest != e2.structuralDigest)
+        #expect(!e1.isIdentical(to: e2))
     }
 
-    func testExample1() throws {
+    @Test func testExample1() throws {
         let e1 = Envelope("Alice")
             .addAssertion("knows", "Bob")
         let e2 = Envelope("Carol")
             .addAssertion("knows", "Bob")
         let edits = e1.diff(target: e2)
         let e3 = try e1.transform(edits: edits)
-        XCTAssert(e3.isIdentical(to: e2))
+        #expect(e3.isIdentical(to: e2))
     }
 
-    func testExample2() throws {
+    @Test func testExample2() throws {
         let e1 = try Envelope("Alice")
             .addAssertion(Envelope("knows", "Bob").encryptSubject(with: SymmetricKey()))
             .addAssertion("knows", "Carol")
@@ -99,7 +99,7 @@ class DiffTests: XCTestCase {
 
         let edits = e1.diff(target: e2)
         let e3 = try e1.transform(edits: edits)
-        XCTAssert(e3.isIdentical(to: e2))
+        #expect(e3.isIdentical(to: e2))
     }
 
     func makeRNG() -> some RandomNumberGenerator {
