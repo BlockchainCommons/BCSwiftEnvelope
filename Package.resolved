@@ -1,5 +1,5 @@
 {
-  "originHash" : "f6de379ad2e9bc9f4eed2f3a60a816589f0c43c427b692ce32b021a4f3d39eda",
+  "originHash" : "44feb76ae0ec89533fac0116d075ecd93a6e734d336e61df7d3b7ef9304858c9",
   "pins" : [
     {
       "identity" : "bcswiftcrypto",
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BlockchainCommons/BCSwiftKnownValues",
       "state" : {
-        "revision" : "c296644a7316e68be4dd6de5732095645786603a",
-        "version" : "0.2.3"
+        "revision" : "d0776e86ff9c5f0da5b5f564a35921539138d444",
+        "version" : "0.2.4"
       }
     },
     {
