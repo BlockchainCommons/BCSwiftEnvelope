@@ -10,7 +10,6 @@ public struct FunctionsStore: Sendable {
         }
     }
     
-    @MainActor
     public mutating func insert(_ function: Function) {
         Self._insert(function, dict: &dict)
     }

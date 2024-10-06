@@ -10,7 +10,6 @@ public struct ParametersStore: Sendable {
         }
     }
     
-    @MainActor
     public mutating func insert(_ parameter: Parameter) {
         Self._insert(parameter, dict: &dict)
     }
