@@ -260,7 +260,7 @@ public extension Envelope {
 public extension Envelope {
     /// Returns all assertions with the given predicate.
     func assertions(withPredicate predicate: Envelope) -> [Envelope] {
-        return assertions.filter { $0.predicate.digest == predicate.digest }
+        return assertions.filter { $0.subject.predicate.digest == predicate.digest }
     }
     
     /// Returns all assertions with the given predicate.
@@ -336,7 +336,7 @@ public extension Envelope {
     ///
     /// Throws an exception if there are multiple matching predicates.
     func optionalObject(forPredicate predicate: Envelope) throws -> Envelope? {
-        try optionalAssertion(withPredicate: predicate)?.object
+        try optionalAssertion(withPredicate: predicate)?.subject.object
     }
 
     /// Returns the object of the assertion with the given predicate.
